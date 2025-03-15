@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Gọi API lấy danh sách công thức
-        const response = await fetch("http://localhost:4000/recipes");
+        const response = await fetch("http://localhost:4000/api/recipes");
         const recipes = await response.json();
 
         // Hiển thị danh sách
