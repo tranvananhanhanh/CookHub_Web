@@ -3,8 +3,8 @@ require("dotenv").config(); // Load biến môi trường từ .env
 const client = new Client({
     user: 'postgres',
     host: 'localhost',
-    database: 'new_lib',
-    password: '0000',
+    database: 'CookHub',
+    password: '27122004',
     port: 5432, // default port for PostgreSQL
 
 });
