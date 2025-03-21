@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const recipesContainer = document.getElementById("recipes");
-
     try {
         // Gọi API lấy danh sách công thức
         const response = await fetch("http://localhost:4000/recipes");

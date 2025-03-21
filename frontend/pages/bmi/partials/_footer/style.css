@@ -1,0 +1,116 @@
+.footer,
+.footer * {
+  box-sizing: border-box;
+}
+.footer {
+  background: linear-gradient(
+    to left,
+    rgba(252, 213, 87, 0.7),
+    rgba(252, 213, 87, 0.7)
+  );
+  padding: 62px 112px 62px 112px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  justify-content: flex-start;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-79 {
+  display: flex;
+  flex-direction: row;
+  gap: 149px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.about {
+  color: #000000;
+  text-align: left;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  position: relative;
+}
+.cookies {
+  color: #000000;
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  position: relative;
+}
+.help {
+  color: #000000;
+  text-align: left;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  position: relative;
+}
+.advertising {
+  color: #000000;
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  position: relative;
+}
+.terms-of-use {
+  color: #000000;
+  text-align: left;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  position: relative;
+}
+.privacy-policy {
+  color: #000000;
+  text-align: left;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  position: relative;
+}
+.frame-80 {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.facebook {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  object-fit: cover;
+}
+.instagram {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  object-fit: cover;
+}
+.ic-baseline-discord {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: visible;
+  aspect-ratio: 1;
+}
+.mail {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  object-fit: cover;
+}

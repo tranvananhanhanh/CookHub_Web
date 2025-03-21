@@ -1,0 +1,276 @@
+.main,
+.main * {
+  box-sizing: border-box;
+}
+.main {
+  height: 108px;
+  position: relative;
+}
+.main2 {
+  background: #ffffff;
+  width: 1920px;
+  height: 87px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.bar {
+  width: 1678px;
+  height: 52px;
+  position: absolute;
+  left: 242px;
+  top: 50%;
+  translate: 0 -50%;
+}
+.brown-and-yellow-modern-food-presentation-3-1 {
+  width: 144px;
+  height: 30px;
+  position: absolute;
+  left: calc(50% - 839px);
+  top: 6px;
+  object-fit: cover;
+  aspect-ratio: 144/30;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 131.25px;
+  height: 100px;
+  position: absolute;
+  left: -94px;
+  top: -29px;
+  aspect-ratio: 131.25/100;
+}
+._5533015-1 {
+  flex-shrink: 0;
+  width: 131.25px;
+  height: 67.04px;
+  position: absolute;
+  left: 0px;
+  top: 10px;
+  object-fit: cover;
+  aspect-ratio: 131.25/67.04;
+}
+.button {
+  position: absolute;
+  inset: 0;
+}
+.avata {
+  width: 194px;
+  height: 50px;
+  position: static;
+}
+.alice {
+  width: 138px;
+  height: 45px;
+  position: absolute;
+  left: 1436px;
+  top: 7px;
+}
+.frame-40 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+}
+.alice2 {
+  color: #000000;
+  text-align: left;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.avata2 {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 1380px;
+  top: 2px;
+}
+.ellipse-6 {
+  background: linear-gradient(to left, #d9d9d9, #d9d9d9);
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  top: 0%;
+  object-fit: cover;
+}
+.group-52 {
+  width: 1075px;
+  height: 48px;
+  position: static;
+}
+.button2 {
+  width: 1075px;
+  height: 48px;
+  position: static;
+}
+.bell {
+  width: 628px;
+  height: 41px;
+  position: absolute;
+  left: 528px;
+  top: 7px;
+}
+.bell2 {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 593px;
+  top: 0px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.cook-chart {
+  background: #ffffff;
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 13.71%;
+  position: absolute;
+  right: 59.83%;
+  left: 26.46%;
+  top: calc(50% - 26px);
+}
+.cooks-chart {
+  color: #2f2f2f;
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.bmi {
+  background: #ffffff;
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 5.96%;
+  position: absolute;
+  right: 53.87%;
+  left: 40.17%;
+  top: calc(50% - 26px);
+}
+.bmi2 {
+  color: var(--cookhubbutton2, #e3a400);
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.create-button {
+  width: 130px;
+  height: 44px;
+  position: static;
+}
+.my-recipes {
+  background: #ffefd2;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--cookbutton1-hover1, #ff7d00);
+  border-width: 3px;
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 7.75%;
+  position: absolute;
+  right: 21.04%;
+  left: 71.22%;
+  top: calc(50% - 26px);
+}
+.create {
+  color: #2f2f2f;
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.saved-recipes {
+  background: #ffffff;
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 13.71%;
+  position: absolute;
+  right: 39.39%;
+  left: 46.9%;
+  top: calc(50% - 26px);
+}
+.saved-recipes2 {
+  color: #2f2f2f;
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+  width: 238px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.home {
+  background: #ffffff;
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 13.71%;
+  height: 44px;
+  position: absolute;
+  right: 71.39%;
+  left: 14.9%;
+  top: calc(50% - 26px);
+}
+.home2 {
+  color: #2f2f2f;
+  text-align: center;
+  font-family: "PlusJakartaSans-Medium", sans-serif;
+  font-size: 27px;
+  font-weight: 500;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.search {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 1040px;
+  top: 2px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
