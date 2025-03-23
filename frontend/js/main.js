@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Gọi API lấy danh sách công thức
-        const response = await fetch("http://localhost:4000/recipes");
+        const response = await fetch("http://localhost:4000/api/recipes");
         const recipes = await response.json();
 
         // Hiển thị danh sách
@@ -12,7 +12,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             recipeCard.classList.add("recipe-card");
             recipeCard.innerHTML = `
                 <h2>${recipe.title}</h2>
-                <p>${recipe.description}</p>
+                <p><strong>Loại:</strong> ${recipe.type || "Không có"}</p>
+                <p><strong>Độ khó:</strong> ${recipe.level || "Không xác định"}</p>
+                <p><strong>Nguyên liệu:</strong> ${recipe.ingredient || "Không có"}</p>
+                <p><strong>Mô tả:</strong> ${recipe.description}</p>
+                <p><strong>Ngày tạo:</strong> ${new Date(recipe.date_created).toLocaleDateString()}</p>
             `;
             recipesContainer.appendChild(recipeCard);
         });
