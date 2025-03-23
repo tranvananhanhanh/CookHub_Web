@@ -1,1 +1,1 @@
-DROP DATABASE CookHub;
+DROP DATABASE cookhub;

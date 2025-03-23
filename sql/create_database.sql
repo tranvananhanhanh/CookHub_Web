@@ -1,1 +1,1 @@
-CREATE DATABASE CookHub;
+CREATE DATABASE cookhub;

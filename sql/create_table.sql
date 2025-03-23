@@ -6,17 +6,8 @@ CREATE TABLE users (
     password_hash TEXT NOT NULL,
     avatar TEXT DEFAULT '',
     is_banned BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Bảng quản trị viên
-CREATE TABLE admins (
-    admin_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    avatar TEXT DEFAULT '',
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+	last_login TIMESTAMP NULL
 );
 
 -- Bảng công thức nấu ăn
@@ -28,7 +19,7 @@ CREATE TABLE recipes (
     description TEXT,
     cooking_time INTEGER CHECK (cooking_time > 0),
     servings INTEGER CHECK (servings > 0), -- Khẩu phần ăn
-    status VARCHAR(20) CHECK (status IN ('draft', 'pending', 'approved', 'rejected', 'deleted')) DEFAULT 'pending',
+    status VARCHAR(20) CHECK (status IN ('pending', 'approved', 'rejected', 'deleted')) DEFAULT 'pending',
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -79,14 +70,6 @@ CREATE TABLE recipe_categories (
     PRIMARY KEY (recipe_id, category_id)
 );
 
--- Bảng lịch sử đọc công thức
-CREATE TABLE reads (
-    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    recipe_id INTEGER NOT NULL REFERENCES recipes(recipe_id) ON DELETE CASCADE,
-    read_time TIMESTAMP DEFAULT NOW(),
-    PRIMARY KEY (user_id, recipe_id)
-);
-
 -- Bảng đánh giá món ăn
 CREATE TABLE ratings (
     user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
@@ -117,37 +100,7 @@ CREATE TABLE reports (
     report_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     recipe_id INTEGER REFERENCES recipes(recipe_id) ON DELETE CASCADE,
-    comment_id INTEGER REFERENCES comments(comment_id) ON DELETE CASCADE,
     reason TEXT NOT NULL,
-    report_status VARCHAR(50) CHECK (report_status IN ('pending', 'reviewed', 'rejected')) DEFAULT 'pending',
+    report_status VARCHAR(50) CHECK (report_status IN ('pending', 'accepted', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Bảng quản lý người dùng (hành động của admin)
-CREATE TABLE user_manages (
-    manage_id SERIAL PRIMARY KEY,
-    admin_id INTEGER REFERENCES admins(admin_id) ON DELETE SET NULL,
-    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    action_type VARCHAR(10) CHECK (action_type IN ('ban', 'unban', 'delete')) NOT NULL,
-    reason TEXT,
-    action_time TIMESTAMP DEFAULT NOW()
-);
-
--- Bảng quản lý công thức (hành động của admin)
-CREATE TABLE recipe_manages (
-    manage_id SERIAL PRIMARY KEY,
-    admin_id INTEGER NOT NULL REFERENCES admins(admin_id) ON DELETE CASCADE,
-    recipe_id INTEGER NOT NULL REFERENCES recipes(recipe_id) ON DELETE CASCADE,
-    action_type VARCHAR(10) CHECK (action_type IN ('approve', 'reject', 'delete')) NOT NULL,
-    reason TEXT,
-    action_time TIMESTAMP DEFAULT NOW()
-);
-
--- Bảng quản lý bình luận (hành động của admin)
-CREATE TABLE comment_manages (
-    manage_id SERIAL PRIMARY KEY,
-    admin_id INTEGER NOT NULL REFERENCES admins(admin_id) ON DELETE CASCADE,
-    comment_id INTEGER NOT NULL REFERENCES comments(comment_id) ON DELETE CASCADE,
-    reason TEXT NOT NULL,
-    action_time TIMESTAMP DEFAULT NOW()
 );
