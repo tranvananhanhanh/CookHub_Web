@@ -297,7 +297,7 @@ nav ul a {
 .recipe-meta .comments {
     cursor: pointer;
     position: relative;
-    right: -70px;
+    right: -50px;
 }
 
 .recipe-meta .more-options {
