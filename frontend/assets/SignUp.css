@@ -1,0 +1,261 @@
+.sign-up,
+.sign-up * {
+  box-sizing: border-box;
+}
+.sign-up {
+  background: #ffffff;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+.brown-and-yellow-modern-food-presentation-1-1 {
+  width: 1914px;
+  height: 1077px;
+  position: absolute;
+  left: 0px;
+  top: 3px;
+  object-fit: cover;
+  aspect-ratio: 1914/1077;
+}
+.depth-4-frame-1 {
+  padding: 20px 16px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 960px;
+  position: absolute;
+  left: 58px;
+  top: 193px;
+}
+.welcome-to-cook-hub {
+  color: #ed6e12;
+  text-align: center;
+  font-family: "AlexBrush-Regular", sans-serif;
+  font-size: 48px;
+  line-height: 35px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+._5533015-2 {
+  width: 278px;
+  height: 173px;
+  position: absolute;
+  left: 399px;
+  top: 54px;
+  object-fit: cover;
+  aspect-ratio: 278/173;
+}
+.depth-5-frame-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 448px;
+  min-width: 160px;
+  position: absolute;
+  left: 270px;
+  top: 401px;
+}
+.depth-6-frame-0 {
+  padding: 0px 0px 8px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.email {
+  color: #1c120d;
+  text-align: left;
+  font-family: "Epilogue-Medium", sans-serif;
+  font-size: 32px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+}
+.depth-6-frame-1 {
+  background: #fcfaf7;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: #e8d9cf;
+  border-width: 1px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 537px;
+  height: 67px;
+  position: relative;
+  overflow: hidden;
+}
+.youremail-example-com {
+  color: #996b4d;
+  text-align: left;
+  font-family: "Epilogue-Regular", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+}
+.depth-5-frame-22 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 448px;
+  min-width: 160px;
+  position: absolute;
+  left: 270px;
+  top: 274px;
+}
+.username {
+  color: #1c120d;
+  text-align: left;
+  font-family: "Epilogue-Medium", sans-serif;
+  font-size: 32px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+}
+.depth-5-frame-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 448px;
+  min-width: 160px;
+  position: absolute;
+  left: 270px;
+  top: 535px;
+}
+.password {
+  color: #1c120d;
+  text-align: left;
+  font-family: "Epilogue-Medium", sans-serif;
+  font-size: 32px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+}
+.depth-5-frame-23 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 448px;
+  height: 99px;
+  min-width: 160px;
+  position: absolute;
+  left: 270px;
+  top: 662px;
+}
+.re-enter-password {
+  color: #1c120d;
+  text-align: left;
+  font-family: "Epilogue-Medium", sans-serif;
+  font-size: 32px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+}
+.depth-6-frame-7 {
+  background: #fcfaf7;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: #e8d9cf;
+  border-width: 1px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 537px;
+  height: 67px;
+  position: absolute;
+  left: 270px;
+  top: 884px;
+  overflow: hidden;
+}
+.google-symbol-1 {
+  flex-shrink: 0;
+  width: 56.89px;
+  height: 32px;
+  position: absolute;
+  left: 97px;
+  top: 18px;
+  object-fit: cover;
+  aspect-ratio: 56.89/32;
+}
+.sign-in {
+  color: #000000;
+  text-align: center;
+  font-family: "Epilogue-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 21px;
+  font-weight: 700;
+  position: absolute;
+  left: 125px;
+  top: 23px;
+  width: 331px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.depth-6-frame-72 {
+  background: #ed6e12;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: #ed6e12;
+  border-width: 1px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 537px;
+  height: 67px;
+  position: absolute;
+  left: 270px;
+  top: 789px;
+  overflow: hidden;
+}
+.sign-in2 {
+  color: #fcfaf7;
+  text-align: center;
+  font-family: "Epilogue-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 21px;
+  font-weight: 700;
+  position: absolute;
+  left: 215px;
+  top: 23px;
+  width: 107px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
