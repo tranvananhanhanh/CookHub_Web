@@ -34,27 +34,44 @@ CREATE TABLE recipe_images (
 CREATE TABLE ingredients (
     ingredient_id SERIAL PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL,
-    calories_per_100g FLOAT NOT NULL CHECK (calories_per_100g >= 0),
-    protein_per_100g FLOAT NOT NULL CHECK (protein_per_100g >= 0),
-    fat_per_100g FLOAT NOT NULL CHECK (fat_per_100g >= 0),
-    carbs_per_100g FLOAT NOT NULL CHECK (carbs_per_100g >= 0)
+    calories_per_100g FLOAT CHECK (calories_per_100g >= 0),
+    protein_per_100g FLOAT CHECK (protein_per_100g >= 0),
+    fat_per_100g FLOAT CHECK (fat_per_100g >= 0),
+    carbs_per_100g FLOAT CHECK (carbs_per_100g >= 0)
 );
 
--- Bảng đơn vị đo nguyên liệu
-CREATE TABLE ingredient_units (
+-- Bảng đơn vị
+CREATE TABLE units (
     unit_id SERIAL PRIMARY KEY,
-	unit_name VARCHAR(50) NOT NULL, -- VD: lít, muỗng cà phê, cốc,...
-    ingredient_id INTEGER NOT NULL REFERENCES ingredients(ingredient_id) ON DELETE CASCADE,
-    equivalent_grams FLOAT NOT NULL CHECK (equivalent_grams > 0) -- Quy đổi sang gam, ví dụ: "1 củ hành" = 50g
+    ingredient_id INT NULL,  -- NULL nếu là đơn vị chung (gram, lạng, kg,...)
+    unit_name TEXT NOT NULL,
+    equivalent_grams INT NOT NULL CHECK (equivalent_grams > 0), -- Quy đổi sang gam, ví dụ: "1 củ hành" = 50g
+    UNIQUE (ingredient_id, unit_name),  -- Đảm bảo không trùng đơn vị với cùng nguyên liệu
+    FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id) ON DELETE CASCADE
 );
+
+-- Bảng đơn vị chung (gram, lạng, kg,...)
+-- CREATE TABLE units (
+--     id SERIAL PRIMARY KEY,
+--     unit_name TEXT UNIQUE NOT NULL,
+--     equivalent_grams INT NOT NULL CHECK (equivalent_grams > 0)
+-- );
+
+-- Bảng đơn vị đo nguyên liệu
+-- CREATE TABLE ingredient_units (
+--     unit_id SERIAL PRIMARY KEY,
+-- 	unit_name VARCHAR(50) NOT NULL, -- VD: lít, muỗng cà phê, cốc,...
+--     ingredient_id INTEGER NOT NULL REFERENCES ingredients(ingredient_id) ON DELETE CASCADE,
+--     equivalent_grams FLOAT NOT NULL CHECK (equivalent_grams > 0) -- Quy đổi sang gam, ví dụ: "1 củ hành" = 50g
+-- );
 
 -- Bảng nguyên liệu trong công thức
 CREATE TABLE recipe_ingredients (
+    recipe_ingredient_id SERIAL PRIMARY KEY,  -- Thêm khóa chính tự động tăng
     recipe_id INTEGER NOT NULL REFERENCES recipes(recipe_id) ON DELETE CASCADE,
     ingredient_id INTEGER NOT NULL REFERENCES ingredients(ingredient_id) ON DELETE CASCADE,
-    amount FLOAT NOT NULL CHECK (amount > 0),
-    unit_id INTEGER REFERENCES ingredient_units(unit_id),
-    PRIMARY KEY (recipe_id, ingredient_id)
+    amount FLOAT CHECK (amount > 0),
+    unit_id INTEGER REFERENCES units(unit_id)
 );
 
 -- Bảng danh mục món ăn
