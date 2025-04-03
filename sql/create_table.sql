@@ -1,13 +1,24 @@
 -- Bảng người dùng
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
+    random_code VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
+    age INTEGER NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     avatar TEXT DEFAULT '',
+    profile_background TEXT DEFAULT '',
     is_banned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT NOW(),
 	last_login TIMESTAMP NULL
+);
+
+-- Bảng liên kết các mạng xã hội của người dùng
+CREATE TABLE user_social_links (
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    platform VARCHAR(50) NOT NULL CHECK (platform IN ('facebook', 'instagram', 'x')),  
+    url TEXT NOT NULL, -- URL của tài khoản mạng xã hội
+    PRIMARY KEY (user_id, platform)
 );
 
 -- Bảng công thức nấu ăn
@@ -50,21 +61,6 @@ CREATE TABLE units (
     FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id) ON DELETE CASCADE
 );
 
--- Bảng đơn vị chung (gram, lạng, kg,...)
--- CREATE TABLE units (
---     id SERIAL PRIMARY KEY,
---     unit_name TEXT UNIQUE NOT NULL,
---     equivalent_grams INT NOT NULL CHECK (equivalent_grams > 0)
--- );
-
--- Bảng đơn vị đo nguyên liệu
--- CREATE TABLE ingredient_units (
---     unit_id SERIAL PRIMARY KEY,
--- 	unit_name VARCHAR(50) NOT NULL, -- VD: lít, muỗng cà phê, cốc,...
---     ingredient_id INTEGER NOT NULL REFERENCES ingredients(ingredient_id) ON DELETE CASCADE,
---     equivalent_grams FLOAT NOT NULL CHECK (equivalent_grams > 0) -- Quy đổi sang gam, ví dụ: "1 củ hành" = 50g
--- );
-
 -- Bảng nguyên liệu trong công thức
 CREATE TABLE recipe_ingredients (
     recipe_ingredient_id SERIAL PRIMARY KEY,  -- Thêm khóa chính tự động tăng
@@ -77,6 +73,7 @@ CREATE TABLE recipe_ingredients (
 -- Bảng danh mục món ăn
 CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
+    type VARCHAR(100) NOT NULL,
     category_name VARCHAR(100) UNIQUE NOT NULL
 );
 
@@ -115,8 +112,8 @@ CREATE TABLE saved_recipes (
 -- Bảng báo cáo nội dung
 CREATE TABLE reports (
     report_id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    recipe_id INTEGER REFERENCES recipes(recipe_id) ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE, -- Người báo cáo
+    recipe_id INTEGER REFERENCES recipes(recipe_id) ON DELETE CASCADE, -- Công thức bị báo cáo
     reason TEXT NOT NULL,
     report_status VARCHAR(50) CHECK (report_status IN ('pending', 'accepted', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT NOW()

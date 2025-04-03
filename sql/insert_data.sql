@@ -1,354 +1,365 @@
 -- Bảng người dùng
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Nguyen Van A', 'a@example.com', 'hash1', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Tran Thi B', 'b@example.com', 'hash2', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Le Van C', 'c@example.com', 'hash3', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Pham Thi D', 'd@example.com', 'hash4', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Hoang Van E', 'e@example.com', 'hash5', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Nguyen Van F', 'f@example.com', 'hash6', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Tran Thi G', 'g@example.com', 'hash7', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Le Van H', 'h@example.com', 'hash8', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Pham Thi I', 'i@example.com', 'hash9', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Hoang Van J', 'j@example.com', 'hash10', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Nguyen Van K', 'k@example.com', 'hash11', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Tran Thi L', 'l@example.com', 'hash12', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Le Van M', 'm@example.com', 'hash13', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Pham Thi N', 'n@example.com', 'hash14', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Hoang Van O', 'o@example.com', 'hash15', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Nguyen Van P', 'p@example.com', 'hash16', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Tran Thi Q', 'q@example.com', 'hash17', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Le Van R', 'r@example.com', 'hash18', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Pham Thi S', 's@example.com', 'hash19', '', FALSE);
-INSERT INTO users (name, email, password_hash, avatar, is_banned) VALUES
-('Hoang Van T', 't@example.com', 'hash20', '', FALSE);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES 
+('a1b2c3d4e5', 'Dương Văn Khánh', 25, 'duongvk12061999@gmail.com', 'hashed_password_1', 'avatar_a1b2c3d4e5.jpg', 'background_a1b2c3d4e5.jpg', FALSE, '2024-04-01 10:00:00', '2024-04-02 08:00:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('f6g7h8i9j0', 'Nguyễn Hoàng Minh', 30, 'nguyenhm23031994@gmail.com', 'hashed_password_2', 'avatar_f6g7h8i9j0.jpg', 'background_f6g7h8i9j0.jpg', TRUE, '2024-03-20 14:30:00', '2024-03-29 18:45:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('k1l2m3n4o5', 'Phạm Tiến Dũng', 28, 'phamtd15081996@gmail.com', 'hashed_password_3', 'avatar_k1l2m3n4o5.png', 'background_k1l2m3n4o5.png', FALSE, '2024-04-01 15:45:00', NULL);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('p6q7r8s9t0', 'Trần Nhật Long', 22, 'trannl09072002@gmail.com', 'hashed_password_4', 'avatar_p6q7r8s9t0.jpg', 'background_p6q7r8s9t0.jpg', FALSE, '2024-03-28 12:10:00', '2024-03-30 20:20:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('u1v2w3x4y5', 'Vũ Đức Hạnh', 27, 'vudh21041997@gmail.com', 'hashed_password_5', '', 'background_u1v2w3x4y5.jpg', TRUE, '2024-02-15 09:00:00', NULL);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('z6a7b8c9d0', 'Lê Quang Huy', 29, 'leqh22051995@gmail.com', 'hashed_password_6', 'avatar_z6a7b8c9d0.jpg', 'background_z6a7b8c9d0.jpg', FALSE, '2024-04-05 11:30:00', '2024-04-06 08:10:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('e1f2g3h4i5', 'Hoàng Văn Nam', 24, 'hoangvn30081999@gmail.com', 'hashed_password_7', 'avatar_e1f2g3h4i5.png', 'background_e1f2g3h4i5.png', FALSE, '2024-03-15 14:20:00', '2024-03-20 10:45:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('j6k7l8m9n0', 'Đặng Tiến Thành', 31, 'dangtt05011993@gmail.com', 'hashed_password_8', '', 'background_j6k7l8m9n0.jpg', FALSE, '2024-01-25 19:10:00', NULL);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('o1p2q3r4s5', 'Phan Minh Khoa', 26, 'phanmk15061998@gmail.com', 'hashed_password_9', 'avatar_o1p2q3r4s5.jpg', 'background_o1p2q3r4s5.jpg', TRUE, '2024-02-10 09:50:00', '2024-02-15 14:00:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('t6u7v8w9x0', 'Lương Văn Toàn', 23, 'luongvt17092001@gmail.com', 'hashed_password_10', 'avatar_t6u7v8w9x0.png', 'background_t6u7v8w9x0.png', FALSE, '2024-03-22 10:30:00', '2024-03-28 12:15:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('y1z2a3b4c5', 'Nguyễn Thị Bích', 27, 'nguyentb25031997@gmail.com', 'hashed_password_11', '', 'background_y1z2a3b4c5.jpg', FALSE, '2024-01-20 08:10:00', NULL);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('d6e7f8g9h0', 'Phạm Thanh Tùng', 30, 'phamtt14081994@gmail.com', 'hashed_password_12', 'avatar_d6e7f8g9h0.jpg', 'background_d6e7f8g9h0.jpg', FALSE, '2024-03-11 17:30:00', '2024-03-17 21:00:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('i1j2k3l4m5', 'Trịnh Hoàng An', 25, 'trinhha22022000@gmail.com', 'hashed_password_13', 'avatar_i1j2k3l4m5.png', 'background_i1j2k3l4m5.png', FALSE, '2024-02-27 07:45:00', NULL);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('n6o7p8q9r0', 'Võ Thanh Bình', 29, 'vothb01051995@gmail.com', 'hashed_password_14', 'avatar_n6o7p8q9r0.jpg', 'background_n6o7p8q9r0.jpg', FALSE, '2024-03-19 20:10:00', '2024-03-21 09:30:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('s1t2u3v4w5', 'Lý Văn Hòa', 24, 'lyvh12082000@gmail.com', 'hashed_password_15', '', 'background_s1t2u3v4w5.jpg', TRUE, '2024-02-06 18:40:00', '2024-02-10 22:50:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('x6y7z8a9b0', 'Đỗ Hải Đăng', 26, 'dohd19071998@gmail.com', 'hashed_password_16', 'avatar_x6y7z8a9b0.png', 'background_x6y7z8a9b0.png', FALSE, '2024-04-04 16:20:00', '2024-04-07 14:25:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('c1d2e3f4g5', 'Bùi Mạnh Hùng', 22, 'buimh29042002@gmail.com', 'hashed_password_17', 'avatar_c1d2e3f4g5.jpg', 'background_c1d2e3f4g5.jpg', FALSE, '2024-03-30 13:30:00', '2024-03-31 15:00:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('h6i7j8k9l0', 'Hồ Quang Phúc', 28, 'hoqp11021996@gmail.com', 'hashed_password_18', '', 'background_h6i7j8k9l0.jpg', TRUE, '2024-02-14 11:10:00', NULL);
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('m1n2o3p4q5', 'Tạ Văn Sơn', 30, 'tavs08031994@gmail.com', 'hashed_password_19', 'avatar_m1n2o3p4q5.jpg', 'background_m1n2o3p4q5.jpg', FALSE, '2024-01-29 12:20:00', '2024-02-02 09:40:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
+('r6s7t8u9v0', 'Đinh Quốc Khải', 23, 'dinhqk27092001@gmail.com', 'hashed_password_20', 'avatar_r6s7t8u9v0.png', 'background_r6s7t8u9v0.png', FALSE, '2024-03-09 08:30:00', '2024-03-12 18:20:00');
 
 -- Bảng công thức nấu ăn
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Pho Bo', 'pho_bo.png', 'Món phở bò truyền thống', 45, 2, 'approved', '2025-03-20 17:10:25');
+(1, 'Phở Bò', 'thumbnail.png', 'Món phở bò truyền thống', 180, 4, 'approved', '2024-12-12 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Banh Mi', 'banh_mi.png', 'Bánh mì Việt Nam', 10, 1, 'rejected', '2025-03-20 17:10:25');
+(1, 'Bánh Mì', 'thumbnail.png', 'Bánh mì Việt Nam', 150, 10, 'rejected', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Bun Bo Hue', 'bun_bo_hue.png', 'Bún bò Huế cay nồng', 60, 3, 'pending', '2025-03-20 17:10:25');
+(1, 'Bún Bò Huế', 'thumbnail.png', 'Bún bò Huế cay nồng', 330, 7, 'pending', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Com Tam', 'com_tam.png', 'Cơm tấm sườn bì chả', 30, 2, 'approved', '2025-03-20 17:10:25');
+(1, 'Cơm Tấm', 'thumbnail.png', 'Cơm tấm Long Xuyên với phần thịt trứng khìa, cắt nhỏ tạo nên điểm khác biệt so với cơm tấm Sài Gòn', 60, 4, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Goi Cuon', 'goi_cuon.png', 'Gỏi cuốn tôm thịt', 15, 2, 'approved', '2025-03-20 17:10:25');
+(1, 'Gỏi Cuốn', 'thumbnail.png', 'Gỏi cuốn chấm mắm nêm', 25, 2, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Cha Gio', 'cha_gio.png', 'Chả giò giòn rụm', 40, 4, 'approved', '2025-03-20 17:10:25');
+(1, 'Chả Giò', 'thumbnail.png', 'Chả Giò giòn tan dành cho người mới biết nấu ăn. Rất nhanh, rất dễ và giòn lâu', 40, 3, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Lau Thai', 'lau_thai.png', 'Lẩu thái chua cay', 60, 4, 'pending', '2025-03-20 17:10:25');
+(1, 'Lẩu Thái', 'thumbnail.png', 'Món ăn chua chua cay cay rất hấp dẫn, dành cho những dịp tụ họp hoặc đổi vị cho những ngày cuối tuần thong thả', 60, 5, 'pending', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Mi Quang', 'mi_quang.png', 'Mì Quảng đặc trưng', 50, 3, 'approved', '2025-03-20 17:10:25');
+(1, 'Mì Quảng', 'thumbnail.png', 'Mì Quảng vịt với thịt vịt ngọt, nước lèo béo thơm, thêm chút ớt sa tế cay cay ăn kèm rau húng lủi và xà lách tăng thêm vị độc đáo và lạ miệng cực kì cuốn vị', 120, 4, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Xoi Ga', 'xoi_ga.png', 'Xôi gà lá chanh', 40, 2, 'approved', '2025-03-20 17:10:25');
+(1, 'Xôi Gà', 'thumbnail.png', 'Chế biến nhanh gọn ăn ngon chắc bụng', 45, 1, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Banh Xeo', 'banh_xeo.png', 'Bánh xèo vàng giòn', 50, 3, 'approved', '2025-03-20 17:10:25');
+(1, 'Bánh Xèo', 'thumbnail.png', 'Bánh xèo vàng giòn', 45, 4, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Hu Tieu', 'hu_tieu.png', 'Hủ tiếu Nam Vang', 45, 2, 'approved', '2025-03-20 17:10:25');
+(1, 'Hủ Tiếu', 'thumbnail.png', 'Hủ Tiếu Xào Nõn Tôm Trứng Cút', 15, 2, 'approved', '2025-03-20 17:10:25');
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Bo Kho', 'bo_kho.png', 'Bò kho đậm đà', 90, 3, 'pending', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Che Ba Mau', 'che_ba_mau.png', 'Chè ba màu thơm ngon', 20, 2, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Banh Bao', 'banh_bao.png', 'Bánh bao nhân thịt', 60, 2, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Bun Rieu', 'bun_rieu.png', 'Bún riêu cua ngon miệng', 50, 3, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Nem Lui', 'nem_lui.png', 'Nem lụi nướng thơm ngon', 40, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Bo Luc Lac', 'bo_luc_lac.png', 'Bò lúc lắc mềm ngon', 35, 2, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Ga Nuong', 'ga_nuong.png', 'Gà nướng mật ong', 60, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Canh Chua', 'canh_chua.png', 'Canh chua cá lóc', 40, 3, 'rejected', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Banh Flan', 'banh_flan.png', 'Bánh flan béo ngậy', 30, 2, 'approved', '2025-03-20 17:10:25');
+(1, 'Bò Khô', 'thumbnail.png', 'Bò khô thơm ngon, đậm đà là món dùng để ăn vặt hay lai rai ngày tết 😋', 780, 5, 'pending', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Chè Ba Màu', 'che_ba_mau.png', 'Chè ba màu thơm ngon', 20, 2, 'approved', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Bánh Bao', 'banh_bao.png', 'Bánh bao nhân thịt', 60, 2, 'approved', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Bún Riêu', 'bun_rieu.png', 'Bún riêu cua ngon miệng', 50, 3, 'approved', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Nem Lụi', 'nem_lui.png', 'Nem lụi nướng thơm ngon', 40, 4, 'approved', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Bò Lúc Lắc', 'bo_luc_lac.png', 'Bò lúc lắc mềm ngon', 35, 2, 'approved', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Gà Nướng', 'ga_nuong.png', 'Gà nướng mật ong', 60, 4, 'approved', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Canh Chua', 'canh_chua.png', 'Canh chua cá lóc', 40, 3, 'rejected', '2025-03-20 17:10:25');
+-- INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
+-- (2, 'Bánh Flan', 'banh_flan.png', 'Bánh flan béo ngậy', 30, 2, 'approved', '2025-03-20 17:10:25');
 
 -- Bảng hình ảnh các bước nấu ăn
+-- Phở Bò
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step1_pho_bo(1).png');
+(1, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step1_pho_bo(2).png');
+(1, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step1_pho_bo(3).png');
+(1, 'step1_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step2_pho_bo(1).png');
+(1, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step2_pho_bo(2).png');
+(1, 'step2_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step2_pho_bo(3).png');
+(1, 'step2_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step3_pho_bo(1).png');
+(1, 'step3_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step3_pho_bo(2).png');
+(1, 'step3_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step3_pho_bo(3).png');
+(1, 'step3_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step4_pho_bo(1).png');
+(1, 'step4_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step4_pho_bo(2).png');
+(1, 'step4_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step4_pho_bo(3).png');
+(1, 'step4_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step5_pho_bo(1).png');
+(1, 'step5_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step5_pho_bo(2).png');
+(1, 'step5_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step5_pho_bo(3).png');
+(1, 'step5_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step6_pho_bo(1).png');
+(1, 'step6_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step6_pho_bo(2).png');
+(1, 'step6_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(1, 'step6_pho_bo(3).png');
+(1, 'step6_3.png');
 
+-- Bún Bò Huế
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(3, 'step6_bun_bo_hue(1).png');
+(3, 'step6_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(3, 'step6_bun_bo_hue(2).png');
+(3, 'step6_2.png');
 
+-- Cơm Tấm
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(4, 'step3_com_tam(1).png');
+(4, 'step3_1.png');
 
+-- Gỏi Cuốn
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(5, 'step6_goi_cuon(1).png');
+(5, 'step6_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(5, 'step6_goi_cuon(2).png');
+(5, 'step6_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(5, 'step7_goi_cuon(1).png');
+(5, 'step7_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(5, 'step7_goi_cuon(2).png');
+(5, 'step7_2.png');
 
+-- Chả Giò
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(6, 'step2_cha_gio(1).png');
+(6, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(6, 'step3_cha_gio(1).png');
+(6, 'step3_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(6, 'step4_cha_gio(1).png');
+(6, 'step4_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(6, 'step5_cha_gio(1).png');
+(6, 'step5_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(6, 'step5_cha_gio(2).png');
+(6, 'step5_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(6, 'step5_cha_gio(3).png');
+(6, 'step5_3.png');
 
+-- Lẩu Thái
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step1_lau_thai(1).png');
+(7, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step1_lau_thai(2).png');
+(7, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step1_lau_thai(3).png');
+(7, 'step1_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step2_lau_thai(1).png');
+(7, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step2_lau_thai(2).png');
+(7, 'step2_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step2_lau_thai(3).png');
+(7, 'step2_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step3_lau_thai(1).png');
+(7, 'step3_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(7, 'step3_lau_thai(2).png');
+(7, 'step3_2.png');
 
+-- Mì Quảng
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step1_mi_quang(1).png');
+(8, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step1_mi_quang(2).png');
+(8, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step1_mi_quang(3).png');
+(8, 'step1_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step2_mi_quang(1).png');
+(8, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step2_mi_quang(2).png');
+(8, 'step2_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step2_mi_quang(3).png');
+(8, 'step2_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step3_mi_quang(1).png');
+(8, 'step3_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step3_mi_quang(2).png');
+(8, 'step3_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(8, 'step3_mi_quang(3).png');
+(8, 'step3_3.png');
 
+-- Xôi Gà
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(9, 'step1_xoi_ga(1).png');
+(9, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(9, 'step1_xoi_ga(2).png');
+(9, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(9, 'step3_xoi_ga(1).png');
+(9, 'step3_1.png');
 
+-- Bánh Xèo
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(10, 'step1_banh_xeo(1).png');
+(10, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(10, 'step1_banh_xeo(2).png');
+(10, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(10, 'step1_banh_xeo(3).png');
+(10, 'step1_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(10, 'step2_banh_xeo(1).png');
+(10, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(10, 'step2_banh_xeo(2).png');
+(10, 'step2_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(10, 'step2_banh_xeo(3).png');
+(10, 'step2_3.png');
 
+-- Hủ Tiếu
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step1_hu_tieu(1).png');
+(11, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step1_hu_tieu(2).png');
+(11, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step1_hu_tieu(3).png');
+(11, 'step1_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step2_hu_tieu(1).png');
+(11, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step2_hu_tieu(2).png');
+(11, 'step2_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step2_hu_tieu(3).png');
+(11, 'step2_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(11, 'step3_hu_tieu(1).png');
+(11, 'step3_1.png');
 
+-- Bò Khô
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step1_bo_kho(1).png');
+(12, 'step1_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step1_bo_kho(2).png');
+(12, 'step1_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step1_bo_kho(3).png');
+(12, 'step1_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step2_bo_kho(1).png');
+(12, 'step2_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step2_bo_kho(2).png');
+(12, 'step2_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step2_bo_kho(3).png');
+(12, 'step2_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step3_bo_kho(1).png');
+(12, 'step3_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step3_bo_kho(2).png');
+(12, 'step3_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step3_bo_kho(3).png');
+(12, 'step3_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step4_bo_kho(1).png');
+(12, 'step4_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step4_bo_kho(2).png');
+(12, 'step4_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step4_bo_kho(3).png');
+(12, 'step4_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step5_bo_kho(1).png');
+(12, 'step5_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step5_bo_kho(2).png');
+(12, 'step5_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step5_bo_kho(3).png');
+(12, 'step5_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step6_bo_kho(1).png');
+(12, 'step6_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step6_bo_kho(2).png');
+(12, 'step6_2.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step6_bo_kho(3).png');
+(12, 'step6_3.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step7_bo_kho(1).png');
+(12, 'step7_1.png');
 INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(12, 'step7_bo_kho(2).png');
+(12, 'step7_2.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(13, 'step1_che_ba_mau.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(13, 'step2_che_ba_mau.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(13, 'step3_che_ba_mau.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(13, 'step4_che_ba_mau.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(13, 'step5_che_ba_mau.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (13, 'step1_che_ba_mau(1).png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (13, 'step2_che_ba_mau(1).png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (13, 'step3_che_ba_mau(1).png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (13, 'step4_che_ba_mau(1).png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (13, 'step5_che_ba_mau(1).png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(14, 'step1_banh_bao.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(14, 'step2_banh_bao.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(14, 'step3_banh_bao.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(14, 'step4_banh_bao.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(14, 'step5_banh_bao.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (14, 'step1_banh_bao.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (14, 'step2_banh_bao.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (14, 'step3_banh_bao.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (14, 'step4_banh_bao.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (14, 'step5_banh_bao.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(15, 'step1_bun_rieu.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(15, 'step2_bun_rieu.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(15, 'step3_bun_rieu.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(15, 'step4_bun_rieu.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(15, 'step5_bun_rieu.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (15, 'step1_bun_rieu.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (15, 'step2_bun_rieu.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (15, 'step3_bun_rieu.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (15, 'step4_bun_rieu.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (15, 'step5_bun_rieu.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(16, 'step1_nem_lui.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(16, 'step2_nem_lui.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(16, 'step3_nem_lui.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(16, 'step4_nem_lui.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(16, 'step5_nem_lui.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (16, 'step1_nem_lui.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (16, 'step2_nem_lui.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (16, 'step3_nem_lui.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (16, 'step4_nem_lui.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (16, 'step5_nem_lui.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(17, 'step1_bo_luc_lac.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(17, 'step2_bo_luc_lac.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(17, 'step3_bo_luc_lac.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(17, 'step4_bo_luc_lac.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(17, 'step5_bo_luc_lac.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (17, 'step1_bo_luc_lac.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (17, 'step2_bo_luc_lac.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (17, 'step3_bo_luc_lac.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (17, 'step4_bo_luc_lac.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (17, 'step5_bo_luc_lac.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(18, 'step1_ga_nuong.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(18, 'step2_ga_nuong.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(18, 'step3_ga_nuong.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(18, 'step4_ga_nuong.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(18, 'step5_ga_nuong.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (18, 'step1_ga_nuong.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (18, 'step2_ga_nuong.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (18, 'step3_ga_nuong.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (18, 'step4_ga_nuong.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (18, 'step5_ga_nuong.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(19, 'step1_canh_chua.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(19, 'step2_canh_chua.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(19, 'step3_canh_chua.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(19, 'step4_canh_chua.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(19, 'step5_canh_chua.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (19, 'step1_canh_chua.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (19, 'step2_canh_chua.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (19, 'step3_canh_chua.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (19, 'step4_canh_chua.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (19, 'step5_canh_chua.png');
 
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(20, 'step1_banh_flan.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(20, 'step2_banh_flan.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(20, 'step3_banh_flan.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(20, 'step4_banh_flan.png');
-INSERT INTO recipe_images (recipe_id, image_url) VALUES
-(20, 'step5_banh_flan.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (20, 'step1_banh_flan.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (20, 'step2_banh_flan.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (20, 'step3_banh_flan.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (20, 'step4_banh_flan.png');
+-- INSERT INTO recipe_images (recipe_id, image_url) VALUES
+-- (20, 'step5_banh_flan.png');
 
 -- Bảng nguyên liệu
 INSERT INTO ingredients (name, calories_per_100g, protein_per_100g, fat_per_100g, carbs_per_100g) VALUES
@@ -737,12 +748,23 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUE
 
 -- Cơm tấm
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUES
+(4, 45, 1, 160), -- 160g chả trứng
 (4, 46, 3, 1), -- 1 kg thịt đùi
 (4, 89, 43, 5), -- 5 trái trứng gà
 (4, 47, 44, 2), -- 2 trái dừa
 (4, 19, 39, 2), -- 2 muỗng canh hành băm
 (4, 43, 39, 2), -- 2 muỗng canh tỏi băm
 (4, 80, NULL, NULL); -- Gia vị
+
+-- -- Chả trứng
+-- INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUES
+-- (4, 50, 1, 500), -- 500g thịt xay
+-- (4, 51, 1, 20), -- 20g nấm mèo
+-- (4, 52, 1, 2), -- 2 lọn bún tàu
+-- (4, 53, 1, 3), -- 3 trái trứng gà
+-- (4, 54, 1, 1), -- 1 muỗng cà phê dầu màu điều
+-- (4, 55, 1, 10), -- 10g hành lá
+-- (4, 56, NULL, NULL); -- Gia vị
 
 -- Gỏi cuốn
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUES
@@ -758,16 +780,6 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUE
 (5, 94, 1, 30), -- 30g thơm
 (5, 6, 1, 20), -- 20g đường
 (5, 95, 4, 50); -- 50ml mắm nêm
-
--- -- Chả trứng
--- INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUES
--- (4, 50, 1, 500), -- 500g thịt xay
--- (4, 51, 1, 20), -- 20g nấm mèo
--- (4, 52, 1, 2), -- 2 lọn bún tàu
--- (4, 53, 1, 3), -- 3 trái trứng gà
--- (4, 54, 1, 1), -- 1 mcf dầu màu điều
--- (4, 55, 1, 10), -- 10g hành lá
--- (4, 56, NULL, NULL); -- Gia vị
 
 -- Chả giò
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUES
@@ -889,217 +901,316 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, unit_id, amount) VALUE
 (12, 113, 1, 30); -- 30 gram ớt hiểm
 
 -- Bảng danh mục món ăn
-INSERT INTO categories (category_name) VALUES
-('Soup dishes');
-INSERT INTO categories (category_name) VALUES
-('Breakfast dishes');
-INSERT INTO categories (category_name) VALUES
-('Vegetarian dishes');
-INSERT INTO categories (category_name) VALUES
-('Grilled dishes');
-INSERT INTO categories (category_name) VALUES
-('Fried dishes');
-INSERT INTO categories (category_name) VALUES
-('Desserts');
-INSERT INTO categories (category_name) VALUES
-('Noodle dishes');
-INSERT INTO categories (category_name) VALUES
-('Rice dishes');
-INSERT INTO categories (category_name) VALUES
-('Seafood dishes');
-INSERT INTO categories (category_name) VALUES
-('Stews');
-INSERT INTO categories (category_name) VALUES
-('Salads');
-INSERT INTO categories (category_name) VALUES
-('Appetizers');
-INSERT INTO categories (category_name) VALUES
-('Main courses');
-INSERT INTO categories (category_name) VALUES
-('Street food');
-INSERT INTO categories (category_name) VALUES
-('Beverages');
-INSERT INTO categories (category_name) VALUES
-('Side dishes');
-INSERT INTO categories (category_name) VALUES
-('Healthy dishes');
-INSERT INTO categories (category_name) VALUES
-('Fast food');
+INSERT INTO categories (type, category_name) VALUES 
+('Noodle', 'Beef Pho');
+INSERT INTO categories (type, category_name) VALUES 
+('Noodle', 'Hue Beef Noodle Soup');
+INSERT INTO categories (type, category_name) VALUES 
+('Noodle', 'Quang Noodles');
+INSERT INTO categories (type, category_name) VALUES 
+('Noodle', 'Seafood Noodle Soup');
+INSERT INTO categories (type, category_name) VALUES 
+('Rice', 'Broken Rice');
+INSERT INTO categories (type, category_name) VALUES 
+('Rice', 'Fried Rice');
+INSERT INTO categories (type, category_name) VALUES 
+('Rice', 'Steamed Rice with Chicken');
+INSERT INTO categories (type, category_name) VALUES 
+('Rice', 'Rice with Grilled Pork');
+INSERT INTO categories (type, category_name) VALUES 
+('Bread', 'Vietnamese Baguette');
+INSERT INTO categories (type, category_name) VALUES 
+('Bread', 'Baguette with Pâté');
+INSERT INTO categories (type, category_name) VALUES 
+('Bread', 'Baguette with Grilled Pork');
+INSERT INTO categories (type, category_name) VALUES 
+('Appetizer', 'Spring Rolls');
+INSERT INTO categories (type, category_name) VALUES 
+('Appetizer', 'Fried Spring Rolls');
+INSERT INTO categories (type, category_name) VALUES 
+('Appetizer', 'Grilled Pork Skewers');
+INSERT INTO categories (type, category_name) VALUES 
+('Hotpot', 'Thai Hotpot');
+INSERT INTO categories (type, category_name) VALUES 
+('Hotpot', 'Vietnamese Beef Hotpot');
+INSERT INTO categories (type, category_name) VALUES 
+('Hotpot', 'Seafood Hotpot');
+INSERT INTO categories (type, category_name) VALUES 
+('Sticky Rice', 'Chicken Sticky Rice');
+INSERT INTO categories (type, category_name) VALUES 
+('Sticky Rice', 'Peanut Sticky Rice');
+INSERT INTO categories (type, category_name) VALUES 
+('Sticky Rice', 'Mung Bean Sticky Rice');
+INSERT INTO categories (type, category_name) VALUES 
+('Pancake', 'Vietnamese Crispy Pancake');
+INSERT INTO categories (type, category_name) VALUES 
+('Pancake', 'Mini Savory Pancakes');
+INSERT INTO categories (type, category_name) VALUES 
+('Soup', 'Sour Fish Soup');
+INSERT INTO categories (type, category_name) VALUES 
+('Soup', 'Crab Noodle Soup');
+INSERT INTO categories (type, category_name) VALUES 
+('Soup', 'Tamarind Crab Soup');
+INSERT INTO categories (type, category_name) VALUES 
+('Dessert', 'Three-Color Dessert');
+INSERT INTO categories (type, category_name) VALUES 
+('Dessert', 'Flan Cake');
+INSERT INTO categories (type, category_name) VALUES 
+('Dessert', 'Sweet Corn Pudding');
+INSERT INTO categories (type, category_name) VALUES 
+('Dessert', 'Banana Sweet Soup');
+INSERT INTO categories (type, category_name) VALUES 
+('Grilled', 'Grilled Chicken');
+INSERT INTO categories (type, category_name) VALUES 
+('Grilled', 'Grilled Pork Chops');
+INSERT INTO categories (type, category_name) VALUES 
+('Grilled', 'Grilled Beef in Betel Leaves');
+INSERT INTO categories (type, category_name) VALUES 
+('Snack', 'Dried Beef');
+INSERT INTO categories (type, category_name) VALUES 
+('Snack', 'Shredded Pork Skin');
+INSERT INTO categories (type, category_name) VALUES 
+('Dumpling', 'Steamed Bun');
+INSERT INTO categories (type, category_name) VALUES 
+('Dumpling', 'Savory Bun');
+INSERT INTO categories (type, category_name) VALUES 
+('Dumpling', 'Sweet Red Bean Bun');
 
 -- Bảng liên kết công thức với danh mục
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(1, 1);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(1, 7);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(2, 2);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(2, 14);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(3, 1);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(3, 7);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(4, 8);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(5, 11);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(5, 12);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(6, 5);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(7, 1);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(7, 9);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(8, 7);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(8, 14);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(9, 8);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(10, 5);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(11, 1);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(12, 10);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(13, 6);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(14, 14);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(15, 1);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(16, 4);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(17, 14);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(18, 4);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(19, 1);
-INSERT INTO recipe_categories (recipe_id, category_id) VALUES
-(20, 6);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (1, 1);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (1, 2);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (2, 9);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (2, 10);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (2, 11);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (3, 3);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (3, 4);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (4, 5);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (4, 6);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (5, 12);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (5, 13);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (6, 12);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (6, 14);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (7, 15);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (7, 16);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (7, 17);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (8, 3);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (8, 4);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (9, 18);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (9, 19);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (9, 20);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (10, 22);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (10, 23);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (11, 3);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (11, 4);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (12, 34);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (12, 35);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (13, 28);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (13, 29);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (14, 38);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (14, 39);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (15, 25);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (15, 26);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (16, 12);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (16, 14);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (17, 31);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (17, 32);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (18, 33);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (18, 36);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (19, 25);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (19, 27);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (20, 30);
+INSERT INTO recipe_categories (recipe_id, category_id) VALUES (20, 29);
 
 -- Bảng đánh giá món ăn
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(1, 1, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(2, 2, 4);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(3, 3, 3);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(4, 4, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(5, 5, 4);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(6, 6, 3);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(7, 7, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(8, 8, 4);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(9, 9, 3);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(10, 10, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(11, 11, 4);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(12, 12, 3);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(13, 13, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(14, 14, 4);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(15, 15, 3);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(16, 16, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(17, 17, 4);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(18, 18, 3);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(19, 19, 5);
-INSERT INTO ratings (user_id, recipe_id, rate) VALUES
-(20, 20, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (1, 1, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (1, 2, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (1, 3, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (1, 4, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (2, 5, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (2, 6, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (2, 7, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (3, 8, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (3, 9, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (3, 10, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (4, 11, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (4, 12, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (5, 13, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (5, 14, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (5, 15, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (6, 16, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (6, 17, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (7, 18, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (7, 19, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (7, 20, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (8, 1, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (8, 2, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (8, 3, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (9, 4, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (9, 5, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (9, 6, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (10, 7, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (10, 8, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (11, 9, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (11, 10, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (12, 11, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (12, 12, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (13, 13, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (13, 14, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (14, 15, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (14, 16, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (15, 17, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (15, 18, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (16, 19, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (16, 20, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (17, 1, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (17, 2, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (18, 3, 4);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (18, 4, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (19, 5, 3);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (19, 6, 5);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (20, 7, 2);
+INSERT INTO ratings (user_id, recipe_id, rate) VALUES (20, 8, 3);
 
 -- Bảng bình luận
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(1, 1, 'Món ăn rất ngon!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(1, 1, 'Tuyệt vời luôn!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(2, 2, 'Bánh mì giòn rụm!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(3, 3, 'Bún bò cay quá!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(4, 4, 'Cơm tấm ngon tuyệt!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(4, 4, 'Mãi mới thấy công thức ngon như này');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(5, 5, 'Nguyên liệu rất tươi!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(6, 6, 'Chả giò giòn và thơm!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(7, 7, 'Lẩu thái đậm vị!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(7, 7, 'Mình thấy công thức này chuẩn nè');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(8, 8, 'Mì Quảng chuẩn vị!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(9, 9, 'Xôi gà thơm ngon!');
-INSERT INTO comments (user_id, recipe_id, comment) VALUES
-(10, 10, 'Bánh xèo giòn rụm!');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(1, 1, 'This Pho is absolutely delicious!', '2024-04-01 10:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(1, 1, 'I want more!', '2024-04-01 10:00:30');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(1, 2, 'The bread is crispy and fresh!', '2024-04-02 14:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(1, 3, 'The broth is too spicy for me, but the flavors are great.', '2024-04-03 08:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(2, 1, 'I loved this Pho, it reminds me of home!', '2024-04-01 12:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(2, 4, 'Cơm Tấm is a classic, perfectly cooked rice!', '2024-04-02 15:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(3, 5, 'Gỏi Cuốn is refreshing, love the ingredients!', '2024-04-02 16:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(3, 1, 'Great Pho but the meat could be more tender.', '2024-04-03 18:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(4, 2, 'Bánh Mì has an amazing flavor combination, my favorite!', '2024-04-01 11:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(4, 6, 'Chả Giò is crunchy and savory, but a bit greasy.', '2024-04-02 17:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(5, 7, 'Lẩu Thái is very spicy, but I enjoyed the heat!', '2024-04-03 12:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(6, 8, 'Mì Quảng has a nice texture and flavor!', '2024-04-01 13:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(6, 9, 'Xôi Gà is comforting and delicious, one of my favorites!', '2024-04-02 10:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(7, 10, 'Bánh Xèo is crispy and full of flavor, loved it!', '2024-04-02 09:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(8, 11, 'Hủ Tiếu is flavorful but the broth could be clearer.', '2024-04-01 14:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(8, 12, 'Bò Khô is a great snack, perfect for a quick bite!', '2024-04-03 10:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(9, 13, 'Chè Ba Màu is so refreshing, I love the layers!', '2024-04-02 11:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(9, 14, 'Bánh Bao is soft and savory, delicious!', '2024-04-03 09:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(10, 15, 'Bún Riêu is light and tasty, I enjoyed it.', '2024-04-01 16:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(10, 16, 'Nem Lụi is savory and flavorful, I need more!', '2024-04-02 18:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(11, 17, 'Bò Lúc Lắc is tasty, but I prefer it with more seasoning.', '2024-04-01 19:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(11, 18, 'Gà Nướng is flavorful and juicy, highly recommend!', '2024-04-02 12:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(12, 19, 'Canh Chua is so tangy and flavorful, love it!', '2024-04-01 17:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(12, 20, 'Bánh Flan is creamy and sweet, one of my top desserts.', '2024-04-02 13:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(13, 1, "I didn't like this Pho, the taste was too strong for me.", '2024-04-02 14:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(13, 2, 'The Bánh Mì is too small for me, but still delicious.', '2024-04-03 15:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(14, 3, "Bún Bò Huế is so spicy, but it's still amazing!", '2024-04-01 10:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(14, 4, 'Cơm Tấm is a bit dry, but the grilled pork makes up for it.', '2024-04-02 16:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(15, 5, 'Gỏi Cuốn is fresh and healthy, loved the herbs!', '2024-04-01 11:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(15, 6, 'Chả Giò is delicious, but a bit too greasy for my taste.', '2024-04-02 12:00:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(16, 7, 'Lẩu Thái is amazing, but too spicy for me.', '2024-04-01 13:30:00');
+INSERT INTO comments (user_id, recipe_id, comment, created_at) VALUES 
+(16, 8, 'Mì Quảng is great, but I prefer a bit more flavor in the broth.', '2024-04-02 14:30:00');
 
 -- Bảng lưu công thức yêu thích
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(1, 1);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(2, 2);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(3, 3);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(4, 4);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(5, 5);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(6, 6);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(7, 7);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(8, 8);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(9, 9);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(10, 10);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(11, 11);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(12, 12);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(13, 13);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(14, 14);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(15, 15);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(16, 16);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(17, 17);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(18, 18);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(19, 19);
-INSERT INTO saved_recipes (user_id, recipe_id) VALUES
-(20, 20);
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(1, 1, '2024-04-01 08:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(1, 2, '2024-04-01 09:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(2, 3, '2024-04-02 10:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(2, 4, '2024-04-02 12:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(3, 5, '2024-04-03 13:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(3, 6, '2024-04-03 14:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(3, 7, '2024-04-03 15:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(4, 8, '2024-04-01 11:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(4, 9, '2024-04-02 16:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(6, 11, '2024-04-03 17:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(6, 12, '2024-04-03 18:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(7, 13, '2024-04-01 14:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(7, 14, '2024-04-02 17:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(8, 15, '2024-04-01 15:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(8, 16, '2024-04-02 18:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(9, 17, '2024-04-01 16:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(9, 18, '2024-04-02 19:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(10, 19, '2024-04-03 19:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(10, 20, '2024-04-03 20:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(11, 1, '2024-04-01 18:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(11, 2, '2024-04-01 18:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(12, 3, '2024-04-02 20:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(13, 4, '2024-04-01 17:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(13, 5, '2024-04-02 13:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(14, 6, '2024-04-01 19:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(15, 7, '2024-04-03 21:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(16, 8, '2024-04-01 20:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(17, 9, '2024-04-02 14:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(18, 10, '2024-04-01 21:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(18, 11, '2024-04-02 15:30:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(19, 12, '2024-04-02 22:00:00');
+INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES 
+(20, 13, '2024-04-03 22:30:00');
 
 -- Bảng báo cáo nội dung
-INSERT INTO reports (user_id, recipe_id, reason, report_status) VALUES
-(1, 3, 'Nội dung không phù hợp', 'pending');
-INSERT INTO reports (user_id, recipe_id, reason, report_status) VALUES
-(2, 2, 'Thiếu thông tin', 'accepted');
-INSERT INTO reports (user_id, recipe_id, reason, report_status) VALUES
-(3, 5, 'Hình ảnh không rõ ràng', 'pending');
-INSERT INTO reports (user_id, recipe_id, reason, report_status) VALUES
-(4, 7, 'Món ăn không tồn tại', 'rejected');
-INSERT INTO reports (user_id, recipe_id, reason, report_status) VALUES
-(5, 10, 'Sai nguyên liệu', 'accepted');
+INSERT INTO reports (user_id, recipe_id, reason, report_status, created_at) VALUES
+(1, 1, 'The recipe contains offensive language in the description.', 'pending', '2024-04-01 08:00:00');
+INSERT INTO reports (user_id, recipe_id, reason, report_status, created_at) VALUES
+(2, 5, 'The recipe includes ingredients that are harmful to some people.', 'pending', '2024-04-02 09:30:00');
+INSERT INTO reports (user_id, recipe_id, reason, report_status, created_at) VALUES
+(15, 8, 'The recipe is misleading and does not match the title.', 'accepted', '2024-04-03 10:15:00');
+INSERT INTO reports (user_id, recipe_id, reason, report_status, created_at) VALUES
+(8, 12, 'The recipe violates community guidelines by promoting dangerous cooking techniques.', 'rejected', '2024-04-01 11:00:00');
+INSERT INTO reports (user_id, recipe_id, reason, report_status, created_at) VALUES
+(7, 15, 'The recipe includes unverified health claims that could mislead users.', 'pending', '2024-04-03 12:30:00');
