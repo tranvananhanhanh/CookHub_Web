@@ -60,7 +60,8 @@ CREATE TABLE recipe_ingredients (
 -- Bảng danh mục món ăn
 CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
-    category_name VARCHAR(100) UNIQUE NOT NULL
+    category_name VARCHAR(100) UNIQUE NOT NULL,
+    category_type VARCHAR(50)
 );
 
 -- Bảng liên kết công thức với danh mục

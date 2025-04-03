@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub - <%= typeof title !== 'undefined' ? title : 'Tìm kiếm' %></title>
+    <link rel="stylesheet" href="../assets/styles.css"> <!-- CSS chung -->
+    <link rel="stylesheet" href="../assets/search.css"> <!-- CSS riêng cho trang search -->
+    <!-- Link FontAwesome for search icon -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Header (Assume loaded via loadHTML.js or similar) -->
+    <div class="header"></div>
+
+    <main class="search-page-container">
+        <h1>Find a Recipe</h1>
+
+        <div class="search-bar-container">
+            <input type="text" id="search-input" placeholder="Search for recipes, ingredients, and more...">
+            <button id="search-button" aria-label="Search">
+                <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
+            </button>
+        </div>
+
+        <div class="search-content-area">
+            <!-- Left Column: Filters -->
+            <aside class="filters-column">
+                 <div class="filters-section"> <!-- Inner container for padding/content -->
+                    <h2>Filter by</h2>
+
+                    <!-- General Tags -->
+                    <div class="filter-group">
+                        <!-- Title removed as "Filter by" covers it -->
+                        <div class="tags-container" id="general-tags">
+                            <p>Loading tags...</p>
+                        </div>
+                    </div>
+
+                    <!-- Cuisine Type -->
+                    <div class="filter-group">
+                        <h2>Cuisine Type</h2>
+                        <div class="tags-container" id="cuisine-tags">
+                            <p>Loading cuisines...</p>
+                        </div>
+                    </div>
+
+                    <!-- Cooking Time -->
+                    <div class="filter-group">
+                        <h2>Cooking Time</h2>
+                        <div class="tags-container" id="time-tags">
+                             <button class="filter-tag" data-filter-type="time" data-value="20">Under 20 minutes</button> <!-- Updated value based on image text -->
+                             <button class="filter-tag" data-filter-type="time" data-value="30">Under 30 minutes</button>
+                             <button class="filter-tag" data-filter-type="time" data-value="45">Under 45 minutes</button> <!-- Updated value based on image text -->
+                             <button class="filter-tag" data-filter-type="time" data-value="60">Under 60 minutes</button>
+                        </div>
+                    </div>
+
+                    <!-- Dietary Preferences -->
+                    <div class="filter-group">
+                        <h2>Dietary Preferences</h2>
+                        <div class="tags-container" id="dietary-tags">
+                            <p>Loading preferences...</p>
+                        </div>
+                    </div>
+                    <!-- Active Filters & Clear Button (Optional placement) -->
+                     <div id="active-filters-display" class="active-filters-container" style="display: none;">
+                         <!-- JS will show selected filters -->
+                     </div>
+                    <button id="clear-filters-btn" style="margin-top: 20px;">Clear All Filters</button>
+                 </div>
+            </aside>
+
+            <!-- Right Column: Results -->
+            <section class="results-column">
+                <h2>Search Results<span id="search-term-display"></span></h2>
+                <div id="search-results" class="recipes-grid">
+                    <p>Enter keywords or select filters to start searching.</p> <!-- Updated initial message -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer (Assume loaded via loadHTML.js or similar) -->
+    <div class="footer"></div>
+
+    <!-- Nhúng JS (quan trọng thứ tự) -->
+    <script src="../js/loadHTML.js"></script> <!-- If used for header/footer -->
+    <script src="../js/search.js"></script> <!-- Main JS for this page -->
+</body>
+</html>

@@ -31,7 +31,9 @@ app.get("/", (req, res) => {
 app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
 });
-
+app.get('/search', (req, res) => {
+  res.render('search', { title: 'Tìm kiếm Công thức' }); 
+});
 // Khởi chạy server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
