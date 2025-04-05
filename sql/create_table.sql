@@ -41,6 +41,14 @@ CREATE TABLE recipe_images (
     image_url TEXT NOT NULL
 );
 
+-- Bảng mô tả các bước nấu ăn
+CREATE TABLE recipe_steps (
+    recipe_id INTEGER NOT NULL REFERENCES recipes(recipe_id) ON DELETE CASCADE,  -- Liên kết với công thức nấu ăn
+    step_number INTEGER NOT NULL CHECK (step_number > 0),  -- Số thứ tự bước trong công thức
+    description TEXT NOT NULL,  -- Mô tả chi tiết về bước nấu ăn, có thể là văn bản mô tả hoặc link
+    PRIMARY KEY (recipe_id, step_number) 
+);
+
 -- Bảng nguyên liệu
 CREATE TABLE ingredients (
     ingredient_id SERIAL PRIMARY KEY,
@@ -51,30 +59,27 @@ CREATE TABLE ingredients (
     carbs_per_100g FLOAT CHECK (carbs_per_100g >= 0)
 );
 
--- Bảng đơn vị
+-- Bảng đơn vị 
 CREATE TABLE units (
     unit_id SERIAL PRIMARY KEY,
-    ingredient_id INT NULL,  -- NULL nếu là đơn vị chung (gram, lạng, kg,...)
-    unit_name TEXT NOT NULL,
-    equivalent_grams INT NOT NULL CHECK (equivalent_grams > 0), -- Quy đổi sang gam, ví dụ: "1 củ hành" = 50g
-    UNIQUE (ingredient_id, unit_name),  -- Đảm bảo không trùng đơn vị với cùng nguyên liệu
-    FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id) ON DELETE CASCADE
+    unit_name TEXT UNIQUE NOT NULL,       -- ví dụ: 'gram', 'kg', 'tsp'
+    equivalent_grams FLOAT NOT NULL CHECK (equivalent_grams > 0) -- Quy đổi tất cả đơn vị ra gram. Ví dụ: 1 kg = 1000g
 );
 
 -- Bảng nguyên liệu trong công thức
 CREATE TABLE recipe_ingredients (
-    recipe_ingredient_id SERIAL PRIMARY KEY,  -- Thêm khóa chính tự động tăng
+    recipe_ingredient_id SERIAL PRIMARY KEY,
     recipe_id INTEGER NOT NULL REFERENCES recipes(recipe_id) ON DELETE CASCADE,
     ingredient_id INTEGER NOT NULL REFERENCES ingredients(ingredient_id) ON DELETE CASCADE,
     amount FLOAT CHECK (amount > 0),
-    unit_id INTEGER REFERENCES units(unit_id)
+    unit_id INTEGER NOT NULL DEFAULT 1 REFERENCES units(unit_id)  -- Mặc định là gram (unit_id = 1)
 );
 
 -- Bảng danh mục món ăn
 CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
-    type VARCHAR(100) NOT NULL,
-    category_name VARCHAR(100) UNIQUE NOT NULL
+    type VARCHAR(100) NOT NULL, -- Cấp 1: Chia theo loại món ăn
+    category_name VARCHAR(100) UNIQUE NOT NULL -- Cấp 2: Chia theo đặc điểm/kiểu nấu
 );
 
 -- Bảng liên kết công thức với danh mục
