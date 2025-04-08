@@ -382,7 +382,7 @@ nav ul a {
     display: block;
     height: 200px;
     width: 200px;
-    border-radius: 100px;
+    border-radius: 50%;
     padding: 20px;
     margin: auto;
     object-fit: cover;
@@ -390,8 +390,9 @@ nav ul a {
 
 .edit-background img {
     display: block;
-    height: 300px;
-    width: 900px;
+    max-height: 300px;
+    width: 100%;
+    max-width: 900px;
     padding: 20px;
     margin: auto;
     object-fit: cover;
@@ -403,14 +404,15 @@ nav ul a {
 .edit-password,
 .edit-links {
     display: flex;
+    width: 100%;
 }
 
-.edit-name input,
+/* .edit-name input,
 .edit-userid input,
 .edit-mail input,
 .edit-password input {
     width: 780px;
-}
+} */
 
 .edit-userid input,
 .edit-mail input,
@@ -420,24 +422,26 @@ nav ul a {
 
 .edit-password .password-container {
     display: flex;
-}
-
-.edit-info input {
-    font-weight: 400;
-    border: none
+    justify-content: space-between;
+    width: 85%;
 }
 
 .edit-info label {
     display: block;
-    width: 200px;
+    width: 15%;
     text-align: left;
+}
+
+.edit-info input {
+    font-weight: 400;
+    width: 85%;
+    border: none
 }
 
 .edit-info button {
     padding: 10px;
     font-size: 24px;
     border: none;
-    width: 44px;
     background-color: #fff;
 }
 
@@ -449,9 +453,19 @@ nav ul a {
     display: inline-block;
 }
 
-.edit-info .edit-links .links-container .user-links {
+.edit-info .edit-links .links-container {
+    width: 85%;
+}
+
+.edit-info .edit-links .links-container .social-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-info .edit-links .links-container .social-row .user-links {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .edit-info .edit-links .links-container .user-links a {
@@ -471,7 +485,7 @@ nav ul a {
 }
 
 .user-links input {
-    width: 736px;
+    max-width: 736px;
 }
 
 .save-cancel-container {
@@ -511,8 +525,8 @@ nav ul a {
 /* Footer */
 footer {
     width: 100%;
-    height: 300px; /* Điều chỉnh chiều cao */
-    background-image: url('../assets/image/footer.png'); /* Thay bằng ảnh nền */
+    height: 300px; 
+    background-image: url('../assets/image/footer.png'); 
     background-size: cover;
     background-position: center;
 
