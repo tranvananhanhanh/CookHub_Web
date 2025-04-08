@@ -35,6 +35,40 @@ a, button {
     margin-bottom: 20px;
 }
 
+.save-cancel-container {
+    padding: 20px;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.btn {
+    margin: 0 10px;
+    color: #fff;
+    border: none;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+.save-btn {
+    background-color: #FF6600;
+}
+
+.save-btn:hover {
+    opacity: 0.7;
+}
+
+.cancel-btn {
+    background-color: #424242;
+}
+
+.cancel-btn:hover {
+    opacity: 0.7;
+}
+
 /* Header */
 header {
     font-family: 'Plus Jakarta Sans';
@@ -192,7 +226,7 @@ nav ul a {
     letter-spacing: 1px;
 }
 
-.edit-profile {
+.edit-my-profile-btn {
     font-family: 'Arial'; /* Không tìm thấy font Arial Rounded MT Bold */
     font-weight: bold;
     font-size: 15px;
@@ -324,15 +358,33 @@ nav ul a {
     background-color: #f9800f;
 }
 
-/* Edit profile */
-.edit-profile {
+/* Edit profile form */
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    font-size: 30px;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+.edit-profile-form {
     padding: 20px 40px;
     background-color: #fff;
-    border-radius: 20px;
-    min-width: 100%;
-    height: 100%;
+    width: 1000px;
+    max-width: calc(100% - 36px);
+    height: 90%;
+    overflow: auto;
     margin: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .line {
@@ -341,21 +393,21 @@ nav ul a {
     margin: 10px 0;
 }
 
-.edit-profile .heading {
+.edit-profile-form .heading {
     padding: 20px;
     font-size: 30px;
 }
 
-.edit-profile .heading, 
-.edit-profile .label, 
-.edit-profile .edit,
+.edit-profile-form .heading, 
+.edit-profile-form .label, 
+.edit-profile-form .edit,
 .edit-info label {
     font-family: 'Plus Jakarta Sans';
     font-weight: 700;
 }
 
-.edit-profile .label, 
-.edit-profile .edit, 
+.edit-profile-form .label, 
+.edit-profile-form .edit, 
 .edit-info input,
 .edit-info label {
     padding: 10px;
@@ -364,7 +416,7 @@ nav ul a {
     color: #000;
 }
 
-.edit-profile .edit {
+.edit-profile-form .edit {
     color: #2189FF;
 }
 
@@ -406,13 +458,6 @@ nav ul a {
     display: flex;
     width: 100%;
 }
-
-/* .edit-name input,
-.edit-userid input,
-.edit-mail input,
-.edit-password input {
-    width: 780px;
-} */
 
 .edit-userid input,
 .edit-mail input,
@@ -488,38 +533,42 @@ nav ul a {
     max-width: 736px;
 }
 
-.save-cancel-container {
-    padding: 20px;
-    font-family: 'Plus Jakarta Sans';
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.btn {
-    margin: 0 10px;
-    color: #fff;
-    border: none;
-    font-family: 'Plus Jakarta Sans';
-    font-size: 20px;
-    font-weight: 700;
+/* Edit password form */
+.edit-pass-form {
+    background-color: #fff;
+    min-width: 600px;
+    border-radius: 20px;
+    font-family: "Plus Jakarta Sans";
     padding: 10px 20px;
-    border-radius: 12px;
+    position: relative;
 }
 
-.save-btn {
-    background-color: #FF6600;
+.edit-pass-form .heading {
+    color: black;
+    font-size: 24px;    
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 0;
+    margin-bottom: 10px;
 }
 
-.save-btn:hover {
-    opacity: 0.7;
+.change-pass-row label {
+    display: block;
+    color: #2C2C2C;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    padding: 10px 0;
 }
 
-.cancel-btn {
-    background-color: #424242;
-}
-
-.cancel-btn:hover {
-    opacity: 0.7;
+.change-pass-row input {
+    color: #B3B3B3;
+    font-size: 20px;
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 8px;
 }
 
 /* Footer */
@@ -580,3 +629,21 @@ footer {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 250px;
 } */
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.open {
+    display: flex;
+}

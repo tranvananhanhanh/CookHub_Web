@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             recipeCard.classList.add("col-4", "recipe-card");
 
             recipeCard.innerHTML = `
-                <img src="../assets/image/food/${recipe.user_id}/${recipe.title}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
+                <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
                 <div class="recipe-info">
                     <p class="recipe-name">${recipe.title}</p>
                     <div class="rating">

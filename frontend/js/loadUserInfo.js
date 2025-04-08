@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const avatar = document.querySelector(".profile-cover .cover-content .profile-avatar"); 
+    const cover = document.querySelector(".profile-cover");
     const name = document.querySelector(".profile-cover .cover-content .username"); 
     const userid = document.querySelector(".profile-cover .cover-content .userid");
     const profilelink = document.querySelector(".profile-cover .cover-content .profile-link");
@@ -15,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        // Gọi API lấy avatar
+        // Gọi API lấy user info
         const response = await fetch("http://localhost:4000/api/userinfo");
         const userinfo = await response.json();
         
@@ -24,11 +25,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             const cleanName = normalizeString(user.name);
 
             if (user.avatar.length > 0) {
-                avatar.src = `../assets/image/user/${user.avatar}`;
+                avatar.src = `../assets/image/users/avatars/${user.avatar}`;
             }
+
+            if (user.profile_background.length > 0) {
+                cover.style.backgroundImage = `url('../assets/image/users/profile_backgrounds/${user.profile_background}')`;
+            }
+            
             name.innerHTML = user.name;
-            userid.innerHTML = `@cook_${user.user_id}`;
-            profilelink.innerHTML = `www.cookhub.com/cook_${user.user_id}/${cleanName}`;
+            userid.innerHTML = `@cook_${user.random_code}`;
+            profilelink.innerHTML = `www.cookhub.com/cook_${user.random_code}/${cleanName}`;
         }
     } catch (error) {
         recipesContainer.innerHTML = "<p>Lỗi tải dữ liệu!</p>";
