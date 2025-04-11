@@ -170,15 +170,19 @@ nav ul a {
 .create-post-button {
     width: 100px;
     height: 44px;
-    background: #FFEFD2;
-    border: #FF7D00 solid 3px;
+    background: #FF7D00;
+    color: #fff;
     border-radius: 10px;
     cursor: pointer;
-    line-height: 38px;
+}
+
+.create-post-button:hover {
+    opacity: 0.7;
 }
 
 .create-post-button p {
     margin: 0;
+    padding: 6px 10px;
 }
 
 .user-logo a {
