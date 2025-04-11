@@ -1,0 +1,134 @@
+/* PC */
+@media screen and (max-width: 1245px) {
+    .container {
+        gap: 0px
+    }
+
+    nav ul {
+        gap: 0px;
+    }
+}
+
+@media screen and (max-width: 1085px) {
+    header {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    header {
+        font-size: 18px;
+    }
+}
+
+/* Tablet & Mobile */
+@media screen and (max-width: 1023px) {
+    /* Header */
+    header { 
+        position: fixed;
+    }
+        
+    .container {
+        gap: 10px;
+        overflow: visible;
+    }
+    
+    .menu-bar-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 67px;
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    nav ul {
+        display: block;
+    }
+
+    nav ul li {
+        display: block;
+        background-color: #fff;
+    }
+
+    nav ul li:hover {
+        background-color: #FF7D00;
+    }
+
+    nav ul li a:hover {
+        color: #fff;
+    }
+
+    /* Footer */
+    footer {
+        padding: 20px;
+    }
+
+    .footer-links {
+        padding: 20px 0;
+    }
+
+    .footer-links a {
+        font-size: 20px;
+    }
+
+    .footer-social-icons a {
+        font-size: 30px;
+    }
+}
+
+/* Tablet */
+@media screen and (max-width: 1023px) and (min-width: 601px) {    
+    /* Header */
+    .menu-bar-icon {
+        font-size: 22px;
+    }
+
+    .nav .create-post-button {
+        display: none;
+    }
+
+    .create-post-button {
+        display: block;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    /* Header */
+    header { 
+        font-size: 18px;
+    }
+        
+    .menu-bar-icon {
+        font-size: 22px;
+    }
+
+    nav .create-post-button {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #FFEFD2;
+        border: none;
+        border-radius: 0;
+        line-height: auto;
+        color: #2f2f2f;
+    }
+
+    nav .create-post-button:hover {
+        background-color: #FF7D00;
+        color: #fff;
+    }
+
+    nav .create-post-button p {
+        padding: 10px;
+    }
+    
+    .create-post-button {
+        display: none;
+    }
+}
