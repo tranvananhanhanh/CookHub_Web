@@ -7,6 +7,10 @@
     nav ul {
         gap: 0px;
     }
+
+    .nav-btn {
+        gap: 10px;
+    }
 }
 
 @media screen and (max-width: 1085px) {
@@ -16,8 +20,8 @@
 }
 
 @media screen and (max-width: 1050px) {
-    header {
-        font-size: 18px;
+    .nav-btn {
+        gap: 3px;
     }
 }
 
@@ -35,6 +39,7 @@
     
     .menu-bar-icon {
         display: block;
+        font-size: 32px;
     }
 
     nav {
@@ -63,6 +68,10 @@
         color: #fff;
     }
 
+    .nav-btn {
+        gap: 20px;
+    }
+
     /* Footer */
     footer {
         padding: 20px;
@@ -84,10 +93,6 @@
 /* Tablet */
 @media screen and (max-width: 1023px) and (min-width: 601px) {    
     /* Header */
-    .menu-bar-icon {
-        font-size: 22px;
-    }
-
     .nav .create-post-button {
         display: none;
     }
@@ -102,10 +107,6 @@
     /* Header */
     header { 
         font-size: 18px;
-    }
-        
-    .menu-bar-icon {
-        font-size: 22px;
     }
 
     nav .create-post-button {

@@ -102,6 +102,13 @@ header a:hover {
     overflow: hidden;
 }
 
+.menu-bar-logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
 .menu-bar-icon {
     display: none;
     cursor: pointer;
@@ -141,6 +148,12 @@ nav ul a {
     padding: 15px;
 }
 
+.nav-btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
 .search-icon {
     width: 40px;
     height: 40px;
@@ -155,7 +168,7 @@ nav ul a {
 }
 
 .create-post-button {
-    width: 130px;
+    width: 100px;
     height: 44px;
     background: #FFEFD2;
     border: #FF7D00 solid 3px;
@@ -585,14 +598,6 @@ nav ul a {
     padding: 12px 16px;
     margin-bottom: 10px;
     border-radius: 8px;
-}
-
-#new-pass {
-    display: none;
-}
-
-#confirm-new-pass {
-    display: none;
 }
 
 .error-msg {

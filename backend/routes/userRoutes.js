@@ -3,7 +3,6 @@ const router = express.Router();
 const UserModel = require("../models/userModel");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
 const db = require("../config/db");
 
 // Lấy thông tin user (trả về JSON)
@@ -65,5 +64,26 @@ router.post('/update', upload.fields([
     }
   }
 );
+
+router.post('/update-password', async (req, res) => { 
+  try {
+      const { user_id, new_password } = req.body;
+      console.log("🔒 Update Password Request:", req.body);
+
+      if (!user_id || !new_password) {
+          return res.status(400).json({ error: 'Missing user ID or password' });
+      }
+
+      await db.query(
+          `UPDATE users SET password_hash = $1 WHERE user_id = $2`,
+          [new_password, user_id]
+      );
+
+      res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+      console.error('❌ Error updating password:', err);
+      res.status(500).json({ error: 'Server error', details: err.message });
+  }
+});
 
 module.exports = router;

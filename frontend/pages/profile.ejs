@@ -154,24 +154,24 @@
     
     <!-- Begin: Edit Password Form -->
     <div class="modal modal-edit-pass">
-        <form class="edit-pass-form">
+        <form class="edit-pass-form" id="edit-pass-form">
             <button type="button" class="close-btn js-modal-close">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="heading">Change password</div>
             <div class="change-pass-row">
                 <label for="current-pass">Current password</label>
-                <input type="password" id="current-pass" placeholder="Enter current password">
+                <input type="password" id="current-pass" placeholder="Enter current password" required>
                 <div id="current-pass-error" class="error-msg"></div>
             </div>
-            <div id="new-pass" class="change-pass-row">
+            <div class="change-pass-row">
                 <label for="new-pass">New password</label>
-                <input type="password" id="new-pass" placeholder="Enter new password">
+                <input type="password" id="new-pass" placeholder="Enter new password" required>
                 <div id="new-pass-error" class="error-msg"></div>
             </div>
-            <div id="confirm-new-pass" class="change-pass-row">
+            <div class="change-pass-row">
                 <label for="confirm-new-pass">Confirm new password</label>
-                <input type="password" id="confirm-new-pass" placeholder="Confirm new password">
+                <input type="password" id="confirm-new-pass" placeholder="Confirm new password" required>
                 <div id="confirm-pass-error" class="error-msg"></div>
             </div>
     
