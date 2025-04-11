@@ -440,6 +440,12 @@ nav ul a {
     display: inline-block;
 }
 
+.label-edit .edit {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
 .edit-avatar img {
     display: block;
     height: 200px;
@@ -572,13 +578,27 @@ nav ul a {
 }
 
 .change-pass-row input {
-    color: #B3B3B3;
+    color: #2C2C2C;
     font-size: 20px;
     display: block;
     width: 100%;
     padding: 12px 16px;
     margin-bottom: 10px;
     border-radius: 8px;
+}
+
+#new-pass {
+    display: none;
+}
+
+#confirm-new-pass {
+    display: none;
+}
+
+.error-msg {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
 }
 
 /* Footer */

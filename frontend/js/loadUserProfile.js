@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Gọi API lấy user info
-        const response = await fetch("http://localhost:4000/api/userinfo");
+        const response = await fetch("http://localhost:4000/api/users");
         const userinfo = await response.json();
         
         if (userinfo.length > 0) {

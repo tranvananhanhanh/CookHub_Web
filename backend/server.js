@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use("/api/recipes/", recipeRoutes); 
-app.use("/api/userinfo/", userRoutes);
+app.use("/api/users/", userRoutes);
 
 // Route trang chủ
 app.get("/", (req, res) => {
