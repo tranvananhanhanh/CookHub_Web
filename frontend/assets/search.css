@@ -1,5 +1,12 @@
 /* frontend/css/search.css */
 
+.plus-jakarta-sans {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
 body {
     background-color: #f8f9fa; /* Light background for the whole page */
 }
@@ -118,6 +125,10 @@ h1 {
     font-size: 0.85rem; /* Slightly smaller tag text */
     color: #495057;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+#servings-tags .filter-tag {
+    padding: 5px 10px;
 }
 
 .filter-tag .fa-star {
@@ -292,6 +303,7 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    margin: 0 5px;
 }
 
 .recipe-card a.view-detail-btn {
@@ -308,8 +320,8 @@ h1 {
     transition: background-color 0.2s, color 0.2s;
 }
 .recipe-card a.view-detail-btn:hover {
-    background-color: #e9ecef;
-    color: #343a40;
+    background-color: #ff9900;
+    color: #fff;
 }
 
 /* Remove hr if not needed visually */
