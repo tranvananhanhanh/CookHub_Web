@@ -117,6 +117,9 @@ router.get("/search", async (req, res) => {
             whereClauses.push(`rc.category_id = ANY($${paramIndex + 1}::int[])`);
             queryParams.push(selectedCategoryIds);
             paramIndex++;
+            groupByClause = ` GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
+            havingClause = ` HAVING COUNT(DISTINCT rc.category_id) = ${numberOfSelectedCategories} `;
+
         }
 
         // // GROUP BY và HAVING nếu lọc theo categories (để khớp TẤT CẢ)
