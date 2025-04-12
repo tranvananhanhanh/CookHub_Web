@@ -8,15 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeFiltersDisplay = document.getElementById('active-filters-display');
     const clearFiltersBtn = document.getElementById('clear-filters-btn');
 
+
     // === State Management ===
     let activeFilters = {
-        search: '',
-        // Sử dụng Set để lưu trữ category_id cho mỗi loại
-        general: new Set(), 
-        cuisine: new Set(),
-        dietary: new Set(),
-        time: new Set() // Lưu giá trị time (15, 30, 60)
-        // Thêm các loại khác nếu có
+            search: '',
+            maindish: new Set(),
+            appetizer: new Set(),
+            dessert: new Set(),
+            snack: new Set(),
+            vegetarian: new Set(),
+            breakfast: new Set(),
+            beverage: new Set(),
+            ingredients: new Set(), // Reset new filters
+            servings: new Set(),    // Reset new filters
+            time: new Set(),
+            rating: new Set()
     };
 
     // === Function: Load Filter Options from API ===
@@ -39,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
             options.forEach(option => {
                 const button = document.createElement('button');
                 button.classList.add('filter-tag');
-                button.dataset.filterType = type; // e.g., 'cuisine', 'dietary'
+                button.dataset.filterType = type; // e.g., 'appetizer', 'dietary'
                 button.dataset.value = option.id;  // Store category_id
                 button.textContent = option.name; // Display category_name
                 container.appendChild(button);
@@ -55,21 +61,39 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFiltersDisplay.innerHTML = ''; // Clear previous display
         let hasActiveFilters = false;
 
-        for (const type in activeFilters) {
-            if (type !== 'search' && activeFilters[type].size > 0) {
+        const displayOrder = ['maindish', 'appetizer', 'dessert', 'snack', 'vegetarian',
+            'breakfast', 'beverage',  'ingredients', 'servings', 'time', 'rating'];
+
+        displayOrder.forEach(type => {
+            if (activeFilters[type] && activeFilters[type].size > 0)  {
                 hasActiveFilters = true;
                 activeFilters[type].forEach(value => {
                     const filterItem = document.createElement('span');
                     filterItem.classList.add('active-filter-item');
                     // Find the button text (or use the value itself if button not found)
+                    const btnSelector = `.filter-tag[data-filter-type='${type}'][data-value='${value}']`;
                     const btn = document.querySelector(`.filter-tag[data-filter-type='${type}'][data-value='${value}']`);
-                    const btnText = btn ? btn.textContent : value;
+                    let btnText = value;
+                    if (btn) {
+                        // For rating, maybe just show the stars/number
+                        if (type === 'rating') {
+                            btnText = `${value} <i class="fas fa-star"></i>+`;
+                        } else if (type === 'servings') {
+                             btnText = btn.textContent; // Use the button text like "4+ người"
+                        }
+                        else {
+                            btnText = btn.textContent;
+                        }
+                    } else if (type === 'time') {
+                        btnText = `Dưới ${value} phút`;
+                   }
                     filterItem.innerHTML = `${btnText} <button data-remove-type="${type}" data-remove-value="${value}" title="Remove filter">×</button>`;
                     activeFiltersDisplay.appendChild(filterItem);
                 });
             }
-        }
+        })
          activeFiltersDisplay.style.display = hasActiveFilters ? 'flex' : 'none'; // Show/hide container
+         clearFiltersBtn.style.display = hasActiveFilters || activeFilters.search ? 'block' : 'none';
     };
 
     // === Function: Fetch Recipes and Render Results ===
@@ -87,7 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Collect all active category IDs
         let allActiveCategoryIds = [];
-        ['general', 'cuisine', 'dietary'].forEach(type => { // Add other category types if needed
+        ['maindish', 'appetizer', 'dessert', 'snack', 'vegetarian',
+            'breakfast', 'beverage'].forEach(type => { // Add other category types if needed
             if (activeFilters[type]) {
                  allActiveCategoryIds.push(...Array.from(activeFilters[type]));
             }
@@ -98,11 +123,25 @@ document.addEventListener("DOMContentLoaded", () => {
             queryParams.append('categories', [...new Set(allActiveCategoryIds)].join(',')); 
         }
 
+        if (activeFilters.ingredients.size > 0) {
+            queryParams.append('ingredients', Array.from(activeFilters.ingredients).join(','));
+       }
+
         // Add time filter (assuming only one time filter can be active)
         if (activeFilters.time.size > 0) {
             queryParams.append('maxTime', Array.from(activeFilters.time)[0]);
         }
         
+        // 5. Add servings filter (single value) <<< NEW
+        if (activeFilters.servings.size > 0) {
+            queryParams.append('servings', Array.from(activeFilters.servings)[0]);
+       }
+
+       // 6. Add rating filter (single value) <<< NEW
+       if (activeFilters.rating.size > 0) {
+        queryParams.append('minRating', Array.from(activeFilters.rating)[0]);
+        }
+
         // Add other filters like level if implemented
 
         try {
@@ -121,13 +160,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     // --- Create Recipe Card HTML (reuse logic from main.js or previous examples) ---
                     const recipeCard = document.createElement("div");
                     recipeCard.classList.add("recipe-card"); 
+                    // Calculate average rating display (handle null/0)
+                    let ratingStars = '';
+                    const avgRating = recipe.avg_rating ? parseFloat(recipe.avg_rating).toFixed(1) : null;
+                    if (avgRating && avgRating > 0) {
+                        ratingStars = `<span title="Đánh giá trung bình: ${avgRating}"><i class="fas fa-star"></i> ${avgRating}</span>`;
+                    }
+
+                    // Format cooking time
+                    const timeText = recipe.cooking_time ? `<span><i class="far fa-clock"></i> ${recipe.cooking_time} phút</span>` : '';
+
+                    // Format servings
+                    const servingsText = recipe.servings ? `<span><i class="fas fa-user-friends"></i> ${recipe.servings} người</span>` : '';
                     recipeCard.innerHTML = `
-                        <img src="${recipe.thumbnail || 'placeholder.jpg'}" alt="${recipe.title}" class="recipe-thumbnail"> 
-                        <h2>${recipe.title}</h2>
-                        <!-- <p><strong>Category:</strong> ${recipe.category_names || 'N/A'}</p> --> <!-- Need backend to return this if needed -->
-                        <p><strong>Time:</strong> ${recipe.cooking_time ? recipe.cooking_time + ' min' : 'N/A'}</p>
-                        <a href="/recipe-detail/${recipe.recipe_id}" class="view-detail-btn">View Details</a> 
-                    `;
+                    <img src="${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" class="recipe-thumbnail">
+                     <div class="recipe-card-content">
+                          <h2>${recipe.title}</h2>
+                          <div class="recipe-card-meta">
+                               ${timeText}
+                               ${servingsText} 
+                               ${ratingStars} 
+                          </div>
+                          <a href="/recipe-detail/${recipe.recipe_id}" class="view-detail-btn">See Details</a>
+                     </div>
+                `;
                     resultsContainer.appendChild(recipeCard);
                     // --- End Recipe Card HTML ---
                 });
@@ -150,22 +206,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (!activeFilters[filterType]) return; // Safety check
 
+                // Types that allow only ONE selection (time, servings, rating)
+                const singleSelectionTypes = ['time', 'servings', 'rating'];
+
                 // Special handling for 'time' (allow only one selection)
-                if (filterType === 'time') {
+                if (singleSelectionTypes.includes(filterType) ) {
                      if (button.classList.contains('active')) { // Clicked an active time tag -> deactivate it
                           button.classList.remove('active');
-                          activeFilters.time.delete(filterValue);
+                          activeFilters[filterType].delete(filterValue);
                      } else { // Clicked an inactive time tag -> activate it, deactivate others
                           // Deactivate other time tags in the same container
-                          container.querySelectorAll('.filter-tag.active').forEach(activeTag => {
+                          container.querySelectorAll(`.filter-tag[data-filter-type='${filterType}'].active`).forEach(activeTag => {
                                activeTag.classList.remove('active');
-                               activeFilters.time.delete(activeTag.dataset.value);
+                               activeFilters[filterType].delete(activeTag.dataset.value);
                           });
                           // Activate the clicked one
                           button.classList.add('active');
-                          activeFilters.time.add(filterValue);
+                          activeFilters[filterType].add(filterValue);
                      }
-                } else { // Handling for category types (general, cuisine, dietary) - allow multiple
+                } else { // Handling for category types (maindish, appetizer, dietary) - allow multiple
                     button.classList.toggle('active');
                     if (button.classList.contains('active')) {
                         activeFilters[filterType].add(filterValue); // Add category_id
@@ -216,10 +275,17 @@ document.addEventListener("DOMContentLoaded", () => {
         // Reset state
         activeFilters = {
             search: '',
-            general: new Set(), 
-            cuisine: new Set(),
-            dietary: new Set(),
-            time: new Set()
+            maindish: new Set(),
+            appetizer: new Set(),
+            dessert: new Set(),
+            snack: new Set(),
+            vegetarian: new Set(),
+            breakfast: new Set(),
+            beverage: new Set(),
+            ingredients: new Set(), // Reset new filters
+            servings: new Set(),    // Reset new filters
+            time: new Set(),
+            rating: new Set()
         };
         // Clear search input
         searchInput.value = '';
@@ -231,11 +297,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // === Initial Load ===
     const initializePage = async () => {
-        await loadFilterOptions('cuisine', 'cuisine-tags', 'http://localhost:4000/api/recipes/categories?type=cuisine'); 
-        await loadFilterOptions('dietary', 'dietary-tags', 'http://localhost:4000/api/recipes/categories?type=dietary');
-        await loadFilterOptions('general', 'general-tags', 'http://localhost:4000/api/recipes/categories?type=general');
+        await loadFilterOptions('maindish', 'main-dish-tags', 'http://localhost:4000/api/recipes/categories?type=Main Dish'); 
+        await loadFilterOptions('appetizer', 'appetizer-tags', 'http://localhost:4000/api/recipes/categories?type=Appetizer');
+        await loadFilterOptions('dessert', 'dessert-tags', 'http://localhost:4000/api/recipes/categories?type=Dessert');
+        await loadFilterOptions('snack', 'snack-tags', 'http://localhost:4000/api/recipes/categories?type=Snack');
+        await loadFilterOptions('vegetarian', 'vegetarian-tags', 'http://localhost:4000/api/recipes/categories?type=Vegetarian');
+        await loadFilterOptions('breakfast', 'breakfast-tags', 'http://localhost:4000/api/recipes/categories?type=Breakfast');
+        await loadFilterOptions('beverage', 'beverage-tags', 'http://localhost:4000/api/recipes/categories?type=Beverage');
+        await loadFilterOptions('ingredients', 'ingredient-tags', 'http://localhost:4000/api/recipes//ingredients/common');
         // Call fetchAndRenderResults() here if you want results to load initially without filters
         fetchAndRenderResults(); 
+        renderActiveFilters();
     };
 
     initializePage(); 

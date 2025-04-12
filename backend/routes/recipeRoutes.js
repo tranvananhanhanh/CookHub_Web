@@ -130,5 +130,34 @@ router.get("/search", async (req, res) => {
     }
 });
 
+router.get('/ingredients/common', async (req, res) => {
+  console.log("API: GET /ingredients/common (Get Common Ingredients for Filter)");
+  try {
+       // Lấy top N ingredients được dùng nhiều nhất
+       // Hoặc có thể bạn có một bảng/cột đánh dấu ingredient nào dùng cho filter
+       // Ví dụ đơn giản: Lấy 20 ingredients đầu tiên theo alphabet
+       // Ví dụ tốt hơn: Đếm số lần xuất hiện trong recipe_ingredients
+       const query = `
+          SELECT
+              i.ingredient_id AS id,
+              i.name AS name
+              -- ,COUNT(ri.recipe_id) as usage_count -- Uncomment để debug
+          FROM ingredients i
+          JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id
+          GROUP BY i.ingredient_id, i.name
+          ORDER BY COUNT(ri.recipe_id) DESC -- Sắp xếp theo tần suất sử dụng
+          LIMIT 5; -- Giới hạn số lượng trả về
+       `;
+       // Hoặc đơn giản hơn nếu không cần đếm:
+       // const query = `SELECT ingredient_id AS id, name FROM ingredients ORDER BY name LIMIT 20;`;
+
+       const result = await client.query(query);
+       res.json(result.rows);
+  } catch (err) {
+       console.error('Error fetching common ingredients:', err.stack);
+       res.status(500).json({ message: 'Lỗi lấy danh sách nguyên liệu' });
+  }
+});
+
 
 module.exports = router;

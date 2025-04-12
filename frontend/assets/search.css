@@ -63,13 +63,17 @@ h1 {
 
 /* Filters Column (Left) */
 .filters-column {
-    width: 280px; /* Fixed width for filters */
-    flex-shrink: 0; /* Prevent shrinking */
+    width: 280px;
+    flex-shrink: 0;
     background-color: #fff;
-    border-radius: 12px; /* Rounded corners for the filter box */
+    border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Subtle shadow */
-    height: fit-content; /* Adjust height based on content */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    /* === SCROLLING ADDED === */
+    max-height: calc(100vh - 120px); /* Adjust max-height as needed (viewport height minus header/margins) */
+    overflow-y: auto; /* Enable vertical scrollbar when content exceeds max-height */
+    position: sticky; /* Make filters sticky */
+    top: 100px; /* Adjust based on header height + desired gap */
 }
 
 /* Remove background/shadow from the inner section if applied to the column */
@@ -83,6 +87,8 @@ h1 {
 
 .filter-group {
     margin-bottom: 25px;
+    padding-bottom: 15px; /* Add some space below each group */
+    border-bottom: 1px solid #eee; /* Separator line between groups */
 }
 
 .filter-group:last-of-type {
@@ -114,6 +120,12 @@ h1 {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
+.filter-tag .fa-star {
+    color: #fadb14; /* Yellow star color */
+    font-size: 0.9em;
+}
+
+
 .filter-tag:hover {
     background-color: #e9ecef; /* Slightly darker grey on hover */
 }
@@ -124,6 +136,10 @@ h1 {
     color: white;
     border-color: #ff9900;
     font-weight: 500;
+}
+
+.filter-tag.active .fa-star {
+    color: #fadb14; /* Or keep yellow: #fadb14; */
 }
 
 #clear-filters-btn {
@@ -191,7 +207,14 @@ h1 {
     margin-bottom: 20px;
     color: #333;
 }
+
 #search-term-display {
+    font-weight: bold; /* Make the term bold */
+    color: #333;
+}
+
+#search-term-display-wrapper {
+    display: none;
     font-weight: normal;
     color: #555;
 }
@@ -231,6 +254,13 @@ h1 {
     display: block; /* Remove potential bottom space */
 }
 
+.recipe-card-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .recipe-card .recipe-info { /* Container for text content */
     padding: 15px;
     flex-grow: 1; /* Allow text area to grow */
@@ -249,14 +279,24 @@ h1 {
 /* Style for the meta info (ingredients/time) */
 .recipe-card .recipe-meta {
     font-size: 0.85rem;
-    color: #868e96; /* Lighter grey for meta text */
-    margin-bottom: 15px; /* Space before button */
+    color: #868e96;
+    margin-bottom: 15px;
     line-height: 1.4;
+    display: flex; /* Use flex for horizontal alignment */
+    justify-content: space-between; /* Space out time and potential rating */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 10px;
+}
+
+.recipe-card-meta span { /* Individual meta items */
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .recipe-card a.view-detail-btn {
     display: inline-block;
-    margin-top: auto; /* Push button to bottom */
+    margin-top: 10px; /* Push button to bottom */
     padding: 8px 12px;
     background-color: #f1f3f5; /* Match inactive tag bg */
     color: #495057; /* Match inactive tag text */
@@ -279,6 +319,19 @@ hr {
 
 
 /* Responsive Adjustments (Example) */
+@media (max-width: 992px) { /* Adjust breakpoint if needed */
+    .filters-column {
+        position: static; /* Remove sticky positioning */
+        max-height: none; /* Remove max-height */
+        overflow-y: visible; /* Disable scrolling */
+        width: 100%; /* Full width */
+        margin-bottom: 30px;
+    }
+    .search-content-area {
+        flex-direction: column;
+    }
+}
+
 @media (max-width: 768px) {
     .search-content-area {
         flex-direction: column; /* Stack columns */
