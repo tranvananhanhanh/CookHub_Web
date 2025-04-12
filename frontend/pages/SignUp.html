@@ -1,62 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CookHub Sign-Up</title>
-  <link rel="stylesheet" href="../assets/SignUpVars.css">
-  <link rel="stylesheet" href="../assets/SignUp.css">
-</head>
-<body>
-  <div class="sign-up">
-      <img
-        class="Sign-Up background"
-        src="../assets/image/SignUp.jpg"
-        alt="Background"
-      />
-      <div class="depth-4-frame-1">
-        <div class="welcome-to-cook-hub">Welcome to CookHub</div>
-      </div>
-      <img class="logo" src="../assets/image/logo_image.png" alt="Logo" />
-      <div class="depth-5-frame-2">
-        <div class="depth-6-frame-0">
-          <div class="email">Email</div>
-        </div>
-        <div class="depth-6-frame-1">
-          <input type="email" placeholder="youremail@example.com"/>
-        </div>
-      </div>
-      <div class="depth-5-frame-22">
-        <div class="depth-6-frame-0">
-          <div class="username">Username</div>
-        </div>
-        <div class="depth-6-frame-1">
-          <input type="text" placeholder="Your username"/>
-        </div>
-      </div>
-      <div class="depth-5-frame-3">
-        <div class="depth-6-frame-0">
-          <div class="password">Password</div>
-        </div>
-        <div class="depth-6-frame-1">
-          <input type="password" placeholder="Enter your password"/>
-        </div>
-      </div>
-      <div class="depth-5-frame-23">
-        <div class="depth-6-frame-0">
-          <div class="re-enter-password">Re-enter password</div>
-        </div>
-        <div class="depth-6-frame-1">
-          <input type="password" placeholder="Re-enter your password"/>
-        </div>
-      </div>
-      <div class="depth-6-frame-7">
-        <img class="google-symbol-1" src="../assets/image/Google-Symbol.png" alt="Google Symbol"/>
-        <div class="sign-in">Continue with Google</div>
-      </div>
-      <div class="depth-6-frame-72">
-        <button class="sign-in2">Sign up</button>
-      </div>
-  </div>
-</body>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="/frontend/fonts/material-font/css/material-design-iconic-font.min.css">
+
+		<!-- STYLE CSS -->
+    <link rel="stylesheet" href="/frontend/styles/SignUp.css">
+	</head>
+
+	<body>
+    <div class="wrapper" style="background-image: url('/frontend/assets/image/authiencation/signup-bg.avif');">
+			<div class="inner">
+				<div class="image-holder">
+				<!--	<img src="images/registration-form-1.jpg" alt=""> -->
+              <video autoplay loop muted playsinline width="450" height="530">
+                    <source src="/frontend/assets/video/signup-video.mp4" type="video/mp4">
+                </video> 
+                </div> 
+				<form action="">
+					<h3>logo here </h3>
+
+                  <!-- FORM START  --> 
+                   <!--
+					<div class="form-wrapper">
+						<input type="text" placeholder="Username" class="form-control">
+						<i class="zmdi zmdi-account"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" placeholder="Email Address" class="form-control">
+						<i class="zmdi zmdi-email"></i>
+					</div>
+					<div class="form-wrapper">
+						<select name="" id="" class="form-control">
+							<option value="" disabled selected>Gender</option>
+							<option value="male">Male</option>
+							<option value="femal">Female</option>
+							<option value="other">Other</option>
+						</select>
+						<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+					</div>
+                    <div class="form-wrapper">
+						<input type="number" placeholder="Age" class="form-control">
+						
+					<div class="form-wrapper">
+						<input type="password" placeholder="Password" class="form-control">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="password" placeholder="Confirm Password" class="form-control">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+
+                             --> 
+                             <div class="form-wrapper">
+                                <input type="text" placeholder="Username" class="form-control">
+                                <i class="zmdi zmdi-account"></i>
+                            </div>
+                            <div class="form-wrapper">
+                                <input type="text" placeholder="Email Address" class="form-control">
+                                <i class="zmdi zmdi-email"></i>
+                            </div>
+                            <div class="form-wrapper">
+                                <select name="" id="" class="form-control">
+                                    <option value="" disabled selected>Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="femal">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+                            </div>
+                            <div class="form-wrapper">
+                                <input type="number" placeholder="Age" class="form-control">
+                              
+                            </div>
+                            <div class="form-wrapper">
+                                <input type="password" placeholder="Password" class="form-control">
+                                <i class="zmdi zmdi-lock"></i>
+                            </div>
+                            <div class="form-wrapper">
+                                <input type="password" placeholder="Confirm Password" class="form-control">
+                                <i class="zmdi zmdi-lock"></i>
+                            </div>
+                            
+
+					<button>Register
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		
+	</body>
 </html>
