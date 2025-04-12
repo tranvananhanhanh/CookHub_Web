@@ -39,151 +39,44 @@ router.get('/categories', async (req, res) => {
     }
 });
 
-
-// --- API TÌM KIẾM/LỌC CÔNG THỨC ---
-// GET /search (VD: Sẽ thành /api/recipes/search nếu mount với prefix /api/recipes)
 router.get("/search", async (req, res) => {
-    console.log("API: GET /search (Search/Filter Recipes)"); // Log để biết route được gọi
+    console.log("API: GET /search (Search/Filter Recipes using Model)");
     try {
-        // 1. Lấy các query parameters
-        const { 
-            search, 
+        // 1. Lấy query parameters
+        const {
+            search,
             categories: categoriesParam,
-            ingredients: ingredientParam,
+            ingredients: ingredientsParam,
             maxTime,
             servings: servingsParam,
             minRating: minRatingParam
         } = req.query;
 
-        // 2. Chuẩn bị truy vấn động
-        let queryParams = [];
-        let paramIndex = 1;
-        let baseSelect = `
-            SELECT DISTINCT -- <<< THAY ĐỔI: Sử dụng DISTINCT ở đây để tránh trùng lặp do JOIN nhiều bảng
-                r.recipe_id, r.title, r.thumbnail, r.description,
-                r.cooking_time, r.servings, -- <<< THAY ĐỔI: Chọn servings để hiển thị
-                r.date_created
-        `;
-        let fromClause = `FROM recipes r`;
-        let joinClauses = '';
-        // Luôn lọc theo status = 'approved'
-        let whereClauses = ['r.status = $1'];
-        queryParams.push('approved');
-        let groupByClause = '';
-        let havingClause = '';
-
-        // --- Helper Function để parse ID từ string (tránh lỗi) ---
+        // --- Helper Function để parse ID ---
         const parseIds = (param) => param
             ? param.split(',').map(id => parseInt(id.trim())).filter(Number.isInteger)
             : [];
 
+        // 2. Chuẩn bị đối tượng filters cho Model
+        const filters = {
+            search: search || null, // Truyền null nếu không có
+            categoryIds: parseIds(categoriesParam),
+            ingredientIds: parseIds(ingredientsParam),
+            maxTime: maxTime ? parseInt(maxTime) : null,
+            minServings: servingsParam ? parseInt(servingsParam) : null,
+            minRating: minRatingParam ? parseInt(minRatingParam) : null,
+            // status: 'approved' // Model đã xử lý mặc định
+        };
 
-        // 3. Xử lý các filter cơ bản (Search, Time)
-        if (search) {
-            whereClauses.push(`(LOWER(r.title) LIKE $${paramIndex + 1})`);
-            queryParams.push(`%${search.toLowerCase()}%`);
-            paramIndex++;
-        }
-        // ----- SỬA LOGIC maxTime -----
-        if (maxTime) {
-            const timeValue = parseInt(maxTime);
-            // Kiểm tra giá trị hợp lệ (20, 30, 40, 60) mà frontend gửi
-            if (!isNaN(timeValue) && timeValue > 0) {
-                 // "Under X minutes" -> cooking_time < X
-                 whereClauses.push(`r.cooking_time < $${paramIndex + 1}`);
-                 queryParams.push(timeValue);
-                 paramIndex++;
-            }
-            // Thêm else if cho các khoảng khác nếu cần
-        }
+        // 3. Gọi phương thức Model
+        const recipes = await RecipeModel.searchRecipes(filters);
 
-        if (servingsParam) {
-            const servingsValue = parseInt(servingsParam);
-            if (!isNaN(servingsValue) && servingsValue > 0){
-                whereClauses.push(`r.servings >= $${paramIndex + 1}`); // Dung khau phan an
-                queryParams.push(servingsValue);
-                paramIndex++;
-            }
-
-        }
-
-        // 4. Xử lý filter categories
-        const selectedCategoryIds = parseIds(categoriesParam);
-        const numberOfSelectedCategories = selectedCategoryIds.length;
-
-        // JOIN và thêm điều kiện WHERE cho categories nếu có
-        if (numberOfSelectedCategories > 0) {
-            joinClauses += ` JOIN recipe_categories rc ON r.recipe_id = rc.recipe_id `;
-            whereClauses.push(`rc.category_id = ANY($${paramIndex + 1}::int[])`);
-            queryParams.push(selectedCategoryIds);
-            paramIndex++;
-            groupByClause = ` GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
-            havingClause = ` HAVING COUNT(DISTINCT rc.category_id) = ${numberOfSelectedCategories} `;
-
-        }
-
-        // // GROUP BY và HAVING nếu lọc theo categories (để khớp TẤT CẢ)
-        // if (numberOfSelectedCategories > 0) {
-        //      // Phải liệt kê TẤT CẢ các cột đã SELECT từ bảng `r`
-        //      finalQuery += `
-        //          GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.date_created 
-        //          HAVING COUNT(DISTINCT rc.category_id) = ${numberOfSelectedCategories} 
-        //      `;
-        // }
-
-        const selectedIngredientIds = parseIds(ingredientParam);
-        const numberOfSelectedIngredients = selectedIngredientIds.length;
-
-        if (numberOfSelectedIngredients > 0){
-            joinClauses += ` JOIN recipe_ingredients ri ON r.recipe_id = ri.recipe_id `;
-            whereClauses.push(`ri.ingredient_id = ANY($${paramIndex + 1}::int[])`);
-            queryParams.push(selectedIngredientIds);
-            paramIndex++;
-            groupByClause = ` GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
-            havingClause = ` HAVING COUNT(DISTINCT ri.ingredient_id) = ${numberOfSelectedIngredients} `;
-        }
-
-        if (minRatingParam){
-            const minRatingValue = parseInt(minRatingParam);
-            if (!isNaN(minRatingValue) && minRatingValue >= 1 && minRatingValue <= 5){
-                whereClauses.push(`EXISTS (
-                    SELECT 1
-                    FROM ratings rt
-                    WHERE rt.recipe_id = r.recipe_id AND rt.rate >= $${paramIndex + 1}
-                )`);
-                queryParams.push(minRatingValue);
-                paramIndex++;
-            }
-        }
-
-        let finalQuery = baseSelect + fromClause + joinClauses;
-        if (whereClauses.length > 0){
-            finalQuery += ` WHERE ${whereClauses.join(' AND ')}`;
-        }
-        finalQuery += groupByClause;
-        finalQuery += havingClause;
-        
-        //Order by
-        if (groupByClause) {
-            finalQuery += ` ORDER BY r.date_created DESC`; // Order trong group
-        } else {
-             finalQuery += ` ORDER BY r.date_created DESC`; // Order bình thường
-        }
-
-
-        // --- Debug Log ---
-        console.log("Executing Search Query:", finalQuery);
-        console.log("Search Parameters:", queryParams);
-        // -----------------
-
-        // 6. Thực thi truy vấn
-        const result = await client.query(finalQuery, queryParams);
-
-        // 7. Trả về kết quả
-        res.json(result.rows);
+        // 4. Trả về kết quả
+        res.json(recipes);
 
     } catch (err) {
-        console.error('Error executing recipe search query:', err.stack);
+        // Lỗi đã được log trong Model, chỉ cần trả về lỗi 500
+        console.error('Error in /search route:', err.message); // Log lỗi ở route nữa cho rõ
         res.status(500).json({ error: "Lỗi máy chủ khi tìm kiếm công thức." });
     }
 });
