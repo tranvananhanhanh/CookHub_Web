@@ -46,18 +46,41 @@ router.get("/search", async (req, res) => {
     console.log("API: GET /search (Search/Filter Recipes)"); // Log để biết route được gọi
     try {
         // 1. Lấy các query parameters
-        const { search, categories: categoriesParam, maxTime } = req.query;
+        const { 
+            search, 
+            categories: categoriesParam,
+            ingredients: ingredientParam,
+            maxTime,
+            servings: servingsParam,
+            minRating: minRatingParam
+        } = req.query;
 
         // 2. Chuẩn bị truy vấn động
         let queryParams = [];
         let paramIndex = 1;
+        let baseSelect = `
+            SELECT DISTINCT -- <<< THAY ĐỔI: Sử dụng DISTINCT ở đây để tránh trùng lặp do JOIN nhiều bảng
+                r.recipe_id, r.title, r.thumbnail, r.description,
+                r.cooking_time, r.servings, -- <<< THAY ĐỔI: Chọn servings để hiển thị
+                r.date_created
+        `;
+        let fromClause = `FROM recipes r`;
+        let joinClauses = '';
         // Luôn lọc theo status = 'approved'
-        let baseWhereClauses = ['r.status = $1'];
+        let whereClauses = ['r.status = $1'];
         queryParams.push('approved');
+        let groupByClause = '';
+        let havingClause = '';
+
+        // --- Helper Function để parse ID từ string (tránh lỗi) ---
+        const parseIds = (param) => param
+            ? param.split(',').map(id => parseInt(id.trim())).filter(Number.isInteger)
+            : [];
+
 
         // 3. Xử lý các filter cơ bản (Search, Time)
         if (search) {
-            baseWhereClauses.push(`(LOWER(r.title) LIKE $${paramIndex + 1})`);
+            whereClauses.push(`(LOWER(r.title) LIKE $${paramIndex + 1})`);
             queryParams.push(`%${search.toLowerCase()}%`);
             paramIndex++;
         }
@@ -65,53 +88,85 @@ router.get("/search", async (req, res) => {
         if (maxTime) {
             const timeValue = parseInt(maxTime);
             // Kiểm tra giá trị hợp lệ (20, 30, 40, 60) mà frontend gửi
-            if (!isNaN(timeValue) && [20, 30, 40, 60].includes(timeValue)) {
+            if (!isNaN(timeValue) && timeValue > 0) {
                  // "Under X minutes" -> cooking_time < X
-                 baseWhereClauses.push(`r.cooking_time < $${paramIndex + 1}`);
+                 whereClauses.push(`r.cooking_time < $${paramIndex + 1}`);
                  queryParams.push(timeValue);
                  paramIndex++;
             }
             // Thêm else if cho các khoảng khác nếu cần
         }
-        // ----- KẾT THÚC SỬA LOGIC maxTime -----
+
+        if (servingsParam) {
+            const servingsValue = parseInt(servingsParam);
+            if (!isNaN(servingsValue) && servingsValue > 0){
+                whereClauses.push(`r.servings >= $${paramIndex + 1}`); // Dung khau phan an
+                queryParams.push(servingsValue);
+                paramIndex++;
+            }
+
+        }
 
         // 4. Xử lý filter categories
-        const selectedCategoryIds = categoriesParam
-            ? categoriesParam.split(',').map(id => parseInt(id.trim())).filter(Number.isInteger)
-            : [];
+        const selectedCategoryIds = parseIds(categoriesParam);
         const numberOfSelectedCategories = selectedCategoryIds.length;
-
-        // 5. Xây dựng câu truy vấn SQL
-        let finalQuery = `
-            SELECT DISTINCT 
-                r.recipe_id, r.title, r.thumbnail, r.description, 
-                r.cooking_time, 
-                r.date_created 
-            FROM recipes r
-        `;
 
         // JOIN và thêm điều kiện WHERE cho categories nếu có
         if (numberOfSelectedCategories > 0) {
-            finalQuery += ` JOIN recipe_categories rc ON r.recipe_id = rc.recipe_id `;
-            baseWhereClauses.push(`rc.category_id = ANY($${paramIndex + 1}::int[])`);
+            joinClauses += ` JOIN recipe_categories rc ON r.recipe_id = rc.recipe_id `;
+            whereClauses.push(`rc.category_id = ANY($${paramIndex + 1}::int[])`);
             queryParams.push(selectedCategoryIds);
             paramIndex++;
         }
 
-        // Kết hợp WHERE
-        finalQuery += ` WHERE ${baseWhereClauses.join(' AND ')}`;
+        // // GROUP BY và HAVING nếu lọc theo categories (để khớp TẤT CẢ)
+        // if (numberOfSelectedCategories > 0) {
+        //      // Phải liệt kê TẤT CẢ các cột đã SELECT từ bảng `r`
+        //      finalQuery += `
+        //          GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.date_created 
+        //          HAVING COUNT(DISTINCT rc.category_id) = ${numberOfSelectedCategories} 
+        //      `;
+        // }
 
-        // GROUP BY và HAVING nếu lọc theo categories (để khớp TẤT CẢ)
-        if (numberOfSelectedCategories > 0) {
-             // Phải liệt kê TẤT CẢ các cột đã SELECT từ bảng `r`
-             finalQuery += `
-                 GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.date_created 
-                 HAVING COUNT(DISTINCT rc.category_id) = ${numberOfSelectedCategories} 
-             `;
+        const selectedIngredientIds = parseIds(ingredientParam);
+        const numberOfSelectedIngredients = selectedIngredientIds.length;
+
+        if (numberOfSelectedIngredients > 0){
+            joinClauses += ` JOIN recipe_ingredients ri ON r.recipe_id = ri.recipe_id `;
+            whereClauses.push(`ri.ingredient_id = ANY($${paramIndex + 1}::int[])`);
+            queryParams.push(selectedIngredientIds);
+            paramIndex++;
+            groupByClause = ` GROUP BY r.recipe_id, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
+            havingClause = ` HAVING COUNT(DISTINCT ri.ingredient_id) = ${numberOfSelectedIngredients} `;
         }
 
-        // ORDER BY
-        finalQuery += ` ORDER BY r.date_created DESC`;
+        if (minRatingParam){
+            const minRatingValue = parseInt(minRatingParam);
+            if (!isNaN(minRatingValue) && minRatingValue >= 1 && minRatingValue <= 5){
+                whereClauses.push(`EXISTS (
+                    SELECT 1
+                    FROM ratings rt
+                    WHERE rt.recipe_id = r.recipe_id AND rt.rate >= $${paramIndex + 1}
+                )`);
+                queryParams.push(minRatingValue);
+                paramIndex++;
+            }
+        }
+
+        let finalQuery = baseSelect + fromClause + joinClauses;
+        if (whereClauses.length > 0){
+            finalQuery += ` WHERE ${whereClauses.join(' AND ')}`;
+        }
+        finalQuery += groupByClause;
+        finalQuery += havingClause;
+        
+        //Order by
+        if (groupByClause) {
+            finalQuery += ` ORDER BY r.date_created DESC`; // Order trong group
+        } else {
+             finalQuery += ` ORDER BY r.date_created DESC`; // Order bình thường
+        }
+
 
         // --- Debug Log ---
         console.log("Executing Search Query:", finalQuery);
