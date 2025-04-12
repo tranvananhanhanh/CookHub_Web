@@ -63,7 +63,7 @@ router.get("/search", async (req, res) => {
             categoryIds: parseIds(categoriesParam),
             ingredientIds: parseIds(ingredientsParam),
             maxTime: maxTime ? parseInt(maxTime) : null,
-            minServings: servingsParam ? parseInt(servingsParam) : null,
+            servingsFilter: servingsParam ? parseInt(servingsParam) : null,
             minRating: minRatingParam ? parseInt(minRatingParam) : null,
             // status: 'approved' // Model đã xử lý mặc định
         };

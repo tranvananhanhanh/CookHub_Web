@@ -13,7 +13,7 @@ class RecipeModel {
       categoryIds = [],
       ingredientIds = [],
       maxTime = null,
-      minServings = null,
+      servingsFilter = null,
       minRating = null,
       status = 'approved' // Mặc định luôn lọc approved
     } = filters;
@@ -52,11 +52,19 @@ class RecipeModel {
       paramIndex++;
     }
 
-    if (minServings && !isNaN(parseInt(minServings)) && parseInt(minServings) > 0) {
-      whereClauses.push(`r.servings == $${paramIndex}`);
-      queryParams.push(parseInt(minServings));
-      paramIndex++;
+    if (servingsFilter && !isNaN(parseInt(servingsFilter)) && parseInt(servingsFilter) > 0) {
+      const servingsValue = parseInt(servingsFilter);
+      if (servingsValue >= 1 && servingsValue <= 4) {
+          // Lọc chính xác cho 1, 2, 3 người
+          whereClauses.push(`r.servings = $${paramIndex}`);
+          queryParams.push(servingsValue);
+          paramIndex++;
+      } else if (servingsValue === 5) {
+          // Lọc từ 4 người trở lên khi chọn '4+' (giả định giá trị là 5)
+          whereClauses.push(`r.servings >= $${paramIndex}`);
+          queryParams.push(servingsValue); // Vẫn dùng số 5 làm mốc dưới
     }
+  }
 
     if (Array.isArray(categoryIds) && categoryIds.length > 0) {
       joinClauses += ` JOIN recipe_categories rc ON r.recipe_id = rc.recipe_id `;

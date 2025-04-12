@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (recipes.length === 0) {
                 resultsContainer.innerHTML = "<p>No recipes found matching your criteria.</p>";
+                resultsContainer.style.grid = 'none';
             } else {
                 recipes.forEach(recipe => {
                     // --- Create Recipe Card HTML (reuse logic from main.js or previous examples) ---
@@ -162,10 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     recipeCard.classList.add("recipe-card"); 
                     // Calculate average rating display (handle null/0)
                     let ratingStars = '';
-                    const avgRating = recipe.avg_rating ? parseFloat(recipe.avg_rating).toFixed(1) : null;
-                    if (avgRating && avgRating > 0) {
-                        ratingStars = `<span title="Đánh giá trung bình: ${avgRating}"><i class="fas fa-star"></i> ${avgRating}</span>`;
-                    }
+                    const avgRating = recipe.rating ? parseFloat(recipe.rating).toFixed(1) : null;
+                    ratingStars = `<span title="Rating: ${avgRating}"><i class="fas fa-star"></i> ${avgRating}</span>`;
 
                     // Format cooking time
                     const timeText = recipe.cooking_time ? `<span><i class="far fa-clock"></i> ${recipe.cooking_time} phút</span>` : '';
