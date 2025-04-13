@@ -1,15 +1,17 @@
-const { Client } = require("pg");
+const { Pool } = require("pg"); // Đảm bảo bạn import đúng Pool từ pg
 require("dotenv").config(); // Load biến môi trường từ .env
-const client = new Client({
+
+// Khai báo pool (chú ý viết hoa chữ P trong `Pool`)
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'CookHub',
-    password: '27122004',
+    database: 'cookhub',
+    password: 'A1234567bv@',
     port: 5432, // default port for PostgreSQL
-
 });
-client.connect()
+
+pool.connect()
   .then(() => console.log("✅ Kết nối PostgreSQL thành công!"))
   .catch(err => console.error("❌ Lỗi kết nối DB:", err));
 
-module.exports = client;
+module.exports = pool;
