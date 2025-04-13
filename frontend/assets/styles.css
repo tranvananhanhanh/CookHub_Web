@@ -35,8 +35,42 @@ a, button {
     margin-bottom: 20px;
 }
 
+.save-cancel-container {
+    padding: 20px;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.btn {
+    margin: 0 10px;
+    color: #fff;
+    border: none;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+.save-btn {
+    background-color: #FF6600;
+}
+
+.save-btn:hover {
+    opacity: 0.7;
+}
+
+.cancel-btn {
+    background-color: #424242;
+}
+
+.cancel-btn:hover {
+    opacity: 0.7;
+}
+
 /* Header */
-header {
+header { 
     font-family: 'Plus Jakarta Sans';
     font-size: 22px;
     font-weight: 500;
@@ -46,7 +80,7 @@ header {
     left: 0;
     right: 0;
     z-index: 1000;
-    width: 100vw;
+    width: 100%;
     height: 67px;
 }
 
@@ -68,6 +102,18 @@ header a:hover {
     overflow: hidden;
 }
 
+.menu-bar-logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-bar-icon {
+    display: none;
+    cursor: pointer;
+}
+
 .logo {
     align-items: center;
 }
@@ -81,20 +127,31 @@ header a:hover {
     height: 67px;
 }
 
+nav .create-post-button {
+    display: none;
+}
+
 nav ul {
     display: flex;
-    gap: 40px;
     padding: 0;
     margin: 0;
+    align-items: center;
+    gap: 20px;
 }
 
 nav ul li {
-    position: relative;
     display: inline-block;
 }
 
 nav ul a {
     display: block;
+    padding: 15px;
+}
+
+.nav-btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
 }
 
 .search-icon {
@@ -111,29 +168,33 @@ nav ul a {
 }
 
 .create-post-button {
-    width: 130px;
+    width: 100px;
     height: 44px;
-    line-height: 40px;
-    background: #FFEFD2;
-    border: #FF7D00 solid 3px;
+    background: #FF7D00;
+    color: #fff;
     border-radius: 10px;
     cursor: pointer;
 }
 
+.create-post-button:hover {
+    opacity: 0.7;
+}
+
 .create-post-button p {
     margin: 0;
+    padding: 6px 10px;
 }
 
 .user-logo a {
     display: flex;
     align-items: center;
-    gap: 10px;
     height: 40px;
 }
 
 .user-logo img {
     width: 40px;
     height: 40px;
+    margin: 10px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -192,7 +253,7 @@ nav ul a {
     letter-spacing: 1px;
 }
 
-.edit-profile {
+.edit-my-profile-btn {
     font-family: 'Arial'; /* Không tìm thấy font Arial Rounded MT Bold */
     font-weight: bold;
     font-size: 15px;
@@ -297,7 +358,7 @@ nav ul a {
 .recipe-meta .comments {
     cursor: pointer;
     position: relative;
-    right: -70px;
+    right: -50px;
 }
 
 .recipe-meta .more-options {
@@ -324,27 +385,255 @@ nav ul a {
     background-color: #f9800f;
 }
 
+/* Edit profile form */
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    font-size: 30px;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+.edit-profile-form {
+    padding: 20px 40px;
+    background-color: #fff;
+    width: 1000px;
+    max-width: calc(100% - 36px);
+    height: 90%;
+    overflow: auto;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.line {
+    background-color: #2f2f2f;
+    height: 1px;
+    margin: 10px 0;
+}
+
+.edit-profile-form .heading {
+    padding: 20px;
+    font-size: 30px;
+}
+
+.edit-profile-form .heading, 
+.edit-profile-form .label, 
+.edit-profile-form .edit,
+.edit-info label {
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 700;
+}
+
+.edit-profile-form .label, 
+.edit-profile-form .edit, 
+.edit-info input,
+.edit-info label {
+    padding: 10px;
+    margin: 0;
+    font-size: 24px;
+    color: #000;
+}
+
+.edit-profile-form .edit {
+    color: #2189FF;
+}
+
+.label-edit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label-edit a {
+    display: inline-block;
+}
+
+.label-edit .edit {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-avatar img {
+    display: block;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    padding: 20px;
+    margin: auto;
+    object-fit: cover;
+}
+
+.edit-background img {
+    display: block;
+    max-height: 300px;
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    margin: auto;
+    object-fit: cover;
+}
+
+.edit-name,
+.edit-userid,
+.edit-mail,
+.edit-password,
+.edit-links {
+    display: flex;
+    width: 100%;
+}
+
+.edit-userid input,
+.edit-mail input,
+.edit-password input {
+    color: #777777;
+}
+
+.edit-password .password-container {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+}
+
+.edit-info label {
+    display: block;
+    width: 15%;
+    text-align: left;
+}
+
+.edit-info input {
+    font-weight: 400;
+    width: 85%;
+    border: none
+}
+
+.edit-info button {
+    padding: 10px;
+    font-size: 24px;
+    border: none;
+    background-color: #fff;
+}
+
+.edit-info button:hover {
+    color: #FF6600;
+}
+
+.edit-info p {
+    display: inline-block;
+}
+
+.edit-info .edit-links .links-container {
+    width: 85%;
+}
+
+.edit-info .edit-links .links-container .social-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-info .edit-links .links-container .social-row .user-links {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.edit-info .edit-links .links-container .user-links a {
+    display: inline-block;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    width: 44px;
+}
+
+.user-links a:link, .user-links a:visited {
+    color: #000;
+}
+
+.user-links a:hover {
+    color: #FF6600;
+}
+
+.user-links input {
+    max-width: 736px;
+}
+
+/* Edit password form */
+.edit-pass-form {
+    background-color: #fff;
+    min-width: 600px;
+    border-radius: 20px;
+    font-family: "Plus Jakarta Sans";
+    padding: 10px 20px;
+    position: relative;
+}
+
+.edit-pass-form .heading {
+    color: black;
+    font-size: 24px;    
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.change-pass-row label {
+    display: block;
+    color: #2C2C2C;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    padding: 10px 0;
+}
+
+.change-pass-row input {
+    color: #2C2C2C;
+    font-size: 20px;
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.error-msg {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
 /* Footer */
 footer {
     width: 100%;
-    height: 300px; /* Điều chỉnh chiều cao */
-    background-image: url('../assets/image/footer.png'); /* Thay bằng ảnh nền */
+    max-height: 300px; 
+    background-image: url('../assets/image/footer.png'); 
     background-size: cover;
     background-position: center;
-
+    padding: 40px;
 }
 
 .footer-links {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 40px 80px;
+    flex-wrap: wrap;
+    padding: 40px 0;
 }
 
 .footer-links a {
     font-family: 'Plus Jakarta Sans';
     font-size: 26px;
     font-weight: 400;
+    display: block;
+    margin: 5px;
 }
 
 .footer-links a:link, .footer-links a:visited {
@@ -354,8 +643,8 @@ footer {
 .footer-social-icons {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    padding: 0 600px;
+    justify-content: center;
+    gap: 20px;
 }
 
 .footer-social-icons a:link, .footer-social-icons a:visited {
@@ -382,3 +671,21 @@ footer {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 250px;
 } */
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.open {
+    display: flex;
+}
