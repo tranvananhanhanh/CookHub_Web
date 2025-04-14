@@ -1,97 +1,103 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<!-- MATERIAL DESIGN ICONIC FONT -->
-		<link rel="stylesheet" href="/frontend/fonts/material-font/css/material-design-iconic-font.min.css">
-
-		<!-- STYLE CSS -->
-    <link rel="stylesheet" href="/frontend/styles/SignUp.css">
-	</head>
-
-	<body>
-    <div class="wrapper" style="background-image: url('/frontend/assets/image/authiencation/signup-bg.avif');">
-			<div class="inner">
-				<div class="image-holder">
-				<!--	<img src="images/registration-form-1.jpg" alt=""> -->
-              <video autoplay loop muted playsinline width="450" height="530">
-                    <source src="/frontend/assets/video/signup-video.mp4" type="video/mp4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="/fonts/material-font/css/material-design-iconic-font.min.css">
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="/styles/SignUp.css">
+</head>
+<body>
+    <div class="wrapper" style="background-image: url('/assets/image/authiencation/signup-bg.avif');">
+        <div class="inner">
+            <div class="image-holder">
+                <video autoplay loop muted playsinline width="450" height="530">
+                    <source src="/assets/video/signup-video.mp4" type="video/mp4">
                 </video> 
-                </div> 
-				<form action="">
-					<h3>logo here </h3>
+            </div> 
+            <form id="signupForm">
+                <h3>logo here</h3>
+                <div class="form-wrapper">
+                    <input type="text" placeholder="Username" class="form-control" id="name">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="text" placeholder="Email Address" class="form-control" id="email">
+                    <i class="zmdi zmdi-email"></i>
+                </div>
+                <div class="form-wrapper">
+                    <select name="gender" id="gender" class="form-control">
+                        <option value="" disabled selected>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="number" placeholder="Age" class="form-control" id="age">
+                </div>
+                <div class="form-wrapper">
+                    <input type="password" placeholder="Password" class="form-control" id="password">
+                    <i class="zmdi zmdi-lock"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="password" placeholder="Confirm Password" class="form-control" id="confirmPassword">
+                    <i class="zmdi zmdi-lock"></i>
+                </div>
+                <button>Register
+                    <i class="zmdi zmdi-arrow-right"></i>
+                </button>
+            </form>
+            <p id="message"></p>
 
-                  <!-- FORM START  --> 
-                   <!--
-					<div class="form-wrapper">
-						<input type="text" placeholder="Username" class="form-control">
-						<i class="zmdi zmdi-account"></i>
-					</div>
-					<div class="form-wrapper">
-						<input type="text" placeholder="Email Address" class="form-control">
-						<i class="zmdi zmdi-email"></i>
-					</div>
-					<div class="form-wrapper">
-						<select name="" id="" class="form-control">
-							<option value="" disabled selected>Gender</option>
-							<option value="male">Male</option>
-							<option value="femal">Female</option>
-							<option value="other">Other</option>
-						</select>
-						<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
-					</div>
-                    <div class="form-wrapper">
-						<input type="number" placeholder="Age" class="form-control">
-						
-					<div class="form-wrapper">
-						<input type="password" placeholder="Password" class="form-control">
-						<i class="zmdi zmdi-lock"></i>
-					</div>
-					<div class="form-wrapper">
-						<input type="password" placeholder="Confirm Password" class="form-control">
-						<i class="zmdi zmdi-lock"></i>
-					</div>
+            <script>
+                document.getElementById('signupForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
 
-                             --> 
-                             <div class="form-wrapper">
-                                <input type="text" placeholder="Username" class="form-control">
-                                <i class="zmdi zmdi-account"></i>
-                            </div>
-                            <div class="form-wrapper">
-                                <input type="text" placeholder="Email Address" class="form-control">
-                                <i class="zmdi zmdi-email"></i>
-                            </div>
-                            <div class="form-wrapper">
-                                <select name="" id="" class="form-control">
-                                    <option value="" disabled selected>Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="femal">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
-                            </div>
-                            <div class="form-wrapper">
-                                <input type="number" placeholder="Age" class="form-control">
-                              
-                            </div>
-                            <div class="form-wrapper">
-                                <input type="password" placeholder="Password" class="form-control">
-                                <i class="zmdi zmdi-lock"></i>
-                            </div>
-                            <div class="form-wrapper">
-                                <input type="password" placeholder="Confirm Password" class="form-control">
-                                <i class="zmdi zmdi-lock"></i>
-                            </div>
-                            
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const gender = document.getElementById('gender').value;
+                    const age = document.getElementById('age').value;
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
 
-					<button>Register
-						<i class="zmdi zmdi-arrow-right"></i>
-					</button>
-				</form>
-			</div>
-		</div>
-		
-	</body>
+                    // Kiểm tra Confirm Password
+                    if (password !== confirmPassword) {
+                        document.getElementById('message').textContent = 'Passwords do not match';
+                        document.getElementById('message').style.color = 'red';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch('http://localhost:4000/api/auth/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ name, email, gender, age, password }),
+                        });
+
+                        const data = await response.json();
+                        const message = document.getElementById('message');
+
+                        if (response.ok) {
+                            message.style.color = 'green';
+                            message.textContent = data.message;
+                            setTimeout(() => {
+                                window.location.href = '/SignIn';
+                            }, 2000);
+                        } else {
+                            message.style.color = 'red';
+                            message.textContent = data.message;
+                        }
+                    } catch (error) {
+                        document.getElementById('message').textContent = 'Error: ' + error.message;
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</body>
 </html>
