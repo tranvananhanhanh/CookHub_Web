@@ -25,13 +25,14 @@ class RecipeModel {
                 r.cooking_time, r.servings,
                 r.date_created,
                 r.user_id,
-                u.name as user_name
+                u.name as user_name,
+                COALESCE(AVG(rt.rate), 0.0) AS avg_rating
         `;
     let fromClause = ` FROM recipes r JOIN users u ON r.user_id = u.user_id  `;
-    let joinClauses = '';
+    let joinClauses = ` LEFT JOIN ratings rt ON r.recipe_id = rt.recipe_id `;
     let whereClauses = []; // Bắt đầu mảng rỗng
-    let groupByClause = '';
-    let havingClause = '';
+    let groupByClause = ` GROUP BY r.recipe_id, r.user_id, u.name, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
+    let havingClauses = [];
 
     if (status) {
       whereClauses.push(`r.status = $${paramIndex}`);
@@ -73,7 +74,7 @@ class RecipeModel {
       paramIndex++;
 
       groupByClause = ` GROUP BY r.recipe_id, r.user_id, u.name, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
-      havingClause = ` HAVING COUNT(DISTINCT rc.category_id) = ${categoryIds.length} `;
+      havingClauses.push(`COUNT(DISTINCT rc.category_id) = ${categoryIds.length}`);
     }
 
     if (Array.isArray(ingredientIds) && ingredientIds.length > 0) {
@@ -83,25 +84,24 @@ class RecipeModel {
       paramIndex++;
 
       groupByClause = ` GROUP BY r.recipe_id, r.user_id, u.name, r.title, r.thumbnail, r.description, r.cooking_time, r.servings, r.date_created `;
-      havingClause = ` HAVING COUNT(DISTINCT ri.ingredient_id) = ${ingredientIds.length} `;
+      havingClauses.push(`COUNT(DISTINCT ri.ingredient_id) = ${ingredientIds.length}`);
       }
 
       if (minRating && !isNaN(parseInt(minRating)) && parseInt(minRating) >= 1 && parseInt(minRating) <= 5) {
-        whereClauses.push(`EXISTS (
-            SELECT 1
-            FROM ratings rt
-            WHERE rt.recipe_id = r.recipe_id AND rt.rate >= $${paramIndex}
-        )`);
+        havingClauses.push(`AVG(rt.rate) >= $${paramIndex}`);
         queryParams.push(parseInt(minRating));
         paramIndex++;
       }
+
 
       let finalQuery = baseSelect + fromClause + joinClauses;
         if (whereClauses.length > 0) {
             finalQuery += ` WHERE ${whereClauses.join(' AND ')}`;
         }
         finalQuery += groupByClause;
-        finalQuery += havingClause;
+        if (havingClauses.length > 0) {
+          finalQuery += ` HAVING ${havingClauses.join(' AND ')}`; // Nối các điều kiện HAVING nếu có
+        }
 
         finalQuery += ` ORDER BY r.date_created DESC`;
 
@@ -110,7 +110,11 @@ class RecipeModel {
     
     try {
       const result = await pool.query(finalQuery, queryParams);
-      return result.rows;
+      const recipesWithAvgRating = result.rows.map(recipe => ({
+        ...recipe,
+        avg_rating: parseFloat(recipe.avg_rating) // Chuyển đổi sang kiểu số thực
+    }));
+    return recipesWithAvgRating;
     } catch (err) {
       console.error('Error in RecipeModel.searchRecipes:', err.stack);
       throw err; // Ném lỗi để route có thể bắt và xử lý

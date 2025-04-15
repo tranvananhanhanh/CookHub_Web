@@ -63,7 +63,7 @@ h1 {
 /* Two Column Layout */
 .search-content-area {
     display: flex;
-    flex-wrap: wrap; /* Allow stacking on smaller screens */
+    flex-wrap: nowrap; /* Allow stacking on smaller screens */
     gap: 30px; /* Space between columns */
     margin-top: 20px;
 }
@@ -303,7 +303,11 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    margin: 0 5px;
+    margin: 5px;
+}
+
+.recipe-card-meta span .fa-star {
+    color: #fadb14;
 }
 
 .recipe-card a.view-detail-btn {
