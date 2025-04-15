@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Format servings
                     const servingsText = recipe.servings ? `<span><i class="fas fa-user-friends"></i> ${recipe.servings} người</span>` : '';
                     recipeCard.innerHTML = `
-                    <img src="${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" class="recipe-thumbnail">
+                    <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" class="recipe-thumbnail">
                      <div class="recipe-card-content">
                           <h2>${recipe.title}</h2>
                           <div class="recipe-card-meta">
