@@ -121,6 +121,52 @@ class RecipeModel {
     }
 
   }
+
+  static async getCategoriesByType(type) {
+    console.log(`RecipeModel.getCategoriesByType called with type: ${type}`);
+    if (!type) {
+        // Có thể thêm validation ở đây hoặc để route xử lý
+        throw new Error("Type is required to get categories.");
+    }
+    // Đổi tên cột để tiện cho frontend (id, name)
+    const query = `
+        SELECT category_id AS id, category_name AS name
+        FROM categories
+        WHERE type = $1
+        ORDER BY name
+    `;
+    try {
+        const result = await pool.query(query, [type]);
+        return result.rows; // Chỉ trả về dữ liệu
+    } catch (err) {
+        console.error(`Error fetching categories (type: ${type}) in Model`, err.stack);
+        throw err; // Ném lỗi để route xử lý
+    }
+  }
+
+  static async getCommonIngredients() {
+    console.log("RecipeModel.getCommonIngredients called");
+    // Lấy top N ingredients được dùng nhiều nhất
+    const query = `
+       SELECT
+           i.ingredient_id AS id,
+           i.name AS name
+           -- ,COUNT(ri.recipe_id) as usage_count -- Uncomment để debug
+       FROM ingredients i
+       JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id
+       GROUP BY i.ingredient_id, i.name
+       ORDER BY COUNT(ri.recipe_id) DESC -- Sắp xếp theo tần suất sử dụng
+       LIMIT 5; -- Giới hạn số lượng trả về (có thể điều chỉnh)
+    `;
+    try {
+        const result = await pool.query(query);
+        return result.rows; // Chỉ trả về dữ liệu
+    } catch (err) {
+        console.error('Error fetching common ingredients in Model:', err.stack);
+        throw err; // Ném lỗi để route xử lý
+    }
+  }
+
 }
 
 module.exports = RecipeModel;
