@@ -7,6 +7,8 @@ const open = require('open').default;
 const app = express();
 const port = 4000; 
 const recipeRoutes = require("./routes/recipeRoutes");
+const shoppingListRoutes = require("./routes/shoppingListRoutes");
+const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
 
 app.use(cors({
   origin: "http://127.0.0.1:5500"
@@ -23,6 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use("/api/recipes", recipeRoutes); 
+app.use("/api/shopping-list", shoppingListRoutes);
+app.use("/api/savedRecipes", savedRecipesRoutes);
 
 // Route trang chủ
 app.get("/", (req, res) => {
@@ -30,6 +34,9 @@ app.get("/", (req, res) => {
 });
 app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
+});
+app.get("/savedRecipes", (req, res) => {
+  res.render("savedRecipes", { title: "Saved Recipes" });
 });
 
 // Khởi chạy server

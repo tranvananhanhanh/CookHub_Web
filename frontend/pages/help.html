@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub | Help Center</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script src="../js/loadHTML.js"></script>
+    <style>
+        body {
+            background: #fffaf0;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #4a2c0d;
+        }
+
+        .help-main {
+            max-width: 960px;
+            margin: 80px auto 60px;
+            padding: 0 16px;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            padding: 40px 0;
+            background: linear-gradient(180deg, #fffaf0, #fef5e7);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .intro-image {
+            margin-bottom: 20px;
+        }
+
+        .intro-image i {
+            font-size: 60px;
+            color: #ff7d00;
+        }
+
+        .intro-title {
+            color: #ff7d00;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 44px;
+            margin-bottom: 12px;
+        }
+
+        .intro-text {
+            color: #4a2c0d;
+            font-size: 18px;
+            line-height: 26px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section General Styling */
+        .section {
+            padding: 40px 0;
+            margin-bottom: 40px;
+            background: linear-gradient(180deg, #fffaf0, #fef5e7);
+            border-radius: 12px;
+        }
+
+        .section-title {
+            color: #ff7d00;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 36px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: #ffb74d;
+            margin: 20px auto;
+        }
+
+        /* Card Section */
+        .card-section {
+            padding: 40px 0;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card i {
+            font-size: 30px;
+            color: #ff7d00;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            color: #4a2c0d;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #8c705e;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+        }
+
+        /* Articles Section */
+        .articles-section {
+            padding: 40px 0;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .article {
+            background: #fff;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .article:hover {
+            transform: translateY(-5px);
+        }
+
+        .article h3 {
+            color: #4a2c0d;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .article p {
+            color: #8c705e;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 40px 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: #fff;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-item h3 {
+            color: #4a2c0d;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            color: #8c705e;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .contact-title {
+            color: #ff7d00;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 36px;
+            margin-bottom: 16px;
+        }
+
+        .contact-text {
+            color: #4a2c0d;
+            font-size: 16px;
+            line-height: 24px;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .contact-info p {
+            color: #4a2c0d;
+            font-size: 16px;
+            line-height: 24px;
+            margin: 8px 0;
+            text-align: center;
+        }
+
+        .contact-info span {
+            color: #ff7d00;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .help-main {
+                padding: 0 12px;
+                margin: 70px auto 40px;
+            }
+
+            .intro-section,
+            .section {
+                padding: 20px 0;
+                margin-bottom: 20px;
+            }
+
+            .intro-title,
+            .section-title,
+            .contact-title {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .intro-image i {
+                font-size: 50px;
+            }
+
+            .intro-text,
+            .contact-text,
+            .contact-info p {
+                font-size: 14px;
+                line-height: 22px;
+            }
+
+            .card-grid,
+            .articles-grid,
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .card h3,
+            .article h3,
+            .faq-item h3 {
+                font-size: 16px;
+                line-height: 22px;
+            }
+
+            .card p,
+            .article p,
+            .faq-item p {
+                font-size: 13px;
+                line-height: 18px;
+            }
+
+            .card i {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Begin: Header -->
+    <div class="header"></div>
+    <!-- End: Header -->
+
+    <!-- Begin: Help Content -->
+    <div class="help-main">
+        <!-- Intro Section -->
+        <div class="intro-section">
+            <div class="intro-image">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h1 class="intro-title">Welcome to CookHub Help Center</h1>
+            <p class="intro-text">Find answers to your questions, explore guidelines, and get support for using CookHub.</p>
+        </div>
+
+        <!-- Card Section -->
+        <div class="section card-section">
+            <h2 class="section-title">Help Center</h2>
+            <div class="section-divider"></div>
+            <div class="card-grid">
+                <div class="card">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Getting Started</h3>
+                    <p>Share recipes by entering ingredients, steps, and photos in your profile. Use the menu to browse or connect.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-camera"></i>
+                    <h3>Photo Guidelines</h3>
+                    <p>Capture clear, bright food photos with natural light. Upload JPG/PNG files under 5MB.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Guidelines</h3>
+                    <p>Stay respectful, share original recipes, and avoid spam. Report issues to maintain positivity.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Account Management</h3>
+                    <p>Update your profile, change password, or manage notifications in settings. Contact support for account issues.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Articles Section -->
+        <div class="section articles-section">
+            <h2 class="section-title">Popular Help Articles</h2>
+            <div class="section-divider"></div>
+            <div class="articles-grid">
+                <div class="article">
+                    <h3>How to Format Your Recipe</h3>
+                    <p>List ingredients with amounts, then add step-by-step instructions. Note prep time and servings.</p>
+                </div>
+                <div class="article">
+                    <h3>Engaging with the Community</h3>
+                    <p>Comment, follow users, and share recipes to connect with food lovers and grow your network.</p>
+                </div>
+                <div class="article">
+                    <h3>Recipe Copyright Guidelines</h3>
+                    <p>Use original recipes or credit sources. Don’t copy without permission to respect creators.</p>
+                </div>
+                <div class="article">
+                    <h3>Troubleshooting Issues</h3>
+                    <p>Check file size or connection if uploads fail. Reset password or contact support for login problems.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="section faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="section-divider"></div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Can I edit my recipes after posting?</h3>
+                    <p>Yes, go to your profile, select the recipe, and click "Edit" to update ingredients or steps.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I report inappropriate content?</h3>
+                    <p>Use the "Report" option on the recipe or comment to notify our team for review.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What if I forget my password?</h3>
+                    <p>Click "Forgot Password" on the login page and follow the steps to reset it.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I delete my account?</h3>
+                    <p>Yes, go to account settings and select "Delete Account" to permanently remove your profile.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section contact-section">
+            <h2 class="contact-title">Need More Help?</h2>
+            <div class="section-divider"></div>
+            <p class="contact-text">Our support team is here to assist you anytime.</p>
+            <div class="contact-info">
+                <p>Email: <span>support@cookhub.com</span></p>
+                <p>Phone: <span>+1 (555) 987-6543</span></p>
+                <p>Support Hours: <span>Monday - Friday, 9 AM - 6 PM (EST)</span></p>
+            </div>
+        </div>
+    </div>
+    <!-- End: Help Content -->
+
+    <!-- Begin: Footer -->
+    <div class="footer"></div>
+    <!-- End: Footer -->
+</body>
+</html>

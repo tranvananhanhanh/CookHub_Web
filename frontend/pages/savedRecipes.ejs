@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Recipes - CookHub</title>
+  <!-- Font -->
+  <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+  <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+  <!-- Thay thế Font Awesome kit bằng CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/savedRecipes.css">
+
+  <!-- JavaScript -->
+  <script src="../js/loadHTML.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header"></header>
+
+  <!-- Khung lề trái cố định -->
+  <div class="fixed-export-panel">
+    <h1>Saved Recipes</h1>
+    <div class="export-options">
+      <label>
+        <input type="radio" name="exportType" value="individual" checked />
+        Xuất theo từng món
+      </label>
+      <label>
+        <input type="radio" name="exportType" value="aggregated" />
+        Xuất gộp toàn bộ các món
+      </label>
+    </div>
+    <button type="button" id="exportButton" class="see-more-button">Xuất danh sách mua sắm</button>
+  </div>
+
+  <!-- Nội dung chính -->
+  <section class="profile-content">
+    <div class="container">
+      <form id="savedRecipesForm">
+        <div id="recipes" class="row">
+          <!-- Danh sách công thức sẽ được load động -->
+        </div>
+        <!-- Nút "Xem thêm" sẽ được thêm động bằng JavaScript -->
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer"></div>
+
+  <!-- Thêm JavaScript -->
+  <script src="../js/savedRecipes.js"></script>
+</body>
+</html>
