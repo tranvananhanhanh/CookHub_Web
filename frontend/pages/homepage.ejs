@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'CookHub' %></title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="header"></div>
+
+    <main class="home-container">
+        <!-- 1. Featured Recipes Slider -->
+        <section class="featured-recipes">
+            <!-- Cấu trúc HTML cho Swiper Slider -->
+            <div class="swiper featured-swiper">
+                <div class="swiper-wrapper" id="featured-recipes-wrapper">
+                    <!-- Slides sẽ được thêm bằng JavaScript -->
+                </div>
+                <!-- Pagination Dots -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+        <!-- 2. Ingredient Sections -->
+        <!-- Phần Cá -->
+        <section class="ingredient-section">
+            <h2><a href="/homepage">Pork</a></h2> <!-- Giả sử ID của Fish là 1 -->
+            <div class="recipe-list-container">
+                <div class="recipe-list scrollable-list" id="recipes-pork">
+                    <!-- Recipe cards sẽ được thêm bằng JavaScript -->
+                     <div class="recipe-card-placeholder">Loading...</div> <!-- Placeholder -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần Gà -->
+        <section class="ingredient-section">
+            <h2><a href="/homepage">Chicken</a></h2> <!-- Giả sử ID của Chicken là 2 -->
+             <div class="recipe-list-container">
+                <div class="recipe-list scrollable-list" id="recipes-chicken">
+                     <div class="recipe-card-placeholder">Loading...</div> <!-- Placeholder -->
+                </div>
+             </div>
+        </section>
+
+        <!-- Phần Bò -->
+        <section class="ingredient-section">
+            <h2><a href="/search?ingredients=3">Beef</a></h2> <!-- Giả sử ID của Beef là 3 -->
+             <div class="recipe-list-container">
+                <div class="recipe-list scrollable-list" id="recipes-beef">
+                     <div class="recipe-card-placeholder">Loading...</div> <!-- Placeholder -->
+                </div>
+             </div>
+        </section>
+
+        <!-- Thêm các section khác nếu cần -->
+
+    </main>
+
+    <!-- Footer sẽ được load bởi loadHTML.js -->
+    <div class="footer"></div>
+
+    <!-- Script load Header/Footer -->
+    <script src="/js/loadHTML.js"></script>
+    <!-- Script Thư viện Slider (Swiper JS) - CẦN THÊM VÀO DỰ ÁN -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- Script riêng cho trang chủ -->
+    <script src="/js/homepage.js"></script>
+</body>
+</html>
