@@ -94,10 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
             socialLinksContainer.innerHTML = "";
             if (data.socialLinks.length > 0) {
               data.socialLinks.forEach(link => {
-                const platformIcon = link.platform === "facebook" ? "🌐" : link.platform === "instagram" ? "📷" : "🐦";
+                
+                const platformIcon = link.platform === "facebook"
+                ? '<img src="/assets/image/icon/icon_facebook.png" class="icon">'
+                : link.platform === "instagram"
+                ? '<img src="/assets/image/icon/icon_instagram.png" class="icon">'
+                : '<img src="/assets/image/icon/icon_twitter.png" class="icon">';
+            
                 const linkElement = document.createElement("a");
                 linkElement.href = link.url;
-                linkElement.textContent = platformIcon;
+                linkElement.innerHTML = platformIcon;
                 linkElement.style.marginRight = "10px";
                 socialLinksContainer.appendChild(linkElement); 
               });
