@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CookHub | Terms of Use</title>
     <!-- Font -->
-    <link href='https://fonts.googleapis.com/css?family=Arial' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/responsive.css">
+
     <script src="../js/loadHTML.js"></script>
     <style>
         body {
             background: #fffaf0;
-            font-family: 'Nunito', sans-serif;
+            font-family: Arial, sans-serif; /* Consistent with body in styles.css */
             margin: 0;
             padding: 0;
-            color: #4a2c0d;
+            color: #333; /* Consistent with body text in styles.css */
         }
 
         .terms-main {
@@ -35,10 +37,11 @@
         }
 
         .terms-title {
-            color: #ff7d00;
-            font-size: 36px;
-            font-weight: 700;
-            line-height: 44px;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif; /* Consistent with h1 in styles.css */
+            font-size: 28px; /* Consistent with h1 in styles.css */
+            font-weight: 700; /* Adjusted for boldness */
+            color: #333; /* Consistent with h1 in styles.css */
+            line-height: 34px;
             margin-bottom: 12px;
         }
 
@@ -51,10 +54,11 @@
         }
 
         .terms-section h2 {
-            color: #ff7d00;
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 36px;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif; /* Consistent with header in styles.css */
+            font-size: 22px; /* Consistent with header in styles.css */
+            font-weight: 500; /* Consistent with header in styles.css */
+            color: #333; /* Consistent with h1 in styles.css */
+            line-height: 28px;
             margin-bottom: 12px;
             text-align: center;
         }
@@ -67,8 +71,9 @@
         }
 
         .terms-section p {
-            color: #4a2c0d;
-            font-size: 16px;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
+            color: #333; /* Consistent with body text in styles.css */
             line-height: 24px;
             max-width: 600px;
             margin: 0 auto 20px;
@@ -76,8 +81,10 @@
         }
 
         .terms-section span.highlight {
-            color: #ff7d00;
-            font-weight: 700;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
+            color: #FF7D00; /* Consistent with header a:hover in styles.css */
+            font-weight: bold; /* Consistent with edit-profile in styles.css */
         }
 
         /* Responsive Design */
@@ -95,12 +102,12 @@
 
             .terms-title,
             .terms-section h2 {
-                font-size: 24px;
-                line-height: 32px;
+                font-size: 24px; /* Slightly smaller but proportional */
+                line-height: 30px;
             }
 
             .terms-section p {
-                font-size: 14px;
+                font-size: 14px; /* Consistent with smaller text adjustments */
                 line-height: 22px;
             }
         }

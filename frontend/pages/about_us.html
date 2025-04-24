@@ -9,37 +9,43 @@
     <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/responsive.css">
+
     <script src="../js/loadHTML.js"></script>
     <style>
         body {
             background-color: #fffaf0; 
-            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            font-family: Arial, sans-serif; /* Consistent with body in styles.css */
             margin: 0;
             padding: 0;
         }
         .about-main {
             max-width: 1000px;
-            margin: 80px auto 40px; /* margin-top: 80px để tránh bị header che */
+            margin: 80px auto 40px; /* margin-top: 80px to avoid header overlap */
             padding: 0 20px;
         }
         .about-section {
             margin-bottom: 40px;
             text-align: center;
         }
-        .about-section h1, .about-section h2 {
-            color: #FF7D00; /* Màu cam từ style.css */
+        .about-section h1 {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif; /* Consistent with h1 in styles.css */
+            font-size: 28px; /* Consistent with h1 in styles.css */
+            color: #333; /* Consistent with h1 in styles.css */
             margin-bottom: 15px;
         }
-        .about-section h1 {
-            font-size: 2.5em;
-        }
         .about-section h2 {
-            font-size: 1.8em;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif; /* Consistent with header styles */
+            font-size: 22px; /* Consistent with header font-size in styles.css */
+            font-weight: 500; /* Consistent with header weight in styles.css */
+            color: #333; /* Consistent with h1 in styles.css */
+            margin-bottom: 15px;
         }
         .about-section p {
-            color: #333;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            color: #333; /* Consistent with body text in styles.css */
             line-height: 1.6;
-            font-size: 1em;
+            font-size: 16px; /* Consistent with recipe-info font-size in styles.css */
             margin-bottom: 10px;
         }
         .stats, .values, .team {
@@ -52,23 +58,26 @@
         .stat-item, .value-item, .team-member {
             flex: 1;
             min-width: 200px;
-            background-color: #fff; /* Nền trắng */
-            border: 1px solid #ddd; /* Viền nhẹ */
+            background-color: #fff; /* White background */
+            border: 1px solid #ddd; /* Light border */
             padding: 15px;
             border-radius: 8px;
             text-align: center;
         }
         .stat-item h3, .value-item h3, .team-member h3 {
-            color: #333;
-            font-size: 1.2em;
+            font-family: Arial, sans-serif; /* Consistent with recipe-name in styles.css */
+            font-size: 22px; /* Consistent with recipe-name in styles.css */
+            font-weight: bold; /* Consistent with recipe-name in styles.css */
+            color: #333; /* Consistent with recipe-name in styles.css */
             margin-bottom: 10px;
         }
         .stat-item p, .value-item p, .team-member p {
-            color: #666;
-            font-size: 0.9em;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            color: #666; /* Slightly lighter for contrast, similar to date in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
         }
         .value-item i {
-            color: #FF7D00;
+            color: #FF7D00; /* Consistent with create-post-button in styles.css */
             font-size: 2em;
             margin-bottom: 10px;
         }

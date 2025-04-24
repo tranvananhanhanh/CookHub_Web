@@ -1,11 +1,24 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const recipesContainer = document.getElementById("recipes");
   const exportButton = document.getElementById("exportButton");
-  const recipesPerPage = 20; // Hiển thị tối đa 20 công thức ban đầu
+  const recipesPerPage = 20;
   let displayedRecipes = 0;
   let allRecipes = [];
 
-  // Hiển thị placeholder (loading state) trong khi tải dữ liệu
+  if (!recipesContainer) {
+    console.error("Không tìm thấy container #recipes!");
+    return;
+  }
+
+  // Lấy user_id từ query parameter trong URL
+  const urlParams = new URLSearchParams(window.location.search);
+  let userId = urlParams.get("user_id"); // Lấy user_id từ URL (ví dụ: ?user_id=123)
+
+  // Nếu không có user_id trong URL, fallback về localStorage hoặc giá trị mặc định
+  if (!userId) {
+    userId = localStorage.getItem("user_id") || "1";
+  }
+
   const showLoadingState = () => {
     const placeholderCount = 8;
     for (let i = 0; i < placeholderCount; i++) {
@@ -31,12 +44,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  // Xóa placeholder
   const clearLoadingState = () => {
     recipesContainer.innerHTML = "";
   };
 
-  // Hàm hiển thị công thức
   const renderRecipes = (recipes, startIndex, count) => {
     const endIndex = Math.min(startIndex + count, recipes.length);
     for (let i = startIndex; i < endIndex; i++) {
@@ -58,11 +69,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           })
         : "N/A";
 
-      const thumbnail = recipe.thumbnail && recipe.thumbnail.trim() !== ""
-        ? recipe.thumbnail
-        : "/assets/images/placeholder.jpg";
-
-      const thumbnailPath = `/images/${recipe.title.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+      const recipeId = recipe.id || recipe.recipe_id || "unknown";
+      const thumbnailPath = `/assets/image/recipes/${recipeId}/thumbnail.png`;
       const commentCount = recipe.comment_count || recipe.commentcount || 0;
 
       recipeCard.innerHTML = `
@@ -72,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
       <div class="recipe-content">
         <label>
-          <input type="checkbox" name="recipe" value="${recipe.id || recipe.recipe_id}">
+          <input type="checkbox" name="recipe" value="${recipeId}">
           <span class="recipe-title">${recipe.title || "Không có tiêu đề"}</span>
         </label>
         <div class="rating">${stars}</div>
@@ -83,20 +91,79 @@ document.addEventListener("DOMContentLoaded", async () => {
               <i class="fas fa-comment"></i>
               <span class="comment-count">${commentCount}</span>
             </span>
-            <button class="settings-menu" title="Cài đặt">
-              <i class="fas fa-ellipsis-v"></i>
-            </button>
+            <div class="settings-menu-wrapper">
+              <button type="button" class="settings-menu" title="Cài đặt">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <div class="dropdown-menu">
+                <button type="button" class="delete-recipe-btn">Delete</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     `;
 
+      const settingsMenu = recipeCard.querySelector(".settings-menu");
+      const dropdownMenu = recipeCard.querySelector(".dropdown-menu");
+
+      if (settingsMenu && dropdownMenu) {
+        settingsMenu.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          document.querySelectorAll(".dropdown-menu").forEach(menu => {
+            if (menu !== dropdownMenu) {
+              menu.classList.remove("show");
+            }
+          });
+          dropdownMenu.classList.toggle("show");
+        });
+
+        const deleteButton = recipeCard.querySelector(".delete-recipe-btn");
+        deleteButton.addEventListener("click", async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropdownMenu.classList.remove("show");
+
+          const confirmDelete = confirm(`Are you sure you want to delete "${recipe.title || "Không có tiêu đề"}" from Saved Recipes?`);
+          if (confirmDelete) {
+            try {
+              const response = await fetch(`http://localhost:4000/api/savedRecipes/${recipeId}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId })
+              });
+
+              if (!response.ok) {
+                throw new Error("Lỗi khi xóa công thức khỏi Saved Recipes");
+              }
+
+              allRecipes = allRecipes.filter(r => (r.id || r.recipe_id) !== recipeId);
+              recipesContainer.innerHTML = "";
+              displayedRecipes = 0;
+              displayedRecipes = renderRecipes(allRecipes, 0, recipesPerPage);
+              showLoadMoreButton();
+
+              alert("Deleted successfully!");
+            } catch (err) {
+              console.error("Lỗi khi xóa công thức:", err);
+              alert("Đã xảy ra lỗi khi xóa công thức!");
+            }
+          }
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!settingsMenu.contains(e.target)) {
+            dropdownMenu.classList.remove("show");
+          }
+        });
+      }
+
       recipesContainer.appendChild(recipeCard);
     }
-    return endIndex - startIndex; // Số công thức đã hiển thị
+    return endIndex - startIndex;
   };
 
-  // Hiển thị nút "Xem thêm"
   const showLoadMoreButton = () => {
     if (displayedRecipes < allRecipes.length) {
       const loadMoreButton = document.createElement("button");
@@ -110,21 +177,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       loadMoreButton.addEventListener("click", () => {
         displayedRecipes += renderRecipes(allRecipes, displayedRecipes, recipesPerPage);
         if (displayedRecipes >= allRecipes.length) {
-          loadMoreButton.remove(); // Ẩn nút nếu đã hiển thị hết
+          loadMoreButton.remove();
         }
       });
     }
   };
 
-  // Hiển thị placeholder ngay lập tức
   showLoadingState();
 
-  // Load danh sách công thức đã lưu
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-    const response = await fetch("http://localhost:4000/api/savedRecipes", {
+    // Sửa API call để gửi user_id qua query parameter
+    const response = await fetch(`http://localhost:4000/api/savedRecipes?user_id=${userId}`, {
       signal: controller.signal
     });
     clearTimeout(timeoutId);
@@ -134,7 +200,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     allRecipes = await response.json();
-
     clearLoadingState();
 
     if (allRecipes.length === 0) {
@@ -142,19 +207,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // Hiển thị tối đa 20 công thức đầu tiên
     displayedRecipes = renderRecipes(allRecipes, 0, recipesPerPage);
-
-    // Hiển thị nút "Xem thêm" nếu còn công thức chưa hiển thị
     showLoadMoreButton();
-
   } catch (error) {
     clearLoadingState();
     recipesContainer.innerHTML = "<p>Lỗi tải dữ liệu: " + error.message + "</p>";
     console.error("Lỗi:", error);
   }
 
-  // Xử lý nút xuất danh sách
   exportButton.addEventListener("click", async () => {
     const checkedBoxes = document.querySelectorAll('input[name="recipe"]:checked');
     const selectedIds = Array.from(checkedBoxes).map(cb => cb.value);

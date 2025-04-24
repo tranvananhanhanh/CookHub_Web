@@ -190,7 +190,7 @@
 
 #recipes .recipe-card .recipe-meta .settings-menu i {
   font-size: 14px;
-  color: #2c3e50;
+  color: #000000;
   display: block;
 }
 
@@ -253,8 +253,8 @@
   flex-direction: column;
   align-items: flex-start;
   width: 200px;
-  max-height: 300px; /* Giới hạn chiều cao để không tràn xuống footer */
-  overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .fixed-export-panel h1 {
@@ -288,54 +288,69 @@
   background-color: #f3a75e;
 }
 
-/* Footer */
-.footer {
-  width: 100%;
-  max-height: 300px;
-  background-image: url('../assets/image/footer.png');
-  background-size: cover;
-  background-position: center;
-  padding: 40px;
-}
-
-.footer-links {
+/* Thêm chiều cao tối thiểu cho section chính */
+.profile-content {
+  min-height: calc(100vh - 400px);
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 40px 0;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.footer-links a {
+/* Style cho thông báo "Không có công thức nào được lưu" */
+#recipes p {
   font-family: 'Plus Jakarta Sans', Arial, sans-serif;
-  font-size: 26px;
-  font-weight: 400;
+  font-size: 16px;
+  color: #2c3e50;
+  text-align: center;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Dropdown menu cho nút ba chấm */
+.settings-menu-wrapper {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+  min-width: 150px;
+  min-height: 40px;
+}
+
+.dropdown-menu.show {
   display: block;
-  margin: 5px;
 }
 
-.footer-links a:link,
-.footer-links a:visited {
-  color: #000;
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 14px;
+  color: #2c3e50;
+  cursor: pointer;
 }
 
-.footer-social-icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.footer-social-icons a {
-  font-size: 40px;
-}
-
-.footer-social-icons a:link,
-.footer-social-icons a:visited {
-  color: #000;
-}
-
-.footer-social-icons i {
-  display: inline-block;
-  color: #000;
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+  color: #f9800f;
 }

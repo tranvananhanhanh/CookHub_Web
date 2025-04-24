@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CookHub | Enable Cookies</title>
     <!-- Font -->
-    <link href='https://fonts.googleapis.com/css?family=Arial' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/responsive.css">
+
     <script src="../js/loadHTML.js"></script>
     <style>
         body {
             background: #fffaf0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: Arial, sans-serif; /* Consistent with body in styles.css */
             margin: 0;
-            color: #4a2c0d;
+            color: #333; /* Consistent with body text in styles.css */
         }
         .cookies-main {
             max-width: 800px;
@@ -23,17 +25,18 @@
             padding: 0 20px;
         }
         .cookies-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: #ff7d00;
-            line-height: 44px;
-            letter-spacing: -1px;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif; /* Consistent with h1 in styles.css */
+            font-size: 28px; /* Consistent with h1 in styles.css */
+            font-weight: 700; /* Adjusted for boldness */
+            color: #333; /* Consistent with h1 in styles.css */
+            line-height: 34px;
             margin-bottom: 20px;
             text-align: center;
         }
         .cookies-intro {
-            color: #4a2c0d;
-            font-size: 16px;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
+            color: #333; /* Consistent with body text in styles.css */
             line-height: 24px;
             margin-bottom: 30px;
             text-align: center;
@@ -54,16 +57,18 @@
             transform: translateY(-5px);
         }
         .cookies-section h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #ff7d00;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif; /* Consistent with header in styles.css */
+            font-size: 22px; /* Consistent with header in styles.css */
+            font-weight: 500; /* Consistent with header in styles.css */
+            color: #333; /* Consistent with h1 in styles.css */
             margin-bottom: 10px;
             text-align: center;
         }
         .cookies-section ol {
             margin-left: 20px;
-            color: #4a2c0d;
-            font-size: 15px;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
+            color: #333; /* Consistent with body text in styles.css */
             line-height: 22px;
         }
         .cookies-section ol li {
@@ -76,8 +81,9 @@
             margin: 20px auto;
         }
         .cookies-contact {
-            color: #4a2c0d;
-            font-size: 16px;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
+            color: #333; /* Consistent with body text in styles.css */
             line-height: 24px;
             text-align: center;
             background: #fef5e7;
@@ -86,12 +92,14 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
         .cookies-contact a {
-            color: #ff7d00;
+            font-family: Arial, sans-serif; /* Consistent with recipe-info in styles.css */
+            font-size: 16px; /* Consistent with recipe-info in styles.css */
+            color: #FF7D00; /* Consistent with header a:hover in styles.css */
             text-decoration: none;
-            font-weight: 700;
+            font-weight: bold; /* Consistent with edit-profile in styles.css */
         }
         .cookies-contact a:hover {
-            color: #f9800f;
+            color: #f9800f; /* Consistent with see-more-button hover in styles.css */
         }
         @media (max-width: 768px) {
             .cookies-main {
@@ -99,22 +107,23 @@
                 margin: 70px auto 40px;
             }
             .cookies-title {
-                font-size: 30px;
-                line-height: 36px;
+                font-size: 24px; /* Slightly smaller but proportional */
+                line-height: 30px;
             }
             .cookies-section {
                 padding: 15px;
             }
             .cookies-section h2 {
-                font-size: 18px;
+                font-size: 20px; /* Consistent with header adjustments */
+                line-height: 26px;
             }
             .cookies-section ol {
                 margin-left: 15px;
-                font-size: 14px;
+                font-size: 14px; /* Consistent with smaller text adjustments */
                 line-height: 20px;
             }
             .cookies-intro, .cookies-contact {
-                font-size: 15px;
+                font-size: 14px; /* Consistent with smaller text adjustments */
                 line-height: 22px;
                 padding: 15px;
             }
