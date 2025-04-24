@@ -4,11 +4,14 @@ const path = require('path'); // Import the 'path' module
 const cors = require("cors");
 const open = require('open').default;
 const router = express.Router();
-const authRoutes = require("./routes/authRoutes");
+
 const app = express();
 const port = 4000; 
+
+const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const ingredientRoutes = require('./routes/ingredientRoutes'); 
 
 app.use(cors({
   origin: "http://127.0.0.1:5500"
@@ -28,11 +31,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/recipes", recipeRoutes); 
 app.use('/api/auth', authRoutes); // Route cho đăng nhập
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/ingredients', ingredientRoutes);
 
 // Route trang chủ
 app.get('/', (req, res) => {
-  // res.sendFile(path.join(__dirname, '..', 'frontend','pages', 'welcome.html'));
   res.render("welcome");
+});
+
+app.get("/homepage", (req, res) => {
+  res.render("homepage", { title: "CookHub | Trang chủ" });
 });
 
 app.get("/recipes", (req, res) => {
@@ -40,19 +47,17 @@ app.get("/recipes", (req, res) => {
 });
 
 app.get('/SignIn', (req, res) => {
-  // res.sendFile(path.join(__dirname, '..', 'frontend', 'pages', 'SignIn.html'));
   res.render("SignIn");
 });
 
 app.get('/SignUp', (req, res) => {
-  // res.sendFile(path.join(__dirname, '..', 'frontend', 'pages', 'SignUp.html'));
   res.render("SignUp");
 });
 
 app.get('/dashboard', (req, res) => {
-  // res.sendFile(path.join(__dirname, '..', 'frontend', 'pages', 'dashboard.html'));
   res.render("dashboard");
 });
+
 // Khởi chạy server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
