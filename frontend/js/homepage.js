@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}">
                         <div class="slide-caption">
                             <!-- <div class="recipe-rank">1</div> Sẽ cần logic để hiển thị đúng rank nếu cần -->
-                            <h3>${recipe.title}</h3>
-                            <div class="recipe-meta">
-                                <i class="far fa-clock"></i> ${recipe.cooking_time || '?'} minutes
+                            <div class = "recipe-caption"> 
+                                <h3>${recipe.title}</h3>
+                                <div class="recipe-meta">
+                                    <i class="far fa-clock"></i> ${recipe.cooking_time || '?'} minutes
+                                </div>
                             </div>
                             <div class="recipe-description"> ${recipe.description} </div>
                             <!-- Có thể thêm description nếu API trả về -->
@@ -128,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createRecipeCard(recipe){
         const card = document.createElement('div');
         card.classList.add('recipe-card');
+        const isInitiallySaved = recipe.isSavedByCurrentUser || false;
         //PlaceHolder;
         const avatarURL = '../assets/image/users/avatars/avatar_a1b2c3d4e5.jpg';
         card.innerHTML = `
@@ -163,8 +166,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const saveButton = card.querySelector('.save-button');
         if (saveButton) {
-            saveButton.addEventListener('click', (e) => {
+            // Goi API
+            saveButton.addEventListener('click', async (e) => {
                 e.stopPropagation();
+
+                const isLoggedIn = window.isUserLoggedIn;
+
+                if (!isLoggedIn) {
+                    // Hoặc chuyển hướng đến trang đăng nhập
+                    window.location.href = '/login?redirect=' + window.location.pathname;
+                    return; // Dừng xử lý
+                }
+
                 console.log(`Luu cong thuc ID: ${recipe.recipe_id}`);
                 //Them logic luu cong thuc
                 saveButton.classList.toggle('saved');

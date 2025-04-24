@@ -74,20 +74,28 @@ body{
 }
 
 .slide-caption h3 {
-    margin: 5px 0;
+    margin: 5px 0px;
+    margin-right: 10px;
     font-size: 1.5rem; /* Kích thước tiêu đề */
 }
 
 .slide-caption .recipe-meta {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     gap: 5px; /* Khoảng cách giữa icon và text */
     margin: 8px 0;
+    margin-top: 10px;
 }
 
 .slide-caption .recipe-description {
     text-align: left;
+}
+
+.slide-caption .recipe-caption{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
 }
 
 /* Style cho pagination dots của Swiper */

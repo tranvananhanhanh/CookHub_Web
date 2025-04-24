@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= typeof title !== 'undefined' ? title : 'CookHub' %></title>
+    <script>
+            // Truyền dữ liệu từ server sang client một cách an toàn
+        window.isUserLoggedIn = <%- JSON.stringify(isLoggedIn) %>;
+
+        // Truyền đối tượng currentUser (chỉ các thuộc tính cần thiết) hoặc null
+        window.currentUser = <%- JSON.stringify(currentUser ? {
+            id: currentUser.id,
+            name: currentUser.name, // Cần cho việc hiển thị "Chào, [tên]"
+            avatarUrl: currentUser.avatarUrl // Cần nếu bạn muốn hiển thị avatar động
+                                            // Đảm bảo 'avatarUrl' tồn tại trong đối tượng user từ server
+        } : null) %>;
+    </script>
+
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="../assets/styles.css">
     <link rel="stylesheet" href="../assets/homepage.css">
@@ -74,7 +87,6 @@
     <script src="/js/loadHTML.js"></script>
     <!-- Script Thư viện Slider (Swiper JS) - CẦN THÊM VÀO DỰ ÁN -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- Script riêng cho trang chủ -->
     <script src="/js/homepage.js"></script>
 </body>
 </html>

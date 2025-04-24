@@ -5,8 +5,6 @@ class RecipeModel {
     const result = await pool.query("SELECT * FROM recipes");
     return result.rows;
   }
-<<<<<<< Updated upstream
-=======
 
   static async searchRecipes (filters = {}) {
     console.log("RecipeModel.searchRecipes called with filters:", filters);
@@ -224,7 +222,6 @@ class RecipeModel {
     }
   }
 
->>>>>>> Stashed changes
 }
 
 

@@ -95,6 +95,12 @@ nav ul li {
 
 nav ul a {
     display: block;
+    transition: color 0.2s ease-in-out;
+}
+
+nav ul a.active-link {
+    color: #FF7D00; /* Màu cam khi active */
+    font-weight: 500; /* Có thể làm đậm chữ */
 }
 
 .search-icon {
@@ -123,23 +129,34 @@ nav ul a {
 .create-post-button p {
     margin: 0;
 }
+.user-profile-container {
+    /* display: none; */ /* JavaScript sẽ quản lý việc hiển thị */
+}
 
-.user-logo a {
+.user-profile-container a#user-profile-link { /* Target thẻ a cụ thể */
     display: flex;
     align-items: center;
     gap: 10px;
     height: 40px;
+    color: #2f2f2f; /* Màu chữ mặc định */
+    text-decoration: none; /* Bỏ gạch chân */
+}
+.user-profile-container a#user-profile-link:hover {
+    color: #FF7D00; /* Màu cam khi hover */
 }
 
-.user-logo img {
+
+.user-profile-container img#user-avatar-img { /* Target ảnh cụ thể */
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.user-logo p {
+.user-profile-container p#user-profile-name { /* Target tên cụ thể */
     margin: 0;
+    font-size: 18px; /* Điều chỉnh kích thước nếu cần */
+    font-weight: 500;
 }
 
 /* Profile Cover */
@@ -245,8 +262,7 @@ nav ul a {
 }
 
 .recipe-card {
-    min-width: 335px;
-    width: 353px;
+    /* width: 353px; */
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     overflow: hidden;
@@ -559,6 +575,48 @@ footer {
     margin-top: 20px;
 }
 
+.container {
+    display: flex;
+    gap: 20px; /* Giữ khoảng cách giữa các mục */
+    align-items: center; /* Căn dọc */
+    justify-content: space-between; /* Phân bố không gian */
+    padding: 0px 40px;
+    max-width: 100%;
+    height: 67px; /* Đảm bảo chiều cao container */
+    overflow: hidden;
+}
+
+.create-post-button {
+    /* Style cũ giữ nguyên */
+    /* THÊM: Đảm bảo thẻ a bên trong không làm thay đổi layout */
+    display: flex; /* Để căn giữa chữ dễ hơn nếu cần */
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Căn chữ giữa */
+}
+
+.create-post-button p {
+    margin: 0;
+    line-height: normal; /* Reset line-height nếu cần */
+}
+
+.login-button-container .login-button {
+    display: inline-block; 
+    background-color: #FF7D00; 
+    color: white; 
+    padding: 10px 25px; 
+    border-radius: 10px; 
+    font-weight: bold; 
+    line-height: 24px; 
+    height: 44px;
+    border: none;
+    text-decoration: none; /* Bỏ gạch chân link */
+    /* transition: background-color 0.2s ease; */ /* Thêm hiệu ứng hover nếu muốn */
+}
+
+.login-button-container .login-button:hover {
+    background-color: #e06c00;
+}
 /* .recipe-card {
     background: rgb(87, 176, 67);
     padding: 15px;

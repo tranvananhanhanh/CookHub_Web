@@ -14,8 +14,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-<<<<<<< Updated upstream
-=======
 // --- API LẤY CATEGORIES THEO TYPE ---
 // GET /categories (VD: Sẽ thành /api/recipes/categories nếu mount với prefix /api/recipes)
 router.get('/categories', async (req, res) => {
@@ -128,5 +126,4 @@ router.get('/by-ingredient/:ingredientId', async(req, res) => {
     }
 })
 
->>>>>>> Stashed changes
 module.exports = router;

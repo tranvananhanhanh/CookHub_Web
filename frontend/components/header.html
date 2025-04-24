@@ -1,16 +1,19 @@
+<!-- START OF FILE header.html -->
 <header>
     <div class="container">
         <div class="logo">
-            <a href="#">
+            <!-- SỬA: Đổi href="#" thành href="/" để về trang chủ -->
+            <a href="/">
                 <img src="../assets/image/logo/logo_image_text.png" alt="Logo">
             </a>
         </div>
         <nav>
             <ul>
-                <li><a href="#">Home </a></li>
-                <li><a href="#">Cooks Chart</a></li>
-                <li><a href="#">BMI</a></li>
-                <li><a href="#">Saved Recipes</a></li>
+                <!-- SỬA: Thêm href thực tế cho các link -->
+                <li><a href="/homepage">Home</a></li>
+                <li><a href="/cooks-chart">Cooks Chart</a></li>
+                <li><a href="/bmi">BMI</a></li>
+                <li><a href="/saved-recipes">Saved Recipes</a></li>
             </ul>
         </nav>
         <div class="search-icon">
@@ -19,13 +22,24 @@
         <div class="notify">
             <img src="../assets/image/icon/notify_icon.png" alt="Notify">
         </div>
-        <div class="create-post-button">
-            <p>Create</p>
+        <!-- SỬA: Thêm ID cho nút Create -->
+        <div class="create-post-button" id="create-button">
+            <a href="/recipes/create" style="color: inherit; display: block;"> <!-- Thêm link cho nút Create -->
+                <p>Create</p>
+            </a>
         </div>
-        <div class="user-logo">
-            <a href="/profile">
-                <img src="../assets/image/avatar.jpg" alt="Avatar">
-                <p>Alice</p>
+
+        <!-- THÊM: Container cho nút Login (Mặc định ẩn nếu có thể, hoặc JS sẽ ẩn) -->
+        <div class="login-button-container" id="login-button-area">
+            <a href="/login" class="login-button" style="display: inline-block; background-color: #FF7D00; color: white; padding: 10px 25px; border-radius: 10px; font-weight: bold; line-height: 24px; height: 44px; border: none;">Login</a>
+        </div>
+
+        <!-- SỬA: Đổi tên class và thêm ID cho khu vực user (Mặc định ẩn nếu có thể, hoặc JS sẽ ẩn) -->
+        <div class="user-profile-container" id="user-profile-area" style="display: none;"> <!-- Bắt đầu ẩn -->
+            <!-- SỬA: Bọc avatar và tên trong một link profile duy nhất -->
+            <a href="#" id="user-profile-link"> <!-- href sẽ được cập nhật bởi JS -->
+                <img src="../assets/image/avatar_default.png" alt="Avatar" id="user-avatar-img"> <!-- Thêm ID, dùng ảnh mặc định -->
+                <p id="user-profile-name">User</p> <!-- Thêm ID, tên mặc định -->
             </a>
         </div>
     </div>
