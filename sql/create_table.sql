@@ -1,4 +1,16 @@
 -- Bảng người dùng
+-- CREATE TABLE users (
+--     user_id SERIAL PRIMARY KEY,
+--     name VARCHAR(255) NOT NULL,
+--     email VARCHAR(255) UNIQUE NOT NULL,
+--     password_hash TEXT NOT NULL,
+--     avatar TEXT DEFAULT '',
+--     is_banned BOOLEAN DEFAULT FALSE,
+--     created_at TIMESTAMP DEFAULT NOW(),
+-- 	last_login TIMESTAMP NULL
+
+-- );
+-- new users table add age and gender 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     random_code VARCHAR(255) UNIQUE NOT NULL,
@@ -10,7 +22,9 @@ CREATE TABLE users (
     profile_background TEXT DEFAULT '',
     is_banned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT NOW(),
-	last_login TIMESTAMP NULL
+    last_login TIMESTAMP NULL,
+    age INT CHECK (age >= 0),
+    gender VARCHAR(10) CHECK (gender IN ('female', 'male', 'other'))
 );
 
 -- Bảng liên kết các mạng xã hội của người dùng
