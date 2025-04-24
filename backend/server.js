@@ -13,6 +13,8 @@ const recipeRoutes = require("./routes/recipeRoutes");
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 const userRoutes = require("./routes/userRoutes");
+const shoppingListRoutes = require("./routes/shoppingListRoutes");
+const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
 
 app.use(cors({
   origin: ["http://127.0.0.1:5500", "http://localhost:5500"]
@@ -34,6 +36,8 @@ app.use('/api/auth', authRoutes); // Route cho đăng nhập
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 app.use("/api/users/", userRoutes);
+app.use("/api/shopping-list", shoppingListRoutes);
+app.use("/api/savedRecipes", savedRecipesRoutes);
 
 // Route trang chủ
 app.get('/', (req, res) => {
@@ -46,6 +50,9 @@ app.get("/homepage", (req, res) => {
 
 app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
+});
+app.get("/savedRecipes", (req, res) => {
+  res.render("savedRecipes", { title: "Saved Recipes" });
 });
 
 app.get("/profile", (req, res) => {
@@ -64,10 +71,34 @@ app.get('/dashboard', (req, res) => {
   res.render("dashboard");
 });
 
-
 app.get('/search', (req, res) => {
   res.render('search', { title: 'Tìm kiếm Công thức' });
 });
+
+app.get('/about_us', (req, res) => {
+  res.render('about_us');
+});
+
+app.get('/advertising', (req, res) => {
+  res.render('Advertising');
+});
+
+app.get('/cookies', (req, res) => {
+  res.render('cookies');
+});
+
+app.get('/help', (req, res) => {
+  res.render('help');
+});
+
+app.get('/privacy_policy', (req, res) => {
+  res.render('privacy_policy');
+});
+
+app.get('/terms', (req, res) => {
+  res.render('terms_of_use');
+});
+
 
 // Khởi chạy server
 app.listen(port, () => {

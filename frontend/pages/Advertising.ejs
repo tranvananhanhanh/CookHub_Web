@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub | Advertise</title>
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+    <script src="../js/loadHTML.js"></script>
+    <style>
+        body {
+            background: #fffaf0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            color: #4a2c0d;
+        }
+        .advertise-main {
+            max-width: 960px;
+            margin: 80px auto 60px;
+            padding: 0 16px;
+        }
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #ffaf50, #ff7d00);
+            border-radius: 12px;
+            padding: 30px;
+            min-height: 280px; /* Thu nhỏ khung */
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .orange-icon {
+            position: relative;
+            width: 60px; /* Thu nhỏ quả cam */
+            height: 60px;
+            background: #ff7d00;
+            border-radius: 50%;
+            margin: 15px auto;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+        .orange-icon::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #8bc34a;
+            border-radius: 50%;
+        }
+        .orange-icon::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 10px;
+            height: 3px;
+            background: #8bc34a;
+            border-radius: 2px;
+        }
+        .hero-title {
+            color: #fff;
+            font-size: 36px; /* Giảm kích thước chữ */
+            font-weight: 800;
+            line-height: 44px;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+        .hero-subtitle {
+            color: #fff;
+            font-size: 16px;
+            line-height: 22px;
+        }
+        /* Section */
+        .section {
+            padding: 40px 0;
+            margin-bottom: 40px;
+            background: linear-gradient(180deg, #fffaf0, #fef5e7);
+            border-radius: 12px;
+        }
+        .section-title {
+            color: #ff7d00;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 30px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .section-content {
+            color: #4a2c0d;
+            font-size: 16px;
+            line-height: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: #ffb74d;
+            margin: 20px auto;
+        }
+        /* Grid Items (Audience & Opportunities) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
+        .grid-item {
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .grid-item:hover {
+            transform: translateY(-5px);
+        }
+        .grid-item i {
+            font-size: 30px;
+            color: #ff7d00;
+            margin-bottom: 10px;
+        }
+        .grid-item h3 {
+            color: #4a2c0d;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 22px;
+            margin-bottom: 4px;
+        }
+        .grid-item p {
+            color: #8c705e;
+            font-size: 13px;
+            line-height: 18px;
+        }
+        /* Contact Section */
+        .contact-section {
+            padding: 40px 0;
+            background: #fef5e7;
+            border-radius: 12px;
+        }
+        .contact-info {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .contact-info p {
+            color: #4a2c0d;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 16px;
+        }
+        .contact-info a {
+            color: #ff7d00;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .contact-info a:hover {
+            color: #f9800f;
+        }
+        @media (max-width: 768px) {
+            .advertise-main {
+                margin: 70px auto 40px;
+                padding: 0 12px;
+            }
+            .hero-section {
+                padding: 20px;
+                min-height: 240px; /* Thu nhỏ khung trên mobile */
+            }
+            .orange-icon {
+                width: 50px; /* Thu nhỏ quả cam trên mobile */
+                height: 50px;
+            }
+            .orange-icon::before {
+                width: 6px;
+                height: 6px;
+                top: 6px;
+            }
+            .orange-icon::after {
+                width: 8px;
+                height: 2px;
+                top: 3px;
+            }
+            .hero-title {
+                font-size: 30px;
+                line-height: 36px;
+            }
+            .hero-subtitle {
+                font-size: 14px;
+                line-height: 20px;
+            }
+            .section-title {
+                font-size: 20px;
+                line-height: 28px;
+            }
+            .section-content {
+                font-size: 15px;
+                line-height: 22px;
+            }
+            .grid-container {
+                gap: 16px;
+            }
+            .grid-item i {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header"></div>
+    <div class="advertise-main">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="orange-icon"></div>
+                <h1 class="hero-title">Advertise with CookHub</h1>
+                <p class="hero-subtitle">Connect with food lovers worldwide</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Why Advertise with Us?</h2>
+            <div class="section-divider"></div>
+            <p class="section-content">
+                CookHub is a vibrant platform where food enthusiasts discover and share recipes. Our community is passionate, engaged, and eager to explore new culinary ideas.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Who Uses CookHub?</h2>
+            <div class="section-divider"></div>
+            <p class="section-content">
+                Our audience includes food lovers, home cooks, and aspiring chefs who are passionate about cooking.
+            </p>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <i class="fas fa-heart"></i>
+                    <h3>Food Lovers</h3>
+                    <p>Enjoy cooking and sharing meals</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Home Cooks</h3>
+                    <p>Craft dishes at home</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-book"></i>
+                    <h3>Recipe Enthusiasts</h3>
+                    <p>Collect new recipes</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-users"></i>
+                    <h3>Families</h3>
+                    <p>Cook for loved ones</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-star"></i>
+                    <h3>Aspiring Chefs</h3>
+                    <p>Learn cooking skills</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Advertising Opportunities</h2>
+            <div class="section-divider"></div>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <i class="fas fa-video"></i>
+                    <h3>Sponsored Videos</h3>
+                    <p>Engage our audience with cooking videos featuring your brand.</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-pen"></i>
+                    <h3>Branded Content</h3>
+                    <p>Connect through custom recipes highlighting your products.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section contact-section">
+            <h2 class="section-title">Ready to Get Started?</h2>
+            <div class="section-divider"></div>
+            <div class="contact-info">
+                <p>Interested in advertising with CookHub? Reach out to us.</p>
+                <p>Email: <a href="mailto:advertise@cookhub.com">advertise@cookhub.com</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>

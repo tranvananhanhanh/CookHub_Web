@@ -25,8 +25,22 @@ function initHeaderScript() {
         return;
     }
 
+    // Xử lý menu bar
     menuIcon.addEventListener('click', () => {
         isNavVisible = !isNavVisible;
         nav.style.display = isNavVisible ? 'block' : 'none';
+    });
+
+    // Xử lý active link
+    const navLinks = document.querySelectorAll('nav ul li a');
+    const currentUrl = window.location.pathname;
+
+    navLinks.forEach(link => {
+        // So sánh href của link với URL hiện tại
+        if (link.getAttribute('href') === currentUrl) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
     });
 }
