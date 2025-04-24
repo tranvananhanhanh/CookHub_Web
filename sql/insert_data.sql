@@ -82,6 +82,82 @@ INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servi
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
 (2, 'Flan Hột Gà Cà Phê', 'thumbnail.png', 'Lấy cảm hứng từ những chiếc bánh flan béo ngậy mềm mại nhưng qua cách chế biến mình đã làm thành công chiếc bánh flan dành cho các bệnh nhân tiểu đường để họ thưởng thức mà không sợ ảnh hưởng nhiều đến sức khoẻ.', 30, 6, 'approved', '2025-03-20 17:10:25');
 
+-- Bảng tài khoản mạng xã hội
+INSERT INTO user_social_links (user_id, platform, url) VALUES
+(1, 'facebook', 'https://facebook.com/user1'),
+(1, 'instagram', 'https://instagram.com/user1'),
+
+(2, 'facebook', 'https://facebook.com/user2'),
+(2, 'instagram', 'https://instagram.com/user2'),
+(2, 'x', 'https://x.com/user2'),
+
+(3, 'facebook', 'https://facebook.com/user3'),
+(3, 'instagram', 'https://instagram.com/user3'),
+
+(4, 'facebook', 'https://facebook.com/user4'),
+(4, 'instagram', 'https://instagram.com/user4'),
+(4, 'x', 'https://x.com/user4'),
+
+(5, 'facebook', 'https://facebook.com/user5'),
+(5, 'instagram', 'https://instagram.com/user5'),
+(5, 'x', 'https://x.com/user5'),
+
+(6, 'facebook', 'https://facebook.com/user6'),
+(6, 'instagram', 'https://instagram.com/user6'),
+(6, 'x', 'https://x.com/user6'),
+
+(7, 'facebook', 'https://facebook.com/user7'),
+(7, 'instagram', 'https://instagram.com/user7'),
+(7, 'x', 'https://x.com/user7'),
+
+(8, 'facebook', 'https://facebook.com/user8'),
+(8, 'instagram', 'https://instagram.com/user8'),
+(8, 'x', 'https://x.com/user8'),
+
+(9, 'facebook', 'https://facebook.com/user9'),
+(9, 'x', 'https://x.com/user9'),
+
+(10, 'facebook', 'https://facebook.com/user10'),
+(10, 'instagram', 'https://instagram.com/user10'),
+(10, 'x', 'https://x.com/user10'),
+
+(11, 'facebook', 'https://facebook.com/user11'),
+(11, 'instagram', 'https://instagram.com/user11'),
+(11, 'x', 'https://x.com/user11'),
+
+(12, 'facebook', 'https://facebook.com/user12'),
+(12, 'instagram', 'https://instagram.com/user12'),
+
+(13, 'facebook', 'https://facebook.com/user13'),
+(13, 'instagram', 'https://instagram.com/user13'),
+(13, 'x', 'https://x.com/user13'),
+
+(14, 'facebook', 'https://facebook.com/user14'),
+(14, 'instagram', 'https://instagram.com/user14'),
+(14, 'x', 'https://x.com/user14'),
+
+(15, 'facebook', 'https://facebook.com/user15'),
+(15, 'instagram', 'https://instagram.com/user15'),
+(15, 'x', 'https://x.com/user15'),
+
+(16, 'facebook', 'https://facebook.com/user16'),
+(16, 'instagram', 'https://instagram.com/user16'),
+(16, 'x', 'https://x.com/user16'),
+
+(17, 'facebook', 'https://facebook.com/user17'),
+(17, 'instagram', 'https://instagram.com/user17'),
+(17, 'x', 'https://x.com/user17'),
+
+(18, 'facebook', 'https://facebook.com/user18'),
+(18, 'x', 'https://x.com/user18'),
+
+(19, 'facebook', 'https://facebook.com/user19'),
+(19, 'instagram', 'https://instagram.com/user19'),
+(19, 'x', 'https://x.com/user19'),
+
+(20, 'facebook', 'https://facebook.com/user20'),
+(20, 'instagram', 'https://instagram.com/user20');
+
 -- Bảng hình ảnh các bước nấu ăn
 -- Phở Bò
 INSERT INTO recipe_images (recipe_id, image_url) VALUES

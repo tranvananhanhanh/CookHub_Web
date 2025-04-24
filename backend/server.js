@@ -8,10 +8,12 @@ const app = express();
 const port = 4000; 
 const recipeRoutes = require("./routes/recipeRoutes");
 const userRoutes = require("./routes/userRoutes");
+const unitRoutes = require("./routes/unitRoutes");
+const createRoutes = require("./routes/createRoutes"); 
 
-app.use(cors({
-  origin: ["http://127.0.0.1:5500", "http://localhost:5500"]
-}));
+process.env.TZ = 'UTC';
+
+app.use(cors());
 
 // Cấu hình để sử dụng EJS
 app.set("view engine", "ejs");
@@ -23,8 +25,10 @@ app.use(express.static(path.join(__dirname, "..", "frontend")));
 app.use(express.urlencoded({ extended: true }));
 
 // API routes
-app.use("/api/recipes/", recipeRoutes); 
-app.use("/api/users/", userRoutes);
+app.use("/api/recipes", createRoutes); // Xử lý POST /api/recipes
+app.use("/api/recipes", recipeRoutes); // Xử lý GET /api/recipes
+app.use("/api/users", userRoutes);
+app.use("/api/units", unitRoutes); // Routes đơn vị
 
 // Route trang chủ
 app.get("/", (req, res) => {
@@ -32,6 +36,9 @@ app.get("/", (req, res) => {
 });
 app.get("/profile", (req, res) => {
   res.render("profile");
+});
+app.get("/create", (req, res) => {
+  res.render("create");
 });
 
 // Khởi chạy server

@@ -1,0 +1,18 @@
+{
+  "name": "fatsecret",
+  "version": "1.0.2",
+  "description": "Unofficial node library for the Fatsecret.com rest API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/OverFlow636/fatsecret.git"
+  },
+  "author": "Joey Jan",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "fatsecret-recipe-search-nodejs",
+  "version": "1.0.0",
+  "description": "NodeJS example for searching FatSecret recipes using OAuth 1.0a",
+  "main": "searchRecipes.js",
+  "scripts": {
+    "start": "node searchRecipes.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fatsecret",
+    "api",
+    "recipe",
+    "oauth",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "oauth": "^0.10.0" 
+  }
+}

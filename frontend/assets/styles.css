@@ -39,7 +39,7 @@ a, button {
     padding: 20px;
     font-family: 'Plus Jakarta Sans';
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .btn {
@@ -169,7 +169,6 @@ nav ul a {
 
 .create-post-button {
     width: 100px;
-    height: 44px;
     background: #FF7D00;
     color: #fff;
     border-radius: 10px;
