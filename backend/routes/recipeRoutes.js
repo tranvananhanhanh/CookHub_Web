@@ -1,10 +1,13 @@
-// chứa các API endpoint liên quan đến công thức nấu ăn
+// backend/routes/recipeRoutes.js
+// Chứa các API endpoint liên quan đến công thức nấu ăn
 
 const express = require("express");
 const router = express.Router();
-const RecipeModel = require("../models/recipeModel");
+const RecipeModel = require("../models/recipeModel"); // Bỏ đi nếu không dùng RecipeModel nữa
+const client = require('../config/db'); // <<<--- !!! QUAN TRỌNG: Đảm bảo đường dẫn này chính xác !!!
 
-// Lấy danh sách công thức (trả về JSON)
+// --- API LẤY TẤT CẢ CÔNG THỨC (ĐÃ DUYỆT) ---
+// GET / (VD: Sẽ thành /api/recipes/ nếu mount với prefix /api/recipes)
 router.get("/", async (req, res) => {
   try {
     const recipes = await RecipeModel.getAllRecipes();
@@ -125,5 +128,18 @@ router.get('/by-ingredient/:ingredientId', async(req, res) => {
         res.status(500).json({ message: 'Lỗi máy chủ khi lấy công thức theo nguyên liệu.' });
     }
 })
+
+router.get('/ingredients/common', async (req, res) => {
+    console.log("API: GET /ingredients/common (Get Common Ingredients for Filter)");
+    try {
+         // Gọi phương thức từ Model
+         const commonIngredients = await RecipeModel.getCommonIngredients();
+         res.json(commonIngredients); // Trả về kết quả từ Model
+    } catch (err) {
+         // Lỗi đã được log trong Model
+         console.error('Error in GET /ingredients/common route:', err.message); // Log thêm ở route nếu muốn
+         res.status(500).json({ message: 'Lỗi máy chủ khi lấy danh sách nguyên liệu phổ biến.' });
+    }
+  });
 
 module.exports = router;

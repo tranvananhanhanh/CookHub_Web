@@ -306,8 +306,7 @@ nav ul a {
 }
 
 .recipe-card {
-    min-width: 335px;
-    width: 353px;
+    /* min-width: 335px; */
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     overflow: hidden;

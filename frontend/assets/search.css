@@ -1,0 +1,367 @@
+/* frontend/css/search.css */
+
+.plus-jakarta-sans {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+body {
+    background-color: #f8f9fa; /* Light background for the whole page */
+}
+
+.search-page-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-top: 80px; /* Adjust if header height changes */
+    padding: 15px;
+}
+
+h1 {
+    margin-bottom: 15px;
+    font-size: 1.8rem; /* Slightly larger main title */
+    font-weight: 600;
+    color: #333;
+}
+
+/* Search Bar */
+.search-bar-container {
+    display: flex;
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0; /* Lighter border */
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #f1f3f5; /* Lighter background consistent with image */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+#search-input {
+    flex-grow: 1;
+    padding: 12px 20px; /* Slightly more padding */
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+}
+
+#search-button {
+    padding: 12px 18px;
+    border: none;
+    background-color: transparent;
+    color: #868e96; /* Icon color */
+    cursor: pointer;
+    font-size: 1rem; /* Ensure icon size is reasonable */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#search-button:hover {
+    color: #495057; /* Darker hover */
+}
+
+/* Two Column Layout */
+.search-content-area {
+    display: flex;
+    flex-wrap: nowrap; /* Allow stacking on smaller screens */
+    gap: 30px; /* Space between columns */
+    margin-top: 20px;
+}
+
+/* Filters Column (Left) */
+.filters-column {
+    width: 280px;
+    flex-shrink: 0;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    /* === SCROLLING ADDED === */
+    max-height: calc(100vh - 120px); /* Adjust max-height as needed (viewport height minus header/margins) */
+    overflow-y: auto; /* Enable vertical scrollbar when content exceeds max-height */
+    position: sticky; /* Make filters sticky */
+    top: 100px; /* Adjust based on header height + desired gap */
+}
+
+/* Remove background/shadow from the inner section if applied to the column */
+.filters-section {
+   padding: 0; /* Remove padding if outer column has it */
+   background-color: transparent;
+   border-radius: 0;
+   box-shadow: none;
+   margin-bottom: 0; /* Remove bottom margin if handled by column */
+}
+
+.filter-group {
+    margin-bottom: 25px;
+    padding-bottom: 15px; /* Add some space below each group */
+    border-bottom: 1px solid #eee; /* Separator line between groups */
+}
+
+.filter-group:last-of-type {
+    margin-bottom: 0; /* No margin below the last group */
+}
+
+
+.filter-group h2 {
+    font-size: 1rem; /* Slightly smaller filter titles */
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #495057; /* Darker grey */
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-tag {
+    padding: 5px 12px; /* Adjusted padding */
+    background-color: #f1f3f5; /* Light grey background for tags */
+    border: 1px solid transparent; /* No visible border initially */
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.85rem; /* Slightly smaller tag text */
+    color: #495057;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+#servings-tags .filter-tag {
+    padding: 5px 10px;
+}
+
+.filter-tag .fa-star {
+    color: #fadb14; /* Yellow star color */
+    font-size: 0.9em;
+}
+
+
+.filter-tag:hover {
+    background-color: #e9ecef; /* Slightly darker grey on hover */
+}
+
+/* Active filter tag style */
+.filter-tag.active {
+    background-color: #ff9900; /* Orange background */
+    color: white;
+    border-color: #ff9900;
+    font-weight: 500;
+}
+
+.filter-tag.active .fa-star {
+    color: #fadb14; /* Or keep yellow: #fadb14; */
+}
+
+#clear-filters-btn {
+     margin-top: 25px; /* Space above clear button */
+     padding: 8px 15px;
+     background-color: #f8f9fa;
+     border: 1px solid #dee2e6;
+     border-radius: 5px;
+     cursor: pointer;
+     color: #495057;
+     font-size: 0.9rem;
+     width: 100%; /* Make button full width */
+     text-align: center;
+}
+#clear-filters-btn:hover {
+    background-color: #e9ecef;
+}
+
+/* Active Filters Display */
+.active-filters-container {
+    margin-top: 20px;
+    padding: 10px 0; /* Only vertical padding */
+    /* background-color: #f9f9f9; Remove background */
+    border-top: 1px solid #eee; /* Separator line */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.active-filter-item {
+    background-color: #e9ecef; /* Consistent light grey */
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    color: #495057;
+    display: flex;
+    align-items: center;
+}
+
+.active-filter-item button { /* 'x' button */
+    background: none;
+    border: none;
+    color: #868e96;
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em; /* Make 'x' slightly bigger */
+    padding: 0 3px;
+    line-height: 1;
+}
+.active-filter-item button:hover {
+    color: #343a40;
+}
+
+
+/* Results Column (Right) */
+.results-column {
+    flex-grow: 1; /* Takes remaining space */
+    min-width: 0; /* Prevents overflow issues in flex */
+}
+
+.results-column h2 {
+    font-size: 1.5rem; /* Slightly larger results title */
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#search-term-display {
+    font-weight: bold; /* Make the term bold */
+    color: #333;
+}
+
+#search-term-display-wrapper {
+    display: none;
+    font-weight: normal;
+    color: #555;
+}
+
+/* Recipe Grid */
+#search-results {
+    margin-top: 0; /* Reset margin as spacing is handled by h2 */
+}
+
+.recipes-grid {
+    display: grid;
+    /* Adjust minmax for desired card size */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px; /* Grid gap */
+}
+
+/* Recipe Card Styling */
+.recipe-card {
+    border: none; /* Remove border */
+    border-radius: 12px; /* Match filter box rounding */
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Match filter box shadow */
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex; /* Use flex for better internal alignment */
+    flex-direction: column;
+}
+.recipe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.recipe-card img.recipe-thumbnail {
+    width: 100%;
+    height: 170px; /* Adjust height as needed */
+    object-fit: cover;
+    display: block; /* Remove potential bottom space */
+}
+
+.recipe-card-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-card .recipe-info { /* Container for text content */
+    padding: 15px;
+    flex-grow: 1; /* Allow text area to grow */
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-card h2 {
+    font-size: 1.1rem; /* Title size */
+    font-weight: 600;
+    margin: 0 0 8px 0; /* Adjusted margin */
+    color: #343a40;
+    line-height: 1.3;
+}
+
+/* Style for the meta info (ingredients/time) */
+.recipe-card .recipe-meta {
+    font-size: 0.85rem;
+    color: #868e96;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    display: flex; /* Use flex for horizontal alignment */
+    justify-content: space-between; /* Space out time and potential rating */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 10px;
+}
+
+.recipe-card-meta span { /* Individual meta items */
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 5px;
+}
+
+.recipe-card-meta span .fa-star {
+    color: #fadb14;
+}
+
+.recipe-card a.view-detail-btn {
+    display: inline-block;
+    margin-top: 10px; /* Push button to bottom */
+    padding: 8px 12px;
+    background-color: #f1f3f5; /* Match inactive tag bg */
+    color: #495057; /* Match inactive tag text */
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+.recipe-card a.view-detail-btn:hover {
+    background-color: #ff9900;
+    color: #fff;
+}
+
+/* Remove hr if not needed visually */
+hr {
+    display: none; /* Hide the hr, spacing is handled by layout */
+}
+
+
+/* Responsive Adjustments (Example) */
+@media (max-width: 992px) { /* Adjust breakpoint if needed */
+    .filters-column {
+        position: static; /* Remove sticky positioning */
+        max-height: none; /* Remove max-height */
+        overflow-y: visible; /* Disable scrolling */
+        width: 100%; /* Full width */
+        margin-bottom: 30px;
+    }
+    .search-content-area {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-content-area {
+        flex-direction: column; /* Stack columns */
+        gap: 20px;
+    }
+
+    .filters-column {
+        width: 100%; /* Full width on small screens */
+        height: auto; /* Allow height to adjust */
+        margin-bottom: 20px; /* Add space when stacked */
+    }
+
+     .recipes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust grid for smaller cards */
+        gap: 15px;
+     }
+}

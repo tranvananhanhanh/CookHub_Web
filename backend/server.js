@@ -6,12 +6,12 @@ const open = require('open').default;
 const router = express.Router();
 
 const app = express();
-const port = 4000; 
+const port = 4000;
 
 const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const dashboardRoutes = require('./routes/dashboardRoutes');
-const ingredientRoutes = require('./routes/ingredientRoutes'); 
+const ingredientRoutes = require('./routes/ingredientRoutes');
 const userRoutes = require("./routes/userRoutes");
 
 app.use(cors({
@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // API routes
-app.use("/api/recipes", recipeRoutes); 
+app.use("/api/recipes", recipeRoutes);
 app.use('/api/auth', authRoutes); // Route cho đăng nhập
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ingredients', ingredientRoutes);
@@ -48,7 +48,7 @@ app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
 });
 
-  app.get("/profile", (req, res) => {
+app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
@@ -62,6 +62,11 @@ app.get('/SignUp', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
   res.render("dashboard");
+});
+
+
+app.get('/search', (req, res) => {
+  res.render('search', { title: 'Tìm kiếm Công thức' });
 });
 
 // Khởi chạy server
