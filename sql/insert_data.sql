@@ -1,44 +1,25 @@
 -- Bảng người dùng
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES 
-('a1b2c3d4e5', 'Dương Văn Khánh', 25, 'duongvk12061999@gmail.com', 'hashed_password_1', 'avatar_a1b2c3d4e5.jpg', 'background_a1b2c3d4e5.jpg', FALSE, '2024-04-01 10:00:00', '2024-04-02 08:00:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('f6g7h8i9j0', 'Nguyễn Hoàng Minh', 30, 'nguyenhm23031994@gmail.com', 'hashed_password_2', 'avatar_f6g7h8i9j0.jpg', 'background_f6g7h8i9j0.jpg', TRUE, '2024-03-20 14:30:00', '2024-03-29 18:45:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('k1l2m3n4o5', 'Phạm Tiến Dũng', 28, 'phamtd15081996@gmail.com', 'hashed_password_3', 'avatar_k1l2m3n4o5.png', 'background_k1l2m3n4o5.png', FALSE, '2024-04-01 15:45:00', NULL);
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('p6q7r8s9t0', 'Trần Nhật Long', 22, 'trannl09072002@gmail.com', 'hashed_password_4', 'avatar_p6q7r8s9t0.jpg', 'background_p6q7r8s9t0.jpg', FALSE, '2024-03-28 12:10:00', '2024-03-30 20:20:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('u1v2w3x4y5', 'Vũ Đức Hạnh', 27, 'vudh21041997@gmail.com', 'hashed_password_5', 'avatar_u1v2w3x4y5.jpg', 'background_u1v2w3x4y5.jpg', TRUE, '2024-02-15 09:00:00', NULL);
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('z6a7b8c9d0', 'Lê Quang Huy', 29, 'leqh22051995@gmail.com', 'hashed_password_6', 'avatar_z6a7b8c9d0.jpg', 'background_z6a7b8c9d0.jpg', FALSE, '2024-04-05 11:30:00', '2024-04-06 08:10:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('e1f2g3h4i5', 'Hoàng Văn Nam', 24, 'hoangvn30081999@gmail.com', 'hashed_password_7', 'avatar_e1f2g3h4i5.png', 'background_e1f2g3h4i5.png', FALSE, '2024-03-15 14:20:00', '2024-03-20 10:45:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('j6k7l8m9n0', 'Đặng Tiến Thành', 31, 'dangtt05011993@gmail.com', 'hashed_password_8', 'avatar_h6i7j8k9l0.jpg', 'background_j6k7l8m9n0.jpg', FALSE, '2024-01-25 19:10:00', NULL);
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('o1p2q3r4s5', 'Phan Minh Khoa', 26, 'phanmk15061998@gmail.com', 'hashed_password_9', 'avatar_o1p2q3r4s5.jpg', 'background_o1p2q3r4s5.jpg', TRUE, '2024-02-10 09:50:00', '2024-02-15 14:00:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('t6u7v8w9x0', 'Lương Văn Toàn', 23, 'luongvt17092001@gmail.com', 'hashed_password_10', 'avatar_t6u7v8w9x0.png', 'background_t6u7v8w9x0.png', FALSE, '2024-03-22 10:30:00', '2024-03-28 12:15:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('y1z2a3b4c5', 'Nguyễn Thị Bích', 27, 'nguyentb25031997@gmail.com', 'hashed_password_11', 'avatar_h6i7j8k9l0.jpg', 'background_y1z2a3b4c5.jpg', FALSE, '2024-01-20 08:10:00', NULL);
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('d6e7f8g9h0', 'Phạm Thanh Tùng', 30, 'phamtt14081994@gmail.com', 'hashed_password_12', 'avatar_d6e7f8g9h0.jpg', 'background_d6e7f8g9h0.jpg', FALSE, '2024-03-11 17:30:00', '2024-03-17 21:00:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('i1j2k3l4m5', 'Trịnh Hoàng An', 25, 'trinhha22022000@gmail.com', 'hashed_password_13', 'avatar_i1j2k3l4m5.png', 'background_i1j2k3l4m5.png', FALSE, '2024-02-27 07:45:00', NULL);
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('n6o7p8q9r0', 'Võ Thanh Bình', 29, 'vothb01051995@gmail.com', 'hashed_password_14', 'avatar_n6o7p8q9r0.jpg', 'background_n6o7p8q9r0.jpg', FALSE, '2024-03-19 20:10:00', '2024-03-21 09:30:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('s1t2u3v4w5', 'Lý Văn Hòa', 24, 'lyvh12082000@gmail.com', 'hashed_password_15', 'avatar_h6i7j8k9l0.jpg', 'background_s1t2u3v4w5.jpg', TRUE, '2024-02-06 18:40:00', '2024-02-10 22:50:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('x6y7z8a9b0', 'Đỗ Hải Đăng', 26, 'dohd19071998@gmail.com', 'hashed_password_16', 'avatar_x6y7z8a9b0.png', 'background_x6y7z8a9b0.png', FALSE, '2024-04-04 16:20:00', '2024-04-07 14:25:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('c1d2e3f4g5', 'Bùi Mạnh Hùng', 22, 'buimh29042002@gmail.com', 'hashed_password_17', 'avatar_c1d2e3f4g5.jpg', 'background_c1d2e3f4g5.jpg', FALSE, '2024-03-30 13:30:00', '2024-03-31 15:00:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('h6i7j8k9l0', 'Hồ Quang Phúc', 28, 'hoqp11021996@gmail.com', 'hashed_password_18', 'avatar_h6i7j8k9l0.jpg', 'background_h6i7j8k9l0.jpg', TRUE, '2024-02-14 11:10:00', NULL);
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('m1n2o3p4q5', 'Tạ Văn Sơn', 30, 'tavs08031994@gmail.com', 'hashed_password_19', 'avatar_m1n2o3p4q5.jpg', 'background_m1n2o3p4q5.jpg', FALSE, '2024-01-29 12:20:00', '2024-02-02 09:40:00');
-INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login) VALUES
-('r6s7t8u9v0', 'Đinh Quốc Khải', 23, 'dinhqk27092001@gmail.com', 'hashed_password_20', 'avatar_r6s7t8u9v0.png', 'background_r6s7t8u9v0.png', FALSE, '2024-03-09 08:30:00', '2024-03-12 18:20:00');
+INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile_background, is_banned, created_at, last_login, gender) VALUES 
+('a1b2c3d4e5', 'Dương Văn Khánh', 25, 'duongvk12061999@gmail.com', 'hashed_password_1', 'avatar_a1b2c3d4e5.jpg', 'background_a1b2c3d4e5.jpg', FALSE, '2024-04-01 10:00:00', '2024-04-02 08:00:00', 'male'),
+('f6g7h8i9j0', 'Nguyễn Hoàng Minh', 30, 'nguyenhm23031994@gmail.com', 'hashed_password_2', 'avatar_f6g7h8i9j0.jpg', 'background_f6g7h8i9j0.jpg', TRUE, '2024-03-20 14:30:00', '2024-03-29 18:45:00', 'male'),
+('k1l2m3n4o5', 'Phạm Tiến Dũng', 28, 'phamtd15081996@gmail.com', 'hashed_password_3', 'avatar_k1l2m3n4o5.png', 'background_k1l2m3n4o5.png', FALSE, '2024-04-01 15:45:00', NULL, 'male'),
+('p6q7r8s9t0', 'Trần Nhật Long', 22, 'trannl09072002@gmail.com', 'hashed_password_4', 'avatar_p6q7r8s9t0.jpg', 'background_p6q7r8s9t0.jpg', FALSE, '2024-03-28 12:10:00', '2024-03-30 20:20:00', 'male'),
+('u1v2w3x4y5', 'Vũ Đức Hạnh', 27, 'vudh21041997@gmail.com', 'hashed_password_5', 'avatar_u1v2w3x4y5.jpg', 'background_u1v2w3x4y5.jpg', TRUE, '2024-02-15 09:00:00', NULL, 'male'),
+('z6a7b8c9d0', 'Lê Quang Huy', 29, 'leqh22051995@gmail.com', 'hashed_password_6', 'avatar_z6a7b8c9d0.jpg', 'background_z6a7b8c9d0.jpg', FALSE, '2024-04-05 11:30:00', '2024-04-06 08:10:00', 'male'),
+('e1f2g3h4i5', 'Hoàng Văn Nam', 24, 'hoangvn30081999@gmail.com', 'hashed_password_7', 'avatar_e1f2g3h4i5.png', 'background_e1f2g3h4i5.png', FALSE, '2024-03-15 14:20:00', '2024-03-20 10:45:00', 'male'),
+('j6k7l8m9n0', 'Đặng Tiến Thành', 31, 'dangtt05011993@gmail.com', 'hashed_password_8', 'avatar_h6i7j8k9l0.jpg', 'background_j6k7l8m9n0.jpg', FALSE, '2024-01-25 19:10:00', NULL, 'male'),
+('o1p2q3r4s5', 'Phan Minh Khoa', 26, 'phanmk15061998@gmail.com', 'hashed_password_9', 'avatar_o1p2q3r4s5.jpg', 'background_o1p2q3r4s5.jpg', TRUE, '2024-02-10 09:50:00', '2024-02-15 14:00:00', 'male'),
+('t6u7v8w9x0', 'Lương Văn Toàn', 23, 'luongvt17092001@gmail.com', 'hashed_password_10', 'avatar_t6u7v8w9x0.png', 'background_t6u7v8w9x0.png', FALSE, '2024-03-22 10:30:00', '2024-03-28 12:15:00', 'male'),
+('y1z2a3b4c5', 'Nguyễn Thị Bích', 27, 'nguyentb25031997@gmail.com', 'hashed_password_11', 'avatar_h6i7j8k9l0.jpg', 'background_y1z2a3b4c5.jpg', FALSE, '2024-01-20 08:10:00', NULL, 'female'),
+('d6e7f8g9h0', 'Phạm Thanh Tùng', 30, 'phamtt14081994@gmail.com', 'hashed_password_12', 'avatar_d6e7f8g9h0.jpg', 'background_d6e7f8g9h0.jpg', FALSE, '2024-03-11 17:30:00', '2024-03-17 21:00:00', 'male'),
+('i1j2k3l4m5', 'Trịnh Hoàng An', 25, 'trinhha22022000@gmail.com', 'hashed_password_13', 'avatar_i1j2k3l4m5.png', 'background_i1j2k3l4m5.png', FALSE, '2024-02-27 07:45:00', NULL, 'female'),
+('n6o7p8q9r0', 'Võ Thanh Bình', 29, 'vothb01051995@gmail.com', 'hashed_password_14', 'avatar_n6o7p8q9r0.jpg', 'background_n6o7p8q9r0.jpg', FALSE, '2024-03-19 20:10:00', '2024-03-21 09:30:00', 'male'),
+('s1t2u3v4w5', 'Lý Văn Hòa', 24, 'lyvh12082000@gmail.com', 'hashed_password_15', 'avatar_h6i7j8k9l0.jpg', 'background_s1t2u3v4w5.jpg', TRUE, '2024-02-06 18:40:00', '2024-02-10 22:50:00', 'male'),
+('x6y7z8a9b0', 'Đỗ Hải Đăng', 26, 'dohd19071998@gmail.com', 'hashed_password_16', 'avatar_x6y7z8a9b0.png', 'background_x6y7z8a9b0.png', FALSE, '2024-04-04 16:20:00', '2024-04-07 14:25:00', 'male'),
+('c1d2e3f4g5', 'Bùi Mạnh Hùng', 22, 'buimh29042002@gmail.com', 'hashed_password_17', 'avatar_c1d2e3f4g5.jpg', 'background_c1d2e3f4g5.jpg', FALSE, '2024-03-30 13:30:00', '2024-03-31 15:00:00', 'male'),
+('h6i7j8k9l0', 'Hồ Quang Phúc', 28, 'hoqp11021996@gmail.com', 'hashed_password_18', 'avatar_h6i7j8k9l0.jpg', 'background_h6i7j8k9l0.jpg', TRUE, '2024-02-14 11:10:00', NULL, 'male'),
+('m1n2o3p4q5', 'Tạ Văn Sơn', 30, 'tavs08031994@gmail.com', 'hashed_password_19', 'avatar_m1n2o3p4q5.jpg', 'background_m1n2o3p4q5.jpg', FALSE, '2024-01-29 12:20:00', '2024-02-02 09:40:00', 'male'),
+('r6s7t8u9v0', 'Đinh Quốc Khải', 23, 'dinhqk27092001@gmail.com', 'hashed_password_20', 'avatar_r6s7t8u9v0.png', 'background_r6s7t8u9v0.png', FALSE, '2024-03-09 08:30:00', '2024-03-12 18:20:00', 'male');
 
 -- Bảng công thức nấu ăn
 INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
