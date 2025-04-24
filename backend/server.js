@@ -12,9 +12,10 @@ const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const ingredientRoutes = require('./routes/ingredientRoutes'); 
+const userRoutes = require("./routes/userRoutes");
 
 app.use(cors({
-  origin: "http://127.0.0.1:5500"
+  origin: ["http://127.0.0.1:5500", "http://localhost:5500"]
 }));
 
 // Cấu hình để sử dụng EJS
@@ -32,6 +33,7 @@ app.use("/api/recipes", recipeRoutes);
 app.use('/api/auth', authRoutes); // Route cho đăng nhập
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ingredients', ingredientRoutes);
+app.use("/api/users/", userRoutes);
 
 // Route trang chủ
 app.get('/', (req, res) => {
@@ -44,6 +46,10 @@ app.get("/homepage", (req, res) => {
 
 app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
+});
+
+  app.get("/profile", (req, res) => {
+  res.render("profile");
 });
 
 app.get('/SignIn', (req, res) => {
@@ -63,4 +69,3 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
   open(`http://localhost:${port}/`); // Tự động mở trình duyệt
 });
-
