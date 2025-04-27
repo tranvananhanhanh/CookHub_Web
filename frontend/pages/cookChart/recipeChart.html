@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Leader Board</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f2f2dd, #e9812b, #eae7e7);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Blurred Background Layer */
+    .blur-bg {
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+    }
+
+    .hero-text {
+      flex: 1 1 50%;
+      padding-right: 2rem;
+    }
+
+    .hero-text span {
+        flex: 1 1 50%;
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      color: #3f3b3b;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .hero-buttons button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 2rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-buttons button.food-menu {
+      background: #f0ba4c;
+    }
+
+    .hero-buttons button.food-menu:hover {
+      background: #ef7708;
+    }
+
+    .hero-buttons button.book-table {
+      background: #d9cfbf;
+    }
+
+    .hero-buttons button.book-table:hover {
+      background: #f39807;
+    }
+
+    .hero-image {
+      flex: 1 1 50%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .hero-image img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s;
+    }
+
+    .hero-image img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Menu Highlight Section */
+    .menu-highlight {
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .menu-highlight h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .menu-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .menu-card.popular {
+      transform: scale(1.1);
+      z-index: 1;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .menu-card img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: block;
+    }
+
+    .menu-card .rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-card .rating span {
+      color: #FFD700;
+      margin-right: 0.3rem;
+    }
+
+    .menu-card h3 {
+      font-size: 1.25rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-card p {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .menu-card .price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-card .price span {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .menu-card .add-btn {
+      width: 40px;
+      height: 40px;
+      background: #f4923d;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+    }
+
+    .menu-card .add-btn:hover {
+      background: #f67905;
+    }
+
+    /* Feature Item Section */
+    .feature-item {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 2rem;
+    }
+
+    .feature-image {
+      flex: 1 1 50%;
+      padding-right: 2rem;
+    }
+
+    .feature-image img {
+      width: 100%;
+      max-width: 400px;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    .feature-text {
+      flex: 1 1 50%;
+    }
+
+    .feature-text h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .feature-text p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text {
+        padding-right: 0;
+        margin-bottom: 2rem;
+      }
+
+      .hero-image {
+        justify-content: center;
+      }
+
+      .hero-image img {
+        width: 250px;
+        height: 250px;
+      }
+
+      .menu-card.popular {
+        transform: scale(1);
+      }
+
+      .feature-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .feature-image {
+        padding-right: 0;
+        margin-bottom: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <iframe src="/pages/partials/header.html" width="100%" height=100px></iframe>
+  </header>
+  <div class="blur-bg"></div>
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <span id ="top1title"> </span>
+        <p id ="top1description"></p>
+        <div class="hero-buttons">
+          <button class="food-menu">View detail</button>
+          <button class="book-table">Save </button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img id="top1image"src="" alt="Poke Bowl">
+      </div>
+    </section>
+
+    <!-- Menu Highlight Section -->
+    <section class="menu-highlight">
+      <h2>Top Recipe – Lets explore with us</h2>
+      <div class="menu-cards">
+        <div class="menu-card">
+          <img src="" alt="">
+          <div class="rating">
+            <span>⭐</span> 
+          </div>
+          <h3></h3>
+          <p></p>
+          <div class="price">
+            <span></span>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+        <div class="menu-card popular">
+          <img src="" alt="Signature Poke">
+          <div class="rating">
+            <span>⭐</span> 
+          </div>
+          <h3></h3>
+          <p></p>
+          <div class="price">
+            <span></span>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="" alt="Veggie Delight">
+          <div class="rating">
+            <span>⭐</span> 
+          </div>
+          <h3></h3>
+          <p></p>
+          <div class="price">
+            <span>$14</span>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Item Section -->
+    <section class="feature-item">
+      <div class="feature-image">
+        <img id="top5image" src="" alt="French Fries">
+      </div>
+      <div class="feature-text">
+        <h2 id="top5title">Best Potatoes For French Fries</h2>
+        <p id="top5description">
+          
+        </p>
+      </div>
+    </section>
+  </div>
+  <script>
+    let recipes = []; // Initialize as array for recipe list
+    async function fetchRecipes() {
+            try {
+                const response = await fetch("/cookchart/top-recipes", {
+                    mode: "cors",
+                    credentials: "same-origin",
+                    headers: { "Accept": "application/json" }
+                });
+                const data = await response.json();
+                if (data && data.success && data.data) {
+                    console.log("TOP RECIPES:", data.data.slice(1,4)); // 👉 In ra console backend
+                    updateTop1RecipeInfo(data.data[0]); // ✅ Move call here
+                    updateTop5RecipeInfo(data.data[4]);
+                    updateMenuHighlight(data.data.slice(1, 4));
+
+
+                } else {
+                    console.error('Invalid API response:', data);
+                }
+            } catch (error) {
+                console.error('Error fetching recipes:', error);
+            }
+        }
+        function updateTop1RecipeInfo(topRecipe) {
+            if (!topRecipe) return;
+            const titleElement = document.getElementById("top1title");
+            const descElement = document.getElementById("top1description");
+            const imageElement = document.getElementById("top1image");
+
+            if (imageElement && topRecipe.thumbnail) {
+                imageElement.src = topRecipe.thumbnail;
+                imageElement.alt = topRecipe.title;
+            }
+
+
+            if (titleElement) {
+                titleElement.innerHTML = `🥇${topRecipe.title} Week’s Champion`;
+            }
+
+            if (descElement) {
+                descElement.innerHTML = `Topping the cook chart this week,made by <strong>${topRecipe.author_name}</strong>, <strong>${topRecipe.title}</strong> has captured not only taste buds but also hearts with its irresistible aroma and visually stunning presentation. With a perfect blend of high-quality ingredients and a unique cooking method, <strong>${topRecipe.title}</strong> delivers an unforgettable culinary experience. Even just one bite leaves a lasting impression — a flavor that lingers long after the meal is over.`;
+            }
+        }
+
+        function updateTop5RecipeInfo(topRecipe) {
+            if (!topRecipe) return;
+            const titleElement = document.getElementById("top5title");
+            const descElement = document.getElementById("top5description");
+            const imageElement = document.getElementById("top5image");
+
+            if (imageElement && topRecipe.thumbnail) {
+                imageElement.src = topRecipe.thumbnail;
+                imageElement.alt = topRecipe.title;
+            }
+
+
+            if (titleElement) {
+                titleElement.innerHTML = `${topRecipe.title} `;
+            }
+
+            if (descElement) {
+                descElement.innerHTML = `${topRecipe.description}`;
+            }
+        }
+       
+        function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function isValidURL(str) {
+  try {
+    new URL(str);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function updateMenuHighlight(recipes) {
+  const cards = document.querySelectorAll(".menu-card");
+  cards.forEach((card, index) => {
+    if (!recipes[index]) return;
+    const recipe = recipes[index];
+    const img = card.querySelector("img");
+    const ratingSpan = card.querySelector(".rating");
+    const title = card.querySelector("h3");
+    const description = card.querySelector("p");
+    const priceSpan = card.querySelector(".price span");
+
+    const recipeTitle = escapeHTML(recipe.title ?? 'Unknown Recipe');
+    const recipeDesc = escapeHTML(recipe.description ?? 'Tasty and delicious!');
+    const recipeRating = Number(recipe.average_rating) ;
+    const recipePrice = Number(recipe.cooking_time);
+    const recipeImage = recipe.thumbnail
+
+    if (img) {
+      img.src = recipeImage;
+      img.alt = recipeTitle;
+    }
+    if (ratingSpan) ratingSpan.innerHTML = `<span>⭐</span> ${recipeRating}`;
+    if (title) title.textContent = recipeTitle;
+    if (description) description.textContent = recipeDesc;
+    if (priceSpan) priceSpan.textContent = `$${recipePrice}`;
+  });
+}
+
+
+        fetchRecipes();
+
+
+
+
+    
+    
+    
+
+
+  </script>
+</body>
+<footer class="flex justify-center">
+  <iframe src="/pages/partials/footer.html" width="100%" height="200px"></iframe>
+
+
+</footer>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-79 {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 10px;
+            background: url('../../assets/images/footer/footer0.png') center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            height: 200px; /* Đặt chiều cao dài hơn */
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-79::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 223, 128, 0.5); /* Vàng nhạt và mờ 50% */
+            z-index: 0;
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-79 div {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-79 div:hover {
+            font-size: 22px;
+            color: #FF8C00;
+            text-decoration: underline;
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-80 {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-80 img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .b-ng-x-p-h-ng-full-screen__frame-80 img:hover {
+            transform: scale(1.2);
+        }
+
+        .b-ng-x-p-h-ng-full-screen__footer {
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .b-ng-x-p-h-ng-full-screen__frame-79 {
+                flex-direction: column;
+                align-items: center;
+            }
+            .b-ng-x-p-h-ng-full-screen__frame-80 {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="b-ng-x-p-h-ng-full-screen__frame-79">
+        <div class="b-ng-x-p-h-ng-full-screen__about">About</div>
+        <div class="b-ng-x-p-h-ng-full-screen__cookies">Cookies</div>
+        <div class="b-ng-x-p-h-ng-full-screen__help">Help</div>
+        <div class="b-ng-x-p-h-ng-full-screen__advertising">Advertising</div>
+        <div class="b-ng-x-p-h-ng-full-screen__terms-of-use">Terms of Use</div>
+        <div class="b-ng-x-p-h-ng-full-screen__privacy-policy">Privacy Policy</div>
+
+        <div class="b-ng-x-p-h-ng-full-screen__frame-80">
+
+            <img class="b-ng-x-p-h-ng-full-screen__facebook" src="../../assets/images/footer/facebook0.png" />
+            <img class="b-ng-x-p-h-ng-full-screen__instagram" src="../../assets/images/footer/instagram0.png" />
+            <img class="b-ng-x-p-h-ng-full-screen__ic-baseline-discord" src="../../assets/images/footer/ic-baseline-discord0.svg" />
+            <img class="b-ng-x-p-h-ng-full-screen__mail" src="../../assets/images/footer/mail0.png" />
+        </div>
+    </div>
+
+    <div class="b-ng-x-p-h-ng-full-screen__footer">
+        © 2024 Your Website. All rights reserved.
+    </div>
+</body>
+</html>

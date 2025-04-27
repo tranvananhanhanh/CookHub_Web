@@ -1,0 +1,528 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+    />
+
+    <title>Detail Recipe Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f0f0; margin: 0; }
+      .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 1000; }
+      .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 100%; max-width: 400px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+      .comment-form { display: flex; flex-direction: column; gap: 10px; }
+      .comment-form textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: none; }
+      .comment-form .submit-btn { background-color: #f4900d; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+      .comment-form .submit-btn:hover { background-color: #16140f; }
+      .message { color: red; margin-top: 10px; text-align: center; }
+
+    </style>
+    
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-[#FFFFFF] group/design-root overflow-x-hidden"
+      style='--checkbox-tick-svg: url(&apos;data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(255,255,255)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e&apos;); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header>
+          <iframe src="/pages/partials/header.html" width="100%" height=100px></iframe>
+
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="@container">
+              <div class="@[480px]:px-4 @[480px]:py-3">
+                
+                <div
+              
+                  id="recipe-thumbnail"
+                  class="bg-cover bg-center flex flex-col justify-end overflow-hidden bg-[#FFFFFF] @[480px]:rounded-xl min-h-80"
+                  style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 25%);
+                  '
+                >
+                  <div  class="flex p-4"><p id="recipe-title" class="text-white tracking-light text-[28px] font-bold leading-tight"></p></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-4 px-4 py-2 py-2 justify-between">
+              <div class="flex items-center justify-center gap-2 px-3 py-2">
+    
+                <div id="save-btn" class="text-[#A18249]" data-icon="File" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- rating -->
+              <div class="flex items-center justify-center gap-2 px-3 py-2 ">
+                <div id="star" class="text-[#A18249]" data-icon="Star" data-size="24px" data-weight="regular">
+                  <svg  xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="text-[#A18249] text-[13px] font-bold leading-normal tracking-[0.015em]" id="recipe-rating" > </p>
+              </div>
+              <!-- Thêm vào phần <style> -->
+              <style>
+                .star-rating {
+                  display: flex;
+                  gap: 5px;
+                  cursor: pointer;
+                }
+                .star {
+                  font-size: 24px;
+                  color: #ccc;
+                  transition: color 0.2s ease;
+                }
+                .star.filled {
+                  color: #f1c40f;
+                }
+              </style>
+
+
+              <div class="flex items-center justify-center gap-2 px-3 py-2">
+                <div class="text-[#A18249]" data-icon="Share" data-size="24px" data-weight="regular">
+                  <svg id="star" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V208a16,16,0,0,0,16,16H192a8,8,0,0,0,0-16Z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <p class="text-[#1C160C] text-base font-normal leading-normal pb-3 pt-1 px-4" id="recipe-description">
+              
+            </p>
+           
+            <h2 class="text-[#1C160C] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 mb-6 text-center">
+              🧂 Ingredients
+              </h2>
+            <div id="ingredient-list" class="p-4 grid grid-cols-[20%_1fr] gap-x-6">
+              
+            </div>
+            <h2 class="text-[#1C160C] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Instructions</h2>
+            <div id="instruction-list" class="space-y-4">
+              <!-- Các bước nấu ăn sẽ được JS render vào đây -->
+            </div>
+            
+
+            <div class="flex px-4 py-3 justify-center">
+
+              <button id="open-comment-form" onclick="toggleCommentForm()"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#FFA500] text-[#FFFFFF] text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <span class="truncate">Comment</span>
+              </button>
+              
+
+              <div id="commentModal" class="modal">
+                <div class="modal-content">
+                  <h2>Enter your comment</h2>
+                  <form class="comment-form" id="commentForm" >
+                    <textarea id="commentContent" placeholder="Enter here..." required></textarea>
+                    <button type="submit" class="submit-btn">Send</button>
+                  </form>
+                  <p id="message" class="message"></p>
+                </div>
+              </div>
+
+         
+ 
+          </div>
+
+
+          <!-- Container hiển thị các bình luận -->
+          <div id="comment-container" class="mt-4">
+            
+          </div>
+            </div>
+            <div class="recipe-info">
+              <h2 class="text-[#1C160C] text-[26px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">From Chef</h2>
+
+                <div class="px-4 pb-5 space-y-2 text-[18px] text-[#1C160C] font-medium">
+                  <div class="flex items-center gap-2">
+                    <span>👨‍🍳</span>
+                    <span id="recipe-author">Chef Name</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span>🍽️</span>
+                    <span id="recipe-serving">Serving for ... people</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span>⏱️</span>
+                    <span id="recipe-time">Loading...</span>
+                  </div>
+                </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <script>
+       // truyền vào tham số 
+      const recipeId=4;
+      const userId=3;
+
+    // Hàm hiển thị 5 ngôi sao khi nhấp vào biểu tượng star
+    function displayStarRating() {
+      const starContainer = document.getElementById('star');
+      starContainer.innerHTML = ''; // Xóa biểu tượng ngôi sao ban đầu
+      starContainer.classList.add('star-rating'); // Thêm class để định dạng flex
+
+  // Tạo 5 ngôi sao
+  for (let i = 1; i <= 5; i++) {
+    const star = document.createElement('span');
+    star.className = 'star';
+    star.innerHTML = '★'; // Ký tự ngôi sao
+    star.dataset.value = i; // Lưu giá trị sao (1-5)
+    star.addEventListener('click', () => selectStar(i)); // Gắn sự kiện chọn sao
+    star.addEventListener('mouseover', () => highlightStars(i)); // Gắn sự kiện hover
+    star.addEventListener('mouseout', restoreStars); // Gắn sự kiện mouseout
+    starContainer.appendChild(star);
+  }
+}
+
+      // Hàm highlight các ngôi sao từ 1 đến rating khi hover
+    function highlightStars(rating) {
+        const stars = document.querySelectorAll('#star .star');
+        stars.forEach(star => {
+          if (parseInt(star.dataset.value) <= rating) {
+            star.classList.add('filled');
+          } else {
+            star.classList.remove('filled');
+          }
+        });
+      }
+
+    // Hàm khôi phục trạng thái ngôi sao khi chuột rời đi
+    function restoreStars() {
+      const currentRating = parseInt(document.getElementById('recipe-rating').innerText.split(' ')[0]) || 0;
+      const stars = document.querySelectorAll('#star .star');
+      stars.forEach(star => {
+        if (parseInt(star.dataset.value) <= currentRating) {
+          star.classList.add('filled');
+        } else {
+          star.classList.remove('filled');
+        }
+      });
+    }
+
+      // Hàm xử lý khi người dùng chọn số sao
+    function selectStar(rating) {
+        const stars = document.querySelectorAll('#star .star');
+        stars.forEach(star => {
+          if (parseInt(star.dataset.value) <= rating) {
+            star.classList.add('filled'); // Highlight các ngôi sao từ 1 đến rating
+          } else {
+            star.classList.remove('filled'); // Bỏ highlight các ngôi sao còn lại
+          }
+        });
+        // Cập nhật hiển thị số sao đã chọn
+        document.getElementById('recipe-rating').innerText = `${rating} sao`;
+        console.log(rating);
+
+        // Gửi số sao về database
+        submitRating(rating,recipeId,userId);
+      }
+
+    // Hàm gửi số sao về database
+    async function submitRating(rating,recipeId,user_id) {
+        try {
+          const response = await fetch('http://localhost:4000/detailrecipe/rating', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              recipe_id: 1,
+              user_id: 4,
+              rating: 4
+            }),
+          });
+
+          if (response.ok) {
+            console.log(`Đã gửi đánh giá ${rating} sao thành công!`);
+            alert(`Đã gửi đánh giá ${rating} sao!`);
+          } else {
+            const errorData = await response.json();
+            if (response.status === 400) {
+              alert('Dữ liệu không hợp lệ!');
+            } else if (response.status === 401) {
+              alert('Bạn cần đăng nhập để đánh giá!');
+            } else {
+              alert(errorData.error || 'Có lỗi xảy ra, vui lòng thử lại!');
+            }
+          }
+        } catch (error) {
+          console.error('Lỗi kết nối:', error);
+          alert('Lỗi kết nối, vui lòng thử lại!');
+        }
+      }
+
+
+// Gắn sự kiện click cho biểu tượng ngôi sao ban đầu
+    document.getElementById('star').addEventListener('click', displayStarRating);
+
+
+
+
+      // hàm hiển thị chi tiết liên quan đến công thức
+      async function fetchAndDisplayRecipe(recipeId,userId) {
+        try {
+          const response = await fetch(`/detailrecipe/${recipeId}`, {
+                        mode: "cors",
+                        credentials: "same-origin",
+                        headers: { "Accept": "application/json" }
+                    });
+          const data = await response.json();
+          const recipe=data;
+          console.log(recipe);
+          // phần để hiển thị comment
+          const container = document.getElementById("comment-container");
+          // Hiển thị thông tin chung
+          //ảnh chung món ăn
+          const thumbnailDiv = document.getElementById("recipe-thumbnail");
+          const imageUrl = "https://cdn.usegalileo.ai/sdxl10/776130f8-2f10-4950-864f-9a798a5932ba.png"|| recipe.thumbnail;
+          thumbnailDiv.style.backgroundImage = `
+              url("${imageUrl}")
+            `;
+          document.getElementById("recipe-title").innerText = recipe.title;
+          document.getElementById("recipe-description").innerText = recipe.description;
+          document.getElementById("recipe-rating").innerText = recipe.total_ratings;
+          document.querySelector("#recipe-serving").textContent = ` ${recipe.servings}`;
+          document.querySelector("#recipe-author").textContent = ` ${recipe.author_name}`;
+          document.querySelector("#recipe-time").textContent = `${recipe.cooking_time} phút`;
+          // hàm hiển thị nguyên liệu 
+          function displayIngredients(ingredients) {
+            const container = document.getElementById("ingredient-list");
+            container.innerHTML = ""; // Xóa nội dung cũ
+
+            // Thiết lập lưới 2 cột
+            container.className = "grid grid-cols-2 gap-x-7 gap-y-3";
+
+            ingredients.forEach(ingredient => {
+              const ingredientHTML = `
+                <div class="flex justify-between items-center border-t border-t-[#E9DFCE] pt-3">
+                  <span class="text-[#A18249] text-sm font-normal mr-5">${ingredient.ingredient_name}</span>
+                  <span class="text-[#1C160C] text-sm font-normal">${ingredient.amount} ${ingredient.unit_name}</span>
+                </div>
+              `;
+              container.insertAdjacentHTML("beforeend", ingredientHTML);
+            });
+          }
+          // gọi hàm hiển thị nguyên liệu món ăn
+          displayIngredients(recipe.ingredients);
+          // hàm hiển thị chi tiết hướng dẫn
+          function displayInstructions(steps) {
+            const container = document.getElementById("instruction-list");
+            container.innerHTML = ""; // Xoá nội dung cũ
+            steps.forEach((step, index) => {
+              const stepHTML = `
+                <div class="flex gap-4 bg-[#FFFFFF] px-4 py-3 justify-between">
+                  <div class="flex items-start gap-4">
+                    <div class="text-[#1C160C] flex items-center justify-center rounded-lg bg-[#F4EFE6] shrink-0 size-12">
+                      <span class="text-lg font-bold">${index + 1}</span>
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center">
+                      <p class="text-[#1C160C] text-base font-medium leading-normal">Step ${index + 1}</p>
+                      <p class="text-[#A18249] text-sm font-normal leading-normal">
+                        ${step.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="shrink-0">
+                    <div class="flex size-7 items-center justify-center">
+                      <input type="checkbox"
+                        class="h-5 w-5 rounded border-[#E9DFCE] border-2 bg-transparent text-[#FF8C00] checked:bg-[#FF8C00] checked:border-[#FF8C00] focus:ring-0 focus:ring-offset-0 focus:border-[#E9DFCE] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              `;
+              container.insertAdjacentHTML("beforeend", stepHTML);
+            });
+            }
+          //gọi hàm hiển thị chi tiết hướng dẫn
+          displayInstructions(recipe.steps);
+          
+           // hàm chuyển đổi thời gian
+          function formatTime(datetimeStr) {
+                const date = new Date(datetimeStr);
+                return date.toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" });
+              }
+
+          function displayComment(comments) {
+            const container = document.getElementById("comment-container");
+            container.innerHTML = ""; // Xóa toàn bộ nội dung cũ trước khi thêm mới
+
+                  comments.forEach(c => {
+                    // Gán avatar mặc định nếu không có
+                    const avatarUrl = c.avatar ? c.avatar : "https://i.pravatar.cc/100?img=12"; // Ảnh ngẫu nhiên
+
+                    const html = `
+                      <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
+                        <div
+                          class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
+                          style='background-image: url("${avatarUrl}");'
+                        ></div>
+                        <div class="flex h-full flex-1 flex-col items-start justify-start">
+                          <div class="flex w-full flex-row items-start justify-start gap-x-3">
+                            <p class="text-[#1C160C] text-sm font-bold leading-normal tracking-[0.015em]">${c.name}</p>
+                            <p class="text-[#A18249] text-sm font-normal leading-normal">${formatTime(c.created_at)}</p>
+                          </div>
+                          <p class="text-[#1C160C] text-sm font-normal leading-normal">${c.comment}</p>
+                          <div class="flex w-full flex-row items-center justify-start gap-9 pt-2">
+                            <div class="flex items-center gap-2">
+                              <div class="text-[#A18249]" data-icon="ThumbsUp" data-size="20px" data-weight="regular">
+                                <button class="like-btn text-[#A18249]" style="border: none; background: transparent; cursor: pointer;">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"></path>
+                                  </svg>
+                                </button>
+                              </div>
+                              <p class="like-count text-[#A18249] text-sm font-normal leading-normal">0</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                              <div class="text-[#A18249]" data-icon="ThumbsDown" data-size="20px" data-weight="regular">
+                                <button class="dislike-btn text-[#A18249]" style="border: none; background: transparent; cursor: pointer;">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"></path>
+                                  </svg>
+                                </button>
+                              </div>
+                              <p class="dislike-count text-[#A18249] text-sm font-normal leading-normal">0</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                    container.insertAdjacentHTML("beforeend", html);
+                  });
+                }
+          displayComment(recipe.comments);
+
+        document.getElementById("save-btn").addEventListener("click", async () => {
+            try {
+              const response = await fetch("http://localhost:4000/detailrecipe", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  user_id: parseInt(userId),
+                  recipe_id: parseInt(recipeId),
+                }),
+              });
+
+              const result = await response.json();
+              if (response.ok) {
+                alert("Đã lưu công thức thành công!");
+
+              } else {
+                alert("Lỗi khi lưu: " + result.message);
+              }
+            } catch (err) {
+              console.error("Lỗi kết nối:", err);
+              alert("Không thể kết nối tới máy chủ.");
+            }
+          });
+
+        document.getElementById('commentForm').addEventListener('submit', submitComment);
+        document.getElementById('open-comment-form').addEventListener('click', toggleCommentForm);
+
+    
+        function toggleCommentForm() {
+            const modal = document.getElementById('commentModal');
+            if (modal.classList.contains('active')) {
+              modal.classList.remove('active');
+              setTimeout(() => { modal.style.display = 'none'; }, 300);
+            } else {
+              modal.style.display = 'flex';
+              setTimeout(() => { modal.classList.add('active'); }, 10);
+            }
+            document.getElementById('message').textContent = '';
+            document.getElementById('commentContent').value = '';
+          }
+
+
+        async function submitComment(event) {
+          // Truyền vào user_id và recipe id
+           // truyền vào tham số 
+      
+          // Chuyển recipeId và userId thành integer (nếu cần thiết)
+          const recipeIdInt = parseInt(recipeId, 10);
+          const userIdInt = parseInt(userId, 10);
+
+          event.preventDefault();
+          const content = document.getElementById('commentContent').value.trim();
+          const messageEl = document.getElementById('message');
+          if (!content) {
+            messageEl.textContent = 'Please enter your comment!';
+            return;
+          }
+          if (isNaN(recipeId) || isNaN(recipeId)) {
+            messageEl.textContent = 'recipe_id hoặc user_id không hợp lệ!';
+            return;
+          }
+          try {
+              const response = await fetch('http://localhost:4000/detailrecipe/comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  content: content, 
+                  recipe_id: recipeIdInt,
+                  user_id: userIdInt
+                }),
+              });
+              console.log(response);
+
+              if (response.ok) {
+                const commentObject = await response.json(); // 🟠 Quan trọng!
+                console.log(commentObject);
+                const container = document.getElementById("comment-container");
+
+                messageEl.style.color = 'orange';
+                messageEl.textContent = 'Your comment has been sent!';
+                document.getElementById('commentContent').value = '';
+                setTimeout(toggleCommentForm, 1000);
+
+                fetchAndDisplayRecipe(recipeId,userId);
+
+              } else {
+                const errorData = await response.json();
+                messageEl.textContent = errorData.error || 'Có lỗi xảy ra, vui lòng thử lại!';
+              }
+        } catch (error) {
+          console.error("Lỗi kết nối:", error); // Log chi tiết ra console
+          messageEl.textContent = 'Lỗi kết nối, vui lòng thử lại!';
+        }
+
+              
+            }
+
+              
+        } catch (err) {
+          console.error("❌ Lỗi khi hiển thị chi tiết món ăn:", err);
+          alert("Không thể tải chi tiết công thức.");
+        }
+      }
+    // truyền recipe id vào để hiển thị công thức
+      fetchAndDisplayRecipe(recipeId,userId);
+
+    </script>
+   
+  </body>
+ 
+</html>
+
