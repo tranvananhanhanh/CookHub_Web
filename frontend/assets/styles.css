@@ -37,9 +37,6 @@ a, button {
 
 .save-cancel-container {
     padding: 20px;
-    font-family: 'Plus Jakarta Sans';
-    font-size: 20px;
-    font-weight: 400;
 }
 
 .btn {
@@ -47,7 +44,7 @@ a, button {
     color: #fff;
     border: none;
     font-family: 'Plus Jakarta Sans';
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     padding: 10px 20px;
     border-radius: 12px;

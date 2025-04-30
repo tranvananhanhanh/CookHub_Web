@@ -57,6 +57,14 @@ function setupInitialState() {
     updateDescriptionCounter(); // Cập nhật bộ đếm ban đầu
 }
 
+function autoResizeTextarea(element, initialHeight) {
+    element.style.height = initialHeight + 'px'; // reset về auto trước khi tính lại
+    const newHeight = element.scrollHeight;
+    if (newHeight > initialHeight) {
+        element.style.height = newHeight + 'px';
+    }
+}
+
 function setupEventListeners() {
     // Sử dụng các ID và class từ HTML gốc
     const addIngredientBtn = document.querySelector(".add-ingredient"); // Class từ HTML gốc
@@ -93,9 +101,12 @@ function setupEventListeners() {
         servingsInput.addEventListener("keydown", (e) => handleEnterKey(e, descriptionInput));
     }
 
-    // --- Description Counter Listener ---
+    // --- Description Counter và Auto-Resize Listener ---
     if (descriptionInput) {
-        descriptionInput.addEventListener("input", updateDescriptionCounter);
+        descriptionInput.addEventListener("input", () => {
+            updateDescriptionCounter(); // Cập nhật bộ đếm
+            autoResizeTextarea(descriptionInput, 48); // Tự động resize
+        });
     }
 
     // --- Modal and Popup Listeners ---
@@ -116,7 +127,6 @@ function handleEnterKey(event, nextElementToFocus) {
     }
 }
 
-
 // --- Description Counter ---
 function updateDescriptionCounter() {
     const descriptionInput = document.querySelector(".description-box .text-box");
@@ -125,11 +135,16 @@ function updateDescriptionCounter() {
         const currentLength = descriptionInput.value.length;
         const maxLength = 1000; // Giữ nguyên giới hạn
         counterElement.textContent = `${currentLength}/${maxLength}`;
-        // Tùy chọn: đổi màu nếu vượt quá giới hạn (dù maxlength nên ngăn chặn)
-        // counterElement.style.color = currentLength > maxLength ? 'red' : '';
     }
 }
 
+function updateStepCounter(textarea, counterElement) {
+    const currentLength = textarea.value.length;
+    const maxLength = 500;
+    if (counterElement) {
+        counterElement.textContent = `${currentLength}/${maxLength}`;
+    }
+}
 
 // --- Ingredient Management (Giữ nguyên class gốc) ---
 function addIngredient() {
@@ -146,16 +161,16 @@ function addIngredient() {
     // Sử dụng cấu trúc và class gốc
     ingredientItem.innerHTML = `
         <input type="number" class="quantity text-box" placeholder="Quantity" min="0" step="any">
-        <select class="unit text-box"> <!-- Bỏ placeholder ở select -->
-          <option value="" disabled selected>Select unit</option>
+        <select class="unit"> <!-- Bỏ placeholder ở select -->
+          <option value="" disabled selected>Unit</option>
           ${unitOptions}
         </select>
-        <input type="text" class="ingredient text-box" placeholder="Enter ingredient name (in English, e.g., egg, chicken)" required>
+        <input type="text" class="ingredient text-box" placeholder="Ingredient" required>
         <button type="button" class="remove-ingredient-btn">-</button>
       `;
 
     // Điền đơn vị *sau khi* thêm select vào DOM
-    const unitSelect = ingredientItem.querySelector(".unit.text-box");
+    const unitSelect = ingredientItem.querySelector(".unit");
     if (unitSelect) populateUnitSelect(unitSelect); // Gọi hàm điền đơn vị
 
     // Thêm event listener cho nút xóa
@@ -176,14 +191,14 @@ function addIngredient() {
                 event.preventDefault(); // Ngăn chặn submit form
                 console.log("Enter nhấn ở ô số lượng, chuyển focus sang ô chọn đơn vị.");
                 // Chuyển focus đến ô chọn đơn vị trong cùng hàng
-                const unitSelectElement = ingredientItem.querySelector('.unit.text-box');
+                const unitSelectElement = ingredientItem.querySelector('.unit');
                 if (unitSelectElement) {
                     unitSelectElement.focus();
                 }
             }
         });
     }
-    
+
     container.appendChild(ingredientItem);
     updateIngredientRemoveButtons();
 }
@@ -242,15 +257,19 @@ function addStep(container) { // Nhận container làm tham số
 
 function createStepRow(container) {
     const stepRow = document.createElement("div");
-    stepRow.classList.add("step-row"); // Class gốc
+    stepRow.classList.add("step-row");
 
-    stepRow.uploadedImages = []; // Lưu file ở đây
+    stepRow.uploadedImages = [];
 
-    // Sử dụng cấu trúc và class gốc
     stepRow.innerHTML = `
         <div class="step-label">Step ???</div>
         <div class="step-content">
-            <input type="text" placeholder="Enter instruction details..." class="step-input text-box">
+            <div class="step-description-box">
+                <textarea placeholder="Enter instruction details..." class="step-input" maxlength="500"></textarea>
+            </div>
+            <div class="step-counter" style="text-align: right; font-size: 0.8em; color: #666;">
+                <span class="step-counter-text">0/500</span>
+            </div>
             <div class="img-preview"></div>
         </div>
         <div class="step-img">
@@ -262,39 +281,29 @@ function createStepRow(container) {
         <button type="button" class="remove-step-btn">-</button>
     `;
 
-    // --- Event Listeners cho step row ---
     const removeBtn = stepRow.querySelector(".remove-step-btn");
     const fileInput = stepRow.querySelector(".step-img-input");
     const uploadBtn = stepRow.querySelector(".upload-img-btn");
-    const descriptionInput = stepRow.querySelector(".step-input.text-box"); // Input mô tả step
+    const descriptionInput = stepRow.querySelector(".step-input");
+    const counterElement = stepRow.querySelector(".step-counter-text");
 
     removeBtn.addEventListener("click", () => {
-        removeStep(stepRow); // Gọi hàm xóa
+        removeStep(stepRow);
     });
 
     uploadBtn.addEventListener("click", () => fileInput.click());
     fileInput.addEventListener("change", (event) => handleStepImageUpload(event, stepRow));
 
-    // Enter trong description input -> tạo step mới hoặc focus step tiếp theo
-    descriptionInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            const stepsContainer = document.getElementById("instructions-container");
-            const allSteps = stepsContainer.querySelectorAll(".step-row");
-            const currentIndex = Array.from(allSteps).indexOf(stepRow);
-            const nextStepRow = allSteps[currentIndex + 1];
-            if (nextStepRow) {
-                nextStepRow.querySelector(".step-input.text-box")?.focus();
-            } else {
-                addStep(stepsContainer); // Thêm step mới
-                const newSteps = stepsContainer.querySelectorAll(".step-row");
-                newSteps[newSteps.length - 1]?.querySelector(".step-input.text-box")?.focus();
-            }
-        }
-    });
+    if (descriptionInput && counterElement) {
+        descriptionInput.addEventListener("input", () => {
+            updateStepCounter(descriptionInput, counterElement);
+            autoResizeTextarea(descriptionInput, 24);
+        });
+        updateStepCounter(descriptionInput, counterElement);
+    }
 
     container.appendChild(stepRow);
-    updateStepRemoveButtons(); // Cập nhật trạng thái nút xóa
+    updateStepRemoveButtons();
 }
 
 // --- Giữ nguyên các hàm step còn lại (removeStep, reLabelSteps, handleStepImageUpload) ---
@@ -323,7 +332,7 @@ function handleStepImageUpload(event, stepRow) {
             validationError = true;
         }
         if (file.size > 5 * 1024 * 1024) {
-            showErrorPopup(`File too large: ${file.name}. Maximum size is 5MB.`);
+            showErrorPopup(`File ${file.name} too large. Maximum size is 5MB.`);
             validationError = true;
         }
     });
@@ -491,7 +500,7 @@ async function handleSave(event) {
     const ingredientsArray = [];
     document.querySelectorAll("#ingredients-container .ingredient-item").forEach(item => {
         const quantity = item.querySelector(".quantity.text-box")?.value;
-        const unit_id = item.querySelector(".unit.text-box")?.value;
+        const unit_id = item.querySelector(".unit")?.value;
         const name = item.querySelector(".ingredient.text-box")?.value.trim();
         if (quantity && unit_id && name) {
             ingredientsArray.push({ name, quantity, unit_id });
@@ -598,7 +607,7 @@ function validateClientSideForm() {
     } else if (Array.from(ingredientItems).some(ing => {
         const name = ing.querySelector(".ingredient.text-box")?.value.trim();
         const quantity = ing.querySelector(".quantity.text-box")?.value;
-        const unit = ing.querySelector(".unit.text-box")?.value;
+        const unit = ing.querySelector(".unit")?.value;
         return !name || !quantity || !unit;
     })) {
         messages.push("Please fill in quantity, unit, and name for all ingredients.");
@@ -606,8 +615,16 @@ function validateClientSideForm() {
 
     if (stepRows.length === 0) {
         messages.push("Please add at least one instruction step.");
-    } else if (Array.from(stepRows).some(step => !step.querySelector(".step-input.text-box")?.value.trim())) {
-        messages.push("Please enter a description for all steps.");
+    } else {
+        Array.from(stepRows).forEach((step, index) => {
+            const description = step.querySelector(".step-input.text-box")?.value.trim();
+            if (!description) {
+                messages.push(`Please enter a description for Step ${index + 1}.`);
+            }
+            if (description.length > 500) {
+                messages.push(`Step ${index + 1} description cannot exceed 500 characters.`);
+            }
+        });
     }
     // Kiểm tra ảnh step
     let invalidStepImage = false;
