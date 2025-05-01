@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub - Share & Discover Delicious Recipes</title>
+    <link rel="stylesheet" href="../assets/styles/welcome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="../assets/image/logo/logo_image_text.png" alt="CookHub Logo" id="logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/SignIn">Sign In</a></li>
+                    <li><a href="/SignUp">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <!-- <section class="hero">
+        <div class="container">
+             <div class="hero-content">
+                <h1 class="fade-in">World of Joy</h1>
+                <a href="#features" class="btn btn-primary fade-in">See Now</a>
+            </div> 
+            <div class="hero-image">
+                <video autoplay loop muted playsinline class="zoom-in">
+                    <source src="/assets/video/welcome.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-content">
+                <h1 class="fade-in">World of Joy</h1>
+                <a href="#features" class="btn btn-primary fade-in">See Now</a>
+            </div> 
+        </div>
+    </section>  -->
+    <!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="fade-in">The World of Cooking</h1>
+            <a href="/homepage" class="btn btn-primary fade-in">Join us</a>
+        </div>
+    </div>
+    <video autoplay loop muted playsinline class="hero-video">
+        <source src="/assets/video/welcome.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+</section>
+
+    <!-- Feature Section 1 -->
+    <section class="feature-section light-bg">
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-image">
+                    <img src="/assets/images/feature1.jpg" alt="Explore Recipes" class="slide-in-left">
+                </div>
+                <div class="feature-text">
+                    <h2 class="fade-in">Explore a World of Delicious Recipes</h2>
+                    <p class="fade-in">
+                        Discover thousands of recipes at CookHub, from savory to sweet. 
+                        Filter by cuisine, difficulty, or cooking time to find the perfect dish for you.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Section 2 -->
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-content reverse">
+                <div class="feature-image">
+                    <img src="/assets/images/feature2.jpg" alt="Save Favorites" class="slide-in-right">
+                </div>
+                <div class="feature-text">
+                    <h2 class="fade-in">Save Your Favorite Recipes</h2>
+                    <p class="fade-in">
+                        Never lose a recipe you love! Save your favorites on CookHub and access them anytime, anywhere.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Section 3 -->
+    <section class="feature-section light-bg">
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-image">
+                    <img src="/assets/images/feature3.jpg" alt="Share Recipes" class="slide-in-left">
+                </div>
+                <div class="feature-text">
+                    <h2 class="fade-in">Share Your Own Delicious Recipes</h2>
+                    <p class="fade-in">
+                        Join the CookHub community by sharing your recipes. Inspire others with your culinary creations and connect with food lovers worldwide.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="fade-in">Be Part of Our Growing Community!</h2>
+            <p class="fade-in">
+                Sign up today to save your favorite recipes and connect with food lovers worldwide. Happy cooking!
+            </p>
+            <a href="/SignUp" class="btn btn-secondary fade-in">Join Now</a>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about">
+        <div class="container">
+            <h2 class="fade-in">About Us</h2>
+            <p class="fade-in">
+                CookHub is a platform for food enthusiasts to discover, share, and save recipes. 
+                Whether you're a beginner or a seasoned chef, CookHub offers a vibrant community to 
+                explore cuisines, share your creations, and connect with others who share your passion for cooking. 
+                Join us and start your culinary journey today!
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CookHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script >document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.querySelectorAll('.fade-in, .zoom-in, .slide-in-left, .slide-in-right');
+    
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+    
+        elements.forEach(element => {
+            observer.observe(element);
+        });
+    
+        // Hiệu ứng logo xoay
+        const logo = document.getElementById('logo');
+        logo.addEventListener('mouseover', () => {
+            logo.style.transform = 'rotate(360deg)';
+            logo.style.transition = 'transform 1s ease';
+        });
+    });
+    </script>
+    
+</body>
+</html>

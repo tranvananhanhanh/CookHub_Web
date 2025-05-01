@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub | Privacy Policy</title>
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+    <script src="../js/loadHTML.js"></script>
+
+    <style>
+        body {
+            background: #fffaf0;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #4a2c0d;
+        }
+
+        .privacy-main {
+            max-width: 960px;
+            margin: 80px auto 60px;
+            padding: 0 16px;
+        }
+
+        /* Privacy Title Section */
+        .privacy-title-section {
+            padding: 40px 0;
+            background: linear-gradient(180deg, #fffaf0, #fef5e7);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .privacy-title {
+            color: #ff7d00;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 44px;
+            margin-bottom: 12px;
+        }
+
+        .last-updated {
+            color: #8c705e;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            padding: 40px 0;
+            margin-bottom: 40px;
+            background: linear-gradient(180deg, #fffaf0, #fef5e7);
+            border-radius: 12px;
+        }
+
+        .privacy-section h2 {
+            color: #ff7d00;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 36px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: #ffb74d;
+            margin: 20px auto;
+        }
+
+        .privacy-section p {
+            color: #4a2c0d;
+            font-size: 16px;
+            line-height: 24px;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-box ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #4a2c0d;
+        }
+
+        .info-box ul li::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #ff7d00;
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        /* Use Info */
+        .use-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .use-info div {
+            background: #fff;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .use-info div:hover {
+            transform: translateY(-5px);
+        }
+
+        .use-info i {
+            color: #ff7d00;
+            font-size: 30px;
+            margin-bottom: 16px;
+        }
+
+        .use-info h3 {
+            color: #4a2c0d;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .use-info p {
+            color: #8c705e;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin: 8px 0;
+        }
+
+        .contact-info i {
+            color: #ff7d00;
+            font-size: 16px;
+        }
+
+        .contact-info span {
+            color: #4a2c0d;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .contact-info span.highlight {
+            color: #ff7d00;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .privacy-main {
+                padding: 0 12px;
+                margin: 70px auto 40px;
+            }
+
+            .privacy-title-section,
+            .privacy-section {
+                padding: 20px 0;
+                margin-bottom: 20px;
+            }
+
+            .privacy-title,
+            .privacy-section h2 {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .last-updated,
+            .privacy-section p,
+            .contact-info span {
+                font-size: 14px;
+                line-height: 22px;
+            }
+
+            .use-info {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .use-info h3 {
+                font-size: 16px;
+                line-height: 22px;
+            }
+
+            .use-info p {
+                font-size: 13px;
+                line-height: 18px;
+            }
+
+            .use-info i {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Begin: Header -->
+    <div class="header"></div>
+
+    <!-- Begin: Privacy Policy Content -->
+    <div class="privacy-main">
+        <!-- Privacy Title Section -->
+        <div class="privacy-title-section">
+            <div class="privacy-title">Privacy Policy</div>
+            <div class="last-updated">Last updated: January 15, 2025</div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="privacy-section">
+            <h2>Introduction</h2>
+            <div class="section-divider"></div>
+            <p>Welcome to CookHub. We respect your privacy and are committed to protecting your personal data. This policy explains how we handle your information when you use our website and informs you about your privacy rights.</p>
+        </div>
+
+        <!-- Information We Collect -->
+        <div class="privacy-section">
+            <h2>Information We Collect</h2>
+            <div class="section-divider"></div>
+            <div class="info-box">
+                <ul>
+                    <li>Name and contact information</li>
+                    <li>Account login credentials</li>
+                    <li>Profile information</li>
+                    <li>Recipe submissions and interactions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- How We Use Your Information -->
+        <div class="privacy-section">
+            <h2>How We Use Your Information</h2>
+            <div class="section-divider"></div>
+            <div class="use-info">
+                <div>
+                    <i class="fa-solid fa-user"></i>
+                    <h3>Account Management</h3>
+                    <p>To manage your account, provide support, and ensure security.</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-share"></i>
+                    <h3>Content Sharing</h3>
+                    <p>To enable recipe sharing and community interactions.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Security -->
+        <div class="privacy-section">
+            <h2>Data Security</h2>
+            <div class="section-divider"></div>
+            <div class="info-box">
+                <p>We use the following measures to protect your personal information:</p>
+                <ul>
+                    <li>Encryption of data in transit and at rest</li>
+                    <li>Regular security assessments</li>
+                    <li>Access controls and authentication</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="privacy-section">
+            <h2>Contact Us</h2>
+            <div class="section-divider"></div>
+            <p>If you have questions about this Privacy Policy, please reach out to us:</p>
+            <div class="contact-info">
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Email: <span class="highlight">privacy@cookhub.com</span></span>
+                </p>
+                <p>
+                    <i class="fa-solid fa-map-marker-alt"></i>
+                    <span>123 Recipe Street, Cooking City, CC 12345</span>
+                </p>
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Phone: <span class="highlight">+1 (555) 123-4567</span></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End: Privacy Policy Content -->
+
+    <!-- Begin: Footer -->
+    <div class="footer"></div>
+    <!-- End: Footer -->
+</body>
+</html>

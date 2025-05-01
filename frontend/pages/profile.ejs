@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub | Profile</title>
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="../js/loadHTML.js"></script>
+    <script src="../js/loadRecipes.js"></script>
+    <script src="../js/loadUserProfile.js"></script>
+    <script src="../js/editProfile.js"></script>
+    <script src="../js/editPassword.js"></script>
+</head>
+<body>
+    <div class="main">
+        <!-- Begin: Header -->
+        <div class="header"></div> <!-- Header will be loaded here-->
+        <!-- End: Header -->
+
+        <!-- Begin: Profile Cover -->
+        <section class="profile-cover">
+            <div class="cover-content">
+                <img src="../assets/image/avatar_default.png" alt="Avatar" class="profile-avatar">
+                <p class="username"></p>
+                <p class="userid"></p>
+                <p class="stats">Rank #193 | 93 posts | 1993 followers | 19 following</p>
+                <button class="edit-my-profile-btn js-edit-profile">Edit my profile</button>
+                <p class="profile-link"></p>
+            </div>
+            <div class="social-icons">
+                <a href="#"><img src="../assets/image/icon/icon_facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="../assets/image/icon/icon_twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="../assets/image/icon/icon_instagram.png" alt="Instagram"></a>
+            </div>
+        </section>        
+        <!-- End: Profile Cover -->
+
+        <!-- Begin: Profile Content -->
+        <section class="profile-content">
+            <div class="row"></div> <!-- Recipes will be loaded here-->
+            <button class="see-more-button">See More</button>
+        </section>    
+        <!-- End: Profile Content -->
+
+        <!-- Begin: Footer -->
+        <div class="footer"></div> <!-- Footer will be loaded here-->
+        <!-- End: Footer -->
+    </div>
+
+    <!-- Begin: Edit Profile Form -->
+    <div class="modal modal-edit-profile">
+        <form class="edit-profile-form" enctype="multipart/form-data">
+            <button type="button" class="close-btn js-modal-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <p class="heading">Edit Profile</p>
+            <div class="line"></div>
+        
+            <div class="edit-avatar">
+                <div class="label-edit">
+                    <p class="label">Profile photo</p>
+                    <label for="avatarInput" class="edit">Edit</label>
+                    <input type="file" accept="image/*" id="avatarInput" name="avatar" style="display: none;">                    <!-- <button class="edit">Edit</button> -->
+                </div>
+                <img src="../assets/image/users/avatars/avatar_a1b2c3d4e5.jpg" alt="Avatar">
+            </div>
+    
+            <div class="edit-background">
+                <div class="label-edit">
+                    <p class="label">Cover photo</p>
+                    <label for="backgroundInput" class="edit">Edit</label>
+                    <input type="file" accept="image/*" id="backgroundInput" name="background" style="display: none;">                    <!-- <button class="edit">Edit</button> -->
+                </div>
+                <img src="../assets/image/users/profile_backgrounds/background_a1b2c3d4e5.jpg" alt="Background">
+            </div>
+    
+            <div class="edit-info">
+                <div class="edit-name">
+                    <label for="user-name">Name</label>
+                    <input type="text" id="user-name" value="Alice">              
+                </div>
+                <div class="edit-userid">
+                    <label>User ID</label>
+                    <input type="text" value="" disabled>
+                </div>
+                
+                <div class="edit-mail">
+                    <label>Mail</label>
+                    <input type="email" value="" disabled>
+                </div>
+                
+                <div class="edit-password">
+                    <label>Password</label>
+                    <div class="password-container">
+                        <input type="password" value="*******" disabled>
+                        <button type="button" class="edit-button"><i class="fas fa-pen"></i></button>
+                    </div>
+                </div>
+                
+                <div class="edit-links">
+                    <label for="user-social-link">Link</label>
+                    <div class="links-container">
+                        <div class="social-row">
+                            <div class="user-links">
+                                <a href="">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <input type="text" id="user-social-link facebook" value="www.https/facebook/alice">
+                            </div>
+                            <button type="button" class="delete-links" onclick="document.getElementById('user-social-link facebook').value = ''">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <div class="social-row">
+                            <div class="user-links">
+                                <a href="">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                                <input type="text" id="user-social-link x-twitter" value="www.https/x/alice">
+                            </div>
+                            <button type="button" class="delete-links" onclick="document.getElementById('user-social-link x-twitter').value = ''">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <div class="social-row">
+                            <div class="user-links">
+                                <a href="">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <input type="text" id="user-social-link instagram" value="www.https/instagram/alice">
+                            </div>
+                            <button type="button" class="delete-links" onclick="document.getElementById('user-social-link instagram').value = ''">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="save-cancel-container">
+                <input type="submit" class="save-btn btn" value="Save"></input>
+                <button type="button" class="cancel-btn btn js-modal-close">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <!-- End: Edit Profile Form -->
+    
+    <!-- Begin: Edit Password Form -->
+    <div class="modal modal-edit-pass">
+        <form class="edit-pass-form" id="edit-pass-form">
+            <button type="button" class="close-btn js-modal-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="heading">Change password</div>
+            <div class="change-pass-row">
+                <label for="current-pass">Current password</label>
+                <input type="password" id="current-pass" placeholder="Enter current password" required>
+                <div id="current-pass-error" class="error-msg"></div>
+            </div>
+            <div class="change-pass-row">
+                <label for="new-pass">New password</label>
+                <input type="password" id="new-pass" placeholder="Enter new password" required>
+                <div id="new-pass-error" class="error-msg"></div>
+            </div>
+            <div class="change-pass-row">
+                <label for="confirm-new-pass">Confirm new password</label>
+                <input type="password" id="confirm-new-pass" placeholder="Confirm new password" required>
+                <div id="confirm-pass-error" class="error-msg"></div>
+            </div>
+    
+            <div class="save-cancel-container">
+                <input type="submit" class="save-btn btn" value="Save"></input>
+                <button type="button" class="cancel-btn btn js-modal-close">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <!-- End: Edit Password Form -->
+</body>
+</html>

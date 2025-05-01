@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub | About Us</title>
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+    <script src="../js/loadHTML.js"></script>
+    <style>
+        body {
+            background-color: #fffaf0; 
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .about-main {
+            max-width: 1000px;
+            margin: 80px auto 40px; /* margin-top: 80px để tránh bị header che */
+            padding: 0 20px;
+        }
+        .about-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .about-section h1, .about-section h2 {
+            color: #FF7D00; /* Màu cam từ style.css */
+            margin-bottom: 15px;
+        }
+        .about-section h1 {
+            font-size: 2.5em;
+        }
+        .about-section h2 {
+            font-size: 1.8em;
+        }
+        .about-section p {
+            color: #333;
+            line-height: 1.6;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        .stats, .values, .team {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .stat-item, .value-item, .team-member {
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff; /* Nền trắng */
+            border: 1px solid #ddd; /* Viền nhẹ */
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-item h3, .value-item h3, .team-member h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .stat-item p, .value-item p, .team-member p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .value-item i {
+            color: #FF7D00;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .stats, .values, .team {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Begin: Header -->
+    <div class="header"></div>
+    <!-- End: Header -->
+
+    <!-- Begin: About Us Content -->
+    <div class="about-main">
+        <div class="about-section">
+            <h1>Building CookHub with Love and Code</h1>
+            <p>A project born from late-night coding sessions, endless debates, and a shared passion for food and technology.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Story</h2>
+            <p>CookHub began as a humble project for our Software Engineering course in 2025. We were a team of 6 students, each bringing our unique skills (and quirks) to the table, united by a single goal: to create a platform where food lovers could save, share, and discover recipes.</p>
+            <p>From brainstorming sessions that turned into food debates (spoiler: Ly Na always won), to coding marathons that stretched until 2 a.m., we poured our hearts into this project. Despite the occasional bugs, missed deadlines, and Sohyun’s infamous “one last UI tweak” that took 3 days, we made it through—stronger as a team and prouder of what we built.</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>6</h3>
+                    <p>Members</p>
+                </div>
+                <div class="stat-item">
+                    <h3>200+</h3>
+                    <p>Hours of Coding</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Countless</h3>
+                    <p>Cups of Coffee</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Values</h2>
+            <p>The principles that kept us going through this crazy project</p>
+            <div class="values">
+                <div class="value-item">
+                    <i class="fas fa-code"></i>
+                    <h3>Teamwork & Chaos</h3>
+                    <p>We thrived in the chaos of group work—everyone coded, everyone argued, and somehow, we made it work.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Learn by Doing</h3>
+                    <p>From front-end to back-end, we learned by diving in headfirst, even if it meant breaking the app a few times.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-coffee"></i>
+                    <h3>Late-Night Vibes</h3>
+                    <p>Nothing beats the energy of coding at midnight with snacks, music, and a looming deadline.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Meet Our Team</h2>
+            <p>The brilliant (and slightly chaotic) minds behind CookHub</p>
+            <div class="team">
+                <div class="team-member">
+                    <img src="../assets/image/team/ly-na.jpg" alt="Ly Na">
+                    <h3>Ly Na</h3>
+                    <p>Team Leader</p>
+                    <p>Our fearless leader who kept us on track (and fed us with her famous bánh mì recipe).</p>
+                </div>
+                <div class="team-member">
+                    <img src="../assets/image/team/sohyun.jpg" alt="Sohyun">
+                    <h3>Sohyun</h3>
+                    <p>Front-End Wizard</p>
+                    <p>Obsessed with pixel-perfect designs—once spent 3 hours debating a button color.</p>
+                </div>
+                <div class="team-member">
+                    <img src="../assets/image/team/xuan-bui.jpg" alt="Xuân Bùi">
+                    <h3>Xuân Bùi</h3>
+                    <p>Back-End Master</p>
+                    <p>Our database guru who also secretly loves designing UI (but won’t admit it).</p>
+                </div>
+                <div class="team-member">
+                    <img src="../assets/image/team/giang-claude.jpg" alt="Giang Claude">
+                    <h3>Giang Claude</h3>
+                    <p>Design & Code Enthusiast</p>
+                    <p>The team’s artist who coded front-end and back-end while doodling food sketches.</p>
+                </div>
+                <div class="team-member">
+                    <img src="../assets/image/team/huyen-trang.jpg" alt="Huyền Trang">
+                    <h3>Huyền Trang</h3>
+                    <p>Back-End Pro</p>
+                    <p>Fixed bugs faster than we could find them, and kept us laughing with her witty comments.</p>
+                </div>
+                <div class="team-member">
+                    <img src="../assets/image/team/ngoc-lan.jpg" alt="Ngọc Lan">
+                    <h3>Ngọc Lan</h3>
+                    <p>Database Queen</p>
+                    <p>Made our database run like magic while sneaking in some front-end fixes on the side.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End: About Us Content -->
+
+    <!-- Begin: Footer -->
+    <div class="footer"></div>
+    <!-- End: Footer -->
+</body>
+</html>

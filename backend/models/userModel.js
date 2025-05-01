@@ -1,6 +1,7 @@
 const pool = require("../config/db");
 
 class UserModel {
+
   static async getAllUsers() {
     const result = await pool.query("SELECT * FROM users ORDER BY user_id ASC");
     return result.rows;
@@ -191,6 +192,12 @@ class UserModel {
       throw new Error(`Error updating user status: ${error.message}`);
     }
   }
+
+  static async getUserInfo() {
+    const result = await pool.query("SELECT * FROM users WHERE user_id = 1");
+    return result.rows;
+  }
+
 }
 
 module.exports = UserModel;

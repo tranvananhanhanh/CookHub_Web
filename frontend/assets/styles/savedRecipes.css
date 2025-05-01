@@ -1,0 +1,341 @@
+/* Recipe */
+#recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Export Options */
+.export-options {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.export-options label {
+  display: block;
+  margin: 5px 0;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 14px;
+  color: #34495e;
+}
+
+#recipes .recipe-card {
+  flex-basis: calc(25% - 30px);
+  min-width: 250px;
+  max-width: 300px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+}
+
+#recipes .recipe-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Trạng thái loading */
+#recipes .recipe-card.loading {
+  pointer-events: none;
+}
+
+/* Khung chứa hình ảnh */
+#recipes .recipe-card .recipe-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #f0f0f0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#recipes .recipe-card .recipe-img-wrapper .placeholder-icon {
+  display: none;
+  font-size: 40px;
+  color: #999;
+}
+
+#recipes .recipe-card .recipe-img-wrapper.error {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#recipes .recipe-card .recipe-img-wrapper.error .placeholder-icon {
+  display: block;
+}
+
+/* Placeholder cho hình ảnh khi đang tải */
+#recipes .recipe-card .recipe-img-wrapper.loading-placeholder {
+  background-color: #e0e0e0;
+  animation: shimmer 1.5s infinite linear;
+}
+
+#recipes .recipe-card .recipe-img-wrapper.loading-placeholder .placeholder-icon {
+  display: block;
+}
+
+/* Hình ảnh công thức */
+#recipes .recipe-card .recipe-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Nội dung bên dưới */
+#recipes .recipe-card .recipe-content {
+  padding: 15px;
+  text-align: left;
+}
+
+/* Checkbox */
+#recipes .recipe-card input {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* Tiêu đề công thức */
+#recipes .recipe-card .recipe-title {
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 5px 0;
+  display: block;
+  min-height: 20px;
+}
+
+/* Placeholder cho tiêu đề */
+#recipes .recipe-card .recipe-title.loading-placeholder {
+  width: 80%;
+  height: 16px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Rating (ngôi sao) */
+#recipes .recipe-card .rating {
+  color: #ffd700;
+  font-size: 16px;
+  margin: 5px 0;
+  min-height: 16px;
+}
+
+/* Placeholder cho rating */
+#recipes .recipe-card .rating.loading-placeholder {
+  width: 60%;
+  height: 14px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Ngày tạo và số bình luận */
+#recipes .recipe-card .recipe-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 12px;
+  color: #b98f27;
+  margin-top: 5px;
+  min-height: 14px;
+}
+
+#recipes .recipe-card .recipe-meta .meta-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Số lượng bình luận */
+#recipes .recipe-card .recipe-meta .comments {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#recipes .recipe-card .recipe-meta .comments i {
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+#recipes .recipe-card .recipe-meta .comments .comment-count {
+  font-size: 12px;
+  color: #2c3e50;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+}
+
+/* Nút ba chấm */
+#recipes .recipe-card .recipe-meta .settings-menu {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+#recipes .recipe-card .recipe-meta .settings-menu i {
+  font-size: 14px;
+  color: #2c3e50;
+  display: block;
+}
+
+#recipes .recipe-card .recipe-meta .settings-menu:hover i {
+  color: #f9800f;
+}
+
+/* Placeholder cho ngày và bình luận */
+#recipes .recipe-card .recipe-meta .date.loading-placeholder,
+#recipes .recipe-card .recipe-meta .comments.loading-placeholder {
+  width: 40%;
+  height: 12px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Hiệu ứng shimmer cho placeholder */
+@keyframes shimmer {
+  0% {
+      background-position: -200px 0;
+  }
+  100% {
+      background-position: 200px 0;
+  }
+}
+
+.loading-placeholder {
+  background: linear-gradient(to right, #e0e0e0 8%, #f0f0f0 18%, #e0e0e0 33%);
+  background-size: 200px 100%;
+}
+
+/* Đảm bảo nút xuất đồng bộ với thiết kế */
+#exportButton.see-more-button {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #f9800f;
+  font-size: 14px;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
+
+#exportButton.see-more-button:hover {
+  background-color: #f3a75e;
+}
+
+.fixed-export-panel {
+  position: fixed;
+  top: 80px;
+  left: 10px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 200px;
+  max-height: 300px; /* Giới hạn chiều cao để không tràn xuống footer */
+  overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+}
+
+.fixed-export-panel h1 {
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 20px;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+/* Đảm bảo danh sách công thức hiển thị tốt */
+#recipes.row {
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Style cho nút "Xem thêm" */
+#loadMoreButton.see-more-button {
+  margin: 20px auto;
+  display: block;
+  background-color: #f9800f;
+  font-size: 14px;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
+}
+
+#loadMoreButton.see-more-button:hover {
+  background-color: #f3a75e;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  max-height: 300px;
+  background-image: url('../assets/image/footer.png');
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 40px 0;
+}
+
+.footer-links a {
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  display: block;
+  margin: 5px;
+}
+
+.footer-links a:link,
+.footer-links a:visited {
+  color: #000;
+}
+
+.footer-social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-social-icons a {
+  font-size: 40px;
+}
+
+.footer-social-icons a:link,
+.footer-social-icons a:visited {
+  color: #000;
+}
+
+.footer-social-icons i {
+  display: inline-block;
+  color: #000;
+}

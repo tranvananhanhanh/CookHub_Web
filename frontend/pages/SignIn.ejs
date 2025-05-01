@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookhub login</title>
+    <link rel="stylesheet" href="../assets/styles/SignIn.css">
+</head>
+<body>
+    <nav>
+        <a href="#"><img src="/assets/images/logo.svg" alt="logo"></a>
+    </nav>
+    <div class="form-wrapper">
+        <h2>Sign In</h2>
+        <p id="message" style="margin-top: 10px;"></p>
+        <form id="loginForm">
+            <div class="form-control">
+                <input type="text" id="email" required>
+                <label>Email</label>
+            </div>
+            <div class="form-control">
+                <input type="password" id="password" required>
+                <label>Password</label>
+            </div>
+            
+            <!-- FORM HELP STARTSTART -->
+            <div class="form-help"> 
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <a href="#">Forgot password?</a>
+            </div>
+            <!--FORM HELP END   -->
+
+            <button type="submit">Sign In</button>
+            
+            <!-- Nút Đăng nhập với Google -->
+            <button type="button" class="google-signin">
+            <img src="/assets/image/authiencation/icon-google.svg" alt="Google Logo">
+                 Sign in with Google
+            </button>
+        </form>
+        <p>New to Cookhub? <a href="/pages/SignUp.html">Sign up now</a></p>
+        
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const data = await response.json();
+                const message = document.getElementById('message');
+
+                if (response.ok) {
+                    message.style.color = 'green';
+                    message.textContent = data.message;
+                    window.location.href = '/homepage'; // Chuyển hướng đến trang chủ
+                } else {
+                    message.style.color = 'red';
+                    message.textContent = data.message;
+                }
+            } catch (error) {
+                document.getElementById('message').textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
