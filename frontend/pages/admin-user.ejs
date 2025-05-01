@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Management</title>
+    <link rel="stylesheet" href="/assets/admin-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="/assets/image/logo/logo_image_text.png" alt="Logo Placeholder" class="logo-img">
+            </div>
+            <!-- Sidebar Items -->
+            <div class="sidebar-items">
+                <div class="sidebar-item" data-page="admin-dashboard">
+                    <img class="icon" src="/assets/image/admin-icon/dashboard.svg"> Dashboard
+                </div>
+                <div class="sidebar-item active" data-page="admin-user">
+                    <img class="icon" src="/assets/image/admin-icon/user.svg"> Users
+                </div>
+                <div class="sidebar-item" data-page="admin-recipe">
+                    <img class="icon" src="/assets/image/admin-icon/recipe.svg"> Recipes
+                </div>
+                <div class="sidebar-item" data-page="admin-report">
+                    <img class="icon" src="/assets/image/admin-icon/report.svg"> Report
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-admin-container">
+                    <div class="search-bar">
+                        <img class="search-icon" src="/assets/image/admin-icon/search.svg">
+                        <input type="text" placeholder="Find user by ID, Name or Email">
+                    </div>
+                    <div class="user-menu">
+                        <img src="/assets/image/avatar_default.png" alt="Admin Avatar">
+                        <div class="user-menu-text">
+                            <span>Admin</span>
+                            <span class="manage-text">Manage content</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs and Table -->
+            <div class="content">
+                <h1>Users</h1>
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab active">All</button>
+                        <button class="tab">Active</button>
+                        <button class="tab">Banned</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Created At</th>
+                            <th>Last Login</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <!-- Dữ liệu sẽ được render bởi JavaScript -->
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button id="prev-page">◄</button>
+                    <span id="page-info">1/1</span>
+                    <button id="next-page">►</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up xác nhận xóa -->
+    <div class="popup-overlay" id="delete-popup">
+        <div class="popup-content">
+            <h3>Are you sure delete?</h3>
+            <div class="popup-buttons">
+                <button class="popup-btn cancel-btn" id="cancel-delete">Cancel</button>
+                <button class="popup-btn delete-btn" id="confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up thông tin chi tiết người dùng -->
+    <div class="popup-overlay" id="user-details-popup">
+        <div class="report-details-content">
+            <div class="popup-header">
+                <h3>User Profile</h3>
+                <button class="close-btn" id="close-user-details">✖</button>
+            </div>
+            <div class="user-info">
+                <div class="avatar-placeholder"><img id="user-avatar" src="/assets/image/users/avatars/avatar_a1b2c3d4e5.jpg"></div>
+                <div class="user-details">
+                    <h4 id="user-name"></h4>
+                    <p>Email: <span id="user-email"></span></p>
+                    <p>Age: <span id="user-age"></span> | Status: <span id="user-status"></span></p>
+                    <p>Joined: <span id="user-joined"></span></p>
+                </div>
+            </div>
+            <div class="social-platforms">
+                <h4>Social Platforms</h4>
+                <div id="social-links"></div>
+            </div>
+            <div class="recipe-stats">
+                <h4>Recipe Statistics</h4>
+                <p>Total: <span id="recipe-total"></span> | Pending: <span id="recipe-pending"></span> | Approved: <span id="recipe-approved"></span> | Rejected: <span id="recipe-rejected"></span> | Deleted: <span id="recipe-deleted"></span></p>
+                <!-- <p>Rejected: <span id="recipe-rejected"></span> | Deleted: <span id="recipe-deleted"></span></p> -->
+                <p>Rating: <span id="recipe-rating"></span> | Saved: <span id="recipe-saved"></span></p>
+            </div>
+            <div class="user-recipes">
+                <h4>User's Recipes</h4>
+                <div id="user-recipes-list"></div> 
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn activate-btn" id="activate-user">Activate</button>
+                <button class="action-btn ban-btn" id="ban-user">Ban</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông báo thành công/lỗi -->
+    <div class="notification" id="notification">
+        <span id="notification-message"></span>
+    </div>
+
+    <script src="../js/admin-user.js"></script>
+
+    <!-- JavaScript để xử lý nút hamburger -->
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+    <!-- Liên kết các file JavaScript -->
+    <script src="../js/sidebar.js"></script>
+</body>
+</html>

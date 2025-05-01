@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes Management</title>
+    <link rel="stylesheet" href="/assets/admin-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="/assets/image/logo/logo_image_text.png" alt="Logo Placeholder" class="logo-img">
+            </div>
+            <!-- Sidebar Items -->
+            <div class="sidebar-items">
+                <div class="sidebar-item" data-page="admin-dashboard">
+                    <img class="icon" src="/assets/image/admin-icon/dashboard.svg"> Dashboard
+                </div>
+                <div class="sidebar-item" data-page="admin-user">
+                    <img class="icon" src="/assets/image/admin-icon/user.svg"> Users
+                </div>
+                <div class="sidebar-item active" data-page="admin-recipe">
+                    <img class="icon" src="/assets/image/admin-icon/recipe.svg"> Recipes
+                </div>
+                <div class="sidebar-item" data-page="admin-report">
+                    <img class="icon" src="/assets/image/admin-icon/report.svg"> Report
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-admin-container">
+                    <div class="search-bar">
+                        <img class="search-icon" src="/assets/image/admin-icon/search.svg"> 
+                        <input type="text" placeholder="Find Recipe by ID, Title, Author">
+                    </div>
+                    <div class="user-menu">
+                        <img src="/assets/image/avatar_default.png" alt="Admin Avatar">
+                        <div class="user-menu-text">
+                            <span>Admin</span>
+                            <span class="manage-text">Manage content</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs and Table -->
+            <div class="content">
+                <h1>Recipe</h1>
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab active">All</button>
+                        <button class="tab">Pending</button>
+                        <button class="tab">Approved</button>
+                        <button class="tab">Rejected</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recipes-tbody">
+                        <!-- Dữ liệu sẽ được render bởi JavaScript -->
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button id="prev-page">◄</button>
+                    <span id="page-info">1/1</span>
+                    <button id="next-page">►</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up xác nhận xóa -->
+    <div class="popup-overlay" id="delete-popup">
+        <div class="popup-content">
+            <h3>Are you sure delete?</h3>
+            <div class="popup-buttons">
+                <button class="popup-btn cancel-btn" id="cancel-delete">Cancel</button>
+                <button class="popup-btn delete-btn" id="confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trong file admin-recipe.ejs, thêm trước </body> -->
+    <!-- Pop-up chi tiết công thức -->
+    <div class="popup-overlay" id="recipe-details-popup">
+      <div class="report-details-content">
+          <div class="popup-header">
+              <h3 id="recipe-title">Recipe Details</h3>
+              <button class="close-btn" id="close-recipe-details">✖</button>
+          </div>
+          <div class="recipe-info">
+              <img id="recipe-thumbnail" alt="Recipe Thumbnail" style="width: 100%; max-height: 600px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;">
+              <p><strong>Author:</strong> <span id="recipe-author"></span></p>
+              <p><strong>Date Created:</strong> <span id="recipe-date"></span></p>
+              <p><strong>Servings:</strong> <span id="recipe-servings"></span></p>
+              <p><strong>Cooking Time:</strong> <span id="recipe-cooking-time"></span></p>
+              <p><strong>Description:</strong> <span id="recipe-description"></span></p>
+          </div>
+          <div class="recipe-ingredients">
+              <h4>Ingredients</h4>
+              <div id="recipe-ingredients"></div>
+          </div>
+          <div class="recipe-steps">
+              <h4>Instructions</h4>
+              <div id="recipe-steps"></div>
+          </div>
+          <div class="action-buttons">
+              <button class="action-btn reject-btn" id="reject-recipe">Reject</button>
+              <button class="action-btn approve-btn" id="approve-recipe">Approve</button>
+          </div>
+      </div>
+    </div>    
+
+
+    <!-- Trong file admin-recipe.ejs, thêm sau popup chi tiết công thức -->
+    <!-- Pop-up nhập lý do từ chối công thức -->
+    <div class="popup-overlay" id="reject-reason-popup">
+        <div class="popup-content">
+            <h3>Reject Recipe</h3>
+            <p>Reason for rejection:</p>
+            <textarea id="reject-reason" rows="3" style="width: 100%;"></textarea>
+            <div class="popup-buttons">
+                <button class="popup-btn cancel-btn" id="cancel-reject-reason">Cancel</button>
+                <button class="popup-btn reject-btn" id="submit-reject-reason">Submit</button>
+            </div>
+        </div>
+    </div>    
+
+    <!-- Thông báo thành công/lỗi -->
+    <div class="notification" id="notification">
+        <span id="notification-message"></span>
+    </div>
+
+    <script src="../js/admin-recipe.js"></script>
+
+    <!-- JavaScript để xử lý nút hamburger -->
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+    <!-- Liên kết các file JavaScript -->
+    <script src="../js/sidebar.js"></script>
+</body>
+</html>
