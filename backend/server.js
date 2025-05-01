@@ -6,9 +6,9 @@ const open = require('open').default;
 
 const app = express();
 const port = 4000; 
-const recipeRoutes = require("./routes/recipeRoutes");
-const userRoutes = require("./routes/userRoutes");
-const reportRoutes = require("./routes/reportRoutes"); // Thêm reportRoutes
+const recipeRoutes = require("./routes/recipeRoutesAdmin");
+const userRoutes = require("./routes/userRoutesAdmin");
+const reportRoutes = require("./routes/reportRoutesAdmin"); // Thêm reportRoutes
 
 app.use(cors({
   origin: "http://127.0.0.1:5500"
