@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-class ReportModel {
+class ReportModelAdmin {
   static async getReportsPaginated(limit, offset) {
     const result = await pool.query(`
       SELECT r.report_id, r.user_id, u.name AS reporter, r.recipe_id, rec.title AS recipe_title, r.created_at, r.report_status
@@ -201,4 +201,4 @@ class ReportModel {
   }
 }
 
-module.exports = ReportModel;
+module.exports = ReportModelAdmin;

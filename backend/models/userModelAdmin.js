@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-class UserModel {
+class UserModelAdmin {
   static async getAllUsers() {
     const result = await pool.query("SELECT * FROM users ORDER BY user_id ASC");
     return result.rows;
@@ -193,4 +193,4 @@ class UserModel {
   }
 }
 
-module.exports = UserModel;
+module.exports = UserModelAdmin;

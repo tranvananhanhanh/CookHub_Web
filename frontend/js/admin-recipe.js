@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fetchRecipes = async (page, status, search = "") => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/recipes?page=${page}&status=${status}&search=${encodeURIComponent(search)}`
+        `http://localhost:4000/api/recipesAdmin?page=${page}&status=${status}&search=${encodeURIComponent(search)}`
       );
       if (!response.ok) {
         const errorData = await response.json();
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", async () => {
           currentRecipeId = button.getAttribute("data-recipe-id"); // Lưu recipeId
           try {
-            const response = await fetch(`http://localhost:4000/api/recipes/${currentRecipeId}`);
+            const response = await fetch(`http://localhost:4000/api/recipesAdmin/${currentRecipeId}`);
             if (!response.ok) {
               throw new Error("Lỗi khi lấy chi tiết công thức");
             }
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Xử lý nút Approve
             approveRecipeBtn.onclick = async () => {
               try {
-                const response = await fetch(`http://localhost:4000/api/recipes/${currentRecipeId}/status`, {
+                const response = await fetch(`http://localhost:4000/api/recipesAdmin/${currentRecipeId}/status`, {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ status: "approved" }),
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!recipeIdToDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/recipes/${recipeIdToDelete}`, {
+      const response = await fetch(`http://localhost:4000/api/recipesAdmin/${recipeIdToDelete}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/api/recipes/${currentRecipeId}/status`, {
+      const response = await fetch(`http://localhost:4000/api/recipesAdmin/${currentRecipeId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "rejected" }),

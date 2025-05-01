@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fetchReports = async (page, status, search = "") => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/reports?page=${page}&status=${status}&search=${encodeURIComponent(search)}`
+        `http://localhost:4000/api/reportsAdmin?page=${page}&status=${status}&search=${encodeURIComponent(search)}`
       );
       if (!response.ok) {
         const errorData = await response.json();
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
           currentRecipeId = button.getAttribute("data-recipe-id");
 
           try {
-            const response = await fetch(`http://localhost:4000/api/reports/${currentReportId}`);
+            const response = await fetch(`http://localhost:4000/api/reportsAdmin/${currentReportId}`);
             if (!response.ok) {
               const errorData = await response.json();
               throw new Error(errorData.error || "Lỗi khi lấy chi tiết báo cáo");
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!reportIdToDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/reports/${reportIdToDelete}`, {
+      const response = await fetch(`http://localhost:4000/api/reportsAdmin/${reportIdToDelete}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
   submitAcceptOptionBtn.addEventListener("click", async () => {
 
     try {
-      const updateStatusResponse = await fetch(`http://localhost:4000/api/reports/${currentReportId}/status`, {
+      const updateStatusResponse = await fetch(`http://localhost:4000/api/reportsAdmin/${currentReportId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "accepted" }),
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!updateStatusResponse.ok) throw new Error("Lỗi khi cập nhật trạng thái báo cáo");
 
       
-      const deleteResponse = await fetch(`http://localhost:4000/api/recipes/${currentRecipeId}`, {
+      const deleteResponse = await fetch(`http://localhost:4000/api/recipesAdmin/${currentRecipeId}`, {
         method: "DELETE",
       });
       if (!deleteResponse.ok) throw new Error("Lỗi khi xóa công thức");
@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/api/reports/${currentReportId}/status`, {
+      const response = await fetch(`http://localhost:4000/api/reportsAdmin/${currentReportId}/status`, {
         method: "PUT", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "rejected" }),

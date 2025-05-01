@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fetchUsers = async (page, status, search = "") => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/users?page=${page}&status=${status}&search=${encodeURIComponent(search)}`
+        `http://localhost:4000/api/usersAdmin?page=${page}&status=${status}&search=${encodeURIComponent(search)}`
       );
       if (!response.ok) {
         throw new Error("Lỗi khi lấy dữ liệu từ API...");
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", async () => {
           const userId = button.getAttribute("data-user-id");
           try {
-            const response = await fetch(`http://localhost:4000/api/users/${userId}`);
+            const response = await fetch(`http://localhost:4000/api/usersAdmin/${userId}`);
             if (!response.ok) {
               throw new Error("Lỗi khi lấy thông tin chi tiết");
             }
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Xử lý nút Activate
             activateUserBtn.onclick = async () => {
               try {
-                const response = await fetch(`http://localhost:4000/api/users/${userId}/status`, {
+                const response = await fetch(`http://localhost:4000/api/usersAdmin/${userId}/status`, {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ isBanned: false }),
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Xử lý nút Ban
             banUserBtn.onclick = async () => {
               try {
-                const response = await fetch(`http://localhost:4000/api/users/${userId}/status`, {
+                const response = await fetch(`http://localhost:4000/api/usersAdmin/${userId}/status`, {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ isBanned: true }),
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!userIdToDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${userIdToDelete}`, {
+      const response = await fetch(`http://localhost:4000/api/usersAdmin/${userIdToDelete}`, {
         method: "DELETE",
       });
       if (!response.ok) {

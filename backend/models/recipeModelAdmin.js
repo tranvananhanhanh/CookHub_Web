@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-class RecipeModel {
+class RecipeModelAdmin {
   // Lấy tất cả công thức
   static async getAllRecipes() {
     const result = await pool.query(`
@@ -203,4 +203,4 @@ class RecipeModel {
   }  
 }
 
-module.exports = RecipeModel;
+module.exports = RecipeModelAdmin;
