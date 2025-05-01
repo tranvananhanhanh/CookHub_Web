@@ -2,6 +2,15 @@ const pool = require('../config/db'); // Điều chỉnh đường dẫn để t
 
 async function loginUser(email, password_hash) {
     try {
+        // Kiểm tra tài khoản admin cứng
+        if (email === 'cookhubadmin@gmail.com' && password_hash === 'admin123') {
+            return {
+                email: 'cookhubadmin@gmail.com',
+                isAdmin: true
+            };
+        }
+
+        // Logic cho người dùng thông thường
         const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
         const user = result.rows[0];
 
@@ -11,7 +20,7 @@ async function loginUser(email, password_hash) {
 
         // Kiểm tra mật khẩu thẳng (plain-text)
         if (user.password_hash === password_hash) {
-           return user;
+            return { ...user, isAdmin: false }; // Thêm thuộc tính isAdmin
         } else {
             throw new Error('Sai mật khẩu');
         }
