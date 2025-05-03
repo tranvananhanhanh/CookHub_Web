@@ -1,0 +1,150 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+
+  <title>CookHub | BMI Result</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Font -->
+  <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/styles/styles.css">
+  <link rel="stylesheet" href="../assets/styles/responsive.css">
+  <!-- JavaScript -->
+  <script src="../js/loadHTML.js"></script>
+</head>
+
+<body>
+  <div class="header"></div>
+
+  <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
+    style='font-family: Manrope, "Noto Sans", sans-serif;'>
+    <div class="px-40 flex flex-1 justify-center py-5">
+      <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+        <h2 id="bmiResult"
+          class="text-[#111517] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5"></h2>
+        <p id="bmiStatus" class="text-[#647987] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center"> </p>
+        <script>
+          // Lấy giá trị BMI và trạng thái từ query string
+          const urlParams = new URLSearchParams(window.location.search);
+          const bmi = urlParams.get("bmi");
+          const status = urlParams.get("status");
+          if (bmi && status) {
+            document.getElementById("bmiResult").textContent = `Your BMI is: ${bmi}`;
+            document.getElementById("bmiStatus").textContent = `You are: ${status}`;
+          } else {
+            document.getElementById("bmiResult").textContent = "BMI not calculated!";
+          }
+        </script>
+
+        <div class="flex flex-col gap-3 p-4">
+          <div class="flex gap-6 justify-between">
+            <p class="text-[#111517] text-base font-medium leading-normal">Progress</p>
+          </div>
+          <div class="rounded bg-[#dce1e5]">
+            <div class="h-2 rounded bg-[#ff8c00]" style="width: 65%;"></div>
+          </div>
+          <p id="message" class="text-[#647987] text-sm font-normal leading-normal"></p>
+          <script>
+            const message = urlParams.get("message");
+            document.getElementById("message").textContent = `${message}`;
+          </script>
+
+        </div>
+        <h2 class="text-[#111517] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Dietary Advice
+        </h2>
+        <p id="goal" class="text-[#111517] text-base font-normal leading-normal pb-3 pt-1 px-4">
+        </p>
+        <script>
+          const goal = sessionStorage.getItem("goal");
+          document.getElementById("goal").innerText = goal;
+        </script>
+        <div class="flex items-center gap-4 bg-white px-4 min-h-[72px] py-2">
+          <div class="text-[#111517] flex items-center justify-center rounded-lg bg-[#f0f3f4] shrink-0 size-12"
+            data-icon="Command" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M180,144H160V112h20a36,36,0,1,0-36-36V96H112V76a36,36,0,1,0-36,36H96v32H76a36,36,0,1,0,36,36V160h32v20a36,36,0,1,0,36-36ZM160,76a20,20,0,1,1,20,20H160ZM56,76a20,20,0,0,1,40,0V96H76A20,20,0,0,1,56,76ZM96,180a20,20,0,1,1-20-20H96Zm16-68h32v32H112Zm68,88a20,20,0,0,1-20-20V160h20a20,20,0,0,1,0,40Z">
+              </path>
+            </svg>
+          </div>
+          <div class="flex flex-col justify-center">
+            <p class="text-[#111517] text-base font-medium leading-normal line-clamp-1">"Keep pushing forward!"</p>
+            <p id="advice0" class="text-[#647987] text-sm font-normal leading-normal line-clamp-2">Eat at least five
+              portions of a variety of fruit and vegetables every day</p>
+            <script>
+              const advice0 = sessionStorage.getItem("advice0");
+              document.getElementById("advice0").innerText = advice0;
+            </script>
+          </div>
+
+        </div>
+        <div class="flex items-center gap-4 bg-white px-4 min-h-[72px] py-2">
+          <div class="text-[#111517] flex items-center justify-center rounded-lg bg-[#f0f3f4] shrink-0 size-12"
+            data-icon="FishSimple" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M168,76a12,12,0,1,1-12-12A12,12,0,0,1,168,76Zm31.54,90.77c-27.06,27-69.42,38.35-126.32,33.95q2.39,17.84,6.7,37.57a8,8,0,0,1-6.11,9.52,7.81,7.81,0,0,1-1.72.19,8,8,0,0,1-7.8-6.29q-4.91-22.43-7.39-42.64-20.2-2.49-42.61-7.39a8,8,0,0,1,3.42-15.63q19.71,4.3,37.54,6.7c-4.39-56.89,7-99.24,34-126.29C133,12.58,202.43,24.9,215.9,27.82A16.07,16.07,0,0,1,228.18,40.1C231.1,53.57,243.43,123,199.54,166.77Zm-15-7.89A104.12,104.12,0,0,1,97.13,71.41C75.56,95.76,67,133.67,71.42,184.55,122.31,189,160.22,180.44,184.57,158.88Zm28-115.39a167.84,167.84,0,0,0-49.25-2.78c-20.24,2-37.4,7.83-51.25,17.46A88,88,0,0,0,197.83,144c9.62-13.85,15.49-31,17.46-51.25A169,169,0,0,0,212.54,43.49Z">
+              </path>
+            </svg>
+          </div>
+          <div class="flex flex-col justify-center">
+            <p class="text-[#111517] text-base font-medium leading-normal line-clamp-1">"Stay consistent!"</p>
+            <p id="advice1" class="text-[#647987] text-sm font-normal leading-normal line-clamp-2">Base meals on higher
+              fiber starchy foods like potatoes and bread</p>
+            <script>
+              const advice1 = sessionStorage.getItem("advice1");
+              document.getElementById("advice1").innerText = advice1;
+            </script>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-white px-4 min-h-[72px] py-2">
+          <div class="text-[#111517] flex items-center justify-center rounded-lg bg-[#f0f3f4] shrink-0 size-12"
+            data-icon="FishSimple" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M168,76a12,12,0,1,1-12-12A12,12,0,0,1,168,76Zm31.54,90.77c-27.06,27-69.42,38.35-126.32,33.95q2.39,17.84,6.7,37.57a8,8,0,0,1-6.11,9.52,7.81,7.81,0,0,1-1.72.19,8,8,0,0,1-7.8-6.29q-4.91-22.43-7.39-42.64-20.2-2.49-42.61-7.39a8,8,0,0,1,3.42-15.63q19.71,4.3,37.54,6.7c-4.39-56.89,7-99.24,34-126.29C133,12.58,202.43,24.9,215.9,27.82A16.07,16.07,0,0,1,228.18,40.1C231.1,53.57,243.43,123,199.54,166.77Zm-15-7.89A104.12,104.12,0,0,1,97.13,71.41C75.56,95.76,67,133.67,71.42,184.55,122.31,189,160.22,180.44,184.57,158.88Zm28-115.39a167.84,167.84,0,0,0-49.25-2.78c-20.24,2-37.4,7.83-51.25,17.46A88,88,0,0,0,197.83,144c9.62-13.85,15.49-31,17.46-51.25A169,169,0,0,0,212.54,43.49Z">
+              </path>
+            </svg>
+          </div>
+          <div class="flex flex-col justify-center">
+            <p class="text-[#111517] text-base font-medium leading-normal line-clamp-1">"Hydrate and rest well!"</p>
+            <p id="advice2" class="text-[#647987] text-sm font-normal leading-normal line-clamp-2">Eat some beans,
+              pulses, fish, eggs, meat and other proteins</p>
+            <script>
+              const advice2 = sessionStorage.getItem("advice2");
+              document.getElementById("advice2").innerText = advice2;
+            </script>
+          </div>
+        </div>
+        <div class="flex px-4 py-3">
+          <button id="exploreButton"
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 
+                       bg-[#f0f3f4] text-[#111517] text-base font-bold leading-normal tracking-[0.015em]
+                       transition-all duration-300 ease-in-out hover:bg-[#ffa500] hover:text-white hover:shadow-md active:scale-95">
+            <span class="truncate">Explore Diet Recipes</span>
+
+          </button>
+          <script>
+            document.getElementById("exploreButton").addEventListener("click", () => {
+              window.location.href = `/bmi/heathyfood`;
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"></div>
+  <script src="../js/bmi.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+    />
+
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <title>CookHub | BMI Healthy Food</title>
+  
+    <!-- Font -->
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+    <!-- JavaScript -->
+    <script src="../js/loadHTML.js"></script>  
+  </head>
+  <body>
+    <div class="header"></div>
+
+    <div class="relative flex size-full min-h-screen flex-col bg-[#FFFFFF] group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <h1 class="text-[#1C160C] tracking-light text-[32px] font-bold leading-tight px-4 text-center pb-3 pt-6">Healthy Food Choices for a Better You</h1>
+            <p class="text-[#1C160C] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">Explore delicious and healthy recipes tailored to your dietary needs.</p>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-6 p-4">
+              <div class="flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/f0181846-457a-430c-b6be-2d0b10fef3e5.png");'
+                ></div>
+                <div>
+                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center">Fruits &amp; Vegetables</p>
+                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2">Incorporate colorful fruits and vegetables for essential nutrients.</p>
+                </div>
+              </div>
+            
+              <div class="flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg ">
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/11c4b92a-1f79-46f7-90eb-0a273dee5dd7.png");'
+                ></div>
+                <div>
+                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center">Whole Grains</p>
+                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2 ">Choose whole grains like brown rice to boost fiber intake.</p>
+                </div>
+              </div>
+            
+              <div class="flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/fcf53ace-5624-4411-ace1-b4574341355a.png");'
+                ></div>
+                <div>
+                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center ">Lean Proteins</p>
+                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2">Opt for lean proteins to support muscle maintenance.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 max-w-[480px] justify-center mx-auto">
+              <button id="viewRecipeButtton"
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#FF8C00] hover:bg-[#FFB347] text-[#FFFFFF] text-base font-bold leading-normal tracking-[0.015em] transition duration-300 ease-in-out shadow-md transform hover:scale-105"
+              >
+                <span class="truncate">View Recipes</span>
+              </button>
+              <script>
+                document.getElementById("viewRecipeButton").addEventListener("click", () => {
+                  window.location.href = `/home`;
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"></div>
+  </body>
+</html>

@@ -29,6 +29,10 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 app.use(express.urlencoded({ extended: true }));
 
+// Khai báo thư mục chứa file tĩnh
+app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'frontend'))); // Phục vụ các file tĩnh từ thư mục frontend
 
 // API routes
 app.use("/api/recipes", recipeRoutes);
@@ -99,6 +103,17 @@ app.get('/terms', (req, res) => {
   res.render('terms_of_use');
 });
 
+app.get('/bmi', (req, res) => {
+  res.render('inputBMI');
+});
+
+app.get("/bmi/result", (req, res) => {
+  res.render('bmi');
+});
+
+app.get("/bmi/heathyfood", (req, res) => {
+  res.render('recipeBMI');
+});
 
 // Khởi chạy server
 app.listen(port, () => {
