@@ -1,6 +1,3 @@
-// backend/routes/recipeRoutes.js
-// Chứa các API endpoint liên quan đến công thức nấu ăn
-
 const express = require("express");
 const router = express.Router();
 const RecipeModel = require("../models/recipeModel"); // Bỏ đi nếu không dùng RecipeModel nữa

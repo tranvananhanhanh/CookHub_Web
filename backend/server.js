@@ -15,10 +15,12 @@ const ingredientRoutes = require('./routes/ingredientRoutes');
 const userRoutes = require("./routes/userRoutes");
 const shoppingListRoutes = require("./routes/shoppingListRoutes");
 const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
+const unitRoutes = require("./routes/unitRoutes");
+const createRoutes = require("./routes/createRoutes"); 
 
-app.use(cors({
-  origin: ["http://127.0.0.1:5500", "http://localhost:5500"]
-}));
+process.env.TZ = 'UTC';
+
+app.use(cors());
 
 // Cấu hình để sử dụng EJS
 app.set("view engine", "ejs");
@@ -36,12 +38,16 @@ app.use(express.static(path.join(__dirname, '..', 'frontend'))); // Phục vụ 
 
 // API routes
 app.use("/api/recipes", recipeRoutes);
-app.use('/api/auth', authRoutes); // Route cho đăng nhập
-app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/ingredients', ingredientRoutes);
+app.use("/api/auth", authRoutes); // Route cho đăng nhập
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/ingredients", ingredientRoutes);
 app.use("/api/users/", userRoutes);
 app.use("/api/shopping-list", shoppingListRoutes);
 app.use("/api/savedRecipes", savedRecipesRoutes);
+app.use("/api", createRoutes); // Xử lý POST /api/recipes
+app.use("/api/recipes", recipeRoutes); // Xử lý GET /api/recipes
+app.use("/api/users", userRoutes);
+app.use("/api/units", unitRoutes); // Routes đơn vị
 
 // Route trang chủ
 app.get('/', (req, res) => {
@@ -55,12 +61,17 @@ app.get("/homepage", (req, res) => {
 app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
 });
+
 app.get("/savedRecipes", (req, res) => {
   res.render("savedRecipes", { title: "Saved Recipes" });
 });
 
 app.get("/profile", (req, res) => {
   res.render("profile");
+});
+
+app.get("/create", (req, res) => {
+  res.render("create");
 });
 
 app.get('/SignIn', (req, res) => {

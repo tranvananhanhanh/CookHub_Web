@@ -184,7 +184,6 @@ nav ul a.active {
 .create-post-button {
   width: 100px;
   background: #FF7D00;
-  color: #fff;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -193,9 +192,12 @@ nav ul a.active {
   opacity: 0.7;
 }
 
-.create-post-button p {
+.create-post-button a p {
+  display: inline-block;
   margin: 0;
   padding: 6px 10px;
+  line-height: 28px;
+  color: #fff;
 }
 
 .user-logo a {

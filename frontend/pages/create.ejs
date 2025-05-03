@@ -1,67 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CookHub | Create Recipe</title>
-  <!-- CSS chung của dự án -->
-  <link rel="stylesheet" href="../assets/styles.css">
-  <link rel="stylesheet" href="../assets/create.css">
-  <!-- loadHTML.js sẽ load Header & Footer từ các file riêng -->
+  <!-- Font -->
+  <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+  <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/styles/styles.css">
+  <link rel="stylesheet" href="../assets/styles/create.css">
+  <link rel="stylesheet" href="../assets/styles/responsive.css">
+  <!-- JavaScript -->
   <script src="../js/loadHTML.js" defer></script>
   <script src="../js/create.js" defer></script>
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div class="header"></div>
 
   <main>
-    <section class="create-page">
+    <form id="recipe-form" class="create-page">
+      <div class="text-header1">Add a new recipe</div>
       <!-- Cover Upload Section -->
       <div class="cover-upload">
         <div class="cover-title">Cover image display for recipes</div>
         <div class="cover-browse">
-          <button class="browse-btn" onclick="document.getElementById('fileInput').click()">Browse files</button>
+          <button type="button" class="browse-btn" onclick="document.getElementById('fileInput').click()">Browse
+            files</button>
         </div>
-        <input type="file" id="fileInput" accept="image/*" style="display:none;">
+        <input type="file" name="thumbnail" id="fileInput" accept=".jpg, .jpeg, .png, .gif" style="display:none;">
         <img id="preview" alt="Image preview" style="max-width:100%; margin-top:10px;">
       </div>
-      
+
       <!-- Recipe Title Section -->
-      <div class="text-header1">Add a new recipe</div>
+      <div class="text-header1">Title</div>
       <div class="recipe-title-border">
-        <textarea class="text-box" placeholder="Enter recipe title..."></textarea>
+        <input type="text" name="title" class="text-box" placeholder="Enter recipe title..." maxlength="255">
       </div>
-      
+
+      <!-- Cooking Time and Servings Section -->
+      <div class="text-header1">Details</div>
+      <div class="recipe-details">
+        <div class="detail-item">
+          <label for="cooking-time">Cooking Time (minutes)</label>
+          <input type="number" name="cooking_time" id="cooking-time" class="text-box" placeholder="e.g., 30" min="1">
+        </div>
+        <div class="detail-item">
+          <label for="servings">Servings</label>
+          <input type="number" name="servings" id="servings" class="text-box" placeholder="e.g., 4" min="1">
+        </div>
+      </div>
+
       <!-- Description Section -->
       <div class="text-header1">Description</div>
       <div class="description-box">
-        <textarea class="text-box" placeholder="Enter description..."></textarea>
+        <textarea name="description" id="recipeDescription" class="text-box" placeholder="Enter description..."
+          maxlength="1000"></textarea>
+        <div style="text-align: right; font-size: 0.8em; color: #666;">
+          <span id="description-counter">0/1000</span>
+        </div>
       </div>
-      
       <!-- Ingredients Section -->
       <div class="text-header1">Ingredients</div>
       <div class="ingredient-list">
         <div id="ingredients-container">
+          <p>Please enter ingredient's name in English (e.g., egg, chicken)</p>
+          <p>Use standard units (e.g., g, ml, tsp). For ingredient like egg, estimate in grams (e.g., 1 egg ≈ 50g).</p>
+          <!-- Các ingredient-item sẽ được thêm bởi JS -->
         </div>
-        <button class="add-ingredient" onclick="addIngredient()">+</button>
+        <!-- Giữ nguyên class button gốc -->
+        <button type="button" class="add-ingredient">+</button>
       </div>
-      
+
       <!-- Instructions Section -->
       <div class="text-header1">Instructions</div>
       <div class="instructions-list ingredient-list" id="instructions-container">
+        <!-- Các step-row sẽ được thêm bởi JS -->
       </div>
-      <button class="add-step-btn" onclick="addStep()">Add Another Step</button>
-      
+      <button type="button" class="add-step-btn">Add Another Step</button>
+
       <!-- Action Buttons -->
-      <div class="action-btns">
-        <button class="save-btn" onclick="handleSave()">Save</button>
-        <button class="cancel-btn" onclick="handleCancel()">Cancel</button>
+      <div class="save-cancel-container">
+        <input type="submit" id="submit-btn" class="save-btn btn" value="Save"></input>
+        <button type="button" class="cancel-btn btn">Cancel</button>
       </div>
-      
-    </section>
+    </form>
   </main>
+
   <div class="footer"></div>
+
+  <div id="image-modal" class="image-modal">
+    <div class="enlarged-image">
+      <div class="modal-close" onclick="closeImageModal()">×</div>
+      <img id="modal-img" class="modal-img" alt="Large image preview">
+    </div>
+  </div>
+
+  <div id="error-popup" class="error-popup">
+    <div class="popup-content">
+      <p>You can only upload a maximum of 3 images.</p>
+      <button type="button" class="popup-close-btn">OK</button>
+    </div>
+  </div>
 </body>
+
 </html>

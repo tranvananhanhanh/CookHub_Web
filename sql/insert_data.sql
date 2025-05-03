@@ -22,46 +22,103 @@ INSERT INTO users (random_code, name, age, email, password_hash, avatar, profile
 ('r6s7t8u9v0', 'Đinh Quốc Khải', 23, 'dinhqk27092001@gmail.com', 'hashed_password_20', 'avatar_r6s7t8u9v0.png', 'background_r6s7t8u9v0.png', FALSE, '2024-03-09 08:30:00', '2024-03-12 18:20:00', 'male');
 
 -- Bảng công thức nấu ăn
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Phở Bò', 'thumbnail.png', 'Món phở bò truyền thống', 180, 4, 'approved', '2024-12-12 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Bánh Mì', 'thumbnail.png', 'Bánh mì Việt Nam', 150, 10, 'pending', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Bún Bò Huế', 'thumbnail.png', 'Bún bò Huế cay nồng', 330, 7, 'pending', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Cơm Tấm', 'thumbnail.png', 'Cơm tấm Long Xuyên với phần thịt trứng khìa, cắt nhỏ tạo nên điểm khác biệt so với cơm tấm Sài Gòn', 60, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Gỏi Cuốn', 'thumbnail.png', 'Gỏi cuốn chấm mắm nêm', 25, 2, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Chả Giò', 'thumbnail.png', 'Chả Giò giòn tan dành cho người mới biết nấu ăn. Rất nhanh, rất dễ và giòn lâu', 40, 3, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Lẩu Thái', 'thumbnail.png', 'Món ăn chua chua cay cay rất hấp dẫn, dành cho những dịp tụ họp hoặc đổi vị cho những ngày cuối tuần thong thả', 60, 5, 'pending', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Mì Quảng', 'thumbnail.png', 'Mì Quảng vịt với thịt vịt ngọt, nước lèo béo thơm, thêm chút ớt sa tế cay cay ăn kèm rau húng lủi và xà lách tăng thêm vị độc đáo và lạ miệng cực kì cuốn vị', 120, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Xôi Gà', 'thumbnail.png', 'Chế biến nhanh gọn ăn ngon chắc bụng', 45, 1, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Bánh Xèo', 'thumbnail.png', 'Bánh xèo vàng giòn', 45, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Hủ Tiếu', 'thumbnail.png', 'Hủ Tiếu Xào Nõn Tôm Trứng Cút', 15, 2, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(1, 'Bò Khô', 'thumbnail.png', 'Bò khô thơm ngon, đậm đà là món dùng để ăn vặt hay lai rai ngày tết 😋', 780, 5, 'pending', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Chè Bột Lọc Ba Màu', 'thumbnail.png', 'Chè ba màu thơm ngon bắt mắt', 90, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Bánh Bao Nhân Thịt', 'thumbnail.png', 'Bánh bao miến thịt trứng cút với chút lạp xưởng. Hấp chín bánh phủ thêm một lớp pate mỏng rắc chút ruốc quá đã', 180, 16, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Bún Riêu Cua', 'thumbnail.png', 'Bún riêu cua ngon miệng', 60, 4, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Nem Nướng Nha Trang', 'thumbnail.png', 'Nem nướng thơm ngon', 120, 5, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Bò Lúc Lắc', 'thumbnail.png', 'Bò lúc lắc mềm ngon', 30, 2, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Gà Nướng Mật Ong', 'thumbnail.png', 'Gà nướng mật ong là món ăn hấp dẫn với lớp da vàng óng, giòn tan, thịt bên trong mềm ngọt. Vị ngọt thanh của mật ong kết hợp hài hòa với gia vị, tạo nên hương vị khó cưỡng.', 300, 5, 'approved', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Cá Lăng Nấu Canh Chua', 'thumbnail.png', 'Canh chua cá lăng thơm ngon', 40, 4, 'pending', '2025-03-20 17:10:25');
-INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created) VALUES
-(2, 'Flan Hột Gà Cà Phê', 'thumbnail.png', 'Lấy cảm hứng từ những chiếc bánh flan béo ngậy mềm mại nhưng qua cách chế biến mình đã làm thành công chiếc bánh flan dành cho các bệnh nhân tiểu đường để họ thưởng thức mà không sợ ảnh hưởng nhiều đến sức khoẻ.', 30, 6, 'approved', '2025-03-20 17:10:25');
+INSERT INTO recipes (user_id, title, thumbnail, description, cooking_time, servings, status, date_created, calories) VALUES
+(1, 'Phở Bò', 'thumbnail.png', 'Món phở bò truyền thống', 180, 4, 'approved', '2024-12-12 17:10:25', 600.00),
+(1, 'Bánh Mì', 'thumbnail.png', 'Bánh mì Việt Nam', 150, 10, 'pending', '2025-03-20 17:10:25', 300.00),
+(1, 'Bún Bò Huế', 'thumbnail.png', 'Bún bò Huế cay nồng', 330, 7, 'pending', '2025-03-20 17:10:25', 700.00),
+(1, 'Cơm Tấm', 'thumbnail.png', 'Cơm tấm Long Xuyên với phần thịt trứng khìa, cắt nhỏ tạo nên điểm khác biệt so với cơm tấm Sài Gòn', 60, 4, 'approved', '2025-03-20 17:10:25', 800.00),
+(1, 'Gỏi Cuốn', 'thumbnail.png', 'Gỏi cuốn chấm mắm nêm', 25, 2, 'approved', '2025-03-20 17:10:25', 150.00),
+(1, 'Chả Giò', 'thumbnail.png', 'Chả Giò giòn tan dành cho người mới biết nấu ăn. Rất nhanh, rất dễ và giòn lâu', 40, 3, 'approved', '2025-03-20 17:10:25', 250.00),
+(1, 'Lẩu Thái', 'thumbnail.png', 'Món ăn chua chua cay cay rất hấp dẫn, dành cho những dịp tụ họp hoặc đổi vị cho những ngày cuối tuần thong thả', 60, 5, 'pending', '2025-03-20 17:10:25', 500.00),
+(1, 'Mì Quảng', 'thumbnail.png', 'Mì Quảng vịt với thịt vịt ngọt, nước lèo béo thơm, thêm chút ớt sa tế cay cay ăn kèm rau húng lủi và xà lách tăng thêm vị độc đáo và lạ miệng cực kì cuốn vị', 120, 4, 'approved', '2025-03-20 17:10:25', 650.00),
+(1, 'Xôi Gà', 'thumbnail.png', 'Chế biến nhanh gọn ăn ngon chắc bụng', 45, 1, 'approved', '2025-03-20 17:10:25', 400.00),
+(1, 'Bánh Xèo', 'thumbnail.png', 'Bánh xèo vàng giòn', 45, 4, 'approved', '2025-03-20 17:10:25', 350.00),
+(1, 'Hủ Tiếu', 'thumbnail.png', 'Hủ Tiếu Xào Nõn Tôm Trứng Cút', 15, 2, 'approved', '2025-03-20 17:10:25', 450.00),
+(1, 'Bò Khô', 'thumbnail.png', 'Bò khô thơm ngon, đậm đà là món dùng để ăn vặt hay lai rai ngày tết 😋', 780, 5, 'pending', '2025-03-20 17:10:25', 200.00),
+(2, 'Chè Bột Lọc Ba Màu', 'thumbnail.png', 'Chè ba màu thơm ngon bắt mắt', 90, 4, 'approved', '2025-03-20 17:10:25', 300.00),
+(2, 'Bánh Bao Nhân Thịt', 'thumbnail.png', 'Bánh bao miến thịt trứng cút với chút lạp xưởng. Hấp chín bánh phủ thêm một lớp pate mỏng rắc chút ruốc quá đã', 180, 16, 'approved', '2025-03-20 17:10:25', 250.00),
+(2, 'Bún Riêu Cua', 'thumbnail.png', 'Bún riêu cua ngon miệng', 60, 4, 'approved', '2025-03-20 17:10:25', 550.00),
+(2, 'Nem Nướng Nha Trang', 'thumbnail.png', 'Nem nướng thơm ngon', 120, 5, 'approved', '2025-03-20 17:10:25', 350.00),
+(2, 'Bò Lúc Lắc', 'thumbnail.png', 'Bò lúc lắc mềm ngon', 30, 2, 'approved', '2025-03-20 17:10:25', 400.00),
+(2, 'Gà Nướng Mật Ong', 'thumbnail.png', 'Gà nướng mật ong là món ăn hấp dẫn với lớp da vàng óng, giòn tan, thịt bên trong mềm ngọt. Vị ngọt thanh của mật ong kết hợp hài hòa với gia vị, tạo nên hương vị khó cưỡng.', 300, 5, 'approved', '2025-03-20 17:10:25', 600.00),
+(2, 'Cá Lăng Nấu Canh Chua', 'thumbnail.png', 'Canh chua cá lăng thơm ngon', 40, 4, 'pending', '2025-03-20 17:10:25', 300.00),
+(2, 'Flan Hột Gà Cà Phê', 'thumbnail.png', 'Lấy cảm hứng từ những chiếc bánh flan béo ngậy mềm mại nhưng qua cách chế biến mình đã làm thành công chiếc bánh flan dành cho các bệnh nhân tiểu đường để họ thưởng thức mà không sợ ảnh hưởng nhiều đến sức khoẻ.', 30, 6, 'approved', '2025-03-20 17:10:25', 150.00);
+
+-- Bảng tài khoản mạng xã hội
+INSERT INTO user_social_links (user_id, platform, url) VALUES
+(1, 'facebook', 'https://facebook.com/user1'),
+(1, 'instagram', 'https://instagram.com/user1'),
+
+(2, 'facebook', 'https://facebook.com/user2'),
+(2, 'instagram', 'https://instagram.com/user2'),
+(2, 'x', 'https://x.com/user2'),
+
+(3, 'facebook', 'https://facebook.com/user3'),
+(3, 'instagram', 'https://instagram.com/user3'),
+
+(4, 'facebook', 'https://facebook.com/user4'),
+(4, 'instagram', 'https://instagram.com/user4'),
+(4, 'x', 'https://x.com/user4'),
+
+(5, 'facebook', 'https://facebook.com/user5'),
+(5, 'instagram', 'https://instagram.com/user5'),
+(5, 'x', 'https://x.com/user5'),
+
+(6, 'facebook', 'https://facebook.com/user6'),
+(6, 'instagram', 'https://instagram.com/user6'),
+(6, 'x', 'https://x.com/user6'),
+
+(7, 'facebook', 'https://facebook.com/user7'),
+(7, 'instagram', 'https://instagram.com/user7'),
+(7, 'x', 'https://x.com/user7'),
+
+(8, 'facebook', 'https://facebook.com/user8'),
+(8, 'instagram', 'https://instagram.com/user8'),
+(8, 'x', 'https://x.com/user8'),
+
+(9, 'facebook', 'https://facebook.com/user9'),
+(9, 'x', 'https://x.com/user9'),
+
+(10, 'facebook', 'https://facebook.com/user10'),
+(10, 'instagram', 'https://instagram.com/user10'),
+(10, 'x', 'https://x.com/user10'),
+
+(11, 'facebook', 'https://facebook.com/user11'),
+(11, 'instagram', 'https://instagram.com/user11'),
+(11, 'x', 'https://x.com/user11'),
+
+(12, 'facebook', 'https://facebook.com/user12'),
+(12, 'instagram', 'https://instagram.com/user12'),
+
+(13, 'facebook', 'https://facebook.com/user13'),
+(13, 'instagram', 'https://instagram.com/user13'),
+(13, 'x', 'https://x.com/user13'),
+
+(14, 'facebook', 'https://facebook.com/user14'),
+(14, 'instagram', 'https://instagram.com/user14'),
+(14, 'x', 'https://x.com/user14'),
+
+(15, 'facebook', 'https://facebook.com/user15'),
+(15, 'instagram', 'https://instagram.com/user15'),
+(15, 'x', 'https://x.com/user15'),
+
+(16, 'facebook', 'https://facebook.com/user16'),
+(16, 'instagram', 'https://instagram.com/user16'),
+(16, 'x', 'https://x.com/user16'),
+
+(17, 'facebook', 'https://facebook.com/user17'),
+(17, 'instagram', 'https://instagram.com/user17'),
+(17, 'x', 'https://x.com/user17'),
+
+(18, 'facebook', 'https://facebook.com/user18'),
+(18, 'x', 'https://x.com/user18'),
+
+(19, 'facebook', 'https://facebook.com/user19'),
+(19, 'instagram', 'https://instagram.com/user19'),
+(19, 'x', 'https://x.com/user19'),
+
+(20, 'facebook', 'https://facebook.com/user20'),
+(20, 'instagram', 'https://instagram.com/user20');
 
 -- Bảng hình ảnh các bước nấu ăn
 -- Phở Bò

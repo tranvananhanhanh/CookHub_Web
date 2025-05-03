@@ -117,12 +117,21 @@
         border: none;
         border-radius: 0;
         line-height: auto;
+        
+    }
+
+    nav .create-post-button a p {
         color: #2f2f2f;
     }
 
     nav .create-post-button:hover {
+        opacity: 1;
         background-color: #FF7D00;
         color: #fff;
+    }
+
+    nav .create-post-button a:hover {
+        color: inherit;
     }
 
     nav .create-post-button p {
