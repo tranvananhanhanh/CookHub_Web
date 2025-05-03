@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (recipes && recipes.length > 0) {
                 recipes.forEach(recipe => {
+                    // const slide = createRecipeSlide(recipe);
                     const slide = document.createElement('div');
                     slide.classList.add('swiper-slide');
                     slide.innerHTML = `
@@ -130,13 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function createRecipeCard(recipe){
         const card = document.createElement('div');
         card.classList.add('recipe-card');
-        const isInitiallySaved = recipe.isSavedByCurrentUser || false;
+        const isInitiallySaved = recipe.isSavedByCurrentUser === true;
         //PlaceHolder;
         const avatarURL = '../assets/image/users/avatars/avatar_a1b2c3d4e5.jpg';
         card.innerHTML = `
             <div class="card-image">
                 <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" loading="lazy">
-                 <button class="save-button" aria-label="Lưu công thức"><i class="far fa-bookmark"></i></button> <!-- Icon lưu -->
+                <button class="save-button ${isInitiallySaved ? 'saved' : ''}" data-recipe-id="${recipe.recipe_id}" aria-label="Lưu công thức">
+                     <i class="${isInitiallySaved ? 'fas' : 'far'} fa-bookmark"></i>
+                 </button>
             </div>
             <div class="card-content">
                 <h4 class="card-title">${recipe.title}</h4>
@@ -160,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //Meu bam vao luu thi khong chuyen trang, con laij thi co
             if (!e.target.closest('.save-button')){
                 window.location.href = `/recipe/${recipe.recipe_id}`;
+                console.log(`Navigate to recipe detail page for ID: ${recipe.recipe_id}`);
                 //Chuyen sang chi tiet cong thuc
             }
         });
@@ -172,20 +176,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const isLoggedIn = window.isUserLoggedIn;
 
+                // 1. Kiểm tra đăng nhập (sử dụng biến global từ EJS)
+                if (typeof isLoggedIn === 'undefined') {
+                    console.error("Biến window.isUserLoggedIn chưa được định nghĩa!");
+                    alert("Lỗi: Không thể xác định trạng thái đăng nhập.");
+                    return;
+                }
+                
                 if (!isLoggedIn) {
                     // Hoặc chuyển hướng đến trang đăng nhập
                     window.location.href = '/login?redirect=' + window.location.pathname;
                     return; // Dừng xử lý
                 }
 
+                const recipeId = saveButton.dataset.recipeId; // Lấy recipeId từ data attribute
+                const isCurrentlySaved = saveButton.classList.contains('saved');
+                const method = isCurrentlySaved ? 'DELETE' : 'POST';
+                const apiUrl = `${API_BASE_URL}/saved-recipes/${recipeId}`;
+
+                console.log(`Action: ${method}, Recipe ID: ${recipeId}`);
+
                 console.log(`Luu cong thuc ID: ${recipe.recipe_id}`);
-                //Them logic luu cong thuc
-                saveButton.classList.toggle('saved');
-                const icon = saveButton.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('far');
-                    icon.classList.toggle('fas');
-                }
+
+                try {
+                    // Thêm hiệu ứng loading (tùy chọn)
+                    saveButton.disabled = true;
+                    saveButton.style.opacity = '0.5';
+
+                    const response = await fetch(apiUrl, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Cookies (session) sẽ tự động được gửi nếu backend CORS đúng và fetch có credentials
+                        },
+                         credentials: 'include' // QUAN TRỌNG: Để gửi cookie session
+                    });
+
+                    saveButton.disabled = false;
+                    saveButton.style.opacity = '1';
+
+                    if (response.ok) {
+                        // Thành công -> Cập nhật trạng thái nút
+                        saveButton.classList.toggle('saved');
+                        const icon = saveButton.querySelector('i');
+                        if (icon) {
+                            icon.classList.toggle('far');
+                            icon.classList.toggle('fas');
+                        }
+                        console.log(`Recipe ${recipeId} ${isCurrentlySaved ? 'unsaved' : 'saved'} successfully.`);
+                    } else {
+                        // Xử lý lỗi từ API
+                        const errorData = await response.json();
+                        console.error(`API Error (${response.status}):`, errorData.message || 'Unknown error');
+                        alert(`Error: ${errorData.message || 'Could not perform action.'}`);
+                        // Không thay đổi trạng thái nút nếu lỗi
+                    }
+                }catch (error) {
+                    // Bỏ hiệu ứng loading nếu có lỗi mạng
+                   saveButton.disabled = false;
+                   saveButton.style.opacity = '1';
+                   console.error('Network or fetch error:', error);
+                   alert('An error occurred. Please try again later.');
+                    // Không thay đổi trạng thái nút nếu lỗi
+               }
+                // //Them logic luu cong thuc
+                // saveButton.classList.toggle('saved');
+                // const icon = saveButton.querySelector('i');
+                // if (icon) {
+                //     icon.classList.toggle('far');
+                //     icon.classList.toggle('fas');
+                // }
             });
         }
 

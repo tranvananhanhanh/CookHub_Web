@@ -79,17 +79,14 @@ router.get("/search", async (req, res) => {
 });
 
 // --- API LẤY CÔNG THỨC NỔI BẬT THEO DANH SÁCH ID ---
-// GET /api/recipes/featured?ids=1,5,10,12
-//Note cần tạo API lấy id ingredients từ name ingredients
 router.get('/featured', async (req, res) => {
     console.log("API: GET /feature (Get feature Recipes by IDs)");
-    const { ids } = req.query; //Lay chuoi tu query param
+    const { ids } = req.query;
 
     if (!ids) {
         return res.status(400).json({ message: 'Thieu tham so bat buoc: ids'});
     }
 
-    //Cat chuoi boi cac filter isInterger
     const recipeIds = ids.split(',').map(id => parseInt(id.trim())).filter(Number.isInteger);
 
     if (recipeIds.length === 0){
@@ -97,7 +94,15 @@ router.get('/featured', async (req, res) => {
     }
 
     try {
-        const feturedRecipes = await RecipeModel.getRecipesByIds(recipeIds);
+        // <<< SỬA: Lấy userId từ res.locals nếu user đăng nhập >>>
+        const userId = res.locals.currentUser ? res.locals.currentUser.id : null;
+        // >>>>>
+        if (userId == null) {
+            console.log ("userid = null");
+        }
+        // <<< SỬA: Truyền userId vào hàm getRecipesByIds >>>
+        const feturedRecipes = await RecipeModel.getRecipesByIds(recipeIds, userId);
+        // >>>>>
         res.json(feturedRecipes);
     } catch(err) {
         console.error('Error in GET /feature route: ', err.message);
@@ -118,7 +123,9 @@ router.get('/by-ingredient/:ingredientId', async(req, res) => {
     }
 
     try {
-        const recipes = await RecipeModel.getRecipesByIngredients(parseInt(ingredientId), limit);
+        const userId = res.locals.currentUser ? res.locals.currentUser.id : null;
+        const recipes = await RecipeModel.getRecipesByIngredients(parseInt(ingredientId), limit, userId);
+        // const recipes = await RecipeModel.getRecipesByIngredients(parseInt(ingredientId), limit);
         res.json(recipes);
     } catch (err) {
         console.error(`Error in in GET /by-ingredient/${ingredientId} route:`, err.message);

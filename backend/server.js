@@ -10,6 +10,7 @@ const port = 4000;
 const recipeRoutes = require("./routes/recipeRoutes");
 const ingredientRoutes = require('./routes/ingredientRoutes'); 
 const userRoutes = require("./routes/userRoutes");
+const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
 
 app.use(cors({
   origin: "http://127.0.0.1:5500",
@@ -35,37 +36,51 @@ app.use(session({
   }
 }));
 
+// <<< KIỂM TRA MIDDLEWARE USER >>>
+app.use((req, res, next) => {
+  if (req.session && req.session.user) {
+    res.locals.currentUser = req.session.user; // user object phải có id
+    res.locals.isLoggedIn = true;
+  } else {
+    res.locals.currentUser = null;
+    res.locals.isLoggedIn = false;
+  }
+  next();
+});
 
 // API routes
 app.use("/api/recipes", recipeRoutes); 
 app.use('/api/ingredients', ingredientRoutes);
 app.use('/api/users', userRoutes);
+app.use("/api/saved-recipes", savedRecipesRoutes);
 // Route trang chủ
 app.get("/", (req, res) => {
   res.send("Chào mừng bạn đến với CookHub")
 });
 app.get("/homepage", (req, res) => {
-  let user = null;
-  let isLoggedIn = false;
+  // let user = null;
+  // let isLoggedIn = false;
 
-  // Kiểm tra xem session user có tồn tại không (được đặt khi login thành công)
-  if (req.session && req.session.user) {
-      user = req.session.user; // Lấy thông tin user từ session
-      isLoggedIn = true;
-      console.log("User is logged in:", user); // Log để kiểm tra
-  } else {
-      console.log("User is not logged in."); // Log để kiểm tra
-  }
+  // // Kiểm tra xem session user có tồn tại không (được đặt khi login thành công)
+  // if (req.session && req.session.user) {
+  //     user = req.session.user; // Lấy thông tin user từ session
+  //     isLoggedIn = true;
+  //     console.log("User is logged in:", user); // Log để kiểm tra
+  // } else {
+  //     console.log("User is not logged in."); // Log để kiểm tra
+  // }
 
-  // Truyền trạng thái đăng nhập và thông tin user vào EJS
   res.render("homepage", {
-      title: "CookHub - Trang chủ",
-      isLoggedIn: isLoggedIn,
-      currentUser: user // Sẽ là object hoặc null
+      title: "CookHub - Homepage",
+      isLoggedIn: res.locals.isLoggedIn,
+      currentUser: res.locals.currentUser
   });
 });
 app.get("/recipes", (req, res) => {
   res.render("recipes", { title: "Danh sách công thức" });
+});
+app.get("/savedRecipes", (req, res) => {
+  res.render("savedRecipes", { title: "Saved Recipes" });
 });
 
 // Khởi chạy server
