@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "..", "frontend")));
 app.use(express.urlencoded({ extended: true }));
 
 // API routes
-app.use("/api/recipes", createRoutes); // Xử lý POST /api/recipes
+app.use("/api", createRoutes); // Xử lý POST /api/recipes
 app.use("/api/recipes", recipeRoutes); // Xử lý GET /api/recipes
 app.use("/api/users", userRoutes);
 app.use("/api/units", unitRoutes); // Routes đơn vị

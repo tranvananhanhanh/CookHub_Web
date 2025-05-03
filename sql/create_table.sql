@@ -31,7 +31,8 @@ CREATE TABLE recipes (
     cooking_time INTEGER CHECK (cooking_time > 0),
     servings INTEGER CHECK (servings > 0), -- Khẩu phần ăn
     status VARCHAR(20) CHECK (status IN ('pending', 'approved', 'rejected', 'deleted')) DEFAULT 'pending',
-    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    calories DECIMAL(10,2) CHECK (calories >= 0)
 );
 
 -- Bảng hình ảnh các bước nấu ăn
