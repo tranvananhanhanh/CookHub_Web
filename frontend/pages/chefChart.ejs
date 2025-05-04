@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookHub | Chefs Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+    <!-- JavaScript -->
+    <script src="../js/loadHTML.js" defer></script>
+
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, rgb(32, 12, 12), orange, yellow, green, blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dynamic-title {
+            display: inline-block;
+            transform: rotate(-2deg);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .dynamic-title span {
+            display: inline-block;
+        }
+
+        .dynamic-title .highlight {
+            font-weight: 900;
+            color: #FF4081;
+        }
+
+        .brushstroke-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10 10 C 20 30, 30 10, 40 30 S 60 10, 70 30" stroke="white" stroke-width="2" fill="none" opacity="0.3"/><path d="M20 80 C 30 60, 40 80, 50 60 S 70 80, 80 60" stroke="white" stroke-width="2" fill="none" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-repeat: repeat;
+        }
+
+        .top-cheft-chart {
+            margin-top: 67px;
+        }
+    </style>
+</head>
+
+<body class="bg-yellow-400 text-white font-sans brushstroke-bg">
+    <div class="header"></div>
+
+    <div class="top-cheft-chart min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="relative p-4">
+            <!-- Week Indicator -->
+            <div class="absolute top-4 left-4 bg-white text-black rounded-lg px-4 py-2">
+                <p class="text-lg font-bold">WEEK 3</p>
+            </div>
+            <!-- Title with Dynamic Styling -->
+            <h1 class="text-center text-4xl md:text-5xl font-extrabold uppercase mt-8 mb-4 dynamic-title">
+                <span>The</span> <span class="highlight">Official</span> <span>Top</span> <span
+                    class="highlight">Chefs</span> <span>Chart</span>
+            </h1>
+            <!-- Cooking Icons (Line Art) -->
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <path d="M10 10 L20 20 M15 10 L25 20" stroke="white" stroke-width="1" />
+                    <!-- Simplified chef hat -->
+                    <circle cx="70" cy="20" r="10" stroke="white" stroke-width="1" fill="none" />
+                    <!-- Simplified pan -->
+                    <rect x="50" y="50" width="20" height="10" stroke="white" stroke-width="1" fill="none" />
+                    <!-- Simplified plate -->
+                </svg>
+            </div>
+            <!-- TOP 10 Text -->
+            <div class="absolute top-20 right-8 transform rotate-90">
+                <p class="text-6xl font-extrabold gradient-text">TOP 10</p>
+            </div>
+        </div>
+
+        <!-- Main Chart Container -->
+        <div id="chart-container" class="flex-1"></div>
+
+        <!-- Footer -->
+        <div class="p-4 text-center">
+            <p class="text-sm">The Official Top Chefs Chart</p>
+            <p class="text-sm">See the full chart at <a href="http://www.officialchefcharts.com"
+                    class="underline">www.officialchefcharts.com</a></p>
+            <img src="https://via.placeholder.com/50x20?text=ChefOrg" alt="Chef Organization Logo" class="mx-auto mt-2">
+        </div>
+    </div>
+
+    <script>
+        function generateTopChefsHTML(chefs) {
+            // Kiểm tra nếu không có dữ liệu
+            if (!chefs || !Array.isArray(chefs) || chefs.length === 0) {
+                return '<p class="text-center text-red-500">Không có dữ liệu đầu bếp để hiển thị.</p>';
+            }
+
+            // HTML cho cột Top 1-5
+            let top1to5HTML = '<div class="md:w-1/2 space-y-4">';
+            // HTML cho cột Top 6-10
+            let top6to10HTML = '<div class="md:w-1/2 space-y-4 mt-6">';
+
+            chefs.forEach((chef, index) => {
+                const position = parseInt(chef.position);
+                // Đường dẫn avatar, mặc định dùng placeholder nếu không có
+                const avatarUrl = chef.avatar
+                    ? `http://localhost:4000/avatars/${chef.avatar}`
+                    : 'https://via.placeholder.com/80x80?text=Chef';
+
+                // Tạo HTML cho mỗi đầu bếp
+                const chefHTML = `
+                    <div class="${position === 1 ? 'bg-pink-600 rounded-xl p-6 flex items-center space-x-4 transform scale-105 w-11/12 mx-auto' : 'bg-white text-black rounded-xl p-4 flex items-center space-x-4 w-11/12 mx-auto'}">
+                        ${position === 1 ? `
+                        <div class="relative flex flex-col items-center">
+                            <svg class="w-14 h-14 text-yellow-300 absolute -top-12" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3 6h-6l3-6zM9 9h6v3H9V9zm0 4h6v3H9v-3z" />
+                            </svg>
+                            <div class="text-5xl font-bold mt-4">${chef.position}</div>
+                        </div>` : `
+                        <div class="text-3xl font-bold">${chef.position}</div>`}
+                        <img src="${avatarUrl}" alt="Avatar của ${chef.name}" class="w-${position === 1 ? '20' : '16'} h-${position === 1 ? '20' : '16'} rounded-lg" onerror="this.src='https://via.placeholder.com/80x80?text=Chef'">
+                        <div>
+                            <p class="${position === 1 ? 'text-2xl' : 'text-lg'} font-bold">${chef.name.toUpperCase()}</p>
+                            <p class="text-${position === 1 ? 'base' : 'sm'} opacity-70">${chef.total_recipes} công thức • ${chef.total_ratings} đánh giá • ${parseFloat(chef.average_rating).toFixed(2)}★</p>
+                        </div>
+                    </div>
+                `;
+
+                // Phân chia vào cột tương ứng
+                if (position <= 5) {
+                    top1to5HTML += chefHTML;
+                } else {
+                    top6to10HTML += chefHTML;
+                }
+            });
+
+            // Đóng thẻ div
+            top1to5HTML += '</div>';
+            top6to10HTML += '</div>';
+
+            // Kết hợp HTML cho cả hai cột
+            return `
+                <div class="flex flex-col md:flex-row p-6 gap-6">
+                    ${top1to5HTML}
+                    ${top6to10HTML}
+                </div>
+            `;
+        }
+
+        async function fetchAndRenderTopChefs() {
+            try {
+                const response = await fetch('http://localhost:4000/cookChart/top-chefs');
+                const result = await response.json();
+                if (result.success && result.data) {
+                    // Gọi hàm sinh HTML
+                    const chefsHTML = generateTopChefsHTML(result.data);
+                    // Chèn HTML vào container
+                    document.getElementById('chart-container').innerHTML = chefsHTML;
+                } else {
+                    document.getElementById('chart-container').innerHTML = '<p class="text-center text-red-500">Không thể tải dữ liệu.</p>';
+                }
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu:', error);
+                document.getElementById('chart-container').innerHTML = '<p class="text-center text-red-500">Lỗi khi tải dữ liệu.</p>';
+            }
+        }
+
+        // Gọi hàm khi trang tải
+        document.addEventListener('DOMContentLoaded', fetchAndRenderTopChefs);
+    </script>
+
+    <div class="footer"></div>
+</body>
+
+</html>

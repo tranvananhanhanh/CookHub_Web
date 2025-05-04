@@ -1,53 +1,35 @@
 const express = require('express');
 const pool = require("./config/db");
-const path = require('path'); // Import the 'path' module
+const path = require('path');
 const cors = require("cors");
-const open = require('open').default;
+
 const router = express.Router();
 
 const app = express();
 const port = 4000;
 
+const rankRoutes = require('./routes/cookChart');
+const detaiRecipeRoutes = require('./routes/detailRecipe');
 const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const dashboardRoutes = require('./routes/dashboardRoutes');
-const ingredientRoutes = require('./routes/ingredientRoutes');
+const ingredientRoutes = require("./routes/ingredientRoutes");
 const userRoutes = require("./routes/userRoutes");
 const shoppingListRoutes = require("./routes/shoppingListRoutes");
 const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
 const unitRoutes = require("./routes/unitRoutes");
-const createRoutes = require("./routes/createRoutes"); 
+const createRoutes = require("./routes/createRoutes");
 
 process.env.TZ = 'UTC';
 
 app.use(cors());
 
-// Cấu hình để sử dụng EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "..", "frontend", "pages"));
 
-// Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 app.use(express.urlencoded({ extended: true }));
-
-// Khai báo thư mục chứa file tĩnh
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.use(express.static(path.join(__dirname, 'frontend')));
-app.use(express.static(path.join(__dirname, '..', 'frontend'))); // Phục vụ các file tĩnh từ thư mục frontend
-
-// API routes
-app.use("/api/recipes", recipeRoutes);
-app.use("/api/auth", authRoutes); // Route cho đăng nhập
-app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/ingredients", ingredientRoutes);
-app.use("/api/users/", userRoutes);
-app.use("/api/shopping-list", shoppingListRoutes);
-app.use("/api/savedRecipes", savedRecipesRoutes);
-app.use("/api", createRoutes); // Xử lý POST /api/recipes
-app.use("/api/recipes", recipeRoutes); // Xử lý GET /api/recipes
-app.use("/api/users", userRoutes);
-app.use("/api/units", unitRoutes); // Routes đơn vị
 
 // Route trang chủ
 app.get('/', (req, res) => {
@@ -55,15 +37,11 @@ app.get('/', (req, res) => {
 });
 
 app.get("/homepage", (req, res) => {
-  res.render("homepage", { title: "CookHub | Trang chủ" });
-});
-
-app.get("/recipes", (req, res) => {
-  res.render("recipes", { title: "Danh sách công thức" });
+  res.render("homepage");
 });
 
 app.get("/savedRecipes", (req, res) => {
-  res.render("savedRecipes", { title: "Saved Recipes" });
+  res.render("savedRecipes");
 });
 
 app.get("/profile", (req, res) => {
@@ -74,60 +52,95 @@ app.get("/create", (req, res) => {
   res.render("create");
 });
 
-app.get('/SignIn', (req, res) => {
+app.get("/SignIn", (req, res) => {
   res.render("SignIn");
 });
 
-app.get('/SignUp', (req, res) => {
+app.get("/SignUp", (req, res) => {
   res.render("SignUp");
 });
 
-app.get('/dashboard', (req, res) => {
+app.get("/dashboard", (req, res) => {
   res.render("dashboard");
 });
 
-app.get('/search', (req, res) => {
-  res.render('search', { title: 'Tìm kiếm Công thức' });
+app.get("/search", (req, res) => {
+  res.render("search");
 });
 
-app.get('/about_us', (req, res) => {
-  res.render('about_us');
+app.get("/about_us", (req, res) => {
+  res.render("about_us");
 });
 
-app.get('/advertising', (req, res) => {
-  res.render('Advertising');
+app.get("/advertising", (req, res) => {
+  res.render("Advertising");
 });
 
-app.get('/cookies', (req, res) => {
-  res.render('cookies');
+app.get("/cookies", (req, res) => {
+  res.render("cookies");
 });
 
-app.get('/help', (req, res) => {
-  res.render('help');
+app.get("/help", (req, res) => {
+  res.render("help");
 });
 
-app.get('/privacy_policy', (req, res) => {
-  res.render('privacy_policy');
+app.get("/privacy_policy", (req, res) => {
+  res.render("privacy_policy");
 });
 
-app.get('/terms', (req, res) => {
-  res.render('terms_of_use');
+app.get("/terms", (req, res) => {
+  res.render("terms_of_use");
 });
 
-app.get('/bmi', (req, res) => {
-  res.render('inputBMI');
+app.get("/bmi", (req, res) => {
+  res.render("inputBMI");
 });
 
 app.get("/bmi/result", (req, res) => {
-  res.render('bmi');
+  res.render("bmi");
 });
 
 app.get("/bmi/heathyfood", (req, res) => {
-  res.render('recipeBMI');
+  res.render("recipeBMI");
 });
 
-// Khởi chạy server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-  open(`http://localhost:${port}/`); // Tự động mở trình duyệt
+app.get("/recipes", (req, res) => {
+  res.render("recipes")
 });
+
+app.get("/detailrecipe-page", (req, res) => {
+  res.render("detailRecipe");
+});
+
+app.get("/top-recipes-page", (req, res) => {
+  res.render("recipeChart");
+});
+
+app.get("/top-chefs-page", (req, res) => {
+  res.render("chefChart");
+});
+
+// API routes
+app.use("/api/recipes", recipeRoutes);
+app.use("/api/auth", authRoutes); // Route cho đăng nhập
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/ingredients", ingredientRoutes);
+app.use("/api/users/", userRoutes);
+app.use("/api/shopping-list", shoppingListRoutes);
+app.use("/api/savedRecipes", savedRecipesRoutes);
+app.use("/api", createRoutes); // Xử lý POST /api/recipes
+app.use("/api/users", userRoutes);
+app.use("/api/units", unitRoutes); // Routes đơn vị
+app.use("/cookchart", rankRoutes);  // route liên quan đến bảng xếp hạng
+app.use("/detailrecipe", detaiRecipeRoutes); // route xem chi tiết công thức 
+
+// Khởi chạy server
+async function startServer() {
+  const open = (await import('open')).default;
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+    open(`http://localhost:${port}/`);
+  });
+}
+
+startServer();

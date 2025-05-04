@@ -95,5 +95,4 @@ document.getElementById("calculateButton").addEventListener("click", () => {
 
     // Redirect with results and message
     window.location.href = `/bmi/result?bmi=${bmi}&status=${status}&message=${encodeURIComponent(message)}`;
-
 });
