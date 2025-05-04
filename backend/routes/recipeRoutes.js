@@ -6,12 +6,12 @@ const client = require('../config/db'); // <<<--- !!! QUAN TRỌNG: Đảm bảo
 // --- API LẤY TẤT CẢ CÔNG THỨC (ĐÃ DUYỆT) ---
 // GET / (VD: Sẽ thành /api/recipes/ nếu mount với prefix /api/recipes)
 router.get("/", async (req, res) => {
-  try {
-    const recipes = await RecipeModel.getAllRecipes();
-    res.json(recipes); 
-  } catch (err) {
-    res.status(500).json({ error: "Lỗi lấy dữ liệu" });
-  }
+    try {
+        const recipes = await RecipeModel.getAllRecipes();
+        res.json(recipes);
+    } catch (err) {
+        res.status(500).json({ error: "Lỗi lấy dữ liệu" });
+    }
 });
 
 // --- API LẤY CATEGORIES THEO TYPE ---
@@ -86,20 +86,20 @@ router.get('/featured', async (req, res) => {
     const { ids } = req.query; //Lay chuoi tu query param
 
     if (!ids) {
-        return res.status(400).json({ message: 'Thieu tham so bat buoc: ids'});
+        return res.status(400).json({ message: 'Thieu tham so bat buoc: ids' });
     }
 
     //Cat chuoi boi cac filter isInterger
     const recipeIds = ids.split(',').map(id => parseInt(id.trim())).filter(Number.isInteger);
 
-    if (recipeIds.length === 0){
+    if (recipeIds.length === 0) {
         return res.status(400).json({ message: 'Tham số ids không hợp lệ.' });
     }
 
     try {
         const feturedRecipes = await RecipeModel.getRecipesByIds(recipeIds);
         res.json(feturedRecipes);
-    } catch(err) {
+    } catch (err) {
         console.error('Error in GET /feature route: ', err.message);
         res.status(500).json({ message: 'Lỗi máy chủ khi lấy công thức nổi bật.' });
     }
@@ -107,14 +107,14 @@ router.get('/featured', async (req, res) => {
 
 // --- API LẤY CÔNG THỨC THEO INGREDIENT ID ---
 // GET /api/recipes/by-ingredient/:ingredientId?limit=10
-router.get('/by-ingredient/:ingredientId', async(req, res) => {
+router.get('/by-ingredient/:ingredientId', async (req, res) => {
     console.log("API: GET /by-ingredient/:ingredientID (Get Recipes by Ingredient ID)");
-    const {ingredientId} = req.params;
-    const limit = req.query.limit ? parseInt(req.query.limit) : 10; 
+    const { ingredientId } = req.params;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
     //Co the thay doi so luong mon an hien thi o day
 
     if (isNaN(parseInt(ingredientId))) {
-        return res.status(400).json({ message: 'Ingredient ID khong hop le.'});
+        return res.status(400).json({ message: 'Ingredient ID khong hop le.' });
     }
 
     try {
@@ -129,14 +129,31 @@ router.get('/by-ingredient/:ingredientId', async(req, res) => {
 router.get('/ingredients/common', async (req, res) => {
     console.log("API: GET /ingredients/common (Get Common Ingredients for Filter)");
     try {
-         // Gọi phương thức từ Model
-         const commonIngredients = await RecipeModel.getCommonIngredients();
-         res.json(commonIngredients); // Trả về kết quả từ Model
+        // Gọi phương thức từ Model
+        const commonIngredients = await RecipeModel.getCommonIngredients();
+        res.json(commonIngredients); // Trả về kết quả từ Model
     } catch (err) {
-         // Lỗi đã được log trong Model
-         console.error('Error in GET /ingredients/common route:', err.message); // Log thêm ở route nếu muốn
-         res.status(500).json({ message: 'Lỗi máy chủ khi lấy danh sách nguyên liệu phổ biến.' });
+        // Lỗi đã được log trong Model
+        console.error('Error in GET /ingredients/common route:', err.message); // Log thêm ở route nếu muốn
+        res.status(500).json({ message: 'Lỗi máy chủ khi lấy danh sách nguyên liệu phổ biến.' });
     }
-  });
+});
+
+// --- API LẤY CÔNG THỨC VỚI ĐÁNH GIÁ TRUNG BÌNH VÀ SỐ BÌNH LUẬN ---
+router.get('/with-ratings-comments', async (req, res) => {
+    console.log("API: GET /with-ratings-comments (Get Recipes with Ratings and Comments)");
+    try {
+        const userId = req.query.user_id;
+        if (!userId) {
+            return res.status(400).json({ error: 'Thiếu user_id' });
+        }
+
+        const recipes = await RecipeModel.getRecipesWithRatingsAndComments(userId);
+        res.json(recipes);
+    } catch (err) {
+        console.error('Lỗi lấy công thức:', err);
+        res.status(500).json({ error: 'Lỗi server', details: err.message });
+    }
+});
 
 module.exports = router;

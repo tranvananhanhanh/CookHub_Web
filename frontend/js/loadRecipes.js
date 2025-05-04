@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const itemsPerPage = 8; // Số món hiển thị mỗi lần
 
     try {
-        // Gọi API lấy danh sách công thức
-        const response = await fetch("http://localhost:4000/api/recipes");
+        // Gọi API lấy danh sách công thức với rating trung bình và số bình luận
+        const response = await fetch("http://localhost:4000/api/recipes/with-ratings-comments?user_id=1");
         allRecipes = await response.json();
 
         // Hiển thị tối đa 8 món đầu tiên
@@ -27,10 +27,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Lỗi:", error);
     }
 
+    function getStarIcons(averageRating) {
+        const roundedRating = Math.round(averageRating * 2) / 2; // Làm tròn đến 0.5
+        let stars = '';
+        const fullStars = Math.floor(roundedRating);
+        const hasHalfStar = roundedRating % 1 !== 0;
+
+        // Thêm sao đầy
+        for (let i = 0; i < fullStars; i++) {
+            stars += '<i class="fa-solid fa-star" style="color: gold;"></i>';
+        }
+
+        // Thêm sao nửa nếu có
+        if (hasHalfStar) {
+            stars += '<i class="fa-regular fa-star-half-stroke" style="color: gold;"></i>';
+        }
+
+        // Thêm sao rỗng để đủ 5 sao
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '<i class="fa-regular fa-star" style="color: gold;"></i>';
+        }
+
+        return stars;
+    }
+
     function loadMoreRecipes() {
         // Lấy danh sách món ăn tiếp theo
         const nextRecipes = allRecipes.slice(currentIndex, currentIndex + itemsPerPage);
-        
+
         nextRecipes.forEach(recipe => {
             const recipeCard = document.createElement("div");
             recipeCard.classList.add("col-4", "recipe-card");
@@ -42,16 +67,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="recipe-info">
                     <p class="recipe-name">${recipe.title}</p>
                     <div class="rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                        ${getStarIcons(recipe.average_rating || 0)}
                     </div>
                     <div class="recipe-meta">
-                        <span class="date">${formatTimestamp(recipe.date_created)}</span>
-                        <span class="comments">60 <i class="fa-solid fa-comment"></i></span>
-                        <span class="more-options"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+                        <div class="date">${formatTimestamp(recipe.date_created)}</div>
+                        <div class="detail-btn">
+                            <div class="comments">${recipe.comment_count || 0} <i class="fa-solid fa-comment"></i></div>
+                            <div class="more-options"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+                        </div>
                     </div>
                 </div>
             `;
