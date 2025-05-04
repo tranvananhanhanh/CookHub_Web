@@ -158,8 +158,7 @@ nav ul a {
 }
 
 nav ul a.active {
-  background-color: #FF7D00;
-  color: #fff;
+  color: #FF7D00;
 }
 
 .nav-btn {
