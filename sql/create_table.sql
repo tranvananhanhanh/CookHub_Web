@@ -34,14 +34,6 @@ CREATE TABLE user_social_links (
     PRIMARY KEY (user_id, platform)
 );
 
--- Bảng liên kết các mạng xã hội của người dùng
-CREATE TABLE user_social_links (
-    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    platform VARCHAR(50) NOT NULL CHECK (platform IN ('facebook', 'instagram', 'x')),  
-    url TEXT NOT NULL, -- URL của tài khoản mạng xã hội
-    PRIMARY KEY (user_id, platform)
-);
-
 -- Bảng công thức nấu ăn
 CREATE TABLE recipes (
     recipe_id SERIAL PRIMARY KEY,
