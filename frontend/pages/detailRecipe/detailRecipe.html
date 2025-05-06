@@ -173,8 +173,57 @@
     </div>
     <script>
        // truyền vào tham số 
-      const recipeId=4;
-      const userId=3;
+      let recipeId=null;
+      let userId=null;
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Get recipeId from URL query parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const recipeIdParam = urlParams.get('recipeId');
+      const userIdParam = urlParams.get('userId');
+
+      // 2. Validate và gán recipeId
+      if (!recipeIdParam || isNaN(parseInt(recipeIdParam))) {
+            console.error("Invalid or missing recipeId in URL");
+            document.body.innerHTML = '<h1 style="text-align: center; padding: 50px;">Invalid Recipe ID</h1>';
+            return; // Dừng thực thi nếu recipeId không hợp lệ
+        } else {
+            recipeId = parseInt(recipeIdParam);
+            console.log("Recipe ID found:", recipeId);
+        }
+
+       // 3. Validate và gán userId (nếu có)
+       if (userIdParam && !isNaN(parseInt(userIdParam))) {
+            userId = parseInt(userIdParam);
+            console.log("User ID found from URL:", userId);
+        } else {
+            console.log("User ID not found in URL or invalid. Proceeding without user ID.");
+            // Không cần dừng lại, trang vẫn có thể hiển thị mà không cần user ID
+            // Các chức năng cần userId (như lưu, rate, comment) sẽ bị vô hiệu hóa hoặc yêu cầu đăng nhập sau
+        } 
+
+        if (recipeId) {
+            fetchAndDisplayRecipe(recipeId, userId); // Gọi hàm fetch chính
+            // setupEventListeners(); // Gắn các listener chung
+        }
+
+     
+      // // 3. Validate and set global recipeId
+      // if (!recipeIdParam || isNaN(parseInt(recipeIdParam))) {
+      //         console.error("Invalid or missing recipeId in URL");
+      //         document.body.innerHTML = '<h1 style="text-align: center; padding: 50px;">Invalid Recipe ID</h1>'; // Simple error display
+      //     } else {
+      //         recipeId = parseInt(recipeIdParam);
+      //         console.log("Recipe ID found:", recipeId);
+      //         // 4. Fetch and display recipe data
+      //         fetchAndDisplayRecipe(recipeId, userId); // Pass userId too, though it's global now
+      //         // 5. Attach event listeners
+      //         setupEventListeners();
+      // } 
+    });
+
+
+
 
     // Hàm hiển thị 5 ngôi sao khi nhấp vào biểu tượng star
     function displayStarRating() {
@@ -240,14 +289,19 @@
 
     // Hàm gửi số sao về database
     async function submitRating(rating,recipeId,user_id) {
+        if (!userId) { // Kiểm tra userId toàn cục (đã lấy từ URL)
+          alert("Bạn cần đăng nhập để đánh giá!");
+          // Có thể reset lại giao diện sao về trạng thái chưa chọn
+          return;
+        }
         try {
           const response = await fetch('http://localhost:4000/detailrecipe/rating', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              recipe_id: 1,
-              user_id: 4,
-              rating: 4
+              recipe_id: recipeId,
+              user_id: userId,
+              rating: rating
             }),
           });
 
@@ -263,10 +317,12 @@
             } else {
               alert(errorData.error || 'Có lỗi xảy ra, vui lòng thử lại!');
             }
+            restoreStars();
           }
         } catch (error) {
           console.error('Lỗi kết nối:', error);
           alert('Lỗi kết nối, vui lòng thử lại!');
+          restoreStars();
         }
       }
 
@@ -280,6 +336,7 @@
       // hàm hiển thị chi tiết liên quan đến công thức
       async function fetchAndDisplayRecipe(recipeId,userId) {
         try {
+          console.log(`Fetching recipe ${recipeId} for user ${userId || 'guest'}`);
           const response = await fetch(`/detailrecipe/${recipeId}`, {
                         mode: "cors",
                         credentials: "same-origin",
@@ -412,7 +469,13 @@
                 }
           displayComment(recipe.comments);
 
+        const saveBtn = document.getElementById("save-btn");
+        saveBtn.replaceWith(saveBtn.cloneNode(true));
         document.getElementById("save-btn").addEventListener("click", async () => {
+          if (!userId) {
+                    alert("Bạn cần đăng nhập để lưu công thức!");
+                    return;
+                }
             try {
               const response = await fetch("http://localhost:4000/detailrecipe", {
                 method: "POST",
@@ -461,10 +524,17 @@
            // truyền vào tham số 
       
           // Chuyển recipeId và userId thành integer (nếu cần thiết)
+          event.preventDefault();
+          if (!userId) { // Kiểm tra userId ở đây
+             alert("Bạn cần đăng nhập để bình luận!");
+             toggleCommentForm(); // Đóng form lại
+              return;
+          }          
+
           const recipeIdInt = parseInt(recipeId, 10);
           const userIdInt = parseInt(userId, 10);
 
-          event.preventDefault();
+          // event.preventDefault();
           const content = document.getElementById('commentContent').value.trim();
           const messageEl = document.getElementById('message');
           if (!content) {
@@ -517,8 +587,22 @@
           alert("Không thể tải chi tiết công thức.");
         }
       }
+
+    //  // Hàm setupEventListeners (ví dụ)
+    //  function setupEventListeners() {
+    //     // Gắn listener cho nút comment (ví dụ)
+    //     // document.getElementById('commentForm').addEventListener('submit', submitComment);
+    //     document.getElementById('open-comment-form').addEventListener('click', toggleCommentForm);
+        
+    //     // Gắn listener cho nút rating (ví dụ)
+    //     document.getElementById('star').addEventListener('click', displayStarRating); // Nếu star là container ban đầu
+    //     // Hoặc nếu bạn tạo sao động, gắn listener khi tạo sao:
+    //     // star.addEventListener('click', () => selectStar(i));
+
+    //     // Listener cho nút save đã được chuyển vào fetchAndDisplayRecipe để dùng currentUserId và currentRecipeId
+    // }      
     // truyền recipe id vào để hiển thị công thức
-      fetchAndDisplayRecipe(recipeId,userId);
+      // fetchAndDisplayRecipe(recipeId,userId);
 
     </script>
    

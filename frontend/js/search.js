@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                ${servingsText} 
                                ${ratingStars} 
                           </div>
-                          <a href="/recipe-detail/${recipe.recipe_id}" class="view-detail-btn">See Details</a>
+                          <a href="/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}" class="view-detail-btn">See Details</a>
                      </div>
                 `;
                     resultsContainer.appendChild(recipeCard);
