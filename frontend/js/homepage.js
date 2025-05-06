@@ -4,7 +4,17 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = 'http://localhost:4000/api';
-    
+    // localStorage.setItem("loggedInUser", 1);
+    let currentUserId = null;
+    let savedRecipesIds = new Set();
+
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        // Chuyển đổi sang số nguyên nếu tồn tại, nếu không thì null
+        return userId ? parseInt(userId, 10) : null;
+    }
+
     //Tai slider
     const featuredRecipeIds = [1, 5, 8, 13];
     const featuredWrapper = document.getElementById('featured-recipes-wrapper');
@@ -41,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     //Khi an vao thi hien chi tiet cong thuc
                     slide.addEventListener('click', () => {
-                        window.location.href = `/recipe/${recipe.recipe_id}`;
+                        window.location.href = `/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}`;
                     })
                     featuredWrapper.appendChild(slide);
                 });
@@ -156,7 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', (e) => {
             //Meu bam vao luu thi khong chuyen trang, con laij thi co
             if (!e.target.closest('.save-button')){
-                window.location.href = `/recipe/${recipe.recipe_id}`;
+                let userId = null;
+                try {
+                    const loggedInUserString = localStorage.getItem('loggedInUser'); // Lấy thông tin user từ localStorage 
+                    if (loggedInUserString) {
+                        const loggedInUser = JSON.parse(loggedInUserString);
+                        // Giả sử object user có thuộc tính là 'userId' hoặc 'user_id'
+                        // userId = loggedInUser.userId || loggedInUser.user_id; 
+                        userId = 1;
+                    } 
+                } catch (error) {
+                    console.error("Lỗi khi lấy userId từ localStorage:", error);
+                    // Xử lý lỗi nếu cần, nhưng vẫn tiếp tục chuyển trang mà không có userId
+                }
+
+                let detailPageUrl = `/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}`;
+                // Chỉ thêm userId vào URL nếu tìm thấy và hợp lệ
+                if (userId !== null && userId !== undefined) {
+                    detailPageUrl += `&userId=${userId}`; // Thêm userId làm tham số thứ hai
+                    console.log(`Chuyển hướng đến: ${detailPageUrl}`); // Log để kiểm tra
+                } else {
+                    console.log(`Chuyển hướng (không có userId): ${detailPageUrl}`); // Log để kiểm tra
+                }
+                window.location.href = detailPageUrl;
                 //Chuyen sang chi tiet cong thuc
             }
         });
