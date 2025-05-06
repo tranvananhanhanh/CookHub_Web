@@ -344,7 +344,7 @@ nav ul a.active {
   transform: translateY(-5px);
 }
 
-.recipe-card a {
+.recipe-card > a {
   display: block;
   height: 220px;
 }
@@ -421,6 +421,11 @@ nav ul a.active {
   align-items: center;
   display: flex;
   gap: 5px;
+}
+
+.comments a {
+  display: block;
+  color: #000;
 }
 
 .recipe-meta .delete-recipe-btn {

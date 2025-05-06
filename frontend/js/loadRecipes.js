@@ -23,8 +23,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             loadMoreRecipes();
         });
     } catch (error) {
-        recipesContainer.innerHTML = "<p>Lỗi tải dữ liệu!</p>";
-        console.error("Lỗi:", error);
+        recipesContainer.innerHTML = "<p>Error loading data!</p>";
+        console.error("Error loading recipes:", error);
+        showErrorPopup("Error loading data!");
     }
 
     function getStarIcons(averageRating) {
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Thêm sao đầy
         for (let i = 0; i < fullStars; i++) {
-            stars += '<i class = "fas fa-star"></i>';
+            stars += '<i class="fas fa-star"></i>';
         }
 
         // Thêm sao nửa nếu có
@@ -52,6 +53,68 @@ document.addEventListener("DOMContentLoaded", async () => {
         return stars;
     }
 
+    function showDeleteConfirmation(recipe) {
+        // Tạo popup xác nhận xóa
+        const popup = document.createElement("div");
+        popup.id = "confirm-delete-popup";
+        popup.classList.add("popup");
+        popup.innerHTML = `
+            <div class="popup-content">
+                <p class="popup-message">Are you sure you want to delete the recipe "${recipe.title}"?</p>
+                <div class="popup-btn-container">
+                    <button id="confirm-delete" type="button" class="popup-btn">Delete</button>
+                    <button id="cancel-delete" type="button" class="popup-btn">Cancel</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+        popup.classList.add("open");
+
+        // Xử lý sự kiện nút Delete
+        document.getElementById("confirm-delete").addEventListener("click", async () => {
+            try {
+                console.log(`Attempting to delete recipe with ID: ${recipe.recipe_id}`);
+                const response = await fetch(`http://localhost:4000/api/recipes/${recipe.recipe_id}`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                });
+
+                console.log(`Delete response status: ${response.status}`);
+                if (response.ok) {
+                    // Xóa recipe card khỏi DOM
+                    const recipeCard = document.querySelector(`.recipe-card[data-recipe-id="${recipe.recipe_id}"]`);
+                    if (recipeCard) {
+                        recipeCard.remove();
+                        console.log(`Recipe card ${recipe.recipe_id} removed from DOM`);
+                    }
+                    popup.classList.remove("open");
+                    popup.remove(); // Đóng và xóa popup xác nhận
+                    console.log("Calling showSuccessPopup");
+                    showSuccessPopup("Recipe deleted successfully!");
+                } else {
+                    const errorData = await response.json();
+                    console.error("Delete failed:", errorData);
+                    popup.classList.remove("open");
+                    popup.remove(); // Đóng và xóa popup xác nhận
+                    showErrorPopup(errorData.error || "Failed to delete recipe!");
+                }
+            } catch (error) {
+                console.error("Error deleting recipe:", error);
+                popup.classList.remove("open");
+                popup.remove(); // Đóng và xóa popup xác nhận
+                showErrorPopup("Error connecting to server!");
+            }
+        });
+
+        // Xử lý sự kiện nút Cancel
+        document.getElementById("cancel-delete").addEventListener("click", () => {
+            console.log("Cancel delete clicked");
+            popup.classList.remove("open");
+            popup.remove();
+        });
+    }
+
     function loadMoreRecipes() {
         // Lấy danh sách món ăn tiếp theo
         const nextRecipes = allRecipes.slice(currentIndex, currentIndex + itemsPerPage);
@@ -59,9 +122,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         nextRecipes.forEach(recipe => {
             const recipeCard = document.createElement("div");
             recipeCard.classList.add("col-4", "recipe-card");
+            recipeCard.setAttribute("data-recipe-id", recipe.recipe_id);
 
             recipeCard.innerHTML = `
-                <a href="/detailrecipe-page">
+                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="recipe-link">
                     <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
                 </a>
                 <div class="recipe-info">
@@ -78,7 +142,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="recipe-meta">
                         <div class="date">${formatTimestamp(recipe.date_created)}</div>
                         <div class="detail-btn">
-                            <div class="comments">${recipe.comment_count || 0} <i class="fa-solid fa-comment"></i></div>
+                            <div class="comments">
+                                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="comment-link">
+                                    ${recipe.comment_count || 0} <i class="fa-solid fa-comment"></i>
+                                </a>
+                            </div>
                             <button type="button" class="delete-recipe-btn">
                                 <i class="far fa-trash-alt"></i>
                             </button>
@@ -86,6 +154,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                 </div>
             `;
+
+            // Gắn sự kiện cho nút xóa
+            const deleteButton = recipeCard.querySelector(".delete-recipe-btn");
+            deleteButton.addEventListener("click", () => {
+                console.log(`Delete button clicked for recipe ID: ${recipe.recipe_id}`);
+                showDeleteConfirmation(recipe);
+            });
 
             recipesContainer.appendChild(recipeCard);
         });
