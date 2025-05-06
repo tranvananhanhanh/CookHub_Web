@@ -1,8 +1,18 @@
 const pool = require("../config/db");
 
 class RecipeModel {
-  static async getAllRecipes() {
-    const result = await pool.query("SELECT * FROM recipes WHERE user_id = 1");
+  static async getRecipesWithRatingsAndComments(userId) {
+    const result = await pool.query(`
+      SELECT 
+        r.*,
+        COALESCE(AVG(ra.rate)::numeric(3,1), 0) as average_rating,
+        COALESCE(COUNT(c.comment_id), 0) as comment_count
+      FROM recipes r
+      LEFT JOIN ratings ra ON r.recipe_id = ra.recipe_id
+      LEFT JOIN comments c ON r.recipe_id = c.recipe_id
+      WHERE r.user_id = $1
+      GROUP BY r.recipe_id
+    `, [userId]);
     return result.rows;
   }
 

@@ -5,9 +5,9 @@
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-  }
+}
 
-body{
+body {
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
@@ -19,12 +19,15 @@ body{
 .featured-recipes {
     width: 100%;
     margin: 20px auto;
-    position: relative; /* Cần cho pagination */
+    position: relative;
+    /* Cần cho pagination */
 }
 
 .featured-swiper .swiper-wrapper .swiper-slide {
-    position: relative; /* Để định vị caption */
-    aspect-ratio: 16 / 7; /* Tỷ lệ khung hình cho slider */
+    position: relative;
+    /* Để định vị caption */
+    aspect-ratio: 16 / 7;
+    /* Tỷ lệ khung hình cho slider */
     overflow: hidden;
     border-radius: 10px;
     cursor: pointer;
@@ -34,12 +37,15 @@ body{
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Đảm bảo ảnh phủ kín slide */
+    object-fit: cover;
+    /* Đảm bảo ảnh phủ kín slide */
     transition: transform 0.4s ease;
 }
+
 .featured-swiper .swiper-slide:hover img {
     transform: scale(1.05);
 }
+
 .featured-swiper .slide-caption {
     position: absolute;
     bottom: 0;
@@ -54,12 +60,15 @@ body{
     flex-direction: column;
     align-items: flex-start;
 }
- /* Thêm style cho Rank (số 1) */
+
+/* Thêm style cho Rank (số 1) */
 .slide-caption .recipe-rank {
     position: absolute;
-    top: -20px; /* Điều chỉnh vị trí */
+    top: -20px;
+    /* Điều chỉnh vị trí */
     left: 20px;
-    background-color: #ff9900; /* Màu cam nổi bật */
+    background-color: #ff9900;
+    /* Màu cam nổi bật */
     color: white;
     font-weight: bold;
     font-size: 1.8em;
@@ -69,20 +78,22 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     border: 2px solid white;
 }
 
 .slide-caption h3 {
     margin: 5px 0;
-    font-size: 1.5rem; /* Kích thước tiêu đề */
+    font-size: 1.5rem;
+    /* Kích thước tiêu đề */
 }
 
 .slide-caption .recipe-meta {
     font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 5px; /* Khoảng cách giữa icon và text */
+    gap: 5px;
+    /* Khoảng cách giữa icon và text */
     margin: 8px 0;
 }
 
@@ -93,23 +104,30 @@ body{
 /* Style cho pagination dots của Swiper */
 .featured-swiper .swiper-pagination {
     position: absolute;
-    bottom: 15px !important; /* Đẩy lên trên caption một chút */
-    left: auto !important; /* Reset left */
-    right: 20px !important; /* Căn phải */
-    width: auto !important; /* Reset width */
+    bottom: 15px !important;
+    /* Đẩy lên trên caption một chút */
+    left: auto !important;
+    /* Reset left */
+    right: 20px !important;
+    /* Căn phải */
+    width: auto !important;
+    /* Reset width */
     /* transform: translateX(-50%); */
 }
 
 .featured-swiper .swiper-pagination-bullet {
-    background-color: rgba(255, 255, 255, 0.6); /* Màu chấm mờ */
+    background-color: rgba(255, 255, 255, 0.6);
+    /* Màu chấm mờ */
     opacity: 1;
     width: 10px;
     height: 10px;
 }
 
 .featured-swiper .swiper-pagination-bullet-active {
-    background-color: #ff9900; /* Màu chấm active (cam) */
-    width: 12px; /* Có thể làm to hơn chấm active */
+    background-color: #ff9900;
+    /* Màu chấm active (cam) */
+    width: 12px;
+    /* Có thể làm to hơn chấm active */
     height: 12px;
 }
 
@@ -118,7 +136,8 @@ body{
 .ingredient-section {
     max-width: 1200px;
     margin: 30px auto;
-    padding: 0 15px; /* Padding hai bên */
+    padding: 0 15px;
+    /* Padding hai bên */
 }
 
 .ingredient-section h2 {
@@ -129,75 +148,92 @@ body{
     font-size: 2.2rem;
     margin-bottom: 15px;
 }
- .ingredient-section h2 a {
-     text-decoration: none;
-     color: inherit; /* Kế thừa màu từ h2 */
-     transition: color 0.3s ease;
- }
-  .ingredient-section h2 a:hover {
-     color: #ff9900; /* Đổi màu khi hover */
-  }
+
+.ingredient-section h2 a {
+    text-decoration: none;
+    color: inherit;
+    /* Kế thừa màu từ h2 */
+    transition: color 0.3s ease;
+}
+
+.ingredient-section h2 a:hover {
+    color: #ff9900;
+    /* Đổi màu khi hover */
+}
 
 
 .recipe-list-container {
-    overflow: hidden; /* Ẩn thanh scrollbar mặc định của container */
+    overflow: hidden;
+    /* Ẩn thanh scrollbar mặc định của container */
 }
 
 .scrollable-list {
     display: flex;
-    overflow-x: auto; /* Cho phép cuộn ngang */
-    padding-bottom: 15px; /* Tạo không gian cho scrollbar */
-    gap: 15px; /* Khoảng cách giữa các card */
+    overflow-x: auto;
+    /* Cho phép cuộn ngang */
+    padding-bottom: 15px;
+    /* Tạo không gian cho scrollbar */
+    gap: 15px;
+    /* Khoảng cách giữa các card */
 
     /* Tùy chỉnh thanh cuộn (Webkit browsers) */
     &::-webkit-scrollbar {
         height: 8px;
     }
+
     &::-webkit-scrollbar-track {
         background: #f1f1f1;
         border-radius: 10px;
     }
+
     &::-webkit-scrollbar-thumb {
         background: #ccc;
         border-radius: 10px;
     }
+
     &::-webkit-scrollbar-thumb:hover {
         background: #aaa;
     }
-     /* Cho Firefox */
-     scrollbar-width: thin;
-     scrollbar-color: #ccc #f1f1f1;
+
+    /* Cho Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f1f1f1;
 }
 
 /* Placeholder cho loading */
- .recipe-card-placeholder {
-     padding: 20px;
-     color: #888;
- }
+.recipe-card-placeholder {
+    padding: 20px;
+    color: #888;
+}
 
 /* --- Recipe Card --- */
 .recipe-card {
-    flex: 0 0 auto; /* Không co giãn, không thu nhỏ, kích thước tự động */
-    width: 240px; /* Chiều rộng cố định cho mỗi card */
+    flex: 0 0 auto;
+    /* Không co giãn, không thu nhỏ, kích thước tự động */
+    width: 240px;
+    /* Chiều rộng cố định cho mỗi card */
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    position: relative; /* Cho nút save */
+    position: relative;
+    /* Cho nút save */
 }
 
 .recipe-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .recipe-card .card-image {
     width: 100%;
-    aspect-ratio: 4 / 3; /* Tỷ lệ khung hình ảnh */
+    aspect-ratio: 4 / 3;
+    /* Tỷ lệ khung hình ảnh */
     overflow: hidden;
-    position: relative; /* Cho nút save */
+    position: relative;
+    /* Cho nút save */
 }
 
 .recipe-card .card-image img {
@@ -206,7 +242,8 @@ body{
     height: 100%;
     object-fit: cover;
 }
- /* Nút Save */
+
+/* Nút Save */
 .recipe-card .save-button {
     position: absolute;
     top: 10px;
@@ -223,19 +260,26 @@ body{
     color: #555;
     font-size: 1rem;
     transition: background-color 0.3s, color 0.3s;
-    backdrop-filter: blur(2px); /* Hiệu ứng mờ nền */
+    backdrop-filter: blur(2px);
+    /* Hiệu ứng mờ nền */
 }
- .recipe-card .save-button:hover {
-     background-color: rgba(255, 255, 255, 1);
-     color: #ff9900;
- }
-  .recipe-card .save-button.saved {
-     color: #ff9900; /* Màu khi đã lưu */
-     background-color: rgba(255, 230, 180, 0.9); /* Nền khác khi đã lưu */
-  }
-   .recipe-card .save-button.saved i {
-     font-weight: 900; /* fas là font-weight 900 */
-   }
+
+.recipe-card .save-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: #ff9900;
+}
+
+.recipe-card .save-button.saved {
+    color: #ff9900;
+    /* Màu khi đã lưu */
+    background-color: rgba(255, 230, 180, 0.9);
+    /* Nền khác khi đã lưu */
+}
+
+.recipe-card .save-button.saved i {
+    font-weight: 900;
+    /* fas là font-weight 900 */
+}
 
 
 .recipe-card .card-content {
@@ -252,7 +296,8 @@ body{
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-height: 1.4em; /* Đảm bảo chiều cao tối thiểu cho 2 dòng */
+    min-height: 1.4em;
+    /* Đảm bảo chiều cao tối thiểu cho 2 dòng */
 }
 
 .recipe-card .card-meta {
@@ -263,24 +308,31 @@ body{
     color: #666;
     margin-bottom: 8px;
 }
+
 .recipe-card .rating {
-     color: #f5c518; /* Màu sao vàng */
+    color: #f5c518;
+    /* Màu sao vàng */
 }
- .recipe-card .rating .no-rating {
-     color: #aaa;
-     font-style: italic;
- }
- .recipe-card .rating i {
-     font-size: 0.9em; /* Kích thước sao */
- }
- .recipe-card .cooking-time {
-     display: flex;
-     align-items: center;
-     gap: 4px;
- }
- .recipe-card .cooking-time i {
-     font-size: 1.1em;
- }
+
+.recipe-card .rating .no-rating {
+    color: #aaa;
+    font-style: italic;
+}
+
+.recipe-card .rating i {
+    font-size: 0.9em;
+    /* Kích thước sao */
+}
+
+.recipe-card .cooking-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.recipe-card .cooking-time i {
+    font-size: 1.1em;
+}
 
 .recipe-card .card-author {
     display: flex;
@@ -289,6 +341,7 @@ body{
     font-size: 0.8rem;
     color: #888;
 }
+
 .recipe-card .author-avatar {
     width: 24px;
     height: 24px;

@@ -145,11 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
                           <i class="far fa-clock"></i> ${recipe.cooking_time || '?'} mins
                      </div>
                 </div>
-                 <div class="card-author">
-                     <img src="${avatarURL}" alt="User Avatar" class="author-avatar">
-                     <!-- Lấy tên user nếu API trả về -->
-                     <span>${recipe.user_name}</span>
-                 </div>
+                <div class="card-author">
+                    <img src="${avatarURL}" alt="User Avatar" class="author-avatar">
+                    <!-- Lấy tên user nếu API trả về -->
+                    <span>${recipe.user_name}</span>
+                </div>
             </div>
         `;
 

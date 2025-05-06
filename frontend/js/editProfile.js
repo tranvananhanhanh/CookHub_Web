@@ -91,22 +91,32 @@ document.addEventListener("DOMContentLoaded", async () => {
             formData.append("background", coverInput.files[0]);
         }
 
+        // Thu thập social links
+        const socialLinks = [
+            { platform: 'facebook', url: document.getElementById('user-social-link facebook').value },
+            { platform: 'x', url: document.getElementById('user-social-link x-twitter').value },
+            { platform: 'instagram', url: document.getElementById('user-social-link instagram').value }
+        ].filter(link => link.url.trim() !== '');
+
+        formData.append('socialLinks', JSON.stringify(socialLinks));
+
         try {
             const res = await fetch("http://localhost:4000/api/users/update", {
                 method: "POST",
                 body: formData,
             });
 
+            const result = await res.json();
             if (res.ok) {
-                // alert("Cập nhật thành công!");
                 editProfileModal.classList.remove("open");
                 loadUserInfo(); // Tải lại ảnh và thông tin mới từ server
-                window.location.reload();
+                window.location.reload(); // Làm mới trang để cập nhật giao diện
             } else {
-                alert("Lỗi cập nhật profile");
+                alert(result.error || "Lỗi cập nhật profile");
             }
         } catch (err) {
             console.error("Lỗi khi gửi dữ liệu:", err);
+            alert("Lỗi server");
         }
     });
 });
