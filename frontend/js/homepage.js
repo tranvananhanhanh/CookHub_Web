@@ -4,7 +4,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = 'http://localhost:4000/api';
-    localStorage.setItem("loggedInUser", 1);
+    // localStorage.setItem("loggedInUser", 1);
+    let currentUserId = null;
+    let savedRecipesIds = new Set();
+
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        // Chuyển đổi sang số nguyên nếu tồn tại, nếu không thì null
+        return userId ? parseInt(userId, 10) : null;
+    }
 
     //Tai slider
     const featuredRecipeIds = [1, 5, 8, 13];

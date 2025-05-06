@@ -6,7 +6,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'cookhub',
-    password: '0000',
+    password: 'CR2809ie:)',
     port: 5432, // default port for PostgreSQL
 });
 
