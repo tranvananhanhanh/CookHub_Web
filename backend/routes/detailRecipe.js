@@ -3,11 +3,6 @@ const router = express.Router();
 const path = require("path");
 const { FullRecipeModel } = require("../models/detailRecipeModel");
 
-// // Đưa route này lên trước để nó KHÔNG bị route '/:id' bắt nhầm
-// router.get("/detailrecipe-page", (req, res) => {
-//   res.render(path.join(__dirname, '..', '..', 'frontend', 'pages', 'detailRecipe.ejs'));
-// });
-
 router.post("/", async (req, res) => {
   const { user_id, recipe_id } = req.body;
   await FullRecipeModel.savedrecipe(user_id, recipe_id, res);

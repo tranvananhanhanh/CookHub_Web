@@ -3,16 +3,104 @@ const router = express.Router();
 const RecipeModel = require("../models/recipeModel"); // Bỏ đi nếu không dùng RecipeModel nữa
 const client = require('../config/db'); // <<<--- !!! QUAN TRỌNG: Đảm bảo đường dẫn này chính xác !!!
 
-// --- API LẤY TẤT CẢ CÔNG THỨC (ĐÃ DUYỆT) ---
-// GET / (VD: Sẽ thành /api/recipes/ nếu mount với prefix /api/recipes)
+// --- API LẤY CÔNG THỨC VỚI COMMENT VÀ RATING ---
+// --- API LẤY CÔNG THỨC VỚI COMMENT VÀ RATING CHO USER PROFILE ---
 router.get("/", async (req, res) => {
+    console.log("API: GET / (Get Recipes with Comments and Ratings for user profile)");
     try {
-        const recipes = await RecipeModel.getAllRecipes();
-        res.json(recipes);
-    } catch (err) {
-        res.status(500).json({ error: "Lỗi lấy dữ liệu" });
+        const userId = req.query.user_id;
+        if (!userId) {
+            console.log("Error: user_id is missing from query.");
+            return res.status(400).json({ error: "Thiếu user_id" });
+        }
+        console.log(`Fetching recipes for user_id: ${userId}`);
+
+        const recipes = await RecipeModel.getAllRecipeInfo(userId);
+        console.log(`Found ${recipes.length} recipes (basic info):`, JSON.stringify(recipes, null, 2));
+
+        if (recipes.length === 0) {
+            console.log("No recipes found for this user. Returning empty array.");
+            return res.json([]);
+        }
+
+        const fullRecipes = await Promise.all(
+            recipes.map(async (recipe) => {
+                try {
+                    console.log(`Processing recipe_id: ${recipe.recipe_id}`);
+                    const commentCount = await RecipeModel.getRecipeComments(recipe.recipe_id);
+                    const ratingsData = await RecipeModel.getRecipeRatingsAndAverage(recipe.recipe_id); // Đây là { average_rating: X.X }
+
+                    console.log(`   Recipe ID: ${recipe.recipe_id} -> Comment Count: ${commentCount}, Avg Rating: ${ratingsData.average_rating}`);
+
+                    return {
+                        ...recipe,
+                        comment_count: commentCount, // Đảm bảo đây là một số
+                        average_rating: ratingsData.average_rating, // Đảm bảo đây là một số
+                    };
+                } catch (error) {
+                    console.error(`   Error processing details for recipe_id ${recipe.recipe_id}:`, error.message);
+                    // Trả về recipe gốc với dấu hiệu lỗi, để không làm hỏng toàn bộ request
+                    return {
+                        ...recipe,
+                        comment_count: 0, // Hoặc giá trị mặc định/lỗi
+                        average_rating: 0.0, // Hoặc giá trị mặc định/lỗi
+                        error_loading_details: error.message // Thêm trường lỗi
+                    };
+                }
+            })
+        );
+
+        console.log("Full recipes to be sent to client:", JSON.stringify(fullRecipes, null, 2));
+        res.json(fullRecipes);
+
+    } catch (err) { // Catch lỗi từ getAllRecipeInfo hoặc lỗi không mong muốn khác
+        console.error("Lỗi tổng thể trong route GET /api/recipes:", err);
+        res.status(500).json({ error: "Lỗi server", details: err.message });
     }
 });
+
+// // --- API LẤY TỔNG SỐ COMMENT CỦA MỘT CÔNG THỨC ---
+// router.get("/comments/:recipe_id", async (req, res) => {
+//     console.log("API: GET /comments/:recipe_id (Get Recipe Comment Count)");
+//     try {
+//         const recipeId = req.params.recipe_id;
+//         const commentCount = await RecipeModel.getRecipeComments(recipeId);
+//         res.json(commentCount);
+//     } catch (err) {
+//         console.error("Lỗi lấy comment:", err);
+//         res.status(500).json({ error: "Lỗi server", details: err.message });
+//     }
+// });
+
+// // --- API LẤY RATING VÀ TRUNG BÌNH RATING CỦA MỘT CÔNG THỨC ---
+// router.get("/ratings/:recipe_id", async (req, res) => {
+//     console.log("API: GET /ratings/:recipe_id (Get Recipe Ratings and Average)");
+//     try {
+//         const recipeId = req.params.recipe_id;
+//         const ratingsData = await RecipeModel.getRecipeRatingsAndAverage(recipeId);
+//         res.json(ratingsData);
+//     } catch (err) {
+//         console.error("Lỗi lấy rating:", err);
+//         res.status(500).json({ error: "Lỗi server", details: err.message });
+//     }
+// });
+
+// --- API LẤY TẤT CẢ CÔNG THỨC (ĐÃ DUYỆT) ---
+// GET / (VD: Sẽ thành /api/recipes/ nếu mount với prefix /api/recipes)
+// router.get("/", async (req, res) => {
+//     console.log("API: GET / (Get All Recipe Info)");
+//     try {
+//         const userId = req.query.user_id;
+//         if (!userId) {
+//             return res.status(400).json({ error: "Thiếu user_id" });
+//         }
+//         const recipes = await RecipeModel.getAllRecipeInfo(userId);
+//         res.json(recipes);
+//     } catch (err) {
+//         console.error("Lỗi lấy công thức:", err);
+//         res.status(500).json({ error: "Lỗi server", details: err.message });
+//     }
+// });
 
 // --- API LẤY CATEGORIES THEO TYPE ---
 // GET /categories (VD: Sẽ thành /api/recipes/categories nếu mount với prefix /api/recipes)
@@ -136,23 +224,6 @@ router.get('/ingredients/common', async (req, res) => {
         // Lỗi đã được log trong Model
         console.error('Error in GET /ingredients/common route:', err.message); // Log thêm ở route nếu muốn
         res.status(500).json({ message: 'Lỗi máy chủ khi lấy danh sách nguyên liệu phổ biến.' });
-    }
-});
-
-// --- API LẤY CÔNG THỨC VỚI ĐÁNH GIÁ TRUNG BÌNH VÀ SỐ BÌNH LUẬN ---
-router.get('/with-ratings-comments', async (req, res) => {
-    console.log("API: GET /with-ratings-comments (Get Recipes with Ratings and Comments)");
-    try {
-        const userId = req.query.user_id;
-        if (!userId) {
-            return res.status(400).json({ error: 'Thiếu user_id' });
-        }
-
-        const recipes = await RecipeModel.getRecipesWithRatingsAndComments(userId);
-        res.json(recipes);
-    } catch (err) {
-        console.error('Lỗi lấy công thức:', err);
-        res.status(500).json({ error: 'Lỗi server', details: err.message });
     }
 });
 

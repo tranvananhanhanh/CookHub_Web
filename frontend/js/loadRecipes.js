@@ -11,9 +11,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const itemsPerPage = 8; // Số món hiển thị mỗi lần
 
     try {
-        // Gọi API lấy danh sách công thức với rating trung bình và số bình luận
-        const response = await fetch("http://localhost:4000/api/recipes/with-ratings-comments?user_id=1");
-        allRecipes = await response.json();
+        // Gọi API lấy danh sách công thức với comment và rating
+        console.log("Fetching recipes with comments and ratings for user_id=1...");
+        const recipesResponse = await fetch("http://localhost:4000/api/recipes/?user_id=1");
+        if (!recipesResponse.ok) {
+            throw new Error(`Failed to fetch recipes: ${recipesResponse.status}`);
+        }
+        allRecipes = await recipesResponse.json();
+        console.log("Recipes with comments and ratings fetched:", allRecipes);
 
         // Hiển thị tối đa 8 món đầu tiên
         loadMoreRecipes();
@@ -24,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     } catch (error) {
         recipesContainer.innerHTML = "<p>Error loading data!</p>";
-        console.error("Error loading recipes:", error);
+        console.error("Error loading recipes:", error.message);
         showErrorPopup("Error loading data!");
     }
 
@@ -36,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Thêm sao đầy
         for (let i = 0; i < fullStars; i++) {
-            stars += '<i class="fas fa-star"></i>';
+            stars += '<i class = "fas fa-star"></i>';
         }
 
         // Thêm sao nửa nếu có
@@ -115,31 +120,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function getStarIcons(averageRating) {
-        const roundedRating = Math.round(averageRating * 2) / 2; // Làm tròn đến 0.5
-        let stars = '';
-        const fullStars = Math.floor(roundedRating);
-        const hasHalfStar = roundedRating % 1 !== 0;
-
-        // Thêm sao đầy
-        for (let i = 0; i < fullStars; i++) {
-            stars += '<i class="fa-solid fa-star" style="color: gold;"></i>';
-        }
-
-        // Thêm sao nửa nếu có
-        if (hasHalfStar) {
-            stars += '<i class="fa-regular fa-star-half-stroke" style="color: gold;"></i>';
-        }
-
-        // Thêm sao rỗng để đủ 5 sao
-        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-        for (let i = 0; i < emptyStars; i++) {
-            stars += '<i class="fa-regular fa-star" style="color: gold;"></i>';
-        }
-
-        return stars;
-    }
-
     function loadMoreRecipes() {
         // Lấy danh sách món ăn tiếp theo
         const nextRecipes = allRecipes.slice(currentIndex, currentIndex + itemsPerPage);
@@ -149,6 +129,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             recipeCard.classList.add("col-4", "recipe-card");
             recipeCard.setAttribute("data-recipe-id", recipe.recipe_id);
 
+            // Đảm bảo comment_count và average_rating được hiển thị đúng
+            const commentCount = recipe.comment_count || 0;
+            const averageRating = recipe.average_rating || 0;
+
             recipeCard.innerHTML = `
                 <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="recipe-link">
                     <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
@@ -157,7 +141,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p class="recipe-name">${recipe.title}</p>
                     <div class="rate-time">
                         <div class="rating">
-                            ${getStarIcons(recipe.average_rating || 0)}
+                            ${getStarIcons(averageRating)}
                         </div>
                         <div class="cooking-time">
                             <i class="far fa-clock"></i> ${recipe.cooking_time} mins
@@ -169,7 +153,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <div class="detail-btn">
                             <div class="comments">
                                 <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="comment-link">
-                                    ${recipe.comment_count || 0} <i class="fa-solid fa-comment"></i>
+                                    ${commentCount} <i class="fa-solid fa-comment"></i>
                                 </a>
                             </div>
                             <button type="button" class="delete-recipe-btn">
