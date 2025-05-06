@@ -115,6 +115,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    function getStarIcons(averageRating) {
+        const roundedRating = Math.round(averageRating * 2) / 2; // Làm tròn đến 0.5
+        let stars = '';
+        const fullStars = Math.floor(roundedRating);
+        const hasHalfStar = roundedRating % 1 !== 0;
+
+        // Thêm sao đầy
+        for (let i = 0; i < fullStars; i++) {
+            stars += '<i class="fa-solid fa-star" style="color: gold;"></i>';
+        }
+
+        // Thêm sao nửa nếu có
+        if (hasHalfStar) {
+            stars += '<i class="fa-regular fa-star-half-stroke" style="color: gold;"></i>';
+        }
+
+        // Thêm sao rỗng để đủ 5 sao
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '<i class="fa-regular fa-star" style="color: gold;"></i>';
+        }
+
+        return stars;
+    }
+
     function loadMoreRecipes() {
         // Lấy danh sách món ăn tiếp theo
         const nextRecipes = allRecipes.slice(currentIndex, currentIndex + itemsPerPage);

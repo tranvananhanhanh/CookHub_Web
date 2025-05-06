@@ -15,7 +15,6 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     random_code VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
-    age INTEGER NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     avatar TEXT DEFAULT '',
