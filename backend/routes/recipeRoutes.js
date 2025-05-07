@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
         console.log(`Fetching recipes for user_id: ${userId}`);
 
         const recipes = await RecipeModel.getAllRecipeInfo(userId);
-        console.log(`Found ${recipes.length} recipes (basic info):`, JSON.stringify(recipes, null, 2));
+        // console.log(`Found ${recipes.length} recipes (basic info):`, JSON.stringify(recipes, null, 2));
 
         if (recipes.length === 0) {
             console.log("No recipes found for this user. Returning empty array.");
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
         const fullRecipes = await Promise.all(
             recipes.map(async (recipe) => {
                 try {
-                    console.log(`Processing recipe_id: ${recipe.recipe_id}`);
+                    // console.log(`Processing recipe_id: ${recipe.recipe_id}`);
                     const commentCount = await RecipeModel.getRecipeComments(recipe.recipe_id);
                     const ratingsData = await RecipeModel.getRecipeRatingsAndAverage(recipe.recipe_id); // Đây là { average_rating: X.X }
 
@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
             })
         );
 
-        console.log("Full recipes to be sent to client:", JSON.stringify(fullRecipes, null, 2));
+        // console.log("Full recipes to be sent to client:", JSON.stringify(fullRecipes, null, 2));
         res.json(fullRecipes);
 
     } catch (err) { // Catch lỗi từ getAllRecipeInfo hoặc lỗi không mong muốn khác

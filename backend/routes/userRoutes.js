@@ -4,6 +4,7 @@ const UserModel = require("../models/userModel");
 const multer = require("multer");
 const path = require("path");
 const db = require("../config/db");
+const fs = require("fs").promises;
 
 // Lấy thông tin user (trả về JSON)
 router.get("/", async (req, res) => {
@@ -44,8 +45,60 @@ router.post('/update', upload.fields([
   async (req, res) => {
     try {
       const { userId, name, randomCode, socialLinks } = req.body;
-      const avatar = req.files.avatar?.[0]?.filename;
-      const background = req.files.profile_background?.[0]?.filename;
+      const newAvatarFile = req.files.avatar?.[0];
+      const newBackgroundFile = req.files.background?.[0];
+
+      // Hàm xóa file cũ dựa trên randomCode và prefix (avatar/background)
+      const deleteOldFilesByRandomCode = async (folderPath, prefix, code, newUploadedFilename) => {
+        console.log(`Attempting to delete old files. Folder: ${folderPath}, Prefix: ${prefix}, Code: ${code}, NewFile: ${newUploadedFilename || 'N/A'}`);
+        const commonExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp']; // Có thể thêm .webp
+        for (const ext of commonExtensions) {
+          const potentialOldFilename = `${prefix}_${code}${ext}`;
+          
+          // Nếu có file mới được upload và tên file cũ tiềm năng này TRÙNG KHỚP với tên file mới
+          // thì KHÔNG XÓA nó.
+          if (newUploadedFilename && potentialOldFilename.toLowerCase() === newUploadedFilename.toLowerCase()) {
+            console.log(`  Skipping deletion for: ${potentialOldFilename} because it matches the newly uploaded file.`);
+            continue;
+          }
+
+          const oldFilePath = path.join(__dirname, `../../frontend/assets/image/users/`, folderPath, potentialOldFilename);
+          console.log(`  Checking to delete: ${oldFilePath}`);
+          try {
+            await fs.unlink(oldFilePath);
+            console.log(`  SUCCESS: Deleted old file: ${oldFilePath}`);
+          } catch (err) {
+            if (err.code === 'ENOENT') {
+              // File không tồn tại, không sao cả
+            } else {
+              console.error(`  ERROR: Failed to delete ${oldFilePath} - Code: ${err.code}, Msg: ${err.message}`);
+            }
+          }
+        }
+      };
+
+      const avatar = newAvatarFile ? newAvatarFile.filename : undefined;
+      const background = newBackgroundFile ? newBackgroundFile.filename : undefined;
+
+      // Nếu có avatar mới được upload, xóa các avatar cũ khác (không phải file mới này)
+      if (newAvatarFile && randomCode) { // randomCode phải tồn tại và hợp lệ
+        console.log(`[DEBUG] randomCode for avatar deletion: '${randomCode}', New Avatar Filename: '${avatar}'`);
+        if (typeof randomCode !== 'string' || randomCode.trim() === '') {
+            console.error('[ERROR] randomCode is empty or not a string. Skipping deletion for avatar.');
+        } else {
+            await deleteOldFilesByRandomCode('avatars', 'avatar', randomCode, avatar);
+        }
+      }
+
+      // Nếu có background mới được upload, xóa các background cũ khác
+      if (newBackgroundFile && randomCode) {
+        console.log(`[DEBUG] randomCode for background deletion: '${randomCode}', New Background Filename: '${background}'`);
+        if (typeof randomCode !== 'string' || randomCode.trim() === '') {
+            console.error('[ERROR] randomCode is empty or not a string. Skipping deletion for background.');
+        } else {
+            await deleteOldFilesByRandomCode('profile_backgrounds', 'background', randomCode, background);
+        }
+      }
 
       const user = await db.query("SELECT * FROM users WHERE user_id = $1 AND random_code = $2",
         [userId, randomCode]);
@@ -59,8 +112,8 @@ router.post('/update', upload.fields([
         SET name = $1,
           avatar = COALESCE($2, avatar),
           profile_background = COALESCE($3, profile_background)
-        WHERE user_id = $4
-      `, [name, avatar, background, userId]);
+        WHERE user_id = $4 AND random_code = $5 
+      `, [name, avatar, background, userId, randomCode]);
 
       await db.query("DELETE FROM user_social_links WHERE user_id = $1", [userId]);
 

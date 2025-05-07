@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const socialIcons = document.querySelectorAll(".profile-cover .social-icons a");
     const socialLinkInputs = document.querySelectorAll(".edit-links .links-container input");
     const socialLinkAnchors = document.querySelectorAll(".edit-links .user-links a");
+    const statsParagraph = document.querySelector(".profile-cover .cover-content .stats");
 
     // Hàm chuẩn hóa chuỗi (bỏ dấu, bỏ ký tự đặc biệt, thay dấu cách bằng "_")
     // function normalizeString(str) {
@@ -42,6 +43,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             name.innerHTML = user.name;
             userid.innerHTML = `@cook_${user.random_code}`;
             profilelink.innerHTML = `www.cookhub.com/cook_${user.random_code}`;
+
+            // Cập nhật thông tin stats
+            if (user.stats && statsParagraph) {
+                statsParagraph.innerHTML = `
+                    ${user.stats.total_recipes || 0} Recipes | 
+                    ${user.stats.total_saves_received || 0} Saved | 
+                    ${user.stats.total_ratings_received || 0} Rated | 
+                    ${user.stats.total_comments_received || 0} Comments
+                `;
+            } else if (statsParagraph) {
+                statsParagraph.innerHTML = `0 Recipes | 0 Saved | 0 Rated | 0 Comments`;
+            }
 
             // Cập nhật social links cho .social-icons
             if (socialIcons.length > 0) {
@@ -103,9 +116,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         } else {
             console.warn("Không tìm thấy thông tin người dùng");
+            if (statsParagraph) { // Also update stats if user not found
+                statsParagraph.innerHTML = `0 Recipes | 0 Saved | 0 Rated | 0 Comments`;
+            }
         }
     } catch (error) {
         // recipesContainer.innerHTML = "<p>Lỗi tải dữ liệu!</p>";
         console.error("Lỗi:", error);
+        if (statsParagraph) { // Also update stats on error
+            statsParagraph.innerHTML = `Error loading stats`;
+        }
     }
 });
