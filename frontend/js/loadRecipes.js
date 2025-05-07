@@ -32,14 +32,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("[LoadRecipes] Target User ID for recipes:", targetUserId);
 
     try {
-        // Sử dụng targetUserId trong URL fetch
         let apiUrl = `http://localhost:4000/api/recipes/?user_id=${targetUserId}`;
         console.log(`[LoadRecipes] Fetching recipes from: ${apiUrl}`);
         const recipesResponse = await fetch(apiUrl);
 
-        // Gọi API lấy danh sách công thức với comment và rating
-        // console.log("Fetching recipes with comments and ratings for user_id=1...");
-        // const recipesResponse = await fetch("http://localhost:4000/api/recipes/?user_id=1");
         if (!recipesResponse.ok) {
             throw new Error(`Failed to fetch recipes: ${recipesResponse.status}`);
         }

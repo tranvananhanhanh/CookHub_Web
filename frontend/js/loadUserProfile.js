@@ -25,15 +25,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     console.log("[UserProfile] Target User ID to load:", targetUserId);
-    // Hàm chuẩn hóa chuỗi (bỏ dấu, bỏ ký tự đặc biệt, thay dấu cách bằng "_")
-    // function normalizeString(str) {
-    //     return str.normalize("NFD")  // Tách dấu khỏi ký tự gốc
-    //               .replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
-    //               .replace(/[^a-zA-Z0-9\s]/g, "") // Giữ lại chữ và số, xóa ký tự đặc biệt
-    //               .trim() // Xóa khoảng trắng ở đầu và cuối
-    //               .replace(/\s+/g, "_") // Thay dấu cách bằng "_"
-    //               .toLowerCase(); // Chuyển về chữ thường
-    // }
 
     try {
         // Gọi API lấy user info và social links
@@ -42,12 +33,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             apiUrl += `?user_id=${targetUserId}`;
         } else {
             console.log("[UserProfile] Fetching default user (user_id=1) as no targetUserId specified in URL.");
-            // apiUrl += `?user_id=1`; // Mặc định user_id=1 nếu không có trên URL
         }
         console.log("[UserProfile] Fetching user profile from:", apiUrl);
         const response = await fetch(apiUrl);
 
-        // const response = await fetch("http://localhost:4000/api/users?user_id=1");
         if (!response.ok) {
             throw new Error(`Lỗi ${response.status}: Không thể tải thông tin người dùng`);
         }
@@ -56,8 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (userinfo.length > 0) {
             const user = userinfo[0];
-            // const cleanName = normalizeString(user.name);
-
             if (user.avatar.length > 0) {
                 avatar.src = `../assets/image/users/avatars/${user.avatar}`;
             }
@@ -147,7 +134,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }
     } catch (error) {
-        // recipesContainer.innerHTML = "<p>Lỗi tải dữ liệu!</p>";
         console.error("Lỗi:", error);
         if (statsParagraph) { // Also update stats on error
             statsParagraph.innerHTML = `Error loading stats`;
