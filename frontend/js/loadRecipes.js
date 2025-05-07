@@ -1,5 +1,10 @@
 function formatTimestamp(timestamp) {
-    return moment(timestamp).format('DD/MM/YYYY HH:mm:ss');
+    if (typeof moment === 'function') {
+        return moment(timestamp).format('DD/MM/YYYY HH:mm:ss');
+    } else {
+        const date = new Date(timestamp);
+        return date.toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -10,10 +15,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     let currentIndex = 0; // Theo dõi số lượng món đã hiển thị
     const itemsPerPage = 8; // Số món hiển thị mỗi lần
 
+    // Hàm lấy userId từ URL
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userIdStr = urlParams.get('userId');
+        return userIdStr ? parseInt(userIdStr, 10) : null;
+    }
+
+    let targetUserId = getUserIdFromUrl();
+    if (!targetUserId) {
+        console.warn("[LoadRecipes] No target userId found in URL for recipes. Defaulting or error handling needed.");
+        recipesContainer.innerHTML = "<p>User not specified. Cannot load recipes.</p>";
+        seeMoreButton.style.display = "none";
+        return; // Quan trọng: Dừng nếu không có userId
+    }
+    console.log("[LoadRecipes] Target User ID for recipes:", targetUserId);
+
     try {
+        // Sử dụng targetUserId trong URL fetch
+        let apiUrl = `http://localhost:4000/api/recipes/?user_id=${targetUserId}`;
+        console.log(`[LoadRecipes] Fetching recipes from: ${apiUrl}`);
+        const recipesResponse = await fetch(apiUrl);
+
         // Gọi API lấy danh sách công thức với comment và rating
-        console.log("Fetching recipes with comments and ratings for user_id=1...");
-        const recipesResponse = await fetch("http://localhost:4000/api/recipes/?user_id=1");
+        // console.log("Fetching recipes with comments and ratings for user_id=1...");
+        // const recipesResponse = await fetch("http://localhost:4000/api/recipes/?user_id=1");
         if (!recipesResponse.ok) {
             throw new Error(`Failed to fetch recipes: ${recipesResponse.status}`);
         }

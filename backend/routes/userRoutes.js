@@ -9,7 +9,11 @@ const fs = require("fs").promises;
 // Lấy thông tin user (trả về JSON)
 router.get("/", async (req, res) => {
   try {
-    const userId = 1; //req.query.user_id;
+    const userId = req.query.user_id;
+    if (!userId) {
+      console.log("[API Users] No user_id provided in query. Client should use default avatar.");
+      return res.status(404).json({ error: "User not specified or not found." }); // Hoặc trả về một đối tượng rỗng/lỗi
+    }
     const userInfo = await UserModel.getUserByIdWithSocialLinks(userId);
     if (userInfo.length === 0) {
       return res.status(404).json({ error: "Không tìm thấy người dùng" });
@@ -51,10 +55,10 @@ router.post('/update', upload.fields([
       // Hàm xóa file cũ dựa trên randomCode và prefix (avatar/background)
       const deleteOldFilesByRandomCode = async (folderPath, prefix, code, newUploadedFilename) => {
         console.log(`Attempting to delete old files. Folder: ${folderPath}, Prefix: ${prefix}, Code: ${code}, NewFile: ${newUploadedFilename || 'N/A'}`);
-        const commonExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp']; // Có thể thêm .webp
+        const commonExtensions = ['.jpg', '.jpeg', '.png', '.gif']; // Có thể thêm .webp
         for (const ext of commonExtensions) {
           const potentialOldFilename = `${prefix}_${code}${ext}`;
-          
+
           // Nếu có file mới được upload và tên file cũ tiềm năng này TRÙNG KHỚP với tên file mới
           // thì KHÔNG XÓA nó.
           if (newUploadedFilename && potentialOldFilename.toLowerCase() === newUploadedFilename.toLowerCase()) {
@@ -84,9 +88,9 @@ router.post('/update', upload.fields([
       if (newAvatarFile && randomCode) { // randomCode phải tồn tại và hợp lệ
         console.log(`[DEBUG] randomCode for avatar deletion: '${randomCode}', New Avatar Filename: '${avatar}'`);
         if (typeof randomCode !== 'string' || randomCode.trim() === '') {
-            console.error('[ERROR] randomCode is empty or not a string. Skipping deletion for avatar.');
+          console.error('[ERROR] randomCode is empty or not a string. Skipping deletion for avatar.');
         } else {
-            await deleteOldFilesByRandomCode('avatars', 'avatar', randomCode, avatar);
+          await deleteOldFilesByRandomCode('avatars', 'avatar', randomCode, avatar);
         }
       }
 
@@ -94,9 +98,9 @@ router.post('/update', upload.fields([
       if (newBackgroundFile && randomCode) {
         console.log(`[DEBUG] randomCode for background deletion: '${randomCode}', New Background Filename: '${background}'`);
         if (typeof randomCode !== 'string' || randomCode.trim() === '') {
-            console.error('[ERROR] randomCode is empty or not a string. Skipping deletion for background.');
+          console.error('[ERROR] randomCode is empty or not a string. Skipping deletion for background.');
         } else {
-            await deleteOldFilesByRandomCode('profile_backgrounds', 'background', randomCode, background);
+          await deleteOldFilesByRandomCode('profile_backgrounds', 'background', randomCode, background);
         }
       }
 

@@ -9,6 +9,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const socialLinkAnchors = document.querySelectorAll(".edit-links .user-links a");
     const statsParagraph = document.querySelector(".profile-cover .cover-content .stats");
 
+    // Hàm lấy userId từ URL
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userIdStr = urlParams.get('userId'); // Giả sử param là 'userId'
+        return userIdStr ? parseInt(userIdStr, 10) : null;
+    }
+
+    let targetUserId = getUserIdFromUrl();
+
+    if (!targetUserId) {
+        console.warn("[UserProfile] No target userId found in URL or localStorage. Defaulting or error handling needed.");
+        if (statsParagraph) statsParagraph.innerHTML = "User not specified.";
+        if (avatar) avatar.src = "../assets/image/avatar_default.png"; // Đặt avatar mặc định
+    }
+
+    console.log("[UserProfile] Target User ID to load:", targetUserId);
     // Hàm chuẩn hóa chuỗi (bỏ dấu, bỏ ký tự đặc biệt, thay dấu cách bằng "_")
     // function normalizeString(str) {
     //     return str.normalize("NFD")  // Tách dấu khỏi ký tự gốc
@@ -21,7 +37,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Gọi API lấy user info và social links
-        const response = await fetch("http://localhost:4000/api/users?user_id=1");
+        let apiUrl = "http://localhost:4000/api/users";
+        if (targetUserId) {
+            apiUrl += `?user_id=${targetUserId}`;
+        } else {
+            console.log("[UserProfile] Fetching default user (user_id=1) as no targetUserId specified in URL.");
+            // apiUrl += `?user_id=1`; // Mặc định user_id=1 nếu không có trên URL
+        }
+        console.log("[UserProfile] Fetching user profile from:", apiUrl);
+        const response = await fetch(apiUrl);
+
+        // const response = await fetch("http://localhost:4000/api/users?user_id=1");
         if (!response.ok) {
             throw new Error(`Lỗi ${response.status}: Không thể tải thông tin người dùng`);
         }
