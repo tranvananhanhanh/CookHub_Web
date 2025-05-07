@@ -25,6 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
             rating: new Set()
     };
 
+    let currentSearchUserId = null;
+    
+    function getUserIdFromUrlForSearch() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        return userId ? parseInt(userId, 10) : null;
+    }
+
+    currentSearchUserId = getUserIdFromUrlForSearch();
+    console.log("Search Page - Current User ID:", currentSearchUserId);
+
     // === Function: Load Filter Options from API ===
     const loadFilterOptions = async (type, containerId, endpoint) => {
         const container = document.getElementById(containerId);

@@ -43,4 +43,72 @@ router.get("/ids/:userId", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const {userId, recipeId} = req.body;
+
+  console.log(`userId: ${userId}, recipeId: ${recipeId}`);
+  const numericUserId = userId !== undefined && userId !== null ? Number.parseInt(userId, 10) : NaN;
+    const numericRecipeId = recipeId !== undefined && recipeId !== null ? Number.parseInt(recipeId, 10) : NaN;
+    if (isNaN(numericUserId) || isNaN(numericRecipeId)) {
+      return res.status(400).json({ error: "Thông tin userId hoặc recipeId không hợp lệ hoặc bị thiếu." });
+    }
+  
+  try {
+    
+
+    const userCheck = await client.query('SELECT 1 FROM users WHERE user_id = $1', [userId]);
+    const recipeCheck = await client.query('SELECT 1 FROM recipes WHERE recipe_id = $1', [recipeId]);
+
+    if (userCheck.rowCount === 0) {
+      return res.status(404).json({ error: "Người dùng không tồn tại." });
+    }
+    if (recipeCheck.rowCount === 0) {
+      return res.status(404).json({ error: "Công thức không tồn tại." });
+    }
+    const query = `
+            INSERT INTO saved_recipes (user_id, recipe_id, saved_at)
+            VALUES ($1, $2, NOW())
+            ON CONFLICT (user_id, recipe_id) DO NOTHING;
+        `;
+    const result = await client.query(query, [numericUserId, numericRecipeId]);
+    if (result.rowCount > 0) {
+      console.log(`Recipe ${recipeId} saved for user ${userId}`);
+      res.status(201).json({ message: "Công thức đã được lưu thành công." });
+    } else {
+      console.log(`Recipe ${recipeId} was already saved for user ${userId}`);
+             res.status(200).json({ message: "Công thức đã được lưu trước đó." }); // Hoặc 409 Conflict
+    }
+  } catch (error) {
+    console.error("Error saving recipe:", error);
+        res.status(500).json({ error: "Lỗi khi lưu công thức", details: error.message });
+  }
+});
+
+router.delete("/", async (req, res) => {
+  const {userId, recipeId} = req.body;
+
+  const numericUserId = userId !== undefined && userId !== null ? Number.parseInt(userId, 10) : NaN;
+  const numericRecipeId = recipeId !== undefined && recipeId !== null ? Number.parseInt(recipeId, 10) : NaN;
+
+  if (isNaN(numericUserId) || isNaN(numericRecipeId)) {
+    return res.status(400).json({ error: "Thông tin userId hoặc recipeId không hợp lệ hoặc bị thiếu." });
+  }
+
+  try {
+    const query = 'DELETE FROM saved_recipes WHERE user_id = $1 AND recipe_id = $2';
+    const result = await client.query(query, [parseInt(userId), parseInt(recipeId)]);
+
+    if (result.rowCount > 0) {
+      console.log(`Recipe ${recipeId} unsaved for user ${userId}`);
+      res.status(200).json({ message: "Đã bỏ lưu công thức thành công." }); // Hoặc 204 No Content
+    } else {
+      console.log(`Recipe ${recipeId} was not found in saved list for user ${userId}`);
+      res.status(404).json({ message: "Công thức không có trong danh sách đã lưu hoặc đã được bỏ lưu." });
+    }
+  } catch (error) {
+    console.error("Error unsaving recipe:", error);
+    res.status(500).json({ error: "Lỗi khi bỏ lưu công thức", details: error.message });
+  }
+});
+
 module.exports = router;
