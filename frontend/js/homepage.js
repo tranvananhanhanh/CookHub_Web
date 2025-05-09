@@ -15,6 +15,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return userId ? parseInt(userId, 10) : null;
     }
 
+    async function fetchSavedRecipesIds(userId) {
+        if (!userId) return;
+        try {
+            const response = await fetch(`${API_BASE_URL}/savedRecipes/ids/${userId}`);
+            if  (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            //Lay ID cac mon an ma user da luu
+            if (data && Array.isArray(data.saved_ids)) {
+                savedRecipesIds = new Set(data.saved_ids);
+                console.log("Saved recipeIDs: ", savedRecipesIds);
+            } else {
+                savedRecipesIds = new Set();
+            }
+        
+        } catch (error) {
+            console.error('Loi tai danh sach:', error);
+            savedRecipesIds = new Set();
+        }
+    }
+
+    currentUserId = getUserIdFromUrl();
+    console.log("Current User ID: ", currentUserId);
+
+    if (currentUserId) {
+        fetchSavedRecipesIds(currentUserId);
+    }
+
     //Tai slider
     const featuredRecipeIds = [1, 5, 8, 13];
     const featuredWrapper = document.getElementById('featured-recipes-wrapper');
@@ -107,6 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn(`Container element not found: ${containerId}`);
              return;
         }
+        if (currentUserId) {
+            await fetchSavedRecipesIds(currentUserId);
+        }
         container.innerHTML = '<div class="recipe-card-placeholder">Loading...</div>';
 
         try {
@@ -138,12 +170,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function createRecipeCard(recipe){
         const card = document.createElement('div');
         card.classList.add('recipe-card');
+        const isSaved = currentUserId && savedRecipesIds.has(recipe.recipe_id);
+        const saveButtonIconClass = isSaved ? 'fas fa-bookmark' : 'far fa-bookmark';
+        const saveButtonClass = isSaved ? 'save-button saved' : 'save-button';
         //PlaceHolder;
         const avatarURL = '../assets/image/users/avatars/avatar_a1b2c3d4e5.jpg';
         card.innerHTML = `
             <div class="card-image">
                 <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" loading="lazy">
-                 <button class="save-button" aria-label="Lưu công thức"><i class="far fa-bookmark"></i></button> <!-- Icon lưu -->
+                 <button class="${saveButtonClass}" data-recipe-id="${recipe.recipe_id}" aria-label="Lưu công thức">
+                <i class="${saveButtonIconClass}"></i>
+             </button>
             </div>
             <div class="card-content">
                 <h4 class="card-title">${recipe.title}</h4>
@@ -166,27 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', (e) => {
             //Meu bam vao luu thi khong chuyen trang, con laij thi co
             if (!e.target.closest('.save-button')){
-                let userId = null;
-                try {
-                    const loggedInUserString = localStorage.getItem('loggedInUser'); // Lấy thông tin user từ localStorage 
-                    if (loggedInUserString) {
-                        const loggedInUser = JSON.parse(loggedInUserString);
-                        // Giả sử object user có thuộc tính là 'userId' hoặc 'user_id'
-                        // userId = loggedInUser.userId || loggedInUser.user_id; 
-                        userId = 1;
-                    } 
-                } catch (error) {
-                    console.error("Lỗi khi lấy userId từ localStorage:", error);
-                    // Xử lý lỗi nếu cần, nhưng vẫn tiếp tục chuyển trang mà không có userId
-                }
-
                 let detailPageUrl = `/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}`;
-                // Chỉ thêm userId vào URL nếu tìm thấy và hợp lệ
-                if (userId !== null && userId !== undefined) {
-                    detailPageUrl += `&userId=${userId}`; // Thêm userId làm tham số thứ hai
-                    console.log(`Chuyển hướng đến: ${detailPageUrl}`); // Log để kiểm tra
+                if (currentUserId !== null) {
+                    detailPageUrl += `&userId=${currentUserId}`;
+                    console.log(`Chuuyen huong den (da dang nhap): ${detailPageUrl}`);
                 } else {
-                    console.log(`Chuyển hướng (không có userId): ${detailPageUrl}`); // Log để kiểm tra
+                    console.log(`Chuyển hướng (chưa đăng nhập): ${detailPageUrl}`);
                 }
                 window.location.href = detailPageUrl;
                 //Chuyen sang chi tiet cong thuc
@@ -195,20 +217,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const saveButton = card.querySelector('.save-button');
         if (saveButton) {
-            saveButton.addEventListener('click', (e) => {
+            saveButton.addEventListener('click', async (e) => {
                 e.stopPropagation();
-                console.log(`Luu cong thuc ID: ${recipe.recipe_id}`);
-                //Them logic luu cong thuc
-                saveButton.classList.toggle('saved');
-                const icon = saveButton.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('far');
+                if (!currentUserId) {
+                    alert("Bạn cần đăng nhập để lưu công thức!"); // Thông báo
+                    //window.location.href = '/SignIn'; // Chuyển hướng đến trang đăng nhập (hoặc route đăng nhập của bạn) hoac giu trang
+                    return; // Dừng xử lý
+                }
+
+                const recipeIdToToggle = recipe.recipe_id;
+                const button = e.currentTarget;
+                const icon = button.querySelector('i');
+                const isCurrentlySaved = button.classList.contains('saved');
+
+                button.classList.toggle('saved');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+
+                try {
+                    let response;
+                    let newSavedState;
+                    if (isCurrentlySaved) {
+                        console.log(`Attempting to UNSAVE recipe ${recipeIdToToggle} for user ${currentUserId}`);
+                        response = await fetch(`${API_BASE_URL}/savedRecipes`, {
+                            method: 'DELETE', 
+                            headers: { 'Content-Type': 'application/json'},
+                            body: JSON.stringify({ userId: currentUserId, recipeId: recipeIdToToggle})
+                        });
+                        if (!response.ok) throw new Error (`Failed to unsave recipe. Status: ${response.status}`);
+                        savedRecipesIds.delete(recipeIdToToggle);
+                        newSavedState = false;
+                        console.log(`Successfully UNSAVED recipe ${recipeIdToToggle}`);
+                    } else {
+                        console.log(`Attempting to SAVE recipe ${recipeIdToToggle} for user ${currentUserId}`);
+                        response = await fetch(`${API_BASE_URL}/savedRecipes`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ userId: currentUserId, recipeId: recipeIdToToggle })
+                        });
+                        if (!response.ok) throw new Error(`Failed to save recipe. Status: ${response.status}`);
+                        savedRecipesIds.add(recipeIdToToggle); // Cập nhật lại Set ở client
+                        newSavedState = true;
+                        console.log(`Successfully SAVED recipe ${recipeIdToToggle}`);
+                    }
+
+                    updateAllSaveButtonsForRecipe(recipeIdToToggle, newSavedState);
+                } catch (error) {
+                    console.error("Lỗi khi lưu/bỏ lưu công thức:", error);
+                    // 4. Nếu API lỗi, khôi phục lại giao diện
+                    alert("Đã xảy ra lỗi. Vui lòng thử lại."); // Thông báo lỗi
+                    button.classList.toggle('saved'); // Đảo ngược lại class
+                    icon.classList.toggle('far');     // Đảo ngược lại icon
                     icon.classList.toggle('fas');
                 }
             });
         }
 
         return card;
+    }
+
+    function updateAllSaveButtonsForRecipe(recipeId, isSaved) {
+        const allRecipeCards = document.querySelectorAll(`.recipe-card`);
+        allRecipeCards.forEach(card => {
+            const saveButtonInCard = card.querySelector('.save-button');
+            if (saveButtonInCard && parseInt(saveButtonInCard.dataset.recipeId, 10) === recipeId) {
+                const iconInCard = saveButtonInCard.querySelector('i');
+                if (isSaved) {
+                    saveButtonInCard.classList.add('saved');
+                    iconInCard.classList.remove('far');
+                    iconInCard.classList.add('fas');
+                } else {
+                    saveButtonInCard.classList.remove('saved');
+                    iconInCard.classList.remove('fas');
+                    iconInCard.classList.add('far');
+                }
+            }
+        });
     }
 
     function renderStars(rating){
@@ -243,8 +327,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadFeaturedRecipes();
-    ingredientSections.forEach(section => {
-        loadRecipesByIngredient(section.id, section.containerId);
-    })
+    Promise.all(ingredientSections.map(section =>
+        loadRecipesByIngredient(section.id, section.containerId)
+    )).then(() => {
+        console.log("All ingredient sections loaded.");
+    }).catch(error => {
+        console.error("Error loading one or more ingredient sections:", error);
+    });
 
 })

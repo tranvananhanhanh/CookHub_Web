@@ -28,6 +28,7 @@ body{
     overflow: hidden;
     border-radius: 10px;
     cursor: pointer;
+    height: 364px;
 }
 
 .featured-swiper .swiper-wrapper .swiper-slide img {
