@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../assets/styles/responsive.css">
     <link rel="stylesheet" href="../assets/styles/homepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../js/popup.js"></script>
+    <link rel="stylesheet" href="../assets/styles/popup.css">   
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,6 +79,29 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <!-- Script riêng cho trang chủ -->
     <script src="../js/homepage.js"></script>
+
+    <!-- Error Popup -->
+    <div id="error-popup" class="popup">
+        <div class="popup-content">
+            <p class="popup-message error-message"></p>
+            <div class="popup-btn-container">
+                <button id="OK-btn" type="button" class="popup-btn" style = "background-color: grey;">Cancel</button>
+                <button id="link-btn" type="button" class="popup-btn">
+                    <a href="/SignIn">Login</a>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="popup">
+        <div class="popup-content">
+            <p class="popup-message success-message"></p>
+            <button id="OK-btn" type="button" class="popup-btn">OK</button>
+        </div>
+    </div>
+
 </body>
 
 </html>

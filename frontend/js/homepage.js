@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //Tai slider
-    const featuredRecipeIds = [1, 5, 8, 13];
+    const featuredRecipeIds = [1, 5, 8, 15];
     const featuredWrapper = document.getElementById('featured-recipes-wrapper');
     let featuredSwiper;
 
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     //Khi an vao thi hien chi tiet cong thuc
                     slide.addEventListener('click', () => {
-                        window.location.href = `/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}`;
+                        window.location.href = `/detailrecipe-page?recipe_id=${recipe.recipe_id}`;
                     })
                     featuredWrapper.appendChild(slide);
                 });
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             featuredSwiper = new Swiper('.featured-swiper', {
                 loop: true,
                 autoplay: {
-                    delay: 5000, //Chuyen slide sau 5s
+                    delay: 2000, //Chuyen slide sau 5s
                     disableOnInteraction: false, //Khong dung autoplay khi nguoi dung tuong tac
                 },
                 pagination: {
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', (e) => {
             //Meu bam vao luu thi khong chuyen trang, con laij thi co
             if (!e.target.closest('.save-button')){
-                let detailPageUrl = `/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}`;
+                let detailPageUrl = `/detailrecipe-page?recipe_id=${recipe.recipe_id}`;
                 if (currentUserId !== null) {
                     detailPageUrl += `&userId=${currentUserId}`;
                     console.log(`Chuuyen huong den (da dang nhap): ${detailPageUrl}`);
@@ -220,7 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
             saveButton.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 if (!currentUserId) {
-                    alert("Bạn cần đăng nhập để lưu công thức!"); // Thông báo
+                    showErrorPopup("You need to log in to save recipes!"); // Thông báo lỗi
+                    //alert("Bạn cần đăng nhập để lưu công thức!"); // Thông báo
                     //window.location.href = '/SignIn'; // Chuyển hướng đến trang đăng nhập (hoặc route đăng nhập của bạn) hoac giu trang
                     return; // Dừng xử lý
                 }
