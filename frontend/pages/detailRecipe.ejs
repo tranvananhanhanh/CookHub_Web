@@ -246,7 +246,23 @@
 
   <script>
     // truyền vào tham số 
-    const recipeId = 4;
+    // Get recipeId from URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipeIdFromQuery = urlParams.get('recipe_id');
+    let recipeId; // Will hold the recipe ID from the URL
+
+    if (recipeIdFromQuery) {
+        recipeId = parseInt(recipeIdFromQuery, 10);
+        if (isNaN(recipeId)) {
+            console.error("Invalid Recipe ID in URL:", recipeIdFromQuery);
+            document.body.innerHTML = "<p style='text-align:center; margin-top: 50px; font-size: 18px;'>Error: Invalid Recipe ID. Cannot load recipe details.</p>";
+            recipeId = null; 
+        }
+    } else {
+        console.error("Recipe ID not found in URL.");
+        document.body.innerHTML = "<p style='text-align:center; margin-top: 50px; font-size: 18px;'>Error: Recipe ID is missing. Cannot load recipe details.</p>";
+        recipeId = null;
+    }
     const userId = 3;
 
     // Hàm hiển thị 5 ngôi sao khi nhấp vào biểu tượng star
@@ -343,12 +359,8 @@
       }
     }
 
-
     // Gắn sự kiện click cho biểu tượng ngôi sao ban đầu
     document.getElementById('star').addEventListener('click', displayStarRating);
-
-
-
 
     // hàm hiển thị chi tiết liên quan đến công thức
     async function fetchAndDisplayRecipe(recipeId, userId) {
@@ -366,7 +378,7 @@
         // Hiển thị thông tin chung
         //ảnh chung món ăn
         const thumbnailDiv = document.getElementById("recipe-thumbnail");
-        const imageUrl = "https://cdn.usegalileo.ai/sdxl10/776130f8-2f10-4950-864f-9a798a5932ba.png" || recipe.thumbnail;
+        const imageUrl = `../assets/image/recipes/${recipeId}/${recipe.thumbnail}`;
         thumbnailDiv.style.backgroundImage = `
               url("${imageUrl}")
             `;

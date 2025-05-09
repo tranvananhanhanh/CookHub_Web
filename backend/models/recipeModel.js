@@ -1,9 +1,37 @@
 const pool = require("../config/db");
 
 class RecipeModel {
-  static async getAllRecipes() {
-    const result = await pool.query("SELECT * FROM recipes WHERE user_id = 1");
+  static async getAllRecipeInfo(userId) {
+    const result = await pool.query(`
+      SELECT * FROM recipes
+      WHERE user_id = $1
+      ORDER BY date_created DESC -- Thêm sắp xếp để nhất quán
+    `, [userId]);
     return result.rows;
+  }
+
+  // Tính tổng số comment của một công thức
+  static async getRecipeComments(recipeId) {
+    const result = await pool.query(`
+      SELECT 
+        COALESCE(COUNT(comment_id), 0) as comment_count
+      FROM comments
+      WHERE recipe_id = $1
+    `, [recipeId]);
+    return parseInt(result.rows[0].comment_count);
+  }
+
+  // SỬA HÀM NÀY
+  static async getRecipeRatingsAndAverage(recipeId) {
+    const result = await pool.query(`
+      SELECT 
+        COALESCE(AVG(rate)::numeric(3,1), 0.0) as average_rating 
+      FROM ratings
+      WHERE recipe_id = $1
+    `, [recipeId]);
+    return {
+      average_rating: parseFloat(result.rows[0].average_rating)
+    };
   }
 
   static async searchRecipes(filters = {}) {

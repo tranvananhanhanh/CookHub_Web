@@ -1,21 +1,8 @@
 -- Bảng người dùng
--- CREATE TABLE users (
---     user_id SERIAL PRIMARY KEY,
---     name VARCHAR(255) NOT NULL,
---     email VARCHAR(255) UNIQUE NOT NULL,
---     password_hash TEXT NOT NULL,
---     avatar TEXT DEFAULT '',
---     is_banned BOOLEAN DEFAULT FALSE,
---     created_at TIMESTAMP DEFAULT NOW(),
--- 	last_login TIMESTAMP NULL
-
--- );
--- new users table add age and gender 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     random_code VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
-    age INTEGER NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     avatar TEXT DEFAULT '',
@@ -25,14 +12,6 @@ CREATE TABLE users (
     last_login TIMESTAMP NULL,
     age INTEGER CHECK (age >= 0) NOT NULL,
     gender VARCHAR(10) CHECK (gender IN ('female', 'male', 'other'))
-);
-
--- Bảng liên kết các mạng xã hội của người dùng
-CREATE TABLE user_social_links (
-    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    platform VARCHAR(50) NOT NULL CHECK (platform IN ('facebook', 'instagram', 'x')),  
-    url TEXT NOT NULL, -- URL của tài khoản mạng xã hội
-    PRIMARY KEY (user_id, platform)
 );
 
 -- Bảng liên kết các mạng xã hội của người dùng

@@ -116,7 +116,7 @@ function setupEventListeners() {
     if (imageModal) imageModal.addEventListener("click", (e) => {
         if (e.target === imageModal) closeImageModal();
     });
-    popupCloseBtns.forEach(btn => btn.addEventListener('click', () => closePopup(btn.closest('.error-popup'))));
+    popupCloseBtns.forEach(btn => btn.addEventListener('click', () => closePopup(btn.closest('#error-popup'))));
 }
 
 // Xử lý phím Enter để chuyển focus
