@@ -168,9 +168,11 @@ nav ul a.active {
 }
 
 .search-icon {
+  display: flex;
   width: 40px;
   height: 40px;
   cursor: pointer;
+  align-items: center;
 }
 
 .notify {
@@ -180,18 +182,18 @@ nav ul a.active {
   padding-top: 5px;
 }
 
-.create-post-button {
+.login-post-button, .create-post-button {
   width: 100px;
   background: #FF7D00;
   border-radius: 10px;
   cursor: pointer;
 }
 
-.create-post-button:hover {
+.login-post-button:hover, .create-post-button:hover {
   opacity: 0.7;
 }
 
-.create-post-button a p {
+.login-post-button a p, .create-post-button a p {
   display: inline-block;
   margin: 0;
   padding: 6px 10px;
@@ -332,7 +334,6 @@ nav ul a.active {
 }
 
 .recipe-card {
-  min-width: 335px;
   height: 330px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);

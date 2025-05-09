@@ -93,6 +93,7 @@ async function loadUserAvatarForHeader() {
                 if (user && user.avatar && user.avatar.trim() !== '') {
                     headerUserAvatarImg.src = `../assets/image/users/avatars/${user.avatar}`;
                     console.log(`[HeaderAvatar] Avatar updated to: ${user.avatar}`);
+                    document.getElementsByClassName('login-post-button')[0].style.display = 'none'; // Hiện nút đăng nhập
                 } else {
                     console.log("[HeaderAvatar] User has no avatar or avatar is empty, using default.");
                     headerUserAvatarImg.src = "../assets/image/avatar_default.png";
