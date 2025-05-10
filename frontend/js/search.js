@@ -143,10 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
             queryParams.append('maxTime', Array.from(activeFilters.time)[0]);
         }
         
-        // 5. Add servings filter (single value) <<< NEW
-        if (activeFilters.servings.size > 0) {
-            queryParams.append('servings', Array.from(activeFilters.servings)[0]);
-       }
+    //     // 5. Add servings filter (single value) <<< NEW
+    //     if (activeFilters.servings.size > 0) {
+    //         queryParams.append('servings', Array.from(activeFilters.servings)[0]);
+    //    }
 
        // 6. Add rating filter (single value) <<< NEW
        if (activeFilters.rating.size > 0) {
@@ -188,17 +188,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     const timeText = recipe.cooking_time ? `<span><i class="far fa-clock"></i> ${recipe.cooking_time} phút</span>` : '';
 
                     // Format servings
-                    const servingsText = recipe.servings ? `<span><i class="fas fa-user-friends"></i> ${recipe.servings} người</span>` : '';
+                    // const servingsText = recipe.servings ? `<span><i class="fas fa-user-friends"></i> ${recipe.servings} người</span>` : '';
                     recipeCard.innerHTML = `
                     <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" class="recipe-thumbnail">
                      <div class="recipe-card-content">
                           <h2>${recipe.title}</h2>
                           <div class="recipe-card-meta">
-                               ${timeText}
-                               ${servingsText} 
                                ${ratingStars} 
+                               ${timeText}
                           </div>
-                          <a href="/detailrecipe/detailrecipe-page?recipeId=${recipe.recipe_id}" class="view-detail-btn">See Details</a>
+                          <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="view-detail-btn">See Details</a>
                      </div>
                 `;
                     resultsContainer.appendChild(recipeCard);
@@ -311,6 +310,37 @@ document.addEventListener("DOMContentLoaded", () => {
         // Re-fetch (should show all or initial state)
         fetchAndRenderResults();
     });
+
+    function renderStars(rating){
+        const fullStars = Math.floor(rating);
+        const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+        const emptyStars = 5 - fullStars - halfStar;
+        let starsHTML = '';
+
+        for (let i = 0; i < fullStars; i++){
+            starsHTML += '<i class = "fas fa-star"></i>';
+        }
+        if (halfStar) {
+            starsHTML += '<i class="fas fa-star-half-alt"></i>'; 
+        }
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<i class="far fa-star"></i>'; // Sao rỗng
+        }
+        if (!starsHTML && rating === 0){
+            for (let i = 0; i < 5; i++){
+                starsHTML += '<i class="far fa-star"></i>';
+            }
+            return starsHTML + ' <span class="no-rating">(Chưa có)</span>'; 
+        }
+
+        if (!starsHTML && rating > 0) {
+            for (let i = 0; i < 5; i++) {
+                starsHTML += '<i class="far fa-star"></i>';
+            }
+       }
+       return starsHTML || '<span class="no-rating">Lỗi rating</span>'; // Fallback khác
+        //Sua thanh 5 sao rong o day
+    }
 
     // === Initial Load ===
     const initializePage = async () => {

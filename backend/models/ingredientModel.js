@@ -1,26 +1,32 @@
 const pool = require("../config/db"); // Sử dụng pool kết nối CSDL
 
 class ingredientModel {
+
+
+
   /**
    * Lấy danh sách các nguyên liệu phổ biến (dùng nhiều nhất)
-   * @param {number} limit - Số lượng nguyên liệu tối đa cần lấy
    * @returns {Promise<Array<object>>} - Mảng các object ingredient { id, name }
    */
-  static async getCommonIngredients(limit = 5) { // Thêm tham số limit với giá trị mặc định
-    console.log(`ingredientModel.getCommoningredients called with limit: ${limit}`);
+  static async getCommonIngredients() { // Thêm tham số limit với giá trị mặc định
+    console.log(`ingredientModel.getCommonIngredients called to fetch predefined list`);
+    // Ví dụ: bạn muốn hiển thị các nguyên liệu có ID là 1 (Thịt bò), 5 (Cà rốt), 12 (Trứng gà)
+    const predefinedIngredientIds = [1, 5, 11, 25, 54, 67, 80]; 
+    if (!predefinedIngredientIds || predefinedIngredientIds.length === 0) {
+      console.warn("No predefined ingredient IDs specified in ingredientModel. Returning empty array.");
+      return []; // Trả về mảng rỗng nếu không có ID nào được định nghĩa
+    }
+    const placeholders = predefinedIngredientIds.map((_, index) => `$${index + 1}`).join(',');
     const query = `
        SELECT
-           i.ingredient_id AS id,
-           i.name AS name
-           -- ,COUNT(ri.recipe_id) as usage_count -- Uncomment để debug
-       FROM ingredients i
-       JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id
-       GROUP BY i.ingredient_id, i.name
-       ORDER BY COUNT(ri.recipe_id) DESC -- Sắp xếp theo tần suất sử dụng
-       LIMIT $1; -- Giới hạn số lượng trả về (có thể điều chỉnh)
+           ingredient_id AS id,
+           name
+       FROM ingredients
+       WHERE ingredient_id IN (${placeholders})
+       ORDER BY name ASC; -- Sắp xếp theo tên cho dễ nhìn, hoặc bạn có thể bỏ ORDER BY nếu muốn giữ nguyên thứ tự trong mảng predefinedIngredientIds (cần query phức tạp hơn một chút)
     `;
     try {
-        const result = await pool.query(query, [limit]); // Truyền limit vào query
+        const result = await pool.query(query, predefinedIngredientIds); // Truyền limit vào query
         return result.rows; // Chỉ trả về dữ liệu
     } catch (err) {
         console.error('Error fetching common ingredients in ingredientModel:', err.stack);

@@ -250,28 +250,28 @@ class RecipeModel {
     }
   }
 
-  static async getCommonIngredients() {
-    console.log("RecipeModel.getCommonIngredients called");
-    // Lấy top N ingredients được dùng nhiều nhất
-    const query = `
-       SELECT
-           i.ingredient_id AS id,
-           i.name AS name
-           -- ,COUNT(ri.recipe_id) as usage_count -- Uncomment để debug
-       FROM ingredients i
-       JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id
-       GROUP BY i.ingredient_id, i.name
-       ORDER BY COUNT(ri.recipe_id) DESC -- Sắp xếp theo tần suất sử dụng
-       LIMIT 5; -- Giới hạn số lượng trả về (có thể điều chỉnh)
-    `;
-    try {
-      const result = await pool.query(query);
-      return result.rows; // Chỉ trả về dữ liệu
-    } catch (err) {
-      console.error('Error fetching common ingredients in Model:', err.stack);
-      throw err; // Ném lỗi để route xử lý
-    }
-  }
+  // static async getCommonIngredients() {
+  //   console.log("RecipeModel.getCommonIngredients called");
+  //   // Lấy top N ingredients được dùng nhiều nhất
+  //   const query = `
+  //      SELECT
+  //          i.ingredient_id AS id,
+  //          i.name AS name
+  //          -- ,COUNT(ri.recipe_id) as usage_count -- Uncomment để debug
+  //      FROM ingredients i
+  //      JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id
+  //      GROUP BY i.ingredient_id, i.name
+  //      ORDER BY COUNT(ri.recipe_id) DESC -- Sắp xếp theo tần suất sử dụng
+  //      LIMIT 5; -- Giới hạn số lượng trả về (có thể điều chỉnh)
+  //   `;
+  //   try {
+  //     const result = await pool.query(query);
+  //     return result.rows; // Chỉ trả về dữ liệu
+  //   } catch (err) {
+  //     console.error('Error fetching common ingredients in Model:', err.stack);
+  //     throw err; // Ném lỗi để route xử lý
+  //   }
+  // }
 
   static async getAllRecipes() {
     const result = await pool.query("SELECT * FROM recipes WHERE user_id = 1");

@@ -334,7 +334,7 @@ h1 {
     flex-direction: column;
 }
 
-.recipe-card h2 {
+.recipe-card .recipe-card-content h2 {
     font-size: 1.1rem;
     /* Title size */
     font-weight: 600;
@@ -359,8 +359,9 @@ h1 {
     gap: 10px;
 }
 
+
+
 .recipe-card-meta span {
-    /* Individual meta items */
     display: inline-flex;
     align-items: center;
     gap: 4px;

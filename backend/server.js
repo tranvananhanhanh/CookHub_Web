@@ -19,6 +19,7 @@ const shoppingListRoutes = require("./routes/shoppingListRoutes");
 const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
 const unitRoutes = require("./routes/unitRoutes");
 const createRoutes = require("./routes/createRoutes");
+const reportRoutes = require('./routes/reportRoutes');
 
 process.env.TZ = 'UTC';
 
@@ -133,7 +134,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/units", unitRoutes); // Routes đơn vị
 app.use("/cookchart", rankRoutes);  // route liên quan đến bảng xếp hạng
 app.use("/detailrecipe", detaiRecipeRoutes); // route xem chi tiết công thức 
-
+app.use('/reports', reportRoutes); 
 // Khởi chạy server
 async function startServer() {
   const open = (await import('open')).default;
