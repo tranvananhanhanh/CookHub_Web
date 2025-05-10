@@ -54,13 +54,14 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .comment-form {
+    .comment-form, .report-form {
+      padding-top: 10px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .comment-form textarea {
+    .comment-form textarea, .report-form textarea {
       width: 100%;
       height: 100px;
       padding: 10px;
@@ -69,7 +70,39 @@
       resize: none;
     }
 
-    .comment-form .submit-btn {
+    .modal-buttons {
+        display: flex;
+        gap: 10px; /* Khoảng cách giữa các nút */
+        margin-top: 10px; /* Khoảng cách với textarea */
+    }
+
+    .modal-buttons .submit-btn, .modal-buttons .cancel-btn {
+        flex-grow: 1; /* Để các nút chiếm không gian bằng nhau */
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .modal-buttons .submit-btn {
+      background-color: #f4900d;
+      color: white;
+    }
+    .modal-buttons .submit-btn:hover {
+      background-color: #16140f;
+    }
+
+    .modal-buttons .cancel-btn {
+        background-color: #e0e0e0; /* Màu xám nhạt cho nút cancel */
+        color: #333;
+    }
+    .modal-buttons .cancel-btn:hover {
+        background-color: #bdbdbd; /* Màu xám đậm hơn khi hover */
+    }
+
+    /* .comment-form .submit-btn, .report-form .submit-btn {
       background-color: #f4900d;
       color: white;
       padding: 10px;
@@ -79,9 +112,9 @@
       font-weight: bold;
     }
 
-    .comment-form .submit-btn:hover {
+    .comment-form .submit-btn:hover, .report-form .submit-btn:hover {
       background-color: #16140f;
-    }
+    } */
 
     .message {
       color: red;
@@ -160,16 +193,13 @@
             </style>
 
 
-            <div class="flex items-center justify-center gap-2 px-3 py-2">
-              <div class="text-[#A18249]" data-icon="Share" data-size="24px" data-weight="regular">
-                <svg id="star" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-                  viewBox="0 0 256 256">
-                  <path
-                    d="M229.66,109.66l-48,48a8,8,0,0,1-11.32-11.32L204.69,112H165a88,88,0,0,0-85.23,66,8,8,0,0,1-15.5-4A103.94,103.94,0,0,1,165,96h39.71L170.34,61.66a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,229.66,109.66ZM192,208H40V88a8,8,0,0,0-16,0V208a16,16,0,0,0,16,16H192a8,8,0,0,0,0-16Z">
-                  </path>
-                </svg>
-              </div>
-            </div>
+        <div class="flex items-center justify-center gap-2 px-3 py-2">
+          <div id="report-recipe-btn" class="text-[#A18249] cursor-pointer" data-icon="Flag" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M216,32H56A24,24,0,0,0,32,56V216a8,8,0,0,0,16,0V56a8,8,0,0,1,8-8H216a8,8,0,0,0,0-16Z M160,56H56a8,8,0,0,0-8,8v88a8,8,0,0,0,16,0V111.44l12.12,7.27a8,8,0,0,0,8.07-.17L108,106.67l19.76,11.85a8,8,0,0,0,8.1.1l20.28-12.17,11.46,6.88A8,8,0,0,0,180,112V64A8,8,0,0,0,172,56H160Z"></path>
+            </svg>
+          </div>
+        </div>
           </div>
           <p class="text-[#1C160C] text-base font-normal leading-normal pb-3 pt-1 px-4" id="recipe-description">
 
@@ -202,12 +232,30 @@
                 <h2>Enter your comment</h2>
                 <form class="comment-form" id="commentForm">
                   <textarea id="commentContent" placeholder="Enter here..." required></textarea>
-                  <button type="submit" class="submit-btn">Send</button>
+                  <div class="modal-buttons"> <!-- Bọc các nút lại -->
+                    <button type="button" id="cancelCommentBtn" class="cancel-btn">Cancel</button> 
+                    <button type="submit" class="submit-btn">Send</button>
+                  </div>
+                  <!-- <button type="submit" class="submit-btn">Send</button> -->
                 </form>
                 <p id="message" class="message"></p>
               </div>
             </div>
 
+            <div id="reportModal" class="modal">
+              <div class="modal-content">
+                <h2>Report this Recipe</h2>
+                <form class="report-form" id="reportForm">
+                  <textarea id="reportReason" name="reportReason" placeholder="Please provide a reason for reporting..." required></textarea>
+                  <div class="modal-buttons"> <!-- Bọc các nút lại -->
+                    <button type="button" id="cancelReportBtn" class="cancel-btn">Cancel</button> 
+                    <button type="submit" class="submit-btn">Send</button>
+                  </div>
+                  <!-- <button type="submit" class="submit-btn">Submit Report</button> -->
+                </form>
+                <p id="reportMessage" class="message"></p>
+              </div>
+            </div>
 
 
           </div>
@@ -525,7 +573,10 @@
 
         document.getElementById('commentForm').addEventListener('submit', submitComment);
         document.getElementById('open-comment-form').addEventListener('click', toggleCommentForm);
-
+        document.getElementById('cancelCommentBtn').addEventListener('click', toggleCommentForm);
+        document.getElementById('report-recipe-btn').addEventListener('click', toggleReportModal);
+        document.getElementById('reportForm').addEventListener('submit', submitReport);
+        document.getElementById('cancelReportBtn').addEventListener('click', toggleReportModal);
 
         function toggleCommentForm() {
           const modal = document.getElementById('commentModal');
@@ -540,6 +591,65 @@
           document.getElementById('commentContent').value = '';
         }
 
+        function toggleReportModal() {
+          const modal = document.getElementById('reportModal');
+          const messageEl = document.getElementById('reportMessage');
+
+          if (modal.style.display === 'flex') {
+             modal.classList.remove('active');
+             setTimeout(() => { modal.style.display = 'none'; }, 300);
+          } else {
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.classList.add('active'); }, 10);
+          }
+          if(messageEl) messageEl.textContent = '';
+          document.getElementById('reportReason').value = '';
+        }
+
+        async function submitReport(event) {
+            event.preventDefault();
+            const reason = document.getElementById('reportReason').value.trim();
+            const messageEl = document.getElementById('reportMessage');
+
+            if (!reason) {
+                messageEl.textContent = 'Please enter your reason for reporting!';
+                messageEl.style.color = 'red';
+                return;
+            }
+            if (isNaN(recipeId) || isNaN(userId)) { // Kiểm tra lại các biến global
+                messageEl.textContent = 'Recipe ID or User ID is invalid!';
+                messageEl.style.color = 'red';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:4000/reports/recipe', { // Endpoint mới cho report
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        recipe_id: parseInt(recipeId, 10), // Sử dụng recipeId global
+                        user_id: parseInt(userId, 10),   // Sử dụng userId global
+                        reason: reason
+                    }),
+                });
+                
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageEl.style.color = 'green';
+                    messageEl.textContent = 'Report submitted successfully!';
+                    document.getElementById('reportReason').value = '';
+                    setTimeout(toggleReportModal, 1500); 
+                } else {
+                    messageEl.style.color = 'red';
+                    messageEl.textContent = result.message || 'Failed to submit report. Please try again.';
+                }
+            } catch (error) {
+                console.error("Connection error:", error);
+                messageEl.style.color = 'red';
+                messageEl.textContent = 'Connection error, please try again!';
+            }
+        }
 
         async function submitComment(event) {
           // Truyền vào user_id và recipe id
