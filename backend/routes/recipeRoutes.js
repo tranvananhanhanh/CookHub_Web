@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const RecipeModel = require("../models/recipeModel"); // Bỏ đi nếu không dùng RecipeModel nữa
-const client = require('../config/db'); // <<<--- !!! QUAN TRỌNG: Đảm bảo đường dẫn này chính xác !!!
+const pool = require('../config/db'); // <<<--- !!! QUAN TRỌNG: Đảm bảo đường dẫn này chính xác !!!
 
 // --- API LẤY CÔNG THỨC VỚI COMMENT VÀ RATING ---
 // --- API LẤY CÔNG THỨC VỚI COMMENT VÀ RATING CHO USER PROFILE ---
@@ -227,4 +227,42 @@ router.get('/ingredients/common', async (req, res) => {
     }
 });
 
+// --- API XÓA CÔNG THỨC ---
+router.delete("/:recipe_id", async (req, res) => {
+    console.log("API: DELETE /:recipe_id (Delete Recipe)");
+    try {
+        const recipeId = parseInt(req.params.recipe_id);
+        const userId = req.query.user_id ? parseInt(req.query.user_id) : null;
+
+        if (isNaN(recipeId)) {
+            console.log("Error: Invalid recipe_id:", req.params.recipe_id);
+            return res.status(400).json({ error: "Invalid recipe_id" });
+        }
+        if (!userId) {
+            console.log("Error: user_id is missing from query");
+            return res.status(400).json({ error: "Missing user_id" });
+        }
+        console.log(`Deleting recipe with ID: ${recipeId} by user_id: ${userId}`);
+
+        // Kiểm tra recipe có thuộc về user_id không
+        const checkResult = await pool.query('SELECT user_id FROM recipes WHERE recipe_id = $1', [recipeId]);
+        if (checkResult.rowCount === 0) {
+            console.log(`Recipe with ID ${recipeId} not found`);
+            return res.status(404).json({ error: "Recipe not found" });
+        }
+        if (checkResult.rows[0].user_id !== userId) {
+            console.log(`User ${userId} not authorized to delete recipe ${recipeId}`);
+            return res.status(403).json({ error: "Unauthorized to delete this recipe" });
+        }
+
+        // Xóa recipe bằng RecipeModel
+        await RecipeModel.deleteRecipe(recipeId);
+
+        console.log(`Recipe with ID ${recipeId} deleted successfully`);
+        res.status(200).json({ message: "Recipe deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting recipe:", err.message);
+        res.status(500).json({ error: "Server error", details: err.message });
+    }
+});
 module.exports = router;

@@ -102,7 +102,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("confirm-delete").addEventListener("click", async () => {
             try {
                 console.log(`Attempting to delete recipe with ID: ${recipe.recipe_id}`);
-                const response = await fetch(`http://localhost:4000/api/recipes/${recipe.recipe_id}`, {
+                const userId = getUserIdFromUrl();
+                const response = await fetch(`http://localhost:4000/api/recipes/${recipe.recipe_id}?user_id=${userId}`, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                 });
@@ -124,13 +125,17 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.error("Delete failed:", errorData);
                     popup.classList.remove("open");
                     popup.remove(); // Đóng và xóa popup xác nhận
+                    let errorMessage = "Failed to delete recipe";
+                    if (response.status === 400) errorMessage = errorData.error || "Invalid request";
+                    if (response.status === 403) errorMessage = errorData.error || "You are not authorized to delete this recipe";
+                    if (response.status === 404) errorMessage = errorData.error || "Recipe not found";
                     showErrorPopup(errorData.error || "Failed to delete recipe!");
                 }
             } catch (error) {
-                console.error("Error deleting recipe:", error);
+                console.error("Error deleting recipe:", error.message);
                 popup.classList.remove("open");
                 popup.remove(); // Đóng và xóa popup xác nhận
-                showErrorPopup("Error connecting to server!");
+                showErrorPopup("Error connecting to server. Please try again later.");
             }
         });
 
