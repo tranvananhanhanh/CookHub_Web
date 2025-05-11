@@ -198,7 +198,7 @@ body {
 .recipe-card {
     flex: 0 0 auto;
     /* Không co giãn, không thu nhỏ, kích thước tự động */
-    width: 240px;
+    min-width: 335px;
     /* Chiều rộng cố định cho mỗi card */
     background-color: #fff;
     border-radius: 8px;
