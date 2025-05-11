@@ -54,18 +54,27 @@ function closeSuccessPopup() {
     closePopup(popup);
 }
 
-// Gắn sự kiện đóng cho các nút OK
+// Gắn sự kiện đóng cho các nút OK hoặc cancel
 document.addEventListener("DOMContentLoaded", () => {
     const errorPopup = document.querySelector("#error-popup.popup");
     const successPopup = document.querySelector("#success-popup.popup");
 
     if (errorPopup) {
         const okButton = errorPopup.querySelector(".popup-btn#OK-btn");
-        if (okButton) {
-            okButton.addEventListener("click", closeErrorPopup);
-            console.log("OK button event listener added for error popup");
+        const cancelButton = errorPopup.querySelector(".popup-btn#popup-cancel-btn");
+
+        if (okButton || cancelButton) {
+            if (okButton) {
+                okButton.addEventListener("click", closeErrorPopup);
+                console.log("OK button event listener added for error popup");
+            }
+
+            if (cancelButton) {
+                cancelButton.addEventListener("click", closeErrorPopup);
+                console.log("OK button event listener added for error popup");
+            }
         } else {
-            console.error("OK button not found in error popup");
+            console.error("OK button or cancel button not found in error popup");
         }
     }
 
