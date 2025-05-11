@@ -16,7 +16,7 @@ async function setupUnitOptions() {
         document.querySelectorAll('.unit').forEach(select => populateUnitSelect(select));
     } catch (error) {
         console.error("Lỗi khi tải đơn vị:", error);
-        showPopup("Failed to load units. Using default values.", "error");
+        showErrorPopup("Failed to load units. Using default values.");
         availableUnits = [
             { unit_id: 1, unit_name: "g", equivalent_grams: 1 }, { unit_id: 2, unit_name: "kg", equivalent_grams: 1000 },
             { unit_id: 3, unit_name: "mg", equivalent_grams: 0.001 }, { unit_id: 4, unit_name: "mcg", equivalent_grams: 0.000001 },
@@ -74,7 +74,6 @@ function setupEventListeners() {
     const cancelBtn = document.querySelector(".cancel-btn");
     const fileInput = document.getElementById("fileInput");
     const imageModal = document.getElementById("image-modal");
-    const popupCloseBtns = document.querySelectorAll(".popup-close-btn");
 
     if (addIngredientBtn) addIngredientBtn.addEventListener("click", addIngredient);
     if (addStepBtn) {
@@ -116,7 +115,19 @@ function setupEventListeners() {
     if (imageModal) imageModal.addEventListener("click", (e) => {
         if (e.target === imageModal) closeImageModal();
     });
-    popupCloseBtns.forEach(btn => btn.addEventListener('click', () => closePopup(btn.closest('#error-popup'))));
+
+    // Gắn sự kiện cho nút OK của success-popup để reset form sau khi đóng
+    const successPopup = document.querySelector("#success-popup.popup");
+    if (successPopup) {
+        const okButton = successPopup.querySelector(".popup-btn#OK-btn");
+        if (okButton) {
+            okButton.addEventListener("click", () => {
+                closeSuccessPopup();
+                recipeForm.reset();
+                resetClientSideUI();
+            });
+        }
+    }
 }
 
 // Xử lý phím Enter để chuyển focus
@@ -513,7 +524,7 @@ async function handleSave(event) {
     console.log("---------------------");
 
     try {
-        const basicResponse = await fetch("/api/recipes", {
+        const basicResponse = await fetch("/api/create/recipes", {
             method: "POST",
             body: basicFormData,
         });
@@ -588,7 +599,7 @@ async function handleSave(event) {
         }
         console.log("---------------------");
 
-        const detailsResponse = await fetch(`/api/recipes/${recipeId}/details`, {
+        const detailsResponse = await fetch(`/api/create/recipes/${recipeId}/details`, {
             method: "POST",
             body: detailsFormData,
         });
@@ -611,17 +622,13 @@ async function handleSave(event) {
         }
 
         showSuccessPopup(detailsData.message || "Recipe created successfully!");
-        setTimeout(() => {
-            recipeForm.reset();
-            resetClientSideUI();
-        }, 1500);
 
     } catch (error) {
         console.error("Lỗi khi lưu công thức:", error);
         showErrorPopup(`Failed to save recipe: ${error.message}`);
         if (recipeId) {
             try {
-                await fetch(`/api/recipes/${recipeId}`, {
+                await fetch(`/api/create/recipes/${recipeId}`, {
                     method: "DELETE",
                 });
                 console.log(`Đã xóa công thức ${recipeId} do gửi chi tiết thất bại`);
@@ -768,48 +775,5 @@ function closeImageModal() {
     if (modal) {
         modal.style.display = "none";
         modal.querySelector('#modal-img').src = '';
-    }
-}
-
-// Hiển thị popup lỗi
-function showErrorPopup(message) {
-    const popup = document.querySelector("#error-popup");
-    if (popup) {
-        const popupContent = popup.querySelector(".popup-content p");
-        if (popupContent) popupContent.innerHTML = message;
-        popup.style.display = "flex";
-        popup.querySelector(".popup-content").classList.remove("success");
-    } else {
-        alert(message);
-    }
-}
-
-// Đóng popup
-function closePopup(popupElement) {
-    if (popupElement) {
-        popupElement.style.display = "none";
-    }
-}
-
-// Đóng popup lỗi
-function closeErrorPopup() {
-    closePopup(document.querySelector("#error-popup"));
-}
-
-// Hiển thị popup thành công
-function showSuccessPopup(message) {
-    const popup = document.querySelector("#error-popup");
-    if (popup) {
-        const popupContentDiv = popup.querySelector(".popup-content");
-        const popupText = popupContentDiv.querySelector("p");
-        if (popupText) popupText.textContent = message;
-        popupContentDiv.classList.add("success");
-        popup.style.display = "flex";
-        setTimeout(() => {
-            closePopup(popup);
-            popupContentDiv.classList.remove("success");
-        }, 2000);
-    } else {
-        alert(message);
     }
 }

@@ -169,31 +169,31 @@ nav ul a.active {
 
 .search-icon {
   display: flex;
-  width: 40px;
-  height: 40px;
   cursor: pointer;
   align-items: center;
+  justify-content: center;
+  margin: 5px;
 }
 
-.notify {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  padding-top: 5px;
-}
-
-.login-post-button, .create-post-button {
+.login-post-button,
+.create-post-button {
   width: 100px;
   background: #FF7D00;
   border-radius: 10px;
   cursor: pointer;
 }
 
-.login-post-button:hover, .create-post-button:hover {
+.create-post-button {
+  display: none;
+}
+
+.login-post-button:hover,
+.create-post-button:hover {
   opacity: 0.7;
 }
 
-.login-post-button a p, .create-post-button a p {
+.login-post-button a p,
+.create-post-button a p {
   display: inline-block;
   margin: 0;
   padding: 6px 10px;
@@ -345,7 +345,7 @@ nav ul a.active {
   transform: translateY(-5px);
 }
 
-.recipe-card > a {
+.recipe-card>a {
   display: block;
   height: 220px;
 }
