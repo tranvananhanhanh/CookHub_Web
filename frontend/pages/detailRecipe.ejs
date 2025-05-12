@@ -296,22 +296,10 @@
     // truyền vào tham số 
     // Get recipeId from URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const recipeIdFromQuery = urlParams.get('recipe_id');
-    let recipeId; // Will hold the recipe ID from the URL
 
-    if (recipeIdFromQuery) {
-        recipeId = parseInt(recipeIdFromQuery, 10);
-        if (isNaN(recipeId)) {
-            console.error("Invalid Recipe ID in URL:", recipeIdFromQuery);
-            document.body.innerHTML = "<p style='text-align:center; margin-top: 50px; font-size: 18px;'>Error: Invalid Recipe ID. Cannot load recipe details.</p>";
-            recipeId = null; 
-        }
-    } else {
-        console.error("Recipe ID not found in URL.");
-        document.body.innerHTML = "<p style='text-align:center; margin-top: 50px; font-size: 18px;'>Error: Recipe ID is missing. Cannot load recipe details.</p>";
-        recipeId = null;
-    }
-    const userId = 3;
+    const recipeId = urlParams.get('recipe_id');
+    const userId = urlParams.get('userId');
+    console.log(recipeId,userId);
 
     // Hàm hiển thị 5 ngôi sao khi nhấp vào biểu tượng star
     function displayStarRating() {
@@ -376,15 +364,15 @@
     }
 
     // Hàm gửi số sao về database
-    async function submitRating(rating, recipeId, user_id) {
+    async function submitRating(rating, recipeId, userId) {
       try {
         const response = await fetch('http://localhost:4000/detailrecipe/rating', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            recipe_id: 1,
-            user_id: 4,
-            rating: 4
+            recipe_id: parseInt(recipeId,10),
+            user_id: parseInt(userId,10),
+            rating: parseInt(rating,10)
           }),
         });
 
@@ -431,6 +419,7 @@
               url("${imageUrl}")
             `;
         document.getElementById("recipe-title").innerText = recipe.title;
+
         document.getElementById("recipe-description").innerText = recipe.description;
         document.getElementById("recipe-rating").innerText = recipe.total_ratings;
         document.querySelector("#recipe-serving").textContent = ` ${recipe.servings}`;
@@ -468,10 +457,13 @@
                       <span class="text-lg font-bold">${index + 1}</span>
                     </div>
                     <div class="flex flex-1 flex-col justify-center">
-                      <p class="text-[#1C160C] text-base font-medium leading-normal">Step ${index + 1}</p>
-                      <p class="text-[#A18249] text-sm font-normal leading-normal">
-                        ${step.description}
+
+                      <p class="text-[#1C160C] text-left text-base font-medium leading-normal">Step ${index + 1}</p>
+                      <p class="text-[#A18249]  text-left text-sm font-normal leading-normal">
+                        ${step.description.replace(/\\n/g, '<br>')}
                       </p>
+
+                     
                     </div>
                   </div>
                   <div class="shrink-0">

@@ -20,6 +20,7 @@ const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
 const unitRoutes = require("./routes/unitRoutes");
 const createRoutes = require("./routes/createRoutes");
 const reportRoutes = require('./routes/reportRoutes');
+const recipeBmiRoutes=require("./routes/recipeBmiRoutes");
 
 process.env.TZ = 'UTC';
 
@@ -135,6 +136,14 @@ app.use("/api/units", unitRoutes); // Routes đơn vị
 app.use("/cookchart", rankRoutes);  // route liên quan đến bảng xếp hạng
 app.use("/detailrecipe", detaiRecipeRoutes); // route xem chi tiết công thức 
 app.use('/reports', reportRoutes); 
+app.use("/bmi/healthyfood", recipeBmiRoutes); // route lấy công thức calo
+
+app.get("/bmi/healthyfood", (req, res) => {
+  res.render("recipeBMI", { status: req.query.status });
+});
+
+
+
 // Khởi chạy server
 async function startServer() {
   const open = (await import('open')).default;
