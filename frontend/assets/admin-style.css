@@ -873,3 +873,39 @@ td {
   padding: 10px 20px;
   border-radius: 5px;
 }
+
+/* Style cho container của nút logout */
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-grow: 1;
+    padding-bottom: 20px;
+}
+
+/* Style cho nút logout */
+.logout-btn {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+/* Style cho mũi tên bên trái */
+.logout-arrow {
+    margin-right: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Hiệu ứng hover cho nút logout */
+.logout-btn:hover {
+    background-color: #f0f0f0;
+}
