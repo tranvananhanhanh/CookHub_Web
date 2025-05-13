@@ -169,11 +169,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 resultsContainer.style.display = 'block';
             } else {
                 resultsContainer.style.display = 'grid';
+                
                 recipes.forEach(recipe => {
                     // --- Create Recipe Card HTML (reuse logic from main.js or previous examples) ---
                     const recipeCard = document.createElement("div");
-                    recipeCard.classList.add("recipe-card"); 
+                    recipeCard.classList.add("search-recipe-card"); 
                     // Calculate average rating display (handle null/0)
+                    // recipeCard.style.minWidth = "0px";
+                    // recipe.innerHTML.style.minWidth = "0px";
                     let ratingStars = '';
                     const avgRating = recipe.avg_rating ? recipe.avg_rating.toFixed(1) : null;
                     if (avgRating && avgRating > 0) {
@@ -197,11 +200,28 @@ document.addEventListener("DOMContentLoaded", () => {
                                ${ratingStars} 
                                ${timeText}
                           </div>
-                          <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="view-detail-btn">See Details</a>
+                          <a href="#" class="view-detail-btn">See Details</a>
+                          
                      </div>
                 `;
                     resultsContainer.appendChild(recipeCard);
                     // --- End Recipe Card HTML ---
+
+                    const viewDetailBtn = recipeCard.querySelector('.view-detail-btn');
+                        if (viewDetailBtn == null) { 
+                            console.error("View Detail button not found.");
+                        } else {
+                            viewDetailBtn.addEventListener('click', (event) => {
+                                let detailPageUrl = `/detailrecipe-page?recipe_id=${recipe.recipe_id}`;
+                                if (currentSearchUserId !== null) {
+                                    detailPageUrl += `&userId=${currentSearchUserId}`;
+                                    console.log(`Chuuyen huong den (da dang nhap): ${detailPageUrl}`);
+                                } else {
+                                    console.log(`Chuyển hướng (chưa đăng nhập): ${detailPageUrl}`);
+                                }
+                                window.location.href = detailPageUrl;
+                        });
+                        }
                 });
             }
         } catch (error) {
@@ -254,6 +274,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    
     
     // 2. Remove Single Active Filter Click (using Event Delegation on display area)
     activeFiltersDisplay.addEventListener('click', (event) => {
@@ -273,6 +295,8 @@ document.addEventListener("DOMContentLoaded", () => {
          }
     });
 
+    
+   
 
     // 3. Search Input & Button
     const performSearch = () => {

@@ -334,6 +334,7 @@ nav ul a.active {
 }
 
 .recipe-card {
+  min-width: 330px;
   height: 330px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
