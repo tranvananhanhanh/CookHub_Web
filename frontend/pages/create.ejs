@@ -93,17 +93,19 @@
 
   <div class="footer"></div>
 
-  <div id="image-modal" class="image-modal">
-    <div class="enlarged-image">
-      <div class="modal-close" onclick="closeImageModal()">×</div>
-      <img id="modal-img" class="modal-img" alt="Large image preview">
+  <!-- Error Popup -->
+  <div id="error-popup" class="popup">
+    <div class="popup-content">
+      <p class="popup-message error-message"></p>
+      <button id="OK-btn" type="button" class="popup-btn">OK</button>
     </div>
   </div>
 
-  <div id="error-popup" class="popup">
+  <!-- Success Popup -->
+  <div id="success-popup" class="popup">
     <div class="popup-content">
-      <p>You can only upload a maximum of 3 images.</p>
-      <button type="button" class="popup-close-btn">OK</button>
+      <p class="popup-message success-message"></p>
+      <button id="OK-btn" type="button" class="popup-btn">OK</button>
     </div>
   </div>
 </body>

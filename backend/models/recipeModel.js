@@ -404,6 +404,17 @@ class RecipeModel {
     await client.query(query, [thumbnail_filename, recipe_id]);
     console.log(`[Cập nhật DB] Đã cập nhật thumbnail cho công thức ${recipe_id} thành ${thumbnail_filename}`);
   }
+
+  static async deleteRecipe(recipeId) {
+    try {
+      const query = 'DELETE FROM recipes WHERE recipe_id = $1';
+      const result = await pool.query(query, [recipeId]);
+      return result;
+    } catch (err) {
+      console.error(`Error deleting recipe ${recipeId}:`, err.message);
+      throw err;
+    }
+  }
 }
 
 module.exports = RecipeModel;

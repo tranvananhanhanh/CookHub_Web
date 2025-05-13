@@ -165,46 +165,42 @@ nav ul a.active {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
+  align-items: center;
 }
 
 .search-icon {
   display: flex;
-  width: 40px;
-  height: 40px;
   cursor: pointer;
   align-items: center;
+  justify-content: center;
+  margin: 5px;
 }
 
-.notify {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  padding-top: 5px;
-}
-
-.login-post-button, .create-post-button {
+.login-post-button,
+.create-post-button {
   width: 100px;
   background: #FF7D00;
   border-radius: 10px;
   cursor: pointer;
+  height: fit-content;
 }
 
-.login-post-button:hover, .create-post-button:hover {
+.create-post-button {
+  display: none;
+}
+
+.login-post-button:hover,
+.create-post-button:hover {
   opacity: 0.7;
 }
 
-.login-post-button a p, .create-post-button a p {
+.login-post-button a p,
+.create-post-button a p {
   display: inline-block;
   margin: 0;
   padding: 6px 10px;
   line-height: 28px;
   color: #fff;
-}
-
-.user-logo a {
-  display: flex;
-  align-items: center;
-  height: 40px;
 }
 
 .user-logo img {
@@ -213,10 +209,52 @@ nav ul a.active {
   margin: 10px;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
 }
 
-.user-logo p {
+/* Avatar Dropdown */
+#avatar-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
   margin: 0;
+  z-index: 1001;
+  min-width: 150px;
+}
+
+#avatar-dropdown.open {
+  display: block;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  color: #2f2f2f;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.dropdown-item:hover {
+  background-color: #e2e0e0;
+}
+
+.dropdown-item.logout:hover {
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown-item i {
+  width: 16px;
+  text-align: center;
 }
 
 /* Profile Cover */
@@ -346,7 +384,7 @@ nav ul a.active {
   transform: translateY(-5px);
 }
 
-.recipe-card > a {
+.recipe-card>a {
   display: block;
   height: 220px;
 }

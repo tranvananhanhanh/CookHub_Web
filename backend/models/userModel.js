@@ -1,15 +1,10 @@
 const pool = require("../config/db");
 
 class UserModel {
-  // static async getUserInfo() {
-  //   const result = await pool.query("SELECT * FROM users WHERE user_id = 1");
-  //   return result.rows;
-  // }
-
   static async getUserByIdWithSocialLinks(userId) {
     // Lấy thông tin người dùng
     const userResult = await pool.query(`
-      SELECT user_id, random_code, name, email, avatar, profile_background
+      SELECT *
       FROM users
       WHERE user_id = $1
     `, [userId]);

@@ -129,7 +129,7 @@ app.use("/api/ingredients", ingredientRoutes);
 app.use("/api/users/", userRoutes);
 app.use("/api/shopping-list", shoppingListRoutes);
 app.use("/api/savedRecipes", savedRecipesRoutes);
-// app.use("/api", createRoutes); // Xử lý POST /api/recipes
+app.use("/api/create", createRoutes); // Xử lý POST /api/create/recipes
 app.use("/api/users", userRoutes);
 app.use("/api/units", unitRoutes); // Routes đơn vị
 app.use("/cookchart", rankRoutes);  // route liên quan đến bảng xếp hạng

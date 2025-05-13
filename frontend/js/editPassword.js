@@ -18,15 +18,27 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPasswordHash = "";
     let isCurrentPassCorrect = false;
 
-    // Lấy thông tin user hiện tại từ localStorage
-    const currentUserJSON = localStorage.getItem("currentUser");
-    const currentUserObj = currentUserJSON ? JSON.parse(currentUserJSON) : null;
-    const userId = currentUserObj?.user_id || null;
+    // Hàm lấy userId từ URL
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userIdStr = urlParams.get('userId'); // Giả sử param là 'userId'
+        return userIdStr ? parseInt(userIdStr, 10) : null;
+    }
+
+    let userId = getUserIdFromUrl();
+    console.log("[UserProfile] Target User ID to load:", userId);
 
     async function fetchPasswordHash() {
-        const res = await fetch("http://localhost:4000/api/users");
-        const users = await res.json();
-        const currentUser = users.find(u => u.user_id === userId);
+        let apiUrl = "http://localhost:4000/api/users";
+        if (userId) {
+            apiUrl += `?user_id=${userId}`;
+        }
+        console.log("[UserProfile] Fetching user profile from:", apiUrl);
+        const res = await fetch(apiUrl);
+
+        const user = await res.json();
+        const currentUser = user[0];
+
         if (currentUser) {
             currentPasswordHash = currentUser.password_hash;
         }
@@ -156,7 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
     
             if (data.message === "Password updated successfully") {
-                window.location.href = "/profile";
+                showSuccessPopup("Change password successfully!");
+                setTimeout(() => {
+                    console.log("[EditPassword] Redirecting to profile page");
+                    window.location.href = `/profile?userId=${userId}`;
+                }, 1500);
             } else {
                 alert("Failed to update password.");
             }

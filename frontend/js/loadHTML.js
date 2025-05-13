@@ -1,5 +1,3 @@
-// --- START OF FILE loadHTML.js ---
-
 document.addEventListener("DOMContentLoaded", function () {
     // Load Header
     fetch("../components/header.html")
@@ -17,8 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             document.querySelector(".footer").innerHTML = data;
         });
-
-
 });
 
 function initHeaderScript() {
@@ -54,6 +50,41 @@ function initHeaderScript() {
                 link.classList.remove('active');
             }
         });
+
+        // Xử lý avatar dropdown
+        const avatar = document.getElementById('avatar');
+        const dropdown = document.getElementById('avatar-dropdown');
+        if (avatar && dropdown) {
+            avatar.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('open');
+            });
+
+            const profileItem = dropdown.querySelector('.dropdown-item:nth-child(1)');
+            const logoutItem = dropdown.querySelector('.dropdown-item:nth-child(2)');
+
+            if (profileItem) {
+                profileItem.addEventListener('click', () => {
+                    const userId = getCurrentUserIdFromUrl();
+                    const profileUrl = userId ? `/profile?userId=${userId}` : '/profile';
+                    window.location.href = profileUrl;
+                    dropdown.classList.remove('open');
+                });
+            }
+
+            if (logoutItem) {
+                logoutItem.addEventListener('click', () => {
+                    window.location.href = '/homepage';
+                    dropdown.classList.remove('open');
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (!avatar.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+        }
     }, 100); // Chờ 100ms
 }
 
@@ -106,10 +137,8 @@ async function loadUserAvatarForHeader() {
             console.error("[HeaderAvatar] Error loading user info for header avatar:", error);
             headerUserAvatarImg.src = "../assets/image/avatar_default.png"; // Fallback về default khi có lỗi
         }
-
     } else {
         console.log("[HeaderAvatar] No userId found in URL, using default avatar.");
-        // Nếu không có userId trên URL, vẫn giữ avatar mặc định (hoặc xử lý theo cách khác nếu muốn)
         headerUserAvatarImg.src = "../assets/image/avatar_default.png";
     }
 }
@@ -126,8 +155,9 @@ function updateHeaderLinksWithUserIdFromUrl() {
         'nav-bmi-link',            // Link BMI
         'nav-saved-recipes-link',  // Link Saved Recipes
         'search-link-header',      // Link Search Icon
-        'profile-link-header'      // Link User Profile
-        // Thêm ID của các link khác nếu có
+        'profile-link-header',     // Link User Profile
+        'create-post-button',      // Link Create Post (nav-btn)
+        'nav-create-post-button'   // Link Create Post (nav)
     ];
 
     specificLinksToUpdate.forEach(linkId => {
@@ -135,40 +165,39 @@ function updateHeaderLinksWithUserIdFromUrl() {
         if (linkElement) {
             updateSingleLinkWithUserId(linkElement, currentUserId);
         } else {
-            // console.warn(`Link with ID #${linkId} not found in loaded header.`);
+            console.warn(`Link with ID #${linkId} not found in loaded header.`);
         }
     });
 
-    // 2. Cập nhật các link chưa có ID cụ thể (ví dụ: tất cả <a> trong nav mà chưa được xử lý)
-    // Cách này sẽ bao quát hơn nhưng cần cẩn thận để không ghi đè các link không mong muốn
-    // const headerElement = document.querySelector('.header');
-    // if (headerElement) {
-    //     const allLinksInHeader = headerElement.querySelectorAll('a[href]'); // Chỉ chọn thẻ a có thuộc tính href
-    //     allLinksInHeader.forEach(link => {
-    //         // Kiểm tra xem link này đã được cập nhật bởi specificLinksToUpdate chưa
-    //         // (cách đơn giản là kiểm tra ID, hoặc có thể có cách khác phức tạp hơn)
-    //         // Hiện tại, để tránh cập nhật kép, chúng ta có thể bỏ qua bước này nếu danh sách specificLinksToUpdate đã đủ
-    //         if (!specificLinksToUpdate.includes(link.id)) {
-    //             // updateSingleLinkWithUserId(link, currentUserId);
-    //         }
-    //     });
-    // }
+    // 2. Cập nhật link Create trong create-post-button và nav-create-post-button
+    const createPostLink = document.querySelector('#create-post-button a');
+    const navCreatePostLink = document.querySelector('#nav-create-post-button a');
 
-
-    // Xử lý nút "Create" (nếu nó là link)
-    // Giả sử nút Create trỏ đến /create-post
-    const createPostButtonLink = document.querySelector('#create-post-button-header'); // Nếu nút Create chính là thẻ a
-    // Hoặc nếu thẻ p nằm trong thẻ a:
-    // const createPostButtonParentLink = document.querySelector('#create-post-button-header a');
-    if (createPostButtonLink && createPostButtonLink.tagName === 'A') { // Kiểm tra xem nó có phải là thẻ <a> không
-        updateSingleLinkWithUserId(createPostButtonLink, currentUserId);
+    if (createPostLink) {
+        updateSingleLinkWithUserId(createPostLink, currentUserId);
     } else {
-        // Nếu create-post-button không phải là link mà là một div/button mở modal,
-        // thì không cần cập nhật href.
-        // Tuy nhiên, nếu modal đó tải nội dung từ server có liên quan đến user,
-        // bạn có thể cần lưu currentUserId vào một biến toàn cục để modal sử dụng.
+        console.warn("Create post link in #create-post-button not found.");
     }
 
+    if (navCreatePostLink) {
+        updateSingleLinkWithUserId(navCreatePostLink, currentUserId);
+    } else {
+        console.warn("Create post link in #nav-create-post-button not found.");
+    }
+
+    // 2. Xử lý hiển thị/ẩn các nút Create
+    const createPostButton = document.getElementById('create-post-button');
+    const navCreatePostButton = document.getElementById('nav-create-post-button');
+
+    if (currentUserId !== null) {
+        if (createPostButton) createPostButton.style.display = 'block'; // Hiện nút Create trong nav-btn
+        if (navCreatePostButton && window.innerWidth <= 600) {
+            navCreatePostButton.style.display = 'block';
+        }
+    } else {
+        if (createPostButton) createPostButton.style.display = 'none'; // Ẩn nút Create trong nav-btn
+        if (navCreatePostButton) navCreatePostButton.style.display = 'none'; // Ẩn nút Create trong nav
+    }
 
     // Xử lý hiển thị/ẩn user-logo (giữ nguyên logic này)
     const userLogoDiv = document.querySelector('.header .user-logo');
@@ -184,7 +213,7 @@ function updateSingleLinkWithUserId(linkElement, currentUserId) {
         try {
             const originalHref = linkElement.getAttribute('href'); // Lấy href gốc
             if (!originalHref || originalHref === '#') { // Bỏ qua nếu href là '#' hoặc rỗng
-                // console.log(`Skipping link with href: ${originalHref}`, linkElement);
+                console.log(`Skipping link with href: ${originalHref}`, linkElement);
                 return;
             }
 
@@ -196,16 +225,16 @@ function updateSingleLinkWithUserId(linkElement, currentUserId) {
                 linkUrl.searchParams.delete('userId');
             }
             linkElement.href = linkUrl.toString();
-            // console.log(`Updated link: ${linkElement.id || 'N/A'} to ${linkElement.href}`);
+            console.log(`Updated link: ${linkElement.id || 'N/A'} to ${linkElement.href}`);
         } catch (e) {
             console.warn(`Could not parse or update href for link: ${linkElement.id || linkElement.outerHTML}`, e);
         }
     } else if (linkElement) {
-        // console.warn(`Link element found but has no href: ${linkElement.id || linkElement.outerHTML}`);
+        console.warn(`Link element found but has no href: ${linkElement.id || linkElement.outerHTML}`);
     }
 }
 
-function getCurrentUserIdFromUrl() { // Đảm bảo tên này khớp với tên bạn gọi
+function getCurrentUserIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     const userIdFromUrl = urlParams.get('userId');
     if (userIdFromUrl) {
