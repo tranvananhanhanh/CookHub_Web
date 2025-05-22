@@ -6,20 +6,25 @@ const cors = require("cors");
 const router = express.Router();
 
 const app = express();
+
 const port = 4000;
 
 const rankRoutes = require('./routes/cookChart');
 const detaiRecipeRoutes = require('./routes/detailRecipe');
-const authRoutes = require("./routes/authRoutes");
-const recipeRoutes = require("./routes/recipeRoutes");
+const authRoutes = require('./routes/authRoutes');
+const recipeRoutes = require('./routes/recipeRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
-const ingredientRoutes = require("./routes/ingredientRoutes");
-const userRoutes = require("./routes/userRoutes");
-const shoppingListRoutes = require("./routes/shoppingListRoutes");
-const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
-const unitRoutes = require("./routes/unitRoutes");
-const createRoutes = require("./routes/createRoutes");
+const ingredientRoutes = require('./routes/ingredientRoutes');
+const userRoutes = require('./routes/userRoutes');
+const shoppingListRoutes = require('./routes/shoppingListRoutes');
+const savedRecipesRoutes = require('./routes/savedRecipesRoutes');
+const unitRoutes = require('./routes/unitRoutes');
+const createRoutes = require('./routes/createRoutes');
 const reportRoutes = require('./routes/reportRoutes');
+const recipeRoutesAdmin = require('./routes/recipeAdminRoutes');
+const userRoutesAdmin = require('./routes/userAdminRoutes');
+const reportRoutesAdmin = require('./routes/reportAdminRoutes'); // Thêm reportRoutes
+const routes = require('./routes/routes');
 
 process.env.TZ = 'UTC';
 
@@ -121,6 +126,22 @@ app.get("/top-chefs-page", (req, res) => {
   res.render("chefChart");
 });
 
+app.get("/admin-user", (req, res) => {
+  res.render("admin-user", { title: "Danh sách users" });
+});
+
+app.get("/admin-recipe", (req, res) => {
+  res.render("admin-recipe", { title: "Danh sách công thức" });
+});
+
+app.get("/admin-report", (req, res) => {
+  res.render("admin-report", { title: "Danh sách báo cáo" }); // Thêm route render trang admin-report
+});
+
+app.get('/admin-dashboard', (req, res) => {
+    res.render('admin-dashboard');
+});
+
 // API routes
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/auth", authRoutes); // Route cho đăng nhập
@@ -135,6 +156,10 @@ app.use("/api/units", unitRoutes); // Routes đơn vị
 app.use("/cookchart", rankRoutes);  // route liên quan đến bảng xếp hạng
 app.use("/detailrecipe", detaiRecipeRoutes); // route xem chi tiết công thức 
 app.use('/reports', reportRoutes); 
+app.use("/api/recipesAdmin", recipeRoutesAdmin); 
+app.use("/api/usersAdmin", userRoutesAdmin); 
+app.use("/api/reportsAdmin", reportRoutesAdmin); // Thêm route cho reports
+app.use('/api', routes);
 // Khởi chạy server
 async function startServer() {
   const open = (await import('open')).default;
