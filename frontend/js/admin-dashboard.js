@@ -33,7 +33,8 @@ if (Array.isArray(data.recipeStatistics)) {
     }).join('');
 
     const tableHTML = `
-        <table border="1" style="border-collapse: collapse; width: 80%; font-size: 18px; text-align: left;">
+        <h3 style="padding: 10px; margin: 10px;">Recipe Category</h3>
+        <table border="1" style="border-collapse: collapse; width: 80%; font-size: 18px; text-align: left; margin: 10px; padding: 10px;">
             <thead>
                 <tr style="background-color: #f2f2f2;">
                     <th style="padding: 15px;">Category</th>
@@ -172,7 +173,8 @@ const chefTableRows = data.topChefs.map((chef, index) => {
 
 // HTML bảng
 const chefTableHTML = `
-    <table border="1" style="border-collapse: collapse; width: 80%; font-size: 18px; text-align: left; margin-top: 20px;">
+    <h3 style="padding: 10px; margin: 10px;">Chef Ranking</h3>
+    <table border="1" style="border-collapse: collapse; width: 80%; font-size: 18px; text-align: left; margin: 20px 10px 10px 10px; padding: 10px;">
         <thead>
             <tr style="background-color: #f2f2f2;">
                 <th style="padding: 12px;">Ranking</th>
