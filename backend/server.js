@@ -11,15 +11,15 @@ const port = 4000;
 
 const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
-const dashboardRoutes = require('./routes/dashboardRoutes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 const userRoutes = require("./routes/userRoutes");
 const shoppingListRoutes = require("./routes/shoppingListRoutes");
 const savedRecipesRoutes = require("./routes/savedRecipesRoutes");
-
 const recipeRoutesAdmin = require("./routes/recipeAdminRoutes");
 const userRoutesAdmin = require("./routes/userAdminRoutes");
 const reportRoutesAdmin = require("./routes/reportAdminRoutes"); // Thêm reportRoutes
+
+const routes = require('./routes/routes');
 
 
 app.use(cors({
@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/recipes", recipeRoutes);
 app.use('/api/auth', authRoutes); // Route cho đăng nhập
-app.use('/api/dashboard', dashboardRoutes);
+// app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 app.use("/api/users/", userRoutes);
 app.use("/api/shopping-list", shoppingListRoutes);
@@ -51,6 +51,8 @@ app.use("/api/savedRecipes", savedRecipesRoutes);
 app.use("/api/recipesAdmin", recipeRoutesAdmin); 
 app.use("/api/usersAdmin", userRoutesAdmin); 
 app.use("/api/reportsAdmin", reportRoutesAdmin); // Thêm route cho reports
+
+app.use('/api', routes);
 
 // Route trang chủ
 app.get('/', (req, res) => {
@@ -80,11 +82,6 @@ app.get('/SignIn', (req, res) => {
 app.get('/SignUp', (req, res) => {
   res.render("SignUp");
 });
-
-app.get('/dashboard', (req, res) => {
-  res.render("dashboard");
-});
-
 app.get('/search', (req, res) => {
   res.render('search', { title: 'Tìm kiếm Công thức' });
 });
@@ -126,6 +123,11 @@ app.get("/admin-recipe", (req, res) => {
 app.get("/admin-report", (req, res) => {
   res.render("admin-report", { title: "Danh sách báo cáo" }); // Thêm route render trang admin-report
 });
+
+app.get('/admin-dashboard', (req, res) => {
+    res.render('admin-dashboard');
+});
+
 
 // Khởi chạy server
 app.listen(port, () => {
