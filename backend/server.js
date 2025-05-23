@@ -13,7 +13,6 @@ const rankRoutes = require('./routes/cookChart');
 const detaiRecipeRoutes = require('./routes/detailRecipe');
 const authRoutes = require('./routes/authRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
-const dashboardRoutes = require('./routes/dashboardRoutes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 const userRoutes = require('./routes/userRoutes');
 const shoppingListRoutes = require('./routes/shoppingListRoutes');
@@ -145,7 +144,6 @@ app.get('/admin-dashboard', (req, res) => {
 // API routes
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/auth", authRoutes); // Route cho đăng nhập
-app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/ingredients", ingredientRoutes);
 app.use("/api/users/", userRoutes);
 app.use("/api/shopping-list", shoppingListRoutes);
