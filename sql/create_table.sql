@@ -125,3 +125,37 @@ CREATE TABLE reports (
     report_status VARCHAR(50) CHECK (report_status IN ('pending', 'accepted', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+-- Bắt đầu một transaction (tùy chọn, nhưng khuyến nghị)
+BEGIN;
+
+-- Bảng: users
+ALTER TABLE users
+    ALTER COLUMN created_at TYPE TIMESTAMP WITH TIME ZONE USING created_at AT TIME ZONE 'Asia/Bangkok',
+    ALTER COLUMN created_at SET DEFAULT CURRENT_TIMESTAMP, -- Đảm bảo default vẫn đúng
+    ALTER COLUMN last_login TYPE TIMESTAMP WITH TIME ZONE USING last_login AT TIME ZONE 'Asia/Bangkok';
+
+-- Bảng: recipes
+ALTER TABLE recipes
+    ALTER COLUMN date_created TYPE TIMESTAMP WITH TIME ZONE USING date_created AT TIME ZONE 'Asia/Bangkok',
+    ALTER COLUMN date_created SET DEFAULT CURRENT_TIMESTAMP; -- Đảm bảo default vẫn đúng
+
+-- Bảng: comments
+ALTER TABLE comments
+    ALTER COLUMN created_at TYPE TIMESTAMP WITH TIME ZONE USING created_at AT TIME ZONE 'Asia/Bangkok',
+    ALTER COLUMN created_at SET DEFAULT CURRENT_TIMESTAMP; -- Đảm bảo default vẫn đúng
+
+-- Bảng: saved_recipes
+ALTER TABLE saved_recipes
+    ALTER COLUMN saved_at TYPE TIMESTAMP WITH TIME ZONE USING saved_at AT TIME ZONE 'Asia/Bangkok',
+    ALTER COLUMN saved_at SET DEFAULT CURRENT_TIMESTAMP; -- Đảm bảo default vẫn đúng
+
+-- Bảng: reports
+ALTER TABLE reports
+    ALTER COLUMN created_at TYPE TIMESTAMP WITH TIME ZONE USING created_at AT TIME ZONE 'Asia/Bangkok',
+    ALTER COLUMN created_at SET DEFAULT CURRENT_TIMESTAMP; -- Đảm bảo default vẫn đúng
+
+-- Kết thúc transaction
+-- Chọn một trong hai:
+COMMIT; -- Nếu bạn chắc chắn và muốn lưu thay đổi
+-- ROLLBACK; -- Nếu bạn muốn hủy bỏ (ví dụ, sau khi kiểm tra và thấy có vấn đề)

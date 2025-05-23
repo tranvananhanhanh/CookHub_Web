@@ -33,7 +33,6 @@ function initHeaderScript() {
             return;
         }
 
-        // Xử lý menu bar
         menuIcon.addEventListener('click', () => {
             isNavVisible = !isNavVisible;
             nav.style.display = isNavVisible ? 'block' : 'none';
@@ -41,10 +40,11 @@ function initHeaderScript() {
 
         // Xử lý active link
         const navLinks = document.querySelectorAll('header nav ul li a');
-        const currentUrl = window.location.pathname;
+        const currentPathname = window.location.pathname;
 
         navLinks.forEach(link => {
-            if (link.getAttribute('href') === currentUrl || (link.getAttribute('href') === '/homepage' && currentUrl === '/')) {
+            const linkPathname = new URL(link.href, window.location.origin).pathname;
+            if (currentPathname === linkPathname) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -116,10 +116,15 @@ async function loadUserAvatarForHeader() {
 
             if (userDataArray && userDataArray.length > 0) {
                 const user = userDataArray[0];
-                if (user && user.avatar && user.avatar.trim() !== '') {
-                    headerUserAvatarImg.src = `../assets/image/users/avatars/${user.avatar}`;
-                    console.log(`[HeaderAvatar] Avatar updated to: ${user.avatar}`);
+                if (user !== '') {
                     document.getElementsByClassName('login-post-button')[0].style.display = 'none';
+                    if (user.avatar !== '') {
+                        headerUserAvatarImg.src = `../assets/image/users/avatars/${user.avatar}`;
+                        console.log(`[HeaderAvatar] Avatar updated to: ${user.avatar}`);
+                        
+                    } else {
+                        headerUserAvatarImg.src = `../assets/image/avatar_default.png`;
+                    }
                 } else {
                     console.log("[HeaderAvatar] User has no avatar or avatar is empty, using default.");
                     headerUserAvatarImg.src = "../assets/image/avatar_default.png";

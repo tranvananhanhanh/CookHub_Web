@@ -1,6 +1,7 @@
 function formatTimestamp(timestamp) {
     if (typeof moment === 'function') {
-        return moment(timestamp).format('DD/MM/YYYY HH:mm:ss');
+        console.log("[formatTimestamp] Input timestamp:", timestamp, "Type:", typeof timestamp);
+        return moment(timestamp).local().format('DD/MM/YYYY HH:mm:ss');
     } else {
         const date = new Date(timestamp);
         return date.toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -161,7 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const averageRating = recipe.average_rating || 0;
 
             recipeCard.innerHTML = `
-                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="recipe-link">
+                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}&userId=${targetUserId}" class="recipe-link">
                     <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
                 </a>
                 <div class="recipe-info">
@@ -179,7 +180,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <div class="date">${formatTimestamp(recipe.date_created)}</div>
                         <div class="detail-btn">
                             <div class="comments">
-                                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}" class="comment-link">
+                                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}&userId=${targetUserId}" class="comment-link">
                                     ${commentCount} <i class="fa-solid fa-comment"></i>
                                 </a>
                             </div>

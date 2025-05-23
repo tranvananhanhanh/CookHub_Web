@@ -85,9 +85,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // Lưu dữ liệu user vào localStorage để dùng ở nơi khác
             localStorage.setItem("currentUser", JSON.stringify(user));
+            if (user.avatar) {
+                editAvatarImg.src = `../assets/image/users/avatars/${user.avatar}`;
+            } else {
+                editAvatarImg.src = `../assets/image/avatar_default.png`;
+            }
 
-            editAvatarImg.src = `../assets/image/users/avatars/${user.avatar}`;
-            editCoverImg.src = `../assets/image/users/profile_backgrounds/${user.profile_background}`;
+            if (user.profile_background) {
+                editCoverImg.src = `../assets/image/users/profile_backgrounds/${user.profile_background}`;
+            } else {
+                editCoverImg.src = `../assets/image/profile_background_default.jpg`;
+            }
             edit_name.value = user.name;
             edit_id.value = `@cook_${user.random_code}`;
             edit_mail.value = user.email;
