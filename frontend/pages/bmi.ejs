@@ -22,13 +22,14 @@
 <body>
   <div class="header"></div>
 
-  <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
+  <div class="mt-16 flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
     style='font-family: Manrope, "Noto Sans", sans-serif;'>
     <div class="px-40 flex flex-1 justify-center py-5">
       <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
         <h2 id="bmiResult"
           class="text-[#111517] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5"></h2>
-        <p id="bmiStatus" class="text-[#647987] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center"> </p>
+          <p id="bmiStatus" class="text-[#e57c00] text-lg font-semibold leading-normal pb-3 pt-1 px-4 text-center"></p>
+
         <script>
           // Lấy giá trị BMI và trạng thái từ query string
           const urlParams = new URLSearchParams(window.location.search);
@@ -75,7 +76,7 @@
             </svg>
           </div>
           <div class="flex flex-col justify-center">
-            <p class="text-[#111517] text-base font-medium leading-normal line-clamp-1">"Keep pushing forward!"</p>
+            <p class="text-[#111517] text-left text-base font-medium leading-normal line-clamp-1">"Keep pushing forward!"</p>
             <p id="advice0" class="text-[#647987] text-sm font-normal leading-normal line-clamp-2">Eat at least five
               portions of a variety of fruit and vegetables every day</p>
             <script>
@@ -96,7 +97,7 @@
             </svg>
           </div>
           <div class="flex flex-col justify-center">
-            <p class="text-[#111517] text-base font-medium leading-normal line-clamp-1">"Stay consistent!"</p>
+            <p class="text-[#111517] text-left text-base font-medium leading-normal line-clamp-1">"Stay consistent!"</p>
             <p id="advice1" class="text-[#647987] text-sm font-normal leading-normal line-clamp-2">Base meals on higher
               fiber starchy foods like potatoes and bread</p>
             <script>
@@ -116,7 +117,7 @@
             </svg>
           </div>
           <div class="flex flex-col justify-center">
-            <p class="text-[#111517] text-base font-medium leading-normal line-clamp-1">"Hydrate and rest well!"</p>
+            <p class="text-[#111517] text-left text-base font-medium leading-normal line-clamp-1">"Hydrate and rest well!"</p>
             <p id="advice2" class="text-[#647987] text-sm font-normal leading-normal line-clamp-2">Eat some beans,
               pulses, fish, eggs, meat and other proteins</p>
             <script>
@@ -135,7 +136,10 @@
           </button>
           <script>
             document.getElementById("exploreButton").addEventListener("click", () => {
-              window.location.href = `/bmi/heathyfood`;
+               // Redirect with results and message
+              const userId = urlParams.get('userId');  // Giả sử user_id được truyền qua URL
+              window.location.href = `/bmi/healthyfood?userId=${userId}&status=${status}`;
+
             });
           </script>
         </div>

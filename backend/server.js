@@ -24,6 +24,7 @@ const recipeRoutesAdmin = require('./routes/recipeAdminRoutes');
 const userRoutesAdmin = require('./routes/userAdminRoutes');
 const reportRoutesAdmin = require('./routes/reportAdminRoutes'); // Thêm reportRoutes
 const routes = require('./routes/routes');
+const recipeBmiRoutes=require("./routes/recipeBmiRoutes");
 
 process.env.TZ = 'UTC';
 
@@ -105,8 +106,8 @@ app.get("/bmi/result", (req, res) => {
   res.render("bmi");
 });
 
-app.get("/bmi/heathyfood", (req, res) => {
-  res.render("recipeBMI");
+app.get("/bmi/healthyfood", (req, res) => {
+  res.render("recipeBMI", { status: req.query.status });
 });
 
 app.get("/recipes", (req, res) => {
@@ -158,6 +159,7 @@ app.use("/api/recipesAdmin", recipeRoutesAdmin);
 app.use("/api/usersAdmin", userRoutesAdmin); 
 app.use("/api/reportsAdmin", reportRoutesAdmin); // Thêm route cho reports
 app.use('/api', routes);
+app.use("/bmi/healthyfood", recipeBmiRoutes); // route lấy công thức calo
 // Khởi chạy server
 async function startServer() {
   const open = (await import('open')).default;
