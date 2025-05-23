@@ -820,6 +820,12 @@ footer {
   color: #000;
 }
 
+/* Hover effect for footer links */
+.footer-links a:hover {
+  color: #FF7D00;
+  transition: color 0.3s ease;
+}
+
 .footer-social-icons {
   display: flex;
   align-items: center;

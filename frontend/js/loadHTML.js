@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.text())
         .then(data => {
             document.querySelector(".footer").innerHTML = data;
+            updateFooterLinksWithUserIdFromUrl(); // Cập nhật liên kết trong footer
         });
 });
 
@@ -24,8 +25,8 @@ function initHeaderScript() {
 
     // Kiểm tra sau một khoảng trễ ngắn để đảm bảo DOM đã sẵn sàng hoàn toàn
     setTimeout(() => {
-        const menuIcon = document.querySelector('header .menu-bar-icon'); // Selector cụ thể hơn
-        const nav = document.querySelector('header nav'); // Selector cụ thể hơn
+        const menuIcon = document.querySelector('header .menu-bar-icon');
+        const nav = document.querySelector('header nav');
 
         if (!menuIcon || !nav) {
             console.warn("Header elements for menu bar not found after delay!");
@@ -39,12 +40,11 @@ function initHeaderScript() {
         });
 
         // Xử lý active link
-        const navLinks = document.querySelectorAll('header nav ul li a'); // Selector cụ thể hơn
+        const navLinks = document.querySelectorAll('header nav ul li a');
         const currentUrl = window.location.pathname;
 
         navLinks.forEach(link => {
-            // So sánh href của link với URL hiện tại
-            if (link.getAttribute('href') === currentUrl || (link.getAttribute('href') === '/homepage' && currentUrl === '/')) { // Xử lý trường hợp homepage là /
+            if (link.getAttribute('href') === currentUrl || (link.getAttribute('href') === '/homepage' && currentUrl === '/')) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -95,7 +95,6 @@ async function loadUserAvatarForHeader() {
         return;
     }
 
-    // Hàm lấy userId từ URL
     function getUserIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const userIdStr = urlParams.get('userId');
@@ -107,24 +106,20 @@ async function loadUserAvatarForHeader() {
     if (currentUserId) {
         console.log(`[HeaderAvatar] Found userId from URL: ${currentUserId}`);
         try {
-            // Gọi API lấy thông tin user
-            // Giả sử API của bạn là /api/users và chấp nhận user_id làm query param
-            // Nếu endpoint là /api/users/:id thì fetch(`http://localhost:4000/api/users/${currentUserId}`)
             const response = await fetch(`http://localhost:4000/api/users?user_id=${currentUserId}`);
             if (!response.ok) {
                 console.error(`[HeaderAvatar] Failed to fetch user info for userId ${currentUserId}. Status: ${response.status}`);
-                // Giữ avatar mặc định nếu không fetch được
                 headerUserAvatarImg.src = "../assets/image/avatar_default.png";
                 return;
             }
             const userDataArray = await response.json();
 
             if (userDataArray && userDataArray.length > 0) {
-                const user = userDataArray[0]; // API của bạn trả về mảng user
+                const user = userDataArray[0];
                 if (user && user.avatar && user.avatar.trim() !== '') {
                     headerUserAvatarImg.src = `../assets/image/users/avatars/${user.avatar}`;
                     console.log(`[HeaderAvatar] Avatar updated to: ${user.avatar}`);
-                    document.getElementsByClassName('login-post-button')[0].style.display = 'none'; // Hiện nút đăng nhập
+                    document.getElementsByClassName('login-post-button')[0].style.display = 'none';
                 } else {
                     console.log("[HeaderAvatar] User has no avatar or avatar is empty, using default.");
                     headerUserAvatarImg.src = "../assets/image/avatar_default.png";
@@ -135,7 +130,7 @@ async function loadUserAvatarForHeader() {
             }
         } catch (error) {
             console.error("[HeaderAvatar] Error loading user info for header avatar:", error);
-            headerUserAvatarImg.src = "../assets/image/avatar_default.png"; // Fallback về default khi có lỗi
+            headerUserAvatarImg.src = "../assets/image/avatar_default.png";
         }
     } else {
         console.log("[HeaderAvatar] No userId found in URL, using default avatar.");
@@ -147,7 +142,6 @@ function updateHeaderLinksWithUserIdFromUrl() {
     const currentUserId = getCurrentUserIdFromUrl();
     console.log("Updating all header links. Current User ID from URL:", currentUserId);
 
-    // 1. Cập nhật các link đã có ID cụ thể
     const specificLinksToUpdate = [
         'logo-link-header',        // Link logo (trang chủ)
         'nav-home-link',           // Link Home trong nav
@@ -208,8 +202,30 @@ function updateHeaderLinksWithUserIdFromUrl() {
     }
 }
 
+function updateFooterLinksWithUserIdFromUrl() {
+    const currentUserId = getCurrentUserIdFromUrl();
+    console.log("Updating all footer links. Current User ID from URL:", currentUserId);
+
+    const footerLinks = document.querySelectorAll('.footer-links a');
+    footerLinks.forEach(link => {
+        const baseHref = link.getAttribute('href');
+        if (!baseHref.includes('userId=') && !baseHref.startsWith('#')) {
+            link.setAttribute('href', `${baseHref}${baseHref.includes('?') ? '&' : '?'}userId=${currentUserId}`);
+        }
+    });
+
+    // Thêm sự kiện click để đảm bảo điều hướng giữ userId
+    const aboutUsLink = document.querySelector('.footer-links a[href="/about_us"]');
+    if (aboutUsLink && currentUserId) {
+        aboutUsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = `/about_us?userId=${currentUserId}`;
+        });
+    }
+}
+
 function updateSingleLinkWithUserId(linkElement, currentUserId) {
-    if (linkElement && linkElement.href) { // Kiểm tra linkElement và href tồn tại
+    if (linkElement && linkElement.href) {
         try {
             const originalHref = linkElement.getAttribute('href'); // Lấy href gốc
             if (!originalHref || originalHref === '#') { // Bỏ qua nếu href là '#' hoặc rỗng
@@ -242,4 +258,17 @@ function getCurrentUserIdFromUrl() {
         return !isNaN(parsedId) ? parsedId : null;
     }
     return null;
+}
+
+// Hàm loadHTML (nếu được sử dụng trực tiếp)
+function loadHTML(elementId, filePath) {
+    fetch(filePath)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+            if (elementId === "footer") {
+                updateFooterLinksWithUserIdFromUrl(); // Cập nhật liên kết sau khi load footer
+            }
+        })
+        .catch(error => console.error('Error loading HTML:', error));
 }
