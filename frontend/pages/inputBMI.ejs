@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <title>CookHub | BMI</title>
-  
+
   <!-- Font -->
   <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
   <!-- CSS -->
@@ -24,44 +24,50 @@
 
     <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
 
-      <div class="flex flex-wrap justify-between gap-3 p-4">
+      <div class="flex flex-wrap justify-center gap-3 p-4">
         <p class="text-[#181811] text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">Calculate your BMI</p>
       </div>
-      <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-        <label class="flex flex-col min-w-40 flex-1">
-          <p class="text-[#181811] text-base font-medium leading-normal pb-2">Sex</p>
-          <select id="gender"
-            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181811] focus:outline-0 focus:ring-0 border bg-[#f5f4f0] focus:border-none h-14 placeholder:text-[#8c875f] p-4 text-base font-normal leading-normal">
-            <option value="" disabled selected>Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </label>
 
-        <label class="flex flex-col min-w-40 flex-1">
-          <p class="text-[#181811] text-base font-medium leading-normal pb-2">Height</p>
-          <input placeholder="cm" id="height"
-            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181811] focus:outline-0 focus:ring-0 border bg-[#f5f4f0] focus:border-none h-14 placeholder:text-[#8c875f] p-4 text-base font-normal leading-normal"
-            value="" />
-        </label>
-      </div>
-      <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-        <label class="flex flex-col min-w-40 flex-1">
-          <p class="text-[#181811] text-base font-medium leading-normal pb-2">Weight</p>
-          <input placeholder="kg" id="weight"
-            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181811] focus:outline-0 focus:ring-0 border bg-[#f5f4f0] focus:border-none h-14 placeholder:text-[#8c875f] p-4 text-base font-normal leading-normal"
-            value="" />
-        </label>
+      <div class="flex justify-center">
+        <div class="flex justify-center max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+          <label class="flex flex-col min-w-40 flex-1">
+            <p class="text-[#181811] text-base font-medium leading-normal pb-2">Sex</p>
+            <select id="gender"
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181811] focus:outline-0 focus:ring-0 border bg-[#f5f4f0] focus:border-none h-14 placeholder:text-[#8c875f] p-4 text-base font-normal leading-normal">
+              <option value="" disabled selected>Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </label>
+
+          <label class="flex flex-col min-w-40 flex-1">
+            <p class="text-[#181811] text-base font-medium leading-normal pb-2">Height</p>
+            <input placeholder="cm" id="height"
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181811] focus:outline-0 focus:ring-0 border bg-[#f5f4f0] focus:border-none h-14 placeholder:text-[#8c875f] p-4 text-base font-normal leading-normal"
+              value="" />
+          </label>
+        </div>
       </div>
 
-      <div class="flex px-4 py-3">
+      <div class="flex justify-center">
+        <div class="flex justify-center max-w-[480px] flex-wrap items-end gap-4 px-4 py-3" style="width: 436px;">
+          <label class="flex flex-col min-w-40 flex-1">
+            <p class="text-[#181811] text-base font-medium leading-normal pb-2">Weight</p>
+            <input placeholder="kg" id="weight"
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181811] focus:outline-0 focus:ring-0 border bg-[#f5f4f0] focus:border-none h-14 placeholder:text-[#8c875f] p-4 text-base font-normal leading-normal"
+              value="" />
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-center px-4 py-3">
         <button id="calculateButton"
-          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-[#FF8C00] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#e57c00] transition-all duration-300">
+          class="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#FF8C00] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#e57c00] transition-all duration-300"
+          style="width: 404px;"
+        >
           <span class="truncate">Calculate BMI</span>
-
         </button>
-
       </div>
+
       <h3 class="text-[#181811] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">BMI Categories</h3>
       <div class="p-4 grid grid-cols-2">
         <div class="flex flex-col gap-1 border-t border-solid border-t-[#e6e5db] py-4 pr-2">
@@ -110,7 +116,7 @@
       </p>
     </div>
   </div>
-  
+
   <div class="footer"></div>
   <script src="../js/bmi.js"></script>
 </body>
