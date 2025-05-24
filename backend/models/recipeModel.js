@@ -222,6 +222,7 @@ class RecipeModel {
                 r.cooking_time,
                 r.date_created,
                 u.name AS user_name,
+                u.random_code AS random_code,
                 u.avatar AS user_avatar, -- Lấy avatar từ bảng users
                 COALESCE(AVG(rt.rate) OVER (PARTITION BY r.recipe_id), 0.0) AS avg_rating -- Tính rating trung bình
             FROM recipes r

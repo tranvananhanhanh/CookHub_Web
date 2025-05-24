@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const saveButtonIconClass = isSaved ? 'fas fa-bookmark' : 'far fa-bookmark';
         const saveButtonClass = isSaved ? 'save-button saved' : 'save-button';
         //PlaceHolder;
-        const avatarURL = '../assets/image/users/avatars/avatar_a1b2c3d4e5.jpg';
+        const avatarURL = `../assets/image/users/avatars/avatar_${recipe.random_code}.jpg`;
         card.innerHTML = `
             <div class="card-image">
                 <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail || '/assets/placeholder.jpg'}" alt="${recipe.title}" loading="lazy">
