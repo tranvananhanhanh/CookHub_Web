@@ -172,7 +172,7 @@ router.post(
             await client.query('BEGIN');
 
             const { recipeId } = req.params;
-            const { ingredients } = req.body;
+            const { ingredients, category_ids: categoryIdsJsonString } = req.body;
 
             // Kiểm tra recipeId
             const recipeCheck = await client.query('SELECT recipe_id FROM recipes WHERE recipe_id = $1', [recipeId]);
@@ -269,6 +269,31 @@ router.post(
                 }
             }
 
+            // XỬ LÝ CATEGORIES
+            let parsedCategoryIds = [];
+            if (categoryIdsJsonString) {
+                try {
+                    parsedCategoryIds = JSON.parse(categoryIdsJsonString);
+                } catch (error) {
+                    throw new Error('Invalid category IDs data. Must be a JSON array of numbers.');
+                }
+            }
+
+            if (!Array.isArray(parsedCategoryIds) || parsedCategoryIds.length === 0) {
+                throw new Error('At least one category must be selected for the recipe.');
+            }
+            if (parsedCategoryIds.some(id => isNaN(parseInt(id)))) {
+                throw new Error('Invalid category ID found. All IDs must be numbers.');
+            }
+
+            // Lưu các category đã chọn cho công thức
+            for (const categoryId of parsedCategoryIds) {
+                await RecipeModel.saveRecipeCategoryWithClient(client, { // Hàm mới trong RecipeModel
+                    recipe_id: recipeId,
+                    category_id: parseInt(categoryId)
+                });
+            }
+
             await client.query('COMMIT');
             res.status(201).json({ message: 'Recipe created successfully' });
         } catch (error) {
@@ -298,24 +323,67 @@ router.delete('/recipes/:recipeId', async (req, res) => {
         const result = await client.query('DELETE FROM recipes WHERE recipe_id = $1', [recipeId]);
 
         if (result.rowCount === 0) {
-            throw new Error('Recipe does not exist');
+            throw new Error('Recipe does not exist or was already deleted.');
         }
 
         // Xóa thư mục ảnh
         const recipeDir = `../../frontend/assets/image/recipes/${recipeId}`;
         const absoluteDir = path.resolve(__dirname, recipeDir);
-        console.log(`[multer] Xóa thư mục ảnh: ${absoluteDir}`);
-        await fs.rm(absoluteDir, { recursive: true, force: true });
-        console.log(`[multer] Đã xóa thư mục: ${absoluteDir}`);
+
+        console.log(`[API Delete] Attempting to delete recipe directory: ${absoluteDir}`);
+        try {
+            // Kiểm tra xem thư mục có tồn tại không
+            await fs.access(absoluteDir); 
+            // Nếu không throw lỗi, thư mục tồn tại, tiến hành xóa
+            await fs.rm(absoluteDir, { recursive: true, force: true });
+            console.log(`[API Delete] Successfully deleted recipe directory: ${absoluteDir}`);
+        } catch (fsError) {
+            if (fsError.code === 'ENOENT') {
+                // ENOENT: Error NO ENTry (file or directory not found)
+                console.warn(`[API Delete] Recipe directory not found, skipping deletion (already gone or never existed): ${absoluteDir}`);
+                // Không throw lỗi ở đây, vì mục tiêu là thư mục không còn tồn tại.
+            } else {
+                // Đối với các lỗi khác (ví dụ: EACCES - permission denied), throw lỗi để rollback DB.
+                console.error(`[API Delete] Error deleting recipe directory ${absoluteDir}:`, fsError.message);
+                // Ném lỗi này sẽ khiến transaction DB bị rollback ở khối catch bên ngoài.
+                throw new Error(`Failed to delete recipe assets. Database changes will be rolled back. Original error: ${fsError.message}`);
+            }
+        }
+
+        // console.log(`[multer] Xóa thư mục ảnh: ${absoluteDir}`);
+        // await fs.rm(absoluteDir, { recursive: true, force: true });
+        // console.log(`[multer] Đã xóa thư mục: ${absoluteDir}`);
 
         await client.query('COMMIT');
         res.status(200).json({ message: 'Recipe deleted successfully' });
     } catch (error) {
         await client.query('ROLLBACK');
         console.error('Lỗi khi xóa công thức:', error.message);
-        res.status(400).json({ message: error.message });
+
+        if (error.message.includes('not authorized')) {
+            res.status(403).json({ message: error.message });
+        } else if (error.message.includes('Recipe does not exist') || error.message.includes('User ID is required')) {
+            res.status(400).json({ message: error.message });
+        } else if (error.message.includes('Failed to delete recipe assets')) {
+            // Lỗi này xuất phát từ việc xóa thư mục thất bại (không phải ENOENT)
+            res.status(500).json({ message: error.message });
+        }
+        else {
+            res.status(500).json({ message: 'An internal error occurred while deleting the recipe.' });
+        }
     } finally {
         client.release();
+    }
+});
+
+// API Endpoint mới để lấy danh sách categories
+router.get('/categories', async (req, res) => {
+    try {
+        const categories = await RecipeModel.getAllCategories(); // Hàm mới trong RecipeModel
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách categories:', error.message);
+        res.status(500).json({ message: 'Failed to retrieve categories' });
     }
 });
 

@@ -251,29 +251,6 @@ class RecipeModel {
     }
   }
 
-  // static async getCommonIngredients() {
-  //   console.log("RecipeModel.getCommonIngredients called");
-  //   // Lấy top N ingredients được dùng nhiều nhất
-  //   const query = `
-  //      SELECT
-  //          i.ingredient_id AS id,
-  //          i.name AS name
-  //          -- ,COUNT(ri.recipe_id) as usage_count -- Uncomment để debug
-  //      FROM ingredients i
-  //      JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id
-  //      GROUP BY i.ingredient_id, i.name
-  //      ORDER BY COUNT(ri.recipe_id) DESC -- Sắp xếp theo tần suất sử dụng
-  //      LIMIT 5; -- Giới hạn số lượng trả về (có thể điều chỉnh)
-  //   `;
-  //   try {
-  //     const result = await pool.query(query);
-  //     return result.rows; // Chỉ trả về dữ liệu
-  //   } catch (err) {
-  //     console.error('Error fetching common ingredients in Model:', err.stack);
-  //     throw err; // Ném lỗi để route xử lý
-  //   }
-  // }
-
   static async getAllRecipes() {
     const result = await pool.query("SELECT * FROM recipes WHERE user_id = 1");
     return result.rows;
@@ -414,6 +391,45 @@ class RecipeModel {
     } catch (err) {
       console.error(`Error deleting recipe ${recipeId}:`, err.message);
       throw err;
+    }
+  }
+
+  static async getAllCategories() {
+    const query = `
+          SELECT category_id, category_name, type
+          FROM categories
+          ORDER BY type, category_name;
+        `;
+    try {
+      const result = await pool.query(query);
+      return result.rows;
+    } catch (err) {
+      console.error('Error fetching all categories in Model:', err.stack);
+      throw err;
+    }
+  }
+
+  // Hàm mới: Lưu liên kết recipe và category (dùng transaction client)
+  static async saveRecipeCategoryWithClient(client, { recipe_id, category_id }) {
+    // Kiểm tra xem category_id có tồn tại không (tùy chọn, để tăng tính toàn vẹn)
+    const categoryCheck = await client.query('SELECT 1 FROM categories WHERE category_id = $1', [category_id]);
+    if (categoryCheck.rows.length === 0) {
+      console.warn(`[DB Save] Category ID ${category_id} không tồn tại. Bỏ qua việc lưu cho recipe ${recipe_id}.`);
+      // Hoặc throw new Error(`Category ID ${category_id} does not exist.`); nếu muốn chặt chẽ hơn
+      return;
+    }
+
+    const query = `
+          INSERT INTO recipe_categories (recipe_id, category_id)
+          VALUES ($1, $2)
+          ON CONFLICT (recipe_id, category_id) DO NOTHING; -- Tránh lỗi nếu gửi trùng
+        `;
+    try {
+      await client.query(query, [recipe_id, category_id]);
+      console.log(`[DB Save] Đã liên kết Recipe ${recipe_id} với Category ${category_id}`);
+    } catch (err) {
+      console.error(`Error saving recipe_category (R:${recipe_id}, C:${category_id}):`, err.stack);
+      throw err; // Ném lỗi để transaction có thể rollback
     }
   }
 }

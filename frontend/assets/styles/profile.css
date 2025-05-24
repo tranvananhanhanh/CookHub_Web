@@ -1,3 +1,75 @@
 .recipe-card {
     min-width: 335px;
+    /* Các thuộc tính khác bạn có thể đã định nghĩa cho recipe-card trong profile.css */
+    /* Ví dụ: có thể bạn đã có box-shadow, border-radius ở đây hoặc trong styles.css */
+    /* Nếu chúng ở styles.css và bạn muốn giữ chúng, không cần thêm lại ở đây */
+    /* Quan trọng: đảm bảo recipe-card có position relative nếu recipe-image-container không có, 
+       và recipe-image-container là con trực tiếp để lớp phủ hoạt động đúng */
+    position: relative;
+    /* Thêm nếu chưa có và nếu .recipe-image-container không phải là con trực tiếp
+                           hoặc nếu bạn muốn lớp phủ dựa vào .recipe-card thay vì .recipe-image-container */
+}
+
+/* Container cho ảnh và lớp phủ để định vị */
+.recipe-card .recipe-image-container {
+    position: relative;
+    /* Cần thiết để định vị lớp phủ tuyệt đối bên trong nó */
+    display: block;
+    width: 100%;
+    /* Nếu .recipe-card đã có overflow: hidden, bạn có thể không cần ở đây */
+    /* overflow: hidden;  */
+}
+
+/*
+   Nếu .recipe-card > a đã có trong styles.css để set chiều cao,
+   và bây giờ thẻ a nằm trong .recipe-image-container,
+   bạn có thể cần điều chỉnh selector đó hoặc đảm bảo .recipe-image-container
+   có chiều cao tương tự.
+   Ví dụ, nếu styles.css có:
+   .recipe-card > a { display: block; height: 220px; }
+   Thì bây giờ có thể là:
+*/
+.recipe-card .recipe-image-container>a {
+    display: block;
+    /* height: 220px; */
+    /* Chiều cao này có thể được quản lý bởi .recipe-img hoặc .recipe-image-container */
+}
+
+
+.recipe-card .recipe-image-container .recipe-img {
+    display: block;
+    width: 100%;
+    /* Giữ lại chiều cao 220px từ styles.css nếu nó áp dụng ở đây */
+    height: 220px;
+    /* Lấy từ .recipe-img trong styles.css */
+    object-fit: cover;
+    /* Lấy từ .recipe-img trong styles.css */
+    /* cursor: pointer; -- cursor đã có trên thẻ a */
+}
+
+
+/* Lớp phủ cho công thức đang chờ duyệt */
+.recipe-card .recipe-pending-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Sẽ chiếm toàn bộ chiều cao của recipe-image-container */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Màu trắng mờ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+    /* Cho phép click xuyên qua lớp phủ */
+}
+
+.recipe-card .recipe-pending-overlay .pending-text {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
 }

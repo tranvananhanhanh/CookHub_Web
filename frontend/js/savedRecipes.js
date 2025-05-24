@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let userId = urlParams.get("userId");
 
   if (!userId) {
-    alert("Bạn cần đăng nhập để xem công thức đã lưu!");
+    alert("You need to log in to view saved recipes!");
     window.location.href = "/SignIn";
     return;
   }
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             alert("Deleted successfully!");
           } catch (err) {
             console.error("Lỗi khi xóa công thức:", err);
-            alert("Đã xảy ra lỗi khi xóa công thức!");
+            alert("An error occurred while deleting the recipe!");
           }
         }
       });
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     clearLoadingState();
 
     if (allRecipes.length === 0) {
-      recipesContainer.innerHTML = "<p>Không có công thức nào được lưu.</p>";
+      recipesContainer.innerHTML = "<p>No recipes have been saved.</p>";
       return;
     }
 
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const selectedIds = Array.from(checkedBoxes).map(cb => cb.value);
 
     if (selectedIds.length === 0) {
-      alert("Vui lòng chọn ít nhất một công thức!");
+      alert("Please select at least one recipe!");
       return;
     }
 
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       a.remove();
     } catch (err) {
       console.error("Lỗi xuất danh sách:", err);
-      alert("Đã xảy ra lỗi khi xuất danh sách mua sắm!");
+      alert("An error occurred while exporting the shopping list!");
     }
   });
 });
