@@ -863,35 +863,6 @@ async function loadCategories() {
     }
 }
 
-// Hàm mới: Điền categories vào container dưới dạng checkbox
-// function populateCategoriesCheckboxes() {
-//     const container = document.getElementById("categories-container");
-//     if (!container) {
-//         console.error("Không tìm thấy categories-container.");
-//         return;
-//     }
-//     container.innerHTML = ''; // Xóa các checkbox cũ (nếu có)
-
-//     if (availableCategories.length === 0) {
-//         container.innerHTML = '<p>No categories available at the moment.</p>';
-//         return;
-//     }
-
-//     availableCategories.forEach(category => {
-//         const label = document.createElement('label');
-//         label.classList.add('category-checkbox-label');
-
-//         const checkbox = document.createElement('input');
-//         checkbox.type = 'checkbox';
-//         checkbox.name = 'category_ids'; // Quan trọng: name để gom nhóm khi gửi form
-//         checkbox.value = category.category_id;
-
-//         label.appendChild(checkbox);
-//         label.appendChild(document.createTextNode(` ${category.category_name}`)); // Thêm text cho category
-//         container.appendChild(label);
-//     });
-// }
-
 // Hàm mới: Điền categories vào container dưới dạng checkbox, nhóm theo type
 function populateCategoriesCheckboxes() {
     const container = document.getElementById("categories-container");
