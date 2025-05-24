@@ -70,7 +70,7 @@ class RecipeModel {
 
     if (search) {
       //Xem xet viec tim kiem trong description
-      whereClauses.push(`(LOWER(r.title) LIKE $${paramIndex} OR LOWER(u.name) LIKE $${paramIndex})`);
+      whereClauses.push(`(LOWER(r.title) LIKE $${paramIndex} OR LOWER(u.name) LIKE $${paramIndex} OR LOWER(r.description) LIKE $${paramIndex})`);
       queryParams.push(`%${search.toLowerCase()}%`);
       paramIndex++;
     }
