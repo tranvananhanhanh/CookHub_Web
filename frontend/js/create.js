@@ -1,11 +1,12 @@
 let currentUserId = null;
+let availableCategories = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     currentUserId = urlParams.get('userId');
 
     const submitBtn = document.getElementById("submit-btn");
-    
+
     if (!currentUserId) {
         console.error("User ID not found in URL. Please ensure the URL contains '?userId=YOUR_USER_ID'.");
         showErrorPopup("User ID is missing. Cannot create or save recipe.");
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     await setupUnitOptions();
+    await loadCategories();
     setupInitialState();
     setupEventListeners();
 });
@@ -572,7 +574,7 @@ async function handleSave(event) {
             throw new Error("No recipe ID received from basic recipe creation");
         }
 
-        // Phần 2: Gửi nguyên liệu, các bước và thumbnail
+        // Phần 2: Gửi nguyên liệu, các bước và thumbnail VÀ CATEGORIES
         const detailsFormData = new FormData();
         detailsFormData.append("recipe_id", recipeId);
 
@@ -617,6 +619,20 @@ async function handleSave(event) {
                 }
             });
         });
+
+        const selectedCategoryIds = [];
+        document.querySelectorAll('#categories-container input[name="category_ids"]:checked').forEach(checkbox => {
+            selectedCategoryIds.push(checkbox.value);
+        });
+
+        // Gửi dưới dạng JSON string array
+        if (selectedCategoryIds.length > 0) {
+            detailsFormData.append("category_ids", JSON.stringify(selectedCategoryIds));
+        } else {
+            // Điều này không nên xảy ra nếu validateClientSideForm hoạt động đúng
+            console.warn("[handleSave] Không có category nào được chọn, gửi mảng rỗng.");
+            detailsFormData.append("category_ids", JSON.stringify([]));
+        }
 
         // Log chi tiết FormData trước khi gửi
         console.log("--- Dữ liệu FormData chi tiết trước khi gửi ---");
@@ -681,6 +697,7 @@ async function handleSave(event) {
 function validateClientSideForm() {
     let isValid = true;
     const messages = [];
+    const categoryErrorDiv = document.getElementById("category-error");
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
     const maxSize = 5 * 1024 * 1024;
 
@@ -702,6 +719,7 @@ function validateClientSideForm() {
     if (coverImage && coverImage.size > maxSize) messages.push("Cover image: File size cannot exceed 5MB.");
     if (!cookingTime || parseInt(cookingTime) <= 0) messages.push("Please enter a valid cooking time (positive number).");
     if (!servings || parseInt(servings) <= 0) messages.push("Please enter a valid number of servings (positive number).");
+    if (categoryErrorDiv) categoryErrorDiv.style.display = "none";
 
     if (ingredientItems.length === 0) {
         messages.push("Please add at least one ingredient.");
@@ -749,8 +767,17 @@ function validateClientSideForm() {
         });
     });
 
+    const selectedCategories = document.querySelectorAll('#categories-container input[name="category_ids"]:checked');
+    if (selectedCategories.length === 0) {
+        messages.push("Please select at least one category.");
+        if (categoryErrorDiv) {
+            categoryErrorDiv.textContent = "Please select at least one category.";
+            categoryErrorDiv.style.display = "block";
+        }
+    }
+
     if (messages.length > 0) {
-        showErrorPopup(messages.join("<br>"));
+        showErrorPopup(messages.join(" "));
         isValid = false;
     }
 
@@ -779,6 +806,12 @@ function resetClientSideUI() {
     reLabelSteps();
 
     updateDescriptionCounter();
+
+    document.querySelectorAll('#categories-container input[name="category_ids"]:checked').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    const categoryErrorDiv = document.getElementById("category-error");
+    if (categoryErrorDiv) categoryErrorDiv.style.display = "none";
 }
 
 // Xử lý hủy bỏ
@@ -810,5 +843,108 @@ function closeImageModal() {
     if (modal) {
         modal.style.display = "none";
         modal.querySelector('#modal-img').src = '';
+    }
+}
+
+// Hàm mới: Tải danh sách categories từ API
+async function loadCategories() {
+    try {
+        const response = await fetch("/api/create/categories"); // API endpoint mới cần tạo ở backend
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        availableCategories = await response.json();
+        console.log("Đã tải categories:", availableCategories);
+        populateCategoriesCheckboxes();
+    } catch (error) {
+        console.error("Lỗi khi tải categories:", error);
+        showErrorPopup("Failed to load categories. Please try refreshing.");
+        // Có thể cung cấp một vài category mặc định nếu API lỗi
+        availableCategories = [ /* { category_id: 1, category_name: 'Default 1'}, ... */];
+        populateCategoriesCheckboxes();
+    }
+}
+
+// Hàm mới: Điền categories vào container dưới dạng checkbox
+// function populateCategoriesCheckboxes() {
+//     const container = document.getElementById("categories-container");
+//     if (!container) {
+//         console.error("Không tìm thấy categories-container.");
+//         return;
+//     }
+//     container.innerHTML = ''; // Xóa các checkbox cũ (nếu có)
+
+//     if (availableCategories.length === 0) {
+//         container.innerHTML = '<p>No categories available at the moment.</p>';
+//         return;
+//     }
+
+//     availableCategories.forEach(category => {
+//         const label = document.createElement('label');
+//         label.classList.add('category-checkbox-label');
+
+//         const checkbox = document.createElement('input');
+//         checkbox.type = 'checkbox';
+//         checkbox.name = 'category_ids'; // Quan trọng: name để gom nhóm khi gửi form
+//         checkbox.value = category.category_id;
+
+//         label.appendChild(checkbox);
+//         label.appendChild(document.createTextNode(` ${category.category_name}`)); // Thêm text cho category
+//         container.appendChild(label);
+//     });
+// }
+
+// Hàm mới: Điền categories vào container dưới dạng checkbox, nhóm theo type
+function populateCategoriesCheckboxes() {
+    const container = document.getElementById("categories-container");
+    if (!container) {
+        console.error("Không tìm thấy categories-container.");
+        return;
+    }
+    container.innerHTML = ''; // Xóa các checkbox cũ
+
+    if (availableCategories.length === 0) {
+        container.innerHTML = '<p>No categories available at the moment.</p>';
+        return;
+    }
+
+    // Nhóm categories theo 'type'
+    const categoriesByType = availableCategories.reduce((acc, category) => {
+        const type = category.type || 'Other'; // Nhóm các category không có type vào 'Other'
+        if (!acc[type]) {
+            acc[type] = [];
+        }
+        acc[type].push(category);
+        return acc;
+    }, {});
+
+    // Tạo HTML cho từng nhóm type
+    for (const type in categoriesByType) {
+        if (categoriesByType.hasOwnProperty(type)) {
+            const typeGroupContainer = document.createElement('div');
+            typeGroupContainer.classList.add('category-type-group');
+
+            const typeHeader = document.createElement('h4'); // Hoặc h3, h5 tùy theo cấu trúc trang
+            typeHeader.classList.add('category-type-header');
+            typeHeader.textContent = type;
+            typeGroupContainer.appendChild(typeHeader);
+
+            const checkboxesWrapper = document.createElement('div'); // Bọc các checkbox của group này
+            checkboxesWrapper.classList.add('category-checkboxes-wrapper');
+
+            categoriesByType[type].forEach(category => {
+                const label = document.createElement('label');
+                label.classList.add('category-checkbox-label');
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'category_ids';
+                checkbox.value = category.category_id;
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${category.category_name}`));
+                checkboxesWrapper.appendChild(label);
+            });
+            typeGroupContainer.appendChild(checkboxesWrapper);
+            container.appendChild(typeGroupContainer);
+        }
     }
 }

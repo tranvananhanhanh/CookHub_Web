@@ -392,6 +392,45 @@ class RecipeModel {
       throw err;
     }
   }
+
+  static async getAllCategories() {
+    const query = `
+          SELECT category_id, category_name, type
+          FROM categories
+          ORDER BY type, category_name;
+        `;
+    try {
+      const result = await pool.query(query);
+      return result.rows;
+    } catch (err) {
+      console.error('Error fetching all categories in Model:', err.stack);
+      throw err;
+    }
+  }
+
+  // Hàm mới: Lưu liên kết recipe và category (dùng transaction client)
+  static async saveRecipeCategoryWithClient(client, { recipe_id, category_id }) {
+    // Kiểm tra xem category_id có tồn tại không (tùy chọn, để tăng tính toàn vẹn)
+    const categoryCheck = await client.query('SELECT 1 FROM categories WHERE category_id = $1', [category_id]);
+    if (categoryCheck.rows.length === 0) {
+      console.warn(`[DB Save] Category ID ${category_id} không tồn tại. Bỏ qua việc lưu cho recipe ${recipe_id}.`);
+      // Hoặc throw new Error(`Category ID ${category_id} does not exist.`); nếu muốn chặt chẽ hơn
+      return;
+    }
+
+    const query = `
+          INSERT INTO recipe_categories (recipe_id, category_id)
+          VALUES ($1, $2)
+          ON CONFLICT (recipe_id, category_id) DO NOTHING; -- Tránh lỗi nếu gửi trùng
+        `;
+    try {
+      await client.query(query, [recipe_id, category_id]);
+      console.log(`[DB Save] Đã liên kết Recipe ${recipe_id} với Category ${category_id}`);
+    } catch (err) {
+      console.error(`Error saving recipe_category (R:${recipe_id}, C:${category_id}):`, err.stack);
+      throw err; // Ném lỗi để transaction có thể rollback
+    }
+  }
 }
 
 module.exports = RecipeModel;

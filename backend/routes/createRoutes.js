@@ -172,7 +172,7 @@ router.post(
             await client.query('BEGIN');
 
             const { recipeId } = req.params;
-            const { ingredients } = req.body;
+            const { ingredients, category_ids: categoryIdsJsonString } = req.body;
 
             // Kiểm tra recipeId
             const recipeCheck = await client.query('SELECT recipe_id FROM recipes WHERE recipe_id = $1', [recipeId]);
@@ -269,6 +269,31 @@ router.post(
                 }
             }
 
+            // XỬ LÝ CATEGORIES
+            let parsedCategoryIds = [];
+            if (categoryIdsJsonString) {
+                try {
+                    parsedCategoryIds = JSON.parse(categoryIdsJsonString);
+                } catch (error) {
+                    throw new Error('Invalid category IDs data. Must be a JSON array of numbers.');
+                }
+            }
+
+            if (!Array.isArray(parsedCategoryIds) || parsedCategoryIds.length === 0) {
+                throw new Error('At least one category must be selected for the recipe.');
+            }
+            if (parsedCategoryIds.some(id => isNaN(parseInt(id)))) {
+                throw new Error('Invalid category ID found. All IDs must be numbers.');
+            }
+
+            // Lưu các category đã chọn cho công thức
+            for (const categoryId of parsedCategoryIds) {
+                await RecipeModel.saveRecipeCategoryWithClient(client, { // Hàm mới trong RecipeModel
+                    recipe_id: recipeId,
+                    category_id: parseInt(categoryId)
+                });
+            }
+
             await client.query('COMMIT');
             res.status(201).json({ message: 'Recipe created successfully' });
         } catch (error) {
@@ -334,7 +359,7 @@ router.delete('/recipes/:recipeId', async (req, res) => {
     } catch (error) {
         await client.query('ROLLBACK');
         console.error('Lỗi khi xóa công thức:', error.message);
-        
+
         if (error.message.includes('not authorized')) {
             res.status(403).json({ message: error.message });
         } else if (error.message.includes('Recipe does not exist') || error.message.includes('User ID is required')) {
@@ -348,6 +373,17 @@ router.delete('/recipes/:recipeId', async (req, res) => {
         }
     } finally {
         client.release();
+    }
+});
+
+// API Endpoint mới để lấy danh sách categories
+router.get('/categories', async (req, res) => {
+    try {
+        const categories = await RecipeModel.getAllCategories(); // Hàm mới trong RecipeModel
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách categories:', error.message);
+        res.status(500).json({ message: 'Failed to retrieve categories' });
     }
 });
 
