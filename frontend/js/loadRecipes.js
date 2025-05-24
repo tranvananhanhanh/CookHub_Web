@@ -160,11 +160,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Đảm bảo comment_count và average_rating được hiển thị đúng
             const commentCount = recipe.comment_count || 0;
             const averageRating = recipe.average_rating || 0;
+            const recipeStatus = recipe.status;
+
+            let overlayHTML = '';
+            if (recipeStatus === 'pending') {
+                overlayHTML = `
+                    <div class="recipe-pending-overlay">
+                        <span class="pending-text">Pending Approval</span>
+                    </div>
+                `;
+            }
 
             recipeCard.innerHTML = `
-                <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}&userId=${targetUserId}" class="recipe-link">
-                    <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
-                </a>
+                <div class="recipe-image-container">
+                    <a href="/detailrecipe-page?recipe_id=${recipe.recipe_id}&userId=${targetUserId}" class="recipe-link">
+                        <img src="../assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}" alt="${recipe.title}" class="recipe-img">
+                    </a>
+                    ${overlayHTML}
+                </div>
                 <div class="recipe-info">
                     <p class="recipe-name">${recipe.title}</p>
                     <div class="rate-time">

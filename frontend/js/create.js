@@ -1,4 +1,23 @@
+let currentUserId = null;
+
 document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    currentUserId = urlParams.get('userId');
+
+    const submitBtn = document.getElementById("submit-btn");
+    
+    if (!currentUserId) {
+        console.error("User ID not found in URL. Please ensure the URL contains '?userId=YOUR_USER_ID'.");
+        showErrorPopup("User ID is missing. Cannot create or save recipe.");
+        if (submitBtn) {
+            submitBtn.disabled = true; // Vô hiệu hóa nút lưu nếu không có userId
+            submitBtn.value = 'Save (User ID Missing)';
+        }
+        // Không return ở đây để các hàm setup khác vẫn chạy, nhưng form sẽ không submit được
+    } else {
+        console.log("Current User ID:", currentUserId);
+    }
+
     await setupUnitOptions();
     setupInitialState();
     setupEventListeners();
@@ -162,8 +181,13 @@ function updateStepCounter(textarea, counterElement) {
 
 // Chuẩn hóa văn bản: xóa dấu cách thừa, viết hoa chữ cái đầu
 function normalizeText(text) {
+    if (!text || typeof text !== 'string') { // Thêm kiểm tra đầu vào
+        return '';
+    }
+
     return text.trim()
         .replace(/\s+/g, ' ')
+        .toLowerCase()
         .replace(/\b\w/g, c => c.toUpperCase());
 }
 
@@ -480,6 +504,12 @@ async function handleSave(event) {
     event.preventDefault();
     const recipeForm = document.getElementById("recipe-form");
     const submitBtn = document.getElementById("submit-btn");
+
+    if (!currentUserId) { // Kiểm tra lại currentUserId trước khi thực hiện bất kỳ hành động nào
+        showErrorPopup("User ID is missing. Cannot create recipe.");
+        return; // Ngăn chặn việc gửi form
+    }
+
     submitBtn.disabled = true;
     submitBtn.value = 'Saving...';
 
@@ -493,7 +523,7 @@ async function handleSave(event) {
 
     // Phần 1: Gửi thông tin cơ bản của công thức (không bao gồm thumbnail)
     const basicFormData = new FormData();
-    basicFormData.append("user_id", 1);
+    basicFormData.append("user_id", currentUserId);
 
     const rawTitle = document.querySelector(".recipe-title-border .text-box")?.value;
     const title = normalizeText(rawTitle);
@@ -639,6 +669,11 @@ async function handleSave(event) {
     } finally {
         submitBtn.disabled = false;
         submitBtn.value = 'Save';
+
+        if (!currentUserId && submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.value = 'Save (User ID Missing)';
+        }
     }
 }
 

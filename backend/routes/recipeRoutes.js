@@ -59,49 +59,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-// // --- API LẤY TỔNG SỐ COMMENT CỦA MỘT CÔNG THỨC ---
-// router.get("/comments/:recipe_id", async (req, res) => {
-//     console.log("API: GET /comments/:recipe_id (Get Recipe Comment Count)");
-//     try {
-//         const recipeId = req.params.recipe_id;
-//         const commentCount = await RecipeModel.getRecipeComments(recipeId);
-//         res.json(commentCount);
-//     } catch (err) {
-//         console.error("Lỗi lấy comment:", err);
-//         res.status(500).json({ error: "Lỗi server", details: err.message });
-//     }
-// });
-
-// // --- API LẤY RATING VÀ TRUNG BÌNH RATING CỦA MỘT CÔNG THỨC ---
-// router.get("/ratings/:recipe_id", async (req, res) => {
-//     console.log("API: GET /ratings/:recipe_id (Get Recipe Ratings and Average)");
-//     try {
-//         const recipeId = req.params.recipe_id;
-//         const ratingsData = await RecipeModel.getRecipeRatingsAndAverage(recipeId);
-//         res.json(ratingsData);
-//     } catch (err) {
-//         console.error("Lỗi lấy rating:", err);
-//         res.status(500).json({ error: "Lỗi server", details: err.message });
-//     }
-// });
-
-// --- API LẤY TẤT CẢ CÔNG THỨC (ĐÃ DUYỆT) ---
-// GET / (VD: Sẽ thành /api/recipes/ nếu mount với prefix /api/recipes)
-// router.get("/", async (req, res) => {
-//     console.log("API: GET / (Get All Recipe Info)");
-//     try {
-//         const userId = req.query.user_id;
-//         if (!userId) {
-//             return res.status(400).json({ error: "Thiếu user_id" });
-//         }
-//         const recipes = await RecipeModel.getAllRecipeInfo(userId);
-//         res.json(recipes);
-//     } catch (err) {
-//         console.error("Lỗi lấy công thức:", err);
-//         res.status(500).json({ error: "Lỗi server", details: err.message });
-//     }
-// });
-
 // --- API LẤY CATEGORIES THEO TYPE ---
 // GET /categories (VD: Sẽ thành /api/recipes/categories nếu mount với prefix /api/recipes)
 router.get('/categories', async (req, res) => {
