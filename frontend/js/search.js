@@ -143,10 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
             queryParams.append('maxTime', Array.from(activeFilters.time)[0]);
         }
         
-    //     // 5. Add servings filter (single value) <<< NEW
-    //     if (activeFilters.servings.size > 0) {
-    //         queryParams.append('servings', Array.from(activeFilters.servings)[0]);
-    //    }
+        // 5. Add servings filter (single value) <<< NEW
+        if (activeFilters.servings.size > 0) {
+            queryParams.append('servings', Array.from(activeFilters.servings)[0]);
+       }
 
        // 6. Add rating filter (single value) <<< NEW
        if (activeFilters.rating.size > 0) {
