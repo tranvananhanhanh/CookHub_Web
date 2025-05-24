@@ -3,7 +3,7 @@
 <head>
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
   <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
-    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" />
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" />
 
   <title>Detail Recipe Design</title>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
@@ -102,20 +102,6 @@
         background-color: #bdbdbd; /* Màu xám đậm hơn khi hover */
     }
 
-    /* .comment-form .submit-btn, .report-form .submit-btn {
-      background-color: #f4900d;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .comment-form .submit-btn:hover, .report-form .submit-btn:hover {
-      background-color: #16140f;
-    } */
-
     .message {
       color: red;
       margin-top: 10px;
@@ -126,10 +112,8 @@
 
 <body>
 
-  <!-- <div class="header"></div> -->
-
   <div class="relative flex size-full min-h-screen flex-col bg-[#FFFFFF] group/design-root overflow-x-hidden"
-    style='--checkbox-tick-svg: url(&apos;data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(255,255,255)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e&apos;); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    style='--checkbox-tick-svg: url("data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(255,255,255)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e"); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
     <div class="layout-container flex h-full grow flex-col">
       <div class="header"></div>
 
@@ -192,7 +176,6 @@
               }
             </style>
 
-
         <div class="flex items-center justify-center gap-2 px-3 py-2">
           <div id="report-recipe-btn" class="text-[#A18249] cursor-pointer" data-icon="Flag" data-size="24px" data-weight="regular">
             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -218,7 +201,6 @@
             <!-- Các bước nấu ăn sẽ được JS render vào đây -->
           </div>
 
-
           <div class="flex px-4 py-3 justify-center">
 
             <button id="open-comment-form" onclick="toggleCommentForm()"
@@ -226,17 +208,15 @@
               <span class="truncate">Comment</span>
             </button>
 
-
             <div id="commentModal" class="modal">
               <div class="modal-content">
                 <h2>Enter your comment</h2>
                 <form class="comment-form" id="commentForm">
                   <textarea id="commentContent" placeholder="Enter here..." required></textarea>
-                  <div class="modal-buttons"> <!-- Bọc các nút lại -->
-                    <button type="button" id="cancelCommentBtn" class="cancel-btn">Cancel</button> 
+                  <div class="modal-buttons">
+                    <button type="button" id="cancelCommentBtn" class="cancel-btn">Cancel</button>
                     <button type="submit" class="submit-btn">Send</button>
                   </div>
-                  <!-- <button type="submit" class="submit-btn">Send</button> -->
                 </form>
                 <p id="message" class="message"></p>
               </div>
@@ -247,19 +227,16 @@
                 <h2>Report this Recipe</h2>
                 <form class="report-form" id="reportForm">
                   <textarea id="reportReason" name="reportReason" placeholder="Please provide a reason for reporting..." required></textarea>
-                  <div class="modal-buttons"> <!-- Bọc các nút lại -->
-                    <button type="button" id="cancelReportBtn" class="cancel-btn">Cancel</button> 
+                  <div class="modal-buttons">
+                    <button type="button" id="cancelReportBtn" class="cancel-btn">Cancel</button>
                     <button type="submit" class="submit-btn">Send</button>
                   </div>
-                  <!-- <button type="submit" class="submit-btn">Submit Report</button> -->
                 </form>
                 <p id="reportMessage" class="message"></p>
               </div>
             </div>
 
-
           </div>
-
 
           <!-- Container hiển thị các bình luận -->
           <div id="comment-container" class="mt-4">
@@ -296,9 +273,8 @@
     // truyền vào tham số 
     // Get recipeId from URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const recipeIdFromQuery = urlParams.get('recipe_id');
-    let recipeId; // Will hold the recipe ID from the URL
 
+    const recipeIdFromQuery = urlParams.get('recipe_id');
     if (recipeIdFromQuery) {
         recipeId = parseInt(recipeIdFromQuery, 10);
         if (isNaN(recipeId)) {
@@ -311,7 +287,10 @@
         document.body.innerHTML = "<p style='text-align:center; margin-top: 50px; font-size: 18px;'>Error: Recipe ID is missing. Cannot load recipe details.</p>";
         recipeId = null;
     }
-    const userId = 3;
+
+    // Get userId from URL query parameters (optional, default to null if not provided)
+    const userIdFromQuery = urlParams.get('userId');
+    let userId = userIdFromQuery ? parseInt(userIdFromQuery, 10) : null;
 
     // Hàm hiển thị 5 ngôi sao khi nhấp vào biểu tượng star
     function displayStarRating() {
@@ -376,15 +355,20 @@
     }
 
     // Hàm gửi số sao về database
-    async function submitRating(rating, recipeId, user_id) {
+    async function submitRating(rating, recipeId, userId) {
+      if (!userId) {
+        alert("Please log in to rate this recipe!");
+        window.location.href = "/SignIn";
+        return;
+      }
       try {
         const response = await fetch('http://localhost:4000/detailrecipe/rating', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            recipe_id: 1,
-            user_id: 4,
-            rating: 4
+            recipe_id: parseInt(recipeId,10),
+            user_id: parseInt(userId,10),
+            rating: parseInt(rating,10)
           }),
         });
 
@@ -431,6 +415,7 @@
               url("${imageUrl}")
             `;
         document.getElementById("recipe-title").innerText = recipe.title;
+
         document.getElementById("recipe-description").innerText = recipe.description;
         document.getElementById("recipe-rating").innerText = recipe.total_ratings;
         document.querySelector("#recipe-serving").textContent = ` ${recipe.servings}`;
@@ -456,39 +441,150 @@
         }
         // gọi hàm hiển thị nguyên liệu món ăn
         displayIngredients(recipe.ingredients);
-        // hàm hiển thị chi tiết hướng dẫn
-        function displayInstructions(steps) {
-          const container = document.getElementById("instruction-list");
-          container.innerHTML = ""; // Xoá nội dung cũ
-          steps.forEach((step, index) => {
-            const stepHTML = `
-                <div class="flex gap-4 bg-[#FFFFFF] px-4 py-3 justify-between">
-                  <div class="flex items-start gap-4">
-                    <div class="text-[#1C160C] flex items-center justify-center rounded-lg bg-[#F4EFE6] shrink-0 size-12">
-                      <span class="text-lg font-bold">${index + 1}</span>
-                    </div>
-                    <div class="flex flex-1 flex-col justify-center">
-                      <p class="text-[#1C160C] text-base font-medium leading-normal">Step ${index + 1}</p>
-                      <p class="text-[#A18249] text-sm font-normal leading-normal">
-                        ${step.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="shrink-0">
-                    <div class="flex size-7 items-center justify-center">
-                      <input type="checkbox"
-                        class="h-5 w-5 rounded border-[#E9DFCE] border-2 bg-transparent text-[#FF8C00] checked:bg-[#FF8C00] checked:border-[#FF8C00] focus:ring-0 focus:ring-offset-0 focus:border-[#E9DFCE] focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                </div>
-              `;
-            container.insertAdjacentHTML("beforeend", stepHTML);
-          });
-        }
-        //gọi hàm hiển thị chi tiết hướng dẫn
-        displayInstructions(recipe.steps);
 
+function displayInstructions(recipe) {
+  const container = document.getElementById("instruction-list");
+  if (!container) {
+    console.error("Container #instruction-list not found");
+    return;
+  }
+  container.innerHTML = ""; // Xóa nội dung cũ
+
+  const recipeId = recipe?.recipe_id;
+  if (!recipeId) {
+    console.error("Recipe ID is undefined");
+    return;
+  }
+
+  const steps = recipe.steps || [];
+  const images = recipe.images || [];
+
+  // Tạo modal thông báo
+  const modal = document.createElement("div");
+  modal.id = "completion-modal";
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  `;
+
+  const modalContent = document.createElement("div");
+  modalContent.style.cssText = `
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  `;
+
+  const modalMessage = document.createElement("p");
+  modalMessage.textContent = "🎉Chúc mừng bạn đã hoàn thành món ăn. Hãy thưởng thức nó nhé!";
+  modalMessage.style.cssText = `
+    font-size: 18px;
+    color: #1C160C;
+    margin-bottom: 20px;
+  `;
+
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "Close";
+  closeButton.style.cssText = `
+    background: #FF8C00;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  `;
+  closeButton.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  modalContent.append(modalMessage, closeButton);
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
+
+  steps.forEach((step, index) => {
+    // Tạo HTML cơ bản cho bước
+    const stepContainer = document.createElement("div");
+    stepContainer.className = "flex gap-4 bg-[#FFFFFF] px-4 py-3 justify-between";
+
+    stepContainer.innerHTML = `
+      <div class="flex items-start gap-4">
+        <div class="text-[#1C160C] flex items-center justify-center rounded-lg bg-[#F4EFE6] shrink-0 size-12">
+          <span class="text-lg font-bold">${index + 1}</span>
+        </div>
+        <div class="flex flex-1 flex-col justify-center">
+          <p class="text-[#1C160C] text-left text-base font-medium leading-normal">Step ${index + 1}</p>
+          <p class="text-[#A18249] text-left text-sm font-normal leading-normal">
+            ${step.description.replace(/\\n/g, '<br>')}
+          </p>
+          <div class="step-images flex gap-2 mt-2 flex-wrap"></div>
+        </div>
+      </div>
+      <div class="shrink-0">
+        <div class="flex size-7 items-center justify-center">
+          <input type="checkbox"
+            class="h-5 w-5 rounded border-[#E9DFCE] border-2 bg-transparent text-[#FF8C00] checked:bg-[#FF8C00] checked:border-[#FF8C00] focus:ring-0 focus:ring-offset-0 focus:border-[#E9DFCE] focus:outline-none"
+            data-step="${index + 1}"
+          />
+        </div>
+      </div>
+    `;
+
+    // Thêm ảnh từ mảng images toàn cục
+    const imagesContainer = stepContainer.querySelector(".step-images");
+    const stepNumber = step.step_number ?? (index + 1);
+
+    const stepImages = images.filter(image => {
+      const stepMatch = image.image_url.match(/step(\d+)_/);
+      return stepMatch && parseInt(stepMatch[1]) === stepNumber;
+    });
+
+    if (stepImages.length > 0) {
+      stepImages.forEach((image) => {
+        const img = document.createElement("img");
+        img.src = `../assets/image/recipes/${recipeId}/steps/${image.image_url}`;
+        img.alt = `Step ${stepNumber} - Image ${image.image_id}`;
+        img.style.width = "100px";
+        img.style.height = "auto";
+        img.style.borderRadius = "8px";
+        img.style.objectFit = "cover";
+        img.onerror = () => {
+          console.log(`Failed to load image: ${img.src}`);
+          img.src = "../assets/image/placeholder.png";
+        };
+        img.setAttribute("loading", "lazy");
+        imagesContainer.appendChild(img);
+      });
+    } else {
+      console.log(`No images for step ${stepNumber}`);
+    }
+
+    // Thêm sự kiện cho checkbox
+    const checkbox = stepContainer.querySelector("input[type='checkbox']");
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked && index === steps.length - 1) {
+        modal.style.display = "flex"; // Hiển thị modal khi tick bước cuối
+      }
+    });
+
+    container.appendChild(stepContainer);
+  });
+}
+
+// Gọi hàm với recipe
+displayInstructions(recipe);
+// Gọi hàm với recipe
         // hàm chuyển đổi thời gian
         function formatTime(datetimeStr) {
           const date = new Date(datetimeStr);
@@ -546,6 +642,11 @@
         displayComment(recipe.comments);
 
         document.getElementById("save-btn").addEventListener("click", async () => {
+          if (!userId) {
+            alert("Please log in to save this recipe!");
+            window.location.href = "/SignIn";
+            return;
+          }
           try {
             const response = await fetch("http://localhost:4000/detailrecipe", {
               method: "POST",
@@ -616,6 +717,11 @@
                 messageEl.style.color = 'red';
                 return;
             }
+            if (!userId) {
+                messageEl.textContent = 'Please log in to report this recipe!';
+                messageEl.style.color = 'red';
+                return;
+            }
             if (isNaN(recipeId) || isNaN(userId)) { // Kiểm tra lại các biến global
                 messageEl.textContent = 'Recipe ID or User ID is invalid!';
                 messageEl.style.color = 'red';
@@ -652,13 +758,6 @@
         }
 
         async function submitComment(event) {
-          // Truyền vào user_id và recipe id
-          // truyền vào tham số 
-
-          // Chuyển recipeId và userId thành integer (nếu cần thiết)
-          const recipeIdInt = parseInt(recipeId, 10);
-          const userIdInt = parseInt(userId, 10);
-
           event.preventDefault();
           const content = document.getElementById('commentContent').value.trim();
           const messageEl = document.getElementById('message');
@@ -666,7 +765,11 @@
             messageEl.textContent = 'Please enter your comment!';
             return;
           }
-          if (isNaN(recipeId) || isNaN(recipeId)) {
+          if (!userId) {
+            messageEl.textContent = 'Please log in to comment!';
+            return;
+          }
+          if (isNaN(recipeId) || isNaN(userId)) {
             messageEl.textContent = 'recipe_id hoặc user_id không hợp lệ!';
             return;
           }
@@ -676,8 +779,8 @@
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 content: content,
-                recipe_id: recipeIdInt,
-                user_id: userIdInt
+                recipe_id: parseInt(recipeId, 10),
+                user_id: parseInt(userId, 10)
               }),
             });
             console.log(response);
@@ -702,11 +805,7 @@
             console.error("Lỗi kết nối:", error); // Log chi tiết ra console
             messageEl.textContent = 'Lỗi kết nối, vui lòng thử lại!';
           }
-
-
         }
-
-
       } catch (err) {
         console.error("❌ Lỗi khi hiển thị chi tiết món ăn:", err);
         alert("Không thể tải chi tiết công thức.");

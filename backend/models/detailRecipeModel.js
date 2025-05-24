@@ -87,50 +87,64 @@ class FullRecipeModel {
         throw err;
       }
     }
-    // hàm query database để lưu công thức
     static async savedrecipe(user_id, recipe_id, res) {
-      const parsedRecipeId = parseInt(recipe_id);
       const parsedUserId = parseInt(user_id);
-
+      const parsedRecipeId = parseInt(recipe_id);
+    
+      if (isNaN(parsedUserId) || isNaN(parsedRecipeId)) {
+        return res.status(400).json({ message: "user_id hoặc recipe_id không hợp lệ" });
+      }
+    
       try {
+        // Kiểm tra xem công thức đã được lưu trước đó chưa
+        const result = await pool.query(
+          "SELECT 1 FROM saved_recipes WHERE user_id = $1 AND recipe_id = $2 LIMIT 1",
+          [parsedUserId, parsedRecipeId]
+        );
+    
+        if (result.rows.length > 0) {
+          return res.status(400).json({ message: "Công thức đã được lưu trước đó." });
+        }
+    
+        // Nếu không có bản ghi nào, thực hiện lưu mới
         await pool.query(
           "INSERT INTO saved_recipes (user_id, recipe_id, saved_at) VALUES ($1, $2, NOW())",
           [parsedUserId, parsedRecipeId]
         );
+    
         res.status(200).json({ message: "Lưu thành công" });
       } catch (err) {
         console.error("Lỗi khi lưu công thức:", err);
-        res.status(500).json({ message: "Lỗi server hoặc đã lưu trước đó" });
+        res.status(500).json({ message: "Lỗi server" });
       }
     }
-    static async saveRating(req, res) {
-  const { recipeId, userId, rating } = req.body; // lấy từ req.body
-  const parsedRecipeId = parseInt(recipeId);
-  const parsedUserId = parseInt(userId);
-  const parsedRating = parseInt(rating);
-
-  // Kiểm tra nếu bất kỳ giá trị nào bị NaN
-  if (isNaN(parsedRecipeId) || isNaN(parsedUserId) || isNaN(parsedRating)) {
-    return res.status(400).json({ message: "Thông tin không hợp lệ" });
-  }
-
-  try {
-    await pool.query(
-      `INSERT INTO ratings (recipe_id, user_id, rate)
-       VALUES ($1, $2, $3)
-       ON CONFLICT (recipe_id, user_id) 
-       DO UPDATE SET rate = EXCLUDED.rate`,
-      [parsedRecipeId, parsedUserId, parsedRating]
-    );
-
-    res.status(200).json({ message: "Lưu thành công" });
-  } catch (err) {
-    console.error("Lỗi khi lưu rating:", err);
-    res.status(500).json({ message: "Lỗi server hoặc đã lưu trước đó" });
-  }
-}
-
     
+    static async saveRating(recipe_id, user_id, rating) {
+      const parsedRecipeId = parseInt(recipe_id);
+      const parsedUserId = parseInt(user_id);
+      const parsedRating = parseInt(rating);
+    
+      if (isNaN(parsedRecipeId) || isNaN(parsedUserId) || isNaN(parsedRating)) {
+        // ❌ KHÔNG được dùng res ở đây!
+        throw new Error("Thông tin không hợp lệ");
+      }
+    
+      try {
+        const result = await pool.query(
+          `INSERT INTO ratings (recipe_id, user_id, rate)
+           VALUES ($1, $2, $3)
+           ON CONFLICT (recipe_id, user_id) 
+           DO UPDATE SET rate = EXCLUDED.rate`,
+          [parsedRecipeId, parsedUserId, parsedRating]
+        );
+    
+        return { message: "Lưu thành công", result };
+      } catch (err) {
+        throw new Error("Lỗi server hoặc đã lưu trước đó: " + err.message);
+      }
+    }
+    
+        
 
     //hàm thực hiện comment
     static async createComment(content, recipe_id, user_id ) {

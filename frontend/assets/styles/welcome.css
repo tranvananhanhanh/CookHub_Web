@@ -166,7 +166,7 @@ nav ul li a:hover {
 }
 
 .feature-image img {
-    max-width: 100%;
+    width: 550px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -232,7 +232,39 @@ nav ul li a:hover {
 /* Animations */
 .fade-in {
     opacity: 0;
+    transform: translateY(20px); /* Từ @keyframes fadeIn */
+}
+
+.zoom-in {
+    opacity: 0;
+    transform: scale(0.9); /* Từ @keyframes zoomIn */
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px); /* Từ @keyframes slideInLeft */
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px); /* Từ @keyframes slideInRight */
+}
+
+/* .visible */
+.fade-in.visible {
     animation: fadeIn 1s forwards;
+}
+
+.zoom-in.visible {
+    animation: zoomIn 1.5s forwards;
+}
+
+.slide-in-left.visible {
+    animation: slideInLeft 1s forwards;
+}
+
+.slide-in-right.visible {
+    animation: slideInRight 1s forwards;
 }
 
 @keyframes fadeIn {
@@ -240,18 +272,9 @@ nav ul li a:hover {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-.zoom-in {
-    animation: zoomIn 1.5s forwards;
-}
-
 @keyframes zoomIn {
     0% { transform: scale(0.9); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
-}
-
-.slide-in-left {
-    opacity: 0;
-    animation: slideInLeft 1s forwards;
 }
 
 @keyframes slideInLeft {
@@ -259,21 +282,7 @@ nav ul li a:hover {
     100% { opacity: 1; transform: translateX(0); }
 }
 
-.slide-in-right {
-    opacity: 0;
-    animation: slideInRight 1s forwards;
-}
-
 @keyframes slideInRight {
     0% { opacity: 0; transform: translateX(50px); }
     100% { opacity: 1; transform: translateX(0); }
-}
-
-/* Đảm bảo các phần tử không hiển thị trước khi cuộn */
-.fade-in, .zoom-in, .slide-in-left, .slide-in-right {
-    opacity: 0;
-}
-
-.fade-in.visible, .zoom-in.visible, .slide-in-left.visible, .slide-in-right.visible {
-    animation-play-state: running;
 }

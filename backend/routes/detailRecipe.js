@@ -10,9 +10,10 @@ router.post("/", async (req, res) => {
 
 router.post('/rating', async (req, res) => {
   const { recipe_id, user_id, rating } = req.body;
+  console.log(req);
 
   try {
-    const result = await submitRating(recipe_id, user_id, rating);
+    const result = await FullRecipeModel.saveRating(recipe_id, user_id, rating);
     res.json({ message: 'Rating đã được lưu thành công', result });
   } catch (error) {
     res.status(500).json({ message: 'Đã xảy ra lỗi khi lưu rating', error });

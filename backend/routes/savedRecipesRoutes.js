@@ -4,22 +4,31 @@ const client = require("../config/db");
 
 router.get("/", async (req, res) => {
   try {
+    // Lấy user_id từ query parameter
+    const userId = req.query.user_id;
+
+    // Kiểm tra xem user_id có được cung cấp không
+    if (!userId) {
+      return res.status(400).json({ error: "Thiếu user_id trong query parameter" });
+    }
+
+    // Truy vấn SQL với subquery để tính số lượng bình luận chính xác
     const query = `
-  SELECT 
-    sr.user_id, 
-    sr.recipe_id, 
-    r.title,
-    r.thumbnail,
-    r.date_created,
-    COALESCE(AVG(ra.rate), 0) as average_rating,
-    COUNT(c.comment_id) as comment_count
-  FROM saved_recipes sr
-  JOIN recipes r ON sr.recipe_id = r.recipe_id
-  LEFT JOIN ratings ra ON r.recipe_id = ra.recipe_id
-  LEFT JOIN comments c ON r.recipe_id = c.recipe_id
-  GROUP BY sr.user_id, sr.recipe_id, r.title, r.thumbnail, r.date_created
-`;
-    const result = await client.query(query);
+      SELECT 
+        sr.user_id, 
+        sr.recipe_id, 
+        r.title,
+        r.thumbnail,
+        r.date_created,
+        COALESCE(AVG(ra.rate), 0) as average_rating,
+        (SELECT COUNT(*) FROM comments c WHERE c.recipe_id = sr.recipe_id) as comment_count
+      FROM saved_recipes sr
+      JOIN recipes r ON sr.recipe_id = r.recipe_id
+      LEFT JOIN ratings ra ON r.recipe_id = ra.recipe_id
+      WHERE sr.user_id = $1
+      GROUP BY sr.user_id, sr.recipe_id, r.title, r.thumbnail, r.date_created
+    `;
+    const result = await client.query(query, [userId]);
     res.json(result.rows);
   } catch (error) {
     console.error("Error retrieving saved recipes:", error);
@@ -44,18 +53,16 @@ router.get("/ids/:userId", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const {userId, recipeId} = req.body;
+  const { userId, recipeId } = req.body;
 
   console.log(`userId: ${userId}, recipeId: ${recipeId}`);
   const numericUserId = userId !== undefined && userId !== null ? Number.parseInt(userId, 10) : NaN;
-    const numericRecipeId = recipeId !== undefined && recipeId !== null ? Number.parseInt(recipeId, 10) : NaN;
-    if (isNaN(numericUserId) || isNaN(numericRecipeId)) {
-      return res.status(400).json({ error: "Thông tin userId hoặc recipeId không hợp lệ hoặc bị thiếu." });
-    }
+  const numericRecipeId = recipeId !== undefined && recipeId !== null ? Number.parseInt(recipeId, 10) : NaN;
+  if (isNaN(numericUserId) || isNaN(numericRecipeId)) {
+    return res.status(400).json({ error: "Thông tin userId hoặc recipeId không hợp lệ hoặc bị thiếu." });
+  }
   
   try {
-    
-
     const userCheck = await client.query('SELECT 1 FROM users WHERE user_id = $1', [userId]);
     const recipeCheck = await client.query('SELECT 1 FROM recipes WHERE recipe_id = $1', [recipeId]);
 
@@ -66,26 +73,26 @@ router.post("/", async (req, res) => {
       return res.status(404).json({ error: "Công thức không tồn tại." });
     }
     const query = `
-            INSERT INTO saved_recipes (user_id, recipe_id, saved_at)
-            VALUES ($1, $2, NOW())
-            ON CONFLICT (user_id, recipe_id) DO NOTHING;
-        `;
+      INSERT INTO saved_recipes (user_id, recipe_id, saved_at)
+      VALUES ($1, $2, NOW())
+      ON CONFLICT (user_id, recipe_id) DO NOTHING;
+    `;
     const result = await client.query(query, [numericUserId, numericRecipeId]);
     if (result.rowCount > 0) {
       console.log(`Recipe ${recipeId} saved for user ${userId}`);
       res.status(201).json({ message: "Công thức đã được lưu thành công." });
     } else {
       console.log(`Recipe ${recipeId} was already saved for user ${userId}`);
-             res.status(200).json({ message: "Công thức đã được lưu trước đó." }); // Hoặc 409 Conflict
+      res.status(200).json({ message: "Công thức đã được lưu trước đó." });
     }
   } catch (error) {
     console.error("Error saving recipe:", error);
-        res.status(500).json({ error: "Lỗi khi lưu công thức", details: error.message });
+    res.status(500).json({ error: "Lỗi khi lưu công thức", details: error.message });
   }
 });
 
 router.delete("/", async (req, res) => {
-  const {userId, recipeId} = req.body;
+  const { userId, recipeId } = req.body;
 
   const numericUserId = userId !== undefined && userId !== null ? Number.parseInt(userId, 10) : NaN;
   const numericRecipeId = recipeId !== undefined && recipeId !== null ? Number.parseInt(recipeId, 10) : NaN;
@@ -100,7 +107,7 @@ router.delete("/", async (req, res) => {
 
     if (result.rowCount > 0) {
       console.log(`Recipe ${recipeId} unsaved for user ${userId}`);
-      res.status(200).json({ message: "Đã bỏ lưu công thức thành công." }); // Hoặc 204 No Content
+      res.status(200).json({ message: "Đã bỏ lưu công thức thành công." });
     } else {
       console.log(`Recipe ${recipeId} was not found in saved list for user ${userId}`);
       res.status(404).json({ message: "Công thức không có trong danh sách đã lưu hoặc đã được bỏ lưu." });

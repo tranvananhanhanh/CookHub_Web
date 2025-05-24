@@ -1,0 +1,947 @@
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-overlay.show {
+  display: flex;
+}
+
+/* Delete Popup */
+.popup-content {
+  background-color: #FFF5E6; /* Đổi màu nền thành be nhạt giống theme */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #FFD54F; /* Thêm viền vàng nhạt */
+}
+
+.popup-content h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFA500; /* Màu cam cho tiêu đề */
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.popup-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cancel-btn, .reject-btn {
+  background-color: #808080;
+  color: #fff;
+}
+
+
+.delete-btn {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.popup-header h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFA500; /* Màu cam cho tiêu đề */
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #FFA500; /* Màu cam cho nút đóng */
+}
+
+.user-info {
+  display: flex;
+  gap: 20px;
+  background-color: #FFFFFF; /* Nền trắng cho phần thông tin để tạo độ tương phản */
+  padding: 10px;
+  border-bottom: 2px solid #FFD54F;
+}
+
+.avatar-placeholder img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #FFD54F; /* Màu vàng nhạt cho avatar placeholder */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.user-details h4 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+.user-details p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.user-details .status.active {
+  color: #28a745;
+  font-weight: 500;
+  width: 70px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.user-details .status.banned {
+  color: #dc3545;
+  font-weight: 500;
+  width: 10px; /* Đặt chiều rộng của ô là 10px */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.social-platforms {
+  
+  background-color: #FFFFFF; /* Nền trắng để tạo độ tương phản */
+  padding: 10px;
+  
+}
+
+.social-platforms h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFA500; /* Màu cam cho tiêu đề */
+  margin-bottom: 10px;
+}
+
+.recipe-stats {
+  background-color: #FFFFFF; /* Nền trắng để tạo độ tương phản */
+  padding: 10px;
+  border-bottom: 2px solid #FFD54F;
+}
+
+.recipe-stats h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFA500; /* Màu cam cho tiêu đề */
+  margin-bottom: 10px;
+}
+
+.recipe-stats p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.user-recipes {
+  background-color: #FFFFFF; /* Nền trắng để tạo độ tương phản */
+  padding: 10px;
+  border-bottom: 2px solid #FFD54F;
+}
+
+.user-recipes h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFA500; /* Màu cam cho tiêu đề */
+  margin-bottom: 10px;
+}
+
+.recipe-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #FFD54F; /* Viền dưới màu vàng nhạt */
+}
+
+.recipe-status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.recipe-status.approved {
+  background-color: #28a745;
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.recipe-status.pending {
+  background-color: #ffa500;
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.recipe-status.rejected {
+  background-color: #dc3545;
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.recipe-status.deleted {
+  background-color: #808080;
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-btn.activate-btn {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.action-btn.ban-btn {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1001;
+}
+
+.notification.show {
+  opacity: 1;
+}
+
+.notification.success {
+  background-color: #28a745;
+}
+
+.notification.error {
+  background-color: #dc3545;
+}
+
+/* Icon xóa */
+.delete-icon {
+  color: #ff0000;
+  font-size: 16px;
+}
+
+/* Đảm bảo các style hiện có không bị ảnh hưởng */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: #000;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: white; /* đổi nền thành màu trắng */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* thêm đổ bóng mềm */
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.logo {
+  background-color: #FFFFFF;
+  width: 240px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Sidebar Items */
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  /* padding-left: 80px; */
+}
+
+.sidebar-item.active {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  color: #FFA500; /* màu cam */
+}
+
+
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+}
+
+/* Header */
+.header {
+  margin-bottom: 20px;
+}
+
+.search-admin-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+}
+
+.search-bar {
+  position: relative;
+  outline: none;
+  width: 520px;
+  height: 50px;
+  border-radius: 12px; /* bo góc */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* đổ bóng nhẹ */
+  background-color: white; /* nền trắng để làm nổi bật bóng */
+  padding: 0 16px; /* (tuỳ chọn) tạo khoảng cách bên trong */
+}
+
+.search-bar .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #615f5d;
+  font-size: 18px;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 10px 35px;
+  background-color: #FFFFFF;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #6c6b6b;
+}
+
+.search-bar input::placeholder {
+  color: #8b8b8a;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white; /* thêm nền trắng nếu cần */
+  border-radius: 12px; /* bo góc */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* đổ bóng nhẹ */
+  padding: 10px 16px; /* thêm padding để nội dung không bị dính mép */
+}
+
+.user-menu img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ADD8E6;
+}
+
+.user-menu-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-menu-text span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.manage-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+/* Content */
+.content h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Tabs */
+.tabs-container {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 5px;
+  margin-bottom: 20px;
+  display: inline-flex;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  background-color: #FFFFFF; /* Nền trắng */
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng cho box */
+  border: none; /* Không có viền */
+}
+
+.tab.active {
+  background-color: orange;
+  border: none;
+  color: #ffffff; /* Đổi màu chữ thành cam */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng chữ */
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* đổ bóng mềm */
+
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  font-size: 16px;
+  text-align: center; /* Căn giữa văn bản */
+}
+
+th {
+  background-color: #FFF5E6;
+  font-weight: 500;
+  text-align: center; /* Căn giữa văn bản */
+}
+
+td {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: #FFF;
+  font-size: 14px;
+}
+
+.status.active {
+  background-color: #28A745;
+  width: 70px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.status.banned {
+  background-color: #DC3545;
+  width: 70px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.action-btn {
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+/* Responsive Design */
+
+/* Màn hình trung (600px - 1024px) */
+@media (max-width: 1024px) {
+  .sidebar {
+    /* width: 25vw; */
+  }
+
+  .logo {
+    width: 200px;
+    height: 50px;
+  }
+
+  .search-bar {
+    width: 520px;
+  }
+
+  .user-menu img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .user-menu-text span {
+    font-size: 14px;
+  }
+
+  .manage-text {
+    font-size: 14px;
+  }
+
+  .content h1 {
+    font-size: 20px;
+  }
+
+  .tab {
+    padding: 8px 15px;
+    font-size: 16px;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Màn hình nhỏ (< 600px) */
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateX(-100%);
+    z-index: 999;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .logo {
+    width: 180px;
+    height: 45px;
+  }
+
+  .sidebar-item {
+    font-size: 16px;
+  }
+
+  .icon{
+    font-size: 5px;
+    transform: scale(0.5);
+  }
+
+  .main-content {
+    padding: 15px;
+    margin-top: 50px;
+  }
+
+  .search-admin-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-bar input {
+    font-size: 16px;
+  }
+
+  .user-menu {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .user-menu img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .user-menu-text {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .user-menu-text span {
+    font-size: 14px;
+  }
+
+  .manage-text {
+    font-size: 14px;
+  }
+
+  .content h1 {
+    font-size: 18px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .tab {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  table {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody, tr {
+    display: block;
+  }
+
+  tr {
+    border-bottom: 1px solid #E0E0E0;
+    padding: 10px 0;
+    text-align: center; /* Căn giữa văn bản */
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  td:before {
+    content: attr(data-label);
+    font-weight: 500;
+    text-align: left;
+    flex: 1;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  .status {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+
+  .action-btn {
+    font-size: 14px;
+  }
+
+  .pagination {
+    gap: 5px;
+  }
+
+  .pagination button {
+    padding: 3px 8px;
+    font-size: 14px;
+  }
+
+  .pagination span {
+    font-size: 14px;
+  }
+}
+
+/* Thêm style cho trạng thái công thức */
+.status.pending {
+  background-color: #FFA500; /* Màu cam cho trạng thái Pending */
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.status.approved {
+  background-color: #28A745; /* Màu xanh lá cho trạng thái Approved */
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+.status.rejected {
+  background-color: #DC3545; /* Màu đỏ cho trạng thái Rejected */
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+/* Trong file style.css */
+.action-btn.approve-btn {
+  background-color: #28a745; /* Xanh lá cho nút Approve */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.action-btn.reject-btn {
+  background-color: #dc3545; /* Đỏ cho nút Reject */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.recipe-info, .recipe-ingredients {
+  background-color: #FFFFFF; /* Nền trắng để tạo độ tương phản */
+  padding: 10px;
+  border-bottom: 2px solid #FFD54F;
+}
+
+
+.step-item {
+  margin-bottom: 10px;
+}
+
+/* Trong file style.css */
+.status.accepted {
+  background-color: #28a745; /* Xanh lá cho trạng thái Accepted */
+  width: 80px; /* Đặt chiều rộng của ô là 10px */
+  text-align: center; /* Căn giữa văn bản */
+  display: inline-block; /* Đảm bảo phần tử có thể có chiều rộng */
+}
+
+/* Trong file style.css */
+
+/* Popup chi tiết báo cáo */
+.report-details-content {
+  background-color: #FFF5E6;
+  padding: 20px;
+  border-radius: 10px;
+  width: 700px; /* Kích thước lớn hơn so với popup chi tiết công thức (500px) */
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #FFD54F;
+}
+
+/* Style cho các phần thông tin */
+.report-info, .recipe-info, .recipe-ingredients {
+  background-color: #FFFFFF;
+  padding: 10px;
+  border-bottom: 2px solid #FFD54F;
+}
+
+.recipe-steps {
+  margin-bottom: 20px;
+  background-color: #FFFFFF;
+  padding: 10px;
+}
+
+/* Style cho action options trong accept popup */
+.action-options {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.action-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Style cho nút Accept */
+.action-btn.accept-btn {
+  background-color: #28a745; /* Xanh lá cho nút Accept */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+/* Style cho container của nút logout */
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-grow: 1;
+    padding-bottom: 20px;
+}
+
+/* Style cho nút logout */
+.logout-btn {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+/* Style cho mũi tên bên trái */
+.logout-arrow {
+    margin-right: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Hiệu ứng hover cho nút logout */
+.logout-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Stat card */
+.stats-row {
+  display: flex;
+  margin: 10px;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.stat-card {
+  padding: 10px;
+  width: 235px;
+  border: #474747 1px solid;
+  border-radius: 12px;
+}
+
+.chart-card {
+  padding: 10px;
+  margin: 10px;
+}
+
+.recipeTable {
+  padding: 10px;
+  margin: 10px;
+}
+
+.topChefsTable {
+  padding: 10px;
+  margin: 10px;
+}

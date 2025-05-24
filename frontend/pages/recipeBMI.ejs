@@ -1,83 +1,51 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <!-- <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
-    /> -->
-    <link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
-
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
+    <meta charset="UTF-8" />
     <title>CookHub | BMI Healthy Food</title>
-  
-    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css?family=Plus Jakarta Sans" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://kit.fontawesome.com/da12da5f88.js" crossorigin="anonymous"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/styles/styles.css">
+    
+    <link rel="stylesheet" href="../assets/styles/styles.css"> <!-- CSS chung -->
     <link rel="stylesheet" href="../assets/styles/responsive.css">
-    <!-- JavaScript -->
-    <script src="../js/loadHTML.js"></script>  
+    <script src="../js/loadHTML.js"></script>
+
   </head>
   <body>
     <div class="header"></div>
 
-    <div class="relative flex size-full min-h-screen flex-col bg-[#FFFFFF] group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#FFFFFF] overflow-x-hidden mt-10" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
         <div class="px-40 flex flex-1 justify-center py-5">
           <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
             <h1 class="text-[#1C160C] tracking-light text-[32px] font-bold leading-tight px-4 text-center pb-3 pt-6">Healthy Food Choices for a Better You</h1>
             <p class="text-[#1C160C] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">Explore delicious and healthy recipes tailored to your dietary needs.</p>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-6 p-4">
-              <div class="flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/f0181846-457a-430c-b6be-2d0b10fef3e5.png");'
-                ></div>
-                <div>
-                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center">Fruits &amp; Vegetables</p>
-                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2">Incorporate colorful fruits and vegetables for essential nutrients.</p>
-                </div>
-              </div>
-            
-              <div class="flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg ">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/11c4b92a-1f79-46f7-90eb-0a273dee5dd7.png");'
-                ></div>
-                <div>
-                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center">Whole Grains</p>
-                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2 ">Choose whole grains like brown rice to boost fiber intake.</p>
-                </div>
-              </div>
-            
-              <div class="flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/fcf53ace-5624-4411-ace1-b4574341355a.png");'
-                ></div>
-                <div>
-                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center ">Lean Proteins</p>
-                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2">Opt for lean proteins to support muscle maintenance.</p>
-                </div>
-              </div>
+            <div class="flex justify-center mb-6">
+              <select
+                id="statusSelect"
+                class="min-w-[200px] border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg px-6 py-3 text-lg transition duration-200 ease-in-out shadow-sm"
+              >
+                <option value="normal" selected>normal</option>
+                <option value="underweight">underweight</option>
+                <option value="obese">obese</option>
+              </select>
             </div>
             
+
+            <!-- Danh sách công thức -->
+            <div id="recipeGrid" class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-6 p-4">
+              <!-- Recipes will be injected here -->
+            </div>
+
+            <!-- Nút View -->
             <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 max-w-[480px] justify-center mx-auto">
-              <button id="viewRecipeButtton"
+              <button id="viewRecipeButton"
                 class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#FF8C00] hover:bg-[#FFB347] text-[#FFFFFF] text-base font-bold leading-normal tracking-[0.015em] transition duration-300 ease-in-out shadow-md transform hover:scale-105"
               >
                 <span class="truncate">View Recipes</span>
               </button>
-              <script>
-                document.getElementById("viewRecipeButton").addEventListener("click", () => {
-                  window.location.href = `/home`;
-                });
-              </script>
             </div>
           </div>
         </div>
@@ -85,5 +53,74 @@
     </div>
 
     <div class="footer"></div>
+
+    <!-- JavaScript -->
+    <script>
+      const recipeGrid = document.getElementById("recipeGrid");
+      const statusSelect = document.getElementById("statusSelect");
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('userId');  // Lấy user_id từ URL
+
+      function fetchRecipes(status) {
+        fetch(`/bmi/healthyfood/${status}`)
+          .then(res => res.json())
+          .then(data => {
+            recipeGrid.innerHTML = ""; // clear current list
+
+            if (!data || data.length === 0) {
+              recipeGrid.innerHTML = "<p class='text-center col-span-full'>Không tìm thấy món ăn nào.</p>";
+              return;
+            }
+
+            data.forEach(recipe => {
+              const recipeCard = document.createElement("div");
+              recipeCard.className =
+                "flex flex-col gap-3 pb-3 transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg";
+
+              recipeCard.innerHTML = `
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+
+                  style="background-image: url('${recipe.thumbnail ? `/assets/image/recipes/${recipe.recipe_id}/${recipe.thumbnail}` : "https://via.placeholder.com/150"}');"
+
+                ></div>
+                <div>
+                  <p class="text-[#1C160C] text-base font-medium leading-normal text-center">${recipe.title}</p>
+                  <p class="text-[#A18249] text-sm font-normal leading-normal pl-2">${recipe.calories} calories</p>
+                </div>
+              `;
+              recipeCard.addEventListener("click", () => {
+
+      
+                window.location.href = `/detailrecipe-page?recipe_id=${recipe.recipe_id}&userId=${userId}`;
+
+                
+              });
+
+
+              recipeGrid.appendChild(recipeCard);
+            });
+          })
+          .catch(err => {
+            console.error("Lỗi khi tải công thức:", err);
+            recipeGrid.innerHTML = "<p class='text-center col-span-full text-red-500'>Lỗi khi tải dữ liệu.</p>";
+          });
+      }
+
+      // Gọi lần đầu khi trang load
+      fetchRecipes(statusSelect.value);
+
+      // Gọi lại khi thay đổi trạng thái
+      statusSelect.addEventListener("change", (e) => {
+        fetchRecipes(e.target.value);
+      });
+
+      // Nút chuyển trang
+      document.getElementById("viewRecipeButton").addEventListener("click", () => {
+     
+        window.location.href = `/homepage?userId=${userId}`;
+
+      });
+    </script>
   </body>
 </html>

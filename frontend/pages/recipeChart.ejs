@@ -335,8 +335,8 @@
         <span id="top1title"> </span>
         <p id="top1description"></p>
         <div class="hero-buttons">
-          <button class="food-menu">View detail</button>
-          <button class="book-table">Save </button>
+          <button id="view-recipe-btn" class="food-menu">View detail</button>
+          <button id="0" type="button" class="book-table">Save </button>
         </div>
       </div>
       <div class="hero-image">
@@ -345,7 +345,8 @@
     </section>
 
     <!-- Top cheft Button -->
-    <button class="top-cheft-btn" onclick="window.location.href='http://localhost:4000/top-chefs-page'">
+    <button id="cheftchart" class="top-cheft-btn" >
+
       <p>Top cheft chart</p>
       <i class="fa-solid fa-arrow-right-long"></i>
     </button>
@@ -354,19 +355,18 @@
     <section class="menu-highlight">
       <h2>Top Recipe – Lets explore with us</h2>
       <div class="menu-cards">
-        <div class="menu-card">
-          <img src="" alt="">
+        <div id="view-2" class="menu-card">
+          <img src="" alt="top2">
           <div class="rating">
             <span>⭐</span>
           </div>
           <h3></h3>
           <p></p>
           <div class="price">
-            <span></span>
-            <button class="add-btn">+</button>
+            <button type="button" id="1" class="add-btn">+</button>
           </div>
         </div>
-        <div class="menu-card popular">
+        <div  id="view-3" class="menu-card popular">
           <img src="" alt="Signature Poke">
           <div class="rating">
             <span>⭐</span>
@@ -374,11 +374,10 @@
           <h3></h3>
           <p></p>
           <div class="price">
-            <span></span>
-            <button class="add-btn">+</button>
+            <button type="button" id="2" class="add-btn">+</button>
           </div>
         </div>
-        <div class="menu-card">
+        <div id="view-4" class="menu-card">
           <img src="" alt="Veggie Delight">
           <div class="rating">
             <span>⭐</span>
@@ -386,8 +385,7 @@
           <h3></h3>
           <p></p>
           <div class="price">
-            <span>$14</span>
-            <button class="add-btn">+</button>
+            <button type="button" id="3" class="add-btn">+</button>
           </div>
         </div>
       </div>
@@ -396,7 +394,8 @@
     <!-- Feature Item Section -->
     <section class="feature-item">
       <div class="feature-image">
-        <img id="top5image" src="" alt="French Fries">
+        <img id="top5image" src="" alt="French Fries" " />
+
       </div>
       <div class="feature-text">
         <h2 id="top5title">Best Potatoes For French Fries</h2>
@@ -409,6 +408,7 @@
 
   <script>
     let recipes = []; // Initialize as array for recipe list
+
     async function fetchRecipes() {
       try {
         const response = await fetch("/cookchart/top-recipes", {
@@ -418,10 +418,30 @@
         });
         const data = await response.json();
         if (data && data.success && data.data) {
+          const urlParams = new URLSearchParams(window.location.search);
+          const userId = urlParams.get('userId'); // Lấy userId từ URL hiện tại
+          document.getElementById("cheftchart").addEventListener("click", function () {
+            window.location.href = `http://localhost:4000/top-chefs-page?userId=${userId}`;
+
+  });
+
+ 
+       
           console.log("TOP RECIPES:", data.data.slice(1, 4)); // 👉 In ra console backend
           updateTop1RecipeInfo(data.data[0]); // ✅ Move call here
           updateTop5RecipeInfo(data.data[4]);
           updateMenuHighlight(data.data.slice(1, 4));
+          goToRecipeDetail(data.data[0],"view-recipe-btn",userId);
+          setupSaveButton("0",userId,data.data[0]);
+          setupSaveButton("1",userId,data.data[1]);
+          setupSaveButton("2",userId,data.data[2]);
+          setupSaveButton("3",userId,data.data[3]);
+
+          goToRecipeDetail(data.data[1],"view-2",userId);
+          goToRecipeDetail(data.data[2],"view-3",userId);
+          goToRecipeDetail(data.data[3],"view-4",userId);
+          goToRecipeDetail(data.data[4],"top5image",userId);
+
 
 
         } else {
@@ -431,6 +451,65 @@
         console.error('Error fetching recipes:', error);
       }
     }
+
+    function setupSaveButton(buttonId, userId, recipe) {
+      const recipeId=recipe.recipe_id;
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        console.error(`Không tìm thấy button với id: ${buttonId}`);
+        return;
+      }
+
+      button.addEventListener("click", async (event) => {
+        event.preventDefault(); // Ngăn hành vi mặc định như chuyển trang hoặc submit
+        event.stopPropagation(); // Ngăn lan truyền sự kiện
+
+        try {
+          const response = await fetch("http://localhost:4000/detailrecipe", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user_id: parseInt(userId,10),
+              recipe_id: parseInt(recipeId,10),
+            }),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            alert("Đã lưu công thức thành công!");
+          } else {
+            alert("Lỗi khi lưu: " + result.message);
+          }
+        } catch (err) {
+          console.error("Lỗi kết nối:", err);
+          alert("Không thể kết nối tới máy chủ.");
+        }
+      });
+    }
+
+    
+    function goToRecipeDetail(topRecipe, recipe_htmlid, userId) {
+      const recipe_html = document.getElementById(recipe_htmlid);
+      const recipeId = topRecipe.recipe_id;
+
+      if (recipeId && recipe_html) {
+        recipe_html.addEventListener('click', () => {
+          window.location.href = `/detailrecipe-page?recipe_id=${recipeId}&userId=${userId}`;
+        });
+      } else {
+        console.error("Không có recipe_id hoặc phần tử HTML không tồn tại.");
+      }
+    }
+
+
+
+
+
+
+
+ 
     function updateTop1RecipeInfo(topRecipe) {
       if (!topRecipe) return;
       const titleElement = document.getElementById("top1title");

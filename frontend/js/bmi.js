@@ -94,5 +94,8 @@ document.getElementById("calculateButton").addEventListener("click", () => {
     advice.forEach((adv, index) => sessionStorage.setItem(`advice${index}`, adv));
 
     // Redirect with results and message
-    window.location.href = `/bmi/result?bmi=${bmi}&status=${status}&message=${encodeURIComponent(message)}`;
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId');  // Giả sử user_id được truyền qua URL
+    window.location.href = `/bmi/result?bmi=${bmi}&status=${status}&message=${encodeURIComponent(message)}&userId=${userId}`;
+
 });

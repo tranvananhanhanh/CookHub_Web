@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <link rel="stylesheet" href="../assets/styles/admin-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="/assets/image/logo/logo_image_text.png" alt="Logo Placeholder" class="logo-img">
+            </div>
+            <div class="sidebar-items">
+                <div class="sidebar-item active" data-page="admin-dashboard">
+                    <img class="icon" src="/assets/image/admin-icon/dashboard.svg"> Dashboard
+                </div>
+                <div class="sidebar-item" data-page="admin-user">
+                    <img class="icon" src="/assets/image/admin-icon/user.svg"> Users
+                </div>
+                <div class="sidebar-item" data-page="admin-recipe">
+                    <img class="icon" src="/assets/image/admin-icon/recipe.svg"> Recipes
+                </div>
+                <div class="sidebar-item" data-page="admin-report">
+                    <img class="icon" src="/assets/image/admin-icon/report.svg"> Report
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="search-admin-container">
+                    <div class="search-bar">
+                        <img class="search-icon" src="/assets/image/admin-icon/search.svg"> 
+                        <input type="text" placeholder="Search Dashboard Data">
+                    </div>
+                    <div class="user-menu">
+                        <img src="/assets/image/avatar_default.png" alt="Admin Avatar">
+                        <div class="user-menu-text">
+                            <span>Admin</span>
+                            <span class="manage-text">Manage content</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <h1>Dashboard</h1>
+                <div class="dashboard-stats">
+                    <!-- <div class="stat-card">
+                        <h3>Total Customers</h3>
+                        <p id="total-customers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Recipes</h3>
+                        <p id="total-recipes">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Monthly New Customers</h3>
+                        <p id="monthly-customers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Monthly New Recipes</h3>
+                        <p id="monthly-recipes">0</p>
+                    </div>
+                </div> -->
+
+                <div class="stats-row">
+        <div class="stat-card">
+            <h3>Total Customers</h3>
+            <p id="total-customers">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Monthly New Customers</h3>
+            <p id="monthly-customers">0</p>
+        </div>
+    </div>
+    <div class="stats-row">
+        <div class="stat-card">
+            <h3>Total Recipes</h3>
+            <p id="total-recipes">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Monthly New Recipes</h3>
+            <p id="monthly-recipes">0</p>
+        </div>
+    </div>
+</div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-card">
+                        <h3>User Age Distribution</h3>
+                        <canvas id="age-distribution-chart" width="200" height="50 "></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Gender Distribution</h3>
+                        <canvas id="gender-distribution-chart"></canvas> 
+                    </div>
+
+            <!-- cate cart -->
+             <div id="recipeTable">
+                <h3>Recipe Category</h3>
+             </div>
+             <!-- end chart  -->
+
+            <!-- Top Chefs Table -->
+              <div id="topChefsTable">
+                <h3>Chef Ranking</h3>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin-dashboard.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
