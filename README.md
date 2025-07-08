@@ -1,8 +1,3 @@
 # CookHub_Web
 Spider Man team 
-1. Clone project từ git
-2. Cài đặt nodejs + express + môit trường cần thiết khác nếu chưa có
-3. Pull code từ main để làm việc tránh conflict
-5. Yêu cầu code theo đúng structure 2 nhánh này và đọc doc project structure đã gửi.
-6. Tuỳ theo tính năng của bạn dev mà sẽ tạo nhánh và push code lên feature/loginXYZ..
-**Tuyệt đối không được push code vào main . 
+Link for the report : https://docs.google.com/presentation/d/1TeCV8ZFBtODXZ1c4YcaYEmWwS8mRaGU7/edit?usp=sharing&ouid=102086640970900094653&rtpof=true&sd=true
